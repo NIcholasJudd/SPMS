@@ -1,0 +1,54 @@
+<!-- home.html -->
+<div class="jumbotron text-center">
+<!-- Button trigger modal -->
+<div ng-repeat="(taskIndex, task) in tasks | filter: {status : 'on-the-go'}">
+
+	<!--<button type="button" class="btn btn-primary btn-lg col-md-3" data-toggle="modal" data-target="#myModal">
+	  {{task.name}}
+	</button>-->
+
+	<ul class="list-group">
+		<div class="row">
+	  	<li  class="list-group-item col-md-6 col-md-offset-3" data-toggle="modal" data-target="#myModal{{taskIndex}}">
+		  {{task.name}}
+		  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		</li>			
+		</div>
+
+	</ul>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal{{taskIndex}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">{{task.name}}</h4>
+	      </div>
+	      <div class="modal-body">
+	        <h5>Description:</h5>
+	        <p>{{task.description}}</p>
+	        <h5>Start Date:</h5>
+	        <p>{{task.startDate}}</p>
+	        <h5>Estimated End Date:</h5>
+	        <p>{{task.estimatedEndDate}}</p>
+	        <h5>Assignees:</h5>
+	        <div ng-repeat="assignee in task.assignees">
+	        	<p>{{assignee}}</p>
+	        </div>
+	        <h5>Developer comments</h5>
+	        <ul class="list-group" ng-repeat="comment in task.comments">
+	        	<li class="list-group-item">{{comment}}</li>
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</div>	
+</div>
+
