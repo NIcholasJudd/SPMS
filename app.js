@@ -62,7 +62,7 @@ expressApp.get('/signin', route.signIn);
 // POST
 expressApp.post('/signin', route.signInPost);
 
-expressApp.get('/api/users', needsGroup('admin'), function(req, res) {
+expressApp.get('', needsGroup('admin'), function(req, res) {
 });
 
 // logout
