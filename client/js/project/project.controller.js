@@ -4,6 +4,14 @@
 
 myApp.controller("ProjectCtrl", ['$scope','ProjectFactory',
     function($scope, ProjectFactory) {
+        $scope.projectData = {
+            projName: null,
+            projDescription: null,
+            estBudget: null,
+            startDate: null,
+            estimatedCompDate: null,
+            usernamePM: null
+        };
         $scope.ctrlName = "ProjectCtrl";
         $scope.factoryName = "ProjectFactory";
         $scope.projects = ProjectFactory.getProjects();
@@ -13,6 +21,10 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory',
         })*/
         $scope.addProject = function(name, description, duration) {
             ProjectFactory.addProject(name, description, duration);
+        }
+
+        $scope.submitProject = function() {
+            console.log(this.projectData);
         }
     }
 ]);
