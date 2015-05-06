@@ -5,7 +5,7 @@ var user = require('./users.js');
 
 var router = express.Router();
 
-var pg = require('pg');
+var pg = require('pg'),
     path = require('path'),
     connectionString = require(path.join(__dirname, '../', '../', 'config'));
 
@@ -30,10 +30,10 @@ router.delete('/api/auth/product/:id', products.delete);
 //router.route('/api/auth/admin/users')
 //    .get()
 router.get('/api/auth/admin/users', user.getAll);
-router.get('/api/auth/admin/user/:id', user.getOne);
+router.get('/api/auth/admin/user/:email', user.getOne);
 router.post('/api/auth/admin/user/', user.create);
-router.put('/api/auth/admin/user/:id', user.update);
-router.delete('/api/auth/admin/user/:id', user.delete);
+router.put('/api/auth/admin/user/:email', user.update);
+router.delete('/api/auth/admin/user/:email', user.delete);
 
 module.exports = router;
 

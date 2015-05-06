@@ -10,8 +10,8 @@ var jwt = require('jwt-simple'),
 var auth = {
 
     login: function(req, res) {
-        console.log('username: ', req.body.username, ' password: ', req.body.password);
-        var username = req.body.username;// || '';
+        console.log('email: ', req.body.email, ' password: ', req.body.password);
+        var username = req.body.email;// || '';
         var password = req.body.password;// || '';
         if (username == '' || password == '') {
             res.status(401);
@@ -55,7 +55,7 @@ var auth = {
                 return console.error('error fetching client from pool: ', err);
             }
             console.log('deets passed to query: ', username, password);
-            var query = client.query("SELECT * FROM test_user WHERE username = $1 AND password = $2", [username, password]);
+            var query = client.query("SELECT * FROM employee WHERE email = $1 AND password = $2", [username, password]);
             query.on('row', function(row) {
                 results.push(row);
             })
@@ -83,7 +83,7 @@ var auth = {
             if(err) {
                 return console.error('error fetching client from pool: ', err);
             }
-            var query = client.query("SELECT * FROM test_user WHERE username = $1", [username]);
+            var query = client.query("SELECT * FROM employee WHERE email = $1", [username]);
             query.on('row', function(row) {
                 results.push(row);
             })

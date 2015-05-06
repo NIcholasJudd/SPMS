@@ -38,10 +38,10 @@ module.exports = function(req, res, next) {
             function checkAuthorisation(error, dbUser) {
                 if(error) return console.error(error);
                 if (dbUser) {
-                    console.log(dbUser.userrole);
-                    console.log(dbUser);
+                    //console.log(dbUser.userrole);
+                    console.log('DBUSER', dbUser);
                     //check role against access level
-                    if ((req.url.indexOf('admin') >= 0 && dbUser.userrole == 'admin') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/auth/') >= 0)) {
+                    if ((req.url.indexOf('admin') >= 0 && dbUser.user_type == 'administrator') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/auth/') >= 0)) {
                         console.log('AUTHORISED');
                         next(); // To move to next middleware
                     } else {

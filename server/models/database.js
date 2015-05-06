@@ -9,19 +9,19 @@ var connectionString = require(path.join(__dirname, '../', '../', 'config'));
 var client = new pg.Client(connectionString);
 client.connect();
 
-var query = client.query("DROP TABLE IF EXISTS test_user");
-var query = client.query("CREATE TABLE test_user(username varchar(100) PRIMARY KEY, password varchar(100) NOT NULL, userrole varchar(100) NOT NULL)");
-var query = client.query("INSERT INTO test_user VALUES ('admin@email.com', 'admin', 'admin')");
-/*var query = client.query("DROP TABLE IF EXISTS employee");
+//var query = client.query("CREATE TABLE test_user(username varchar(100) PRIMARY KEY, password varchar(100) NOT NULL, userrole varchar(100) NOT NULL)");
+//var query = client.query("INSERT INTO test_user VALUES ('admin', 'admin', 'admin')");
+var query = client.query("DROP TABLE IF EXISTS employee");
 var query = client.query("CREATE TABLE employee(" +
-    "username varchar(100) PRIMARY KEY," +
+    "email varchar(100) PRIMARY KEY," +
     "first_name varchar(100) NOT NULL," +
     "last_name varchar(100) NOT NULL," +
     "password varchar(100) NOT NULL," +
-    "email varchar(100) NOT NULL," +
-    "phone int," +
+    "phone varchar(20)," +
     "user_type varchar(20) CHECK (user_type = 'administrator' OR user_type = 'team member') NOT NULL," +
-    "performance_index real DEFAULT 0" +
+    "performance_index real DEFAULT 0, " +
+    "previous_roles varchar(100)[]" +
     ")"
-);*/
+);
+var query = client.query("INSERT INTO employee VALUES('admin@admin','Adam', 'Minty', 'admin', '0123456789', 'administrator', 0, ARRAY['tester', 'developer'])");
 query.on('end', function() { client.end(); });
