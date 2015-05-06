@@ -52,3 +52,18 @@ fieldset[disabled] .btn-grey.active {
     background-color: #fff;
 }
 
+#myTasks {
+   height: 530px;
+}
+
+#myTasksPanel {
+    height: 100%;
+    overflow-y:auto;
+}
+
+#dashboardPanelHeading{
+    background-color: rgba(255, 120, 0, 0.5);
+}
+#dashboardPanel > .panel-heading {
+    background-color : #00CCFF;
+}
