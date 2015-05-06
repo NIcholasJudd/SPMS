@@ -1,11 +1,19 @@
 /**
  * Created by scottmackenzie on 3/05/2015.
+ * Modified by paulbeavis on 06/05/2015.
+ *
  */
 
 myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactory', 'AuthenticationFactory',
     function($scope, $window, $location, UserAuthFactory, AuthenticationFactory) {
         //Hard coded user
         $scope.user = {};
+
+        $scope.resetLogin = function(){
+            $scope.user = {};
+            $scope.loginForm.$setPristine();
+        };
+
         $scope.login = function() {
             var username = $scope.user.username,
                 password = $scope.user.password;
