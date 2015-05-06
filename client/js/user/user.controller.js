@@ -10,7 +10,7 @@ myApp.controller("UserCtrl", ['$scope', 'UserFactory',
             $scope.users = user.data;
         });
         $scope.user = {};
-        $scope.roles = ['admin', 'user'];
+        $scope.roles = [{name: 'Administrator'}, {name: 'Team Member'}];
         $scope.selected = undefined;
         $scope.skills = [
             { title: 'C++'},
@@ -24,6 +24,12 @@ myApp.controller("UserCtrl", ['$scope', 'UserFactory',
             { title: 'C#'},
             { title: 'Objective C'}
         ];
+
+        $scope.selectedRole = {name: 'Available Roles:'};
+
+        $scope.setRole(role){
+          $scope.selectedRole = role;
+        };
 
         $scope.show = function() {
             console.log($scope.user);

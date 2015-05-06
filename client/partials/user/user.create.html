@@ -44,6 +44,18 @@
                             class="form-control"
                             placeholder="Phone Number"/>
                         </div>
+                        <div class="col-md-6">
+                            <label for="role">Roles: </label>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="role" data-toggle="dropdown" aria-expanded="true">
+                                {{selectedRole.name}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="role">
+                                <li role="presentation" ng-repeat="role in roles">
+                                    <a role="menuitem" tabindex="-1" ng-click="setRole(role)">{{role.name}}</a></li>
+                            </ul>
+                        </div>
                     </div>
 
                 </div>

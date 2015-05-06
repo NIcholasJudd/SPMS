@@ -24,7 +24,7 @@ myApp.factory('UserAuthFactory', function($window, $location, $http, Authenticat
     return {
         login: function(username, password) {
             return $http.post('http://localhost:3000/login', {
-                username: username,
+                email: username,
                 password: password
             });
         },
