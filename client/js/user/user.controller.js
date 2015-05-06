@@ -27,7 +27,7 @@ myApp.controller("UserCtrl", ['$scope', 'UserFactory',
 
         $scope.selectedRole = {name: 'Available Roles:'};
 
-        $scope.setRole(role){
+        $scope.setRole= function(role){
           $scope.selectedRole = role;
         };
 
