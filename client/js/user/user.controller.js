@@ -4,6 +4,7 @@
 myApp.controller("UserCtrl", ['$scope', 'UserFactory',
     function($scope, UserFactory) {
         $scope.users = [];
+        $scope.test = 69;
 // Access the factory and get the latest products list
         UserFactory.getUsers().then(function(user) {
             $scope.users = user.data;
