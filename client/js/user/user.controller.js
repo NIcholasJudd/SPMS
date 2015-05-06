@@ -25,7 +25,6 @@ myApp.controller("UserCtrl", ['$scope', 'UserFactory',
             { title: 'Objective C'}
         ];
 
-
         $scope.show = function() {
             console.log($scope.user);
         }

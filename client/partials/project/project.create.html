@@ -1,13 +1,73 @@
-<div class="container" >
-    <div class="page-header">
-        <h3>Create Project Page</h3>
-    </div>
-
-    <p class="lead"> This project page uses: {{ctrlName}} and {{factoryName}} from <code>js/project/*</code>
-    </p>
-
-    <p>This ProjectFactory data is mocked up, it will be replaced with an API call to the server. The magic button
-        below adds a new project to the project list page</p>
-    <button ng-click="addProject('project 3', 'Description of project 3', 69)">Add Hard-coded Project to data in Project Factory</button>
-
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h2>Create Project</h2>
+			<div class="bg-orange">
+				<form ng-submit="submitProject()" ng-controller="ProjectCtrl">
+					<div class="row">
+						<div class="col-md-12">
+							<label for="projName">Project Name: </label>
+							<input  id="projName"
+							ng-model="projectData.projName"
+							type="text"
+							class="form-control"
+							placeholder="Project Name"/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<label for="projDescription">Description: </label>
+							<textarea  id="projDescription"
+							ng-model="projectData.projDescription"
+							type="text"
+							class="form-control"
+							rows="3"
+							placeholder="Project Description"/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<label for="estBudget">Estimated Budget: </label>
+							<input  id="estBudget"
+							ng-model="projectData.estBudget"
+							type="text"
+							class="form-control"
+							placeholder="$"/>
+						</div>
+						<div class="col-md-12">
+							<label for="startDate">Start Date: </label>
+							<input  id="startDate"
+							ng-model="projectData.startDate"
+							type="date"
+							class="form-control"/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<label for="estimatedCompDate">Estimated Completion Date: </label>
+							<input  id="estimatedCompDate"
+							ng-model="projectData.estimatedCompDate"
+							type="date"
+							class="form-control"/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<label for="usernamePM">Project Manager: </label>
+							<input  id="usernamePM"
+							ng-model="projectData.usernamePM"
+							type="text"
+							class="form-control"
+							placeholder="Smith, John"/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<button type="submit" class="btn btn-default" style="width:100%;">Create Project</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
