@@ -52,6 +52,10 @@ fieldset[disabled] .btn-grey.active {
     background-color: #fff;
 }
 
+#settings {
+    font-size: 14pt;
+}
+
 #myTasks {
    height: 530px;
 }

@@ -11,7 +11,7 @@ client.connect();
 
 var query = client.query("DROP TABLE IF EXISTS test_user");
 var query = client.query("CREATE TABLE test_user(username varchar(100) PRIMARY KEY, password varchar(100) NOT NULL, userrole varchar(100) NOT NULL)");
-var query = client.query("INSERT INTO test_user VALUES ('admin', 'admin', 'admin')");
+var query = client.query("INSERT INTO test_user VALUES ('admin@email.com', 'admin', 'admin')");
 /*var query = client.query("DROP TABLE IF EXISTS employee");
 var query = client.query("CREATE TABLE employee(" +
     "username varchar(100) PRIMARY KEY," +

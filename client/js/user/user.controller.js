@@ -11,6 +11,21 @@ myApp.controller("UserCtrl", ['$scope', 'UserFactory',
         });
         $scope.user = {};
         $scope.roles = ['admin', 'user'];
+        $scope.selected = undefined;
+        $scope.skills = [
+            { title: 'C++'},
+            { title: 'Java'},
+            { title: 'MySQL'},
+            { title: 'HTML'},
+            { title: 'JavaScript'},
+            { title: 'AngularJS'},
+            { title: 'C'},
+            { title: 'Python'},
+            { title: 'C#'},
+            { title: 'Objective C'}
+        ];
+
+
         $scope.show = function() {
             console.log($scope.user);
         }
