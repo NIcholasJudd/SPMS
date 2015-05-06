@@ -11,8 +11,8 @@ Whether you do this through webstorm, xcode, github desktop is up to you.  Eithe
 Client side
 
  - 'cd ./client'
+ - 'sudo npm i -g gulp slush slush-ng'
  - 'npm install'
- - 'sudo npm install -g gulp' (you should only have to do this once, it sets up gulp globally)
  - 'gulp'
 You should get something starting up, and it should say something like 'Server started http://localhost:2772'
 
