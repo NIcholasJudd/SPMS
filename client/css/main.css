@@ -71,3 +71,11 @@ fieldset[disabled] .btn-grey.active {
 #dashboardPanel > .panel-heading {
     background-color : #00CCFF;
 }
+
+#gantt{
+    position: absolute;
+    left: 10px;
+       top: 60px; /* Header Height */
+       bottom: 55px; /* Footer Height */
+       width: 100%;
+}

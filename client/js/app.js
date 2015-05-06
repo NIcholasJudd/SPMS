@@ -30,6 +30,13 @@ myApp.config(function($routeProvider, $httpProvider) {
               requiredLogin: true,
               adminOnly: true
           }
+      }).when('/project/ganttChart', {
+        templateUrl: 'partials/project/ganttChart.html',
+        controller: 'ProjectCtrl',
+        access: {
+              requiredLogin: true,
+              adminOnly: false
+          }
       }).when('/user/create', {
         templateUrl: 'partials/user/user.create.html',
         controller: 'UserCtrl',
