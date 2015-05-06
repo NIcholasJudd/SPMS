@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="page-header">
+        <h3>List of users from the REST API.  Unlike the sample projects page, this one actually calls the server
+            <code>/api/auth/admin/users</code>
+        </h3>
+    </div>
+
+
+    <p class="lead">
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+        <tr ng-repeat="u in users">
+            <td>{{u.username}}</td>
+            <td>{{u.userrole}}</td>
+        </tr>
+    </table>
+    </p>
+
+</div>

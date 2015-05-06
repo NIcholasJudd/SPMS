@@ -1,0 +1,15 @@
+<div class="container" >
+    <div class="page-header">
+        <h3>This is a project page</h3>
+    </div>
+
+    <p class="lead"> This project page uses: {{ctrlName}} and {{factoryName}} from <code>js/project/*</code>
+    </p>
+
+    <p>Here is some data from ProjectFactory:</p>
+    <div ng-repeat="project in projects">
+        <div class="row">
+            <p>Project.name: {{project.name}}, Project.description: {{project.description}}, Project.duration: {{project.duration}} </p>
+        </div>
+    </div>
+</div>
