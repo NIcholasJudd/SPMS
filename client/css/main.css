@@ -1,0 +1,54 @@
+.bg-orange {
+    background-color: rgba(255, 120, 0, 0.5);
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.bg-orange label {
+    margin-top: 10px;
+}
+
+.btn-grey {
+    color: #fff;
+    background-color: #525252;
+    border-color: #424242;
+    margin-right: 10px;
+    width: 100px;
+}
+.btn-grey:hover,
+.btn-grey:focus,
+.btn-grey:active,
+.btn-grey.active,
+.open > .dropdown-toggle.btn-grey {
+    color: #fff;
+    background-color: #474747;
+    border-color: #424242;
+}
+.btn-grey:active,
+.btn-grey.active,
+.open > .dropdown-toggle.btn-grey {
+    background-image: none;
+}
+.btn-grey.disabled,
+.btn-grey[disabled],
+fieldset[disabled] .btn-grey,
+.btn-grey.disabled:hover,
+.btn-grey[disabled]:hover,
+fieldset[disabled] .btn-grey:hover,
+.btn-grey.disabled:focus,
+.btn-grey[disabled]:focus,
+fieldset[disabled] .btn-grey:focus,
+.btn-grey.disabled:active,
+.btn-grey[disabled]:active,
+fieldset[disabled] .btn-grey:active,
+.btn-grey.disabled.active,
+.btn-grey[disabled].active,
+fieldset[disabled] .btn-grey.active {
+    background-color: #428bca;
+    border-color: #357ebd;
+}
+.btn-grey .badge {
+    color: #428bca;
+    background-color: #fff;
+}
+
