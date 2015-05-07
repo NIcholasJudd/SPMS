@@ -51,6 +51,7 @@ myApp.factory('TokenInterceptor', function($q, $window) {
                 config.headers['X-Access-Token'] = $window.sessionStorage.token;
                 config.headers['X-Key'] = $window.sessionStorage.user;
                 config.headers['Content-Type'] = "application/json";
+                console.log('x-key: ', config.headers['X-Key'], 'window.sess.user: ', $window.sessionStorage.user);
             }
             return config || $q.when(config);
         },

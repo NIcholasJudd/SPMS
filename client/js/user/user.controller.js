@@ -3,13 +3,35 @@
  */
 myApp.controller("UserCtrl", ['$scope', 'UserFactory',
     function($scope, UserFactory) {
-        $scope.users = [];
-        //$scope.test = 69;
-// Access the factory and get the latest products list
-        UserFactory.getUsers().then(function(user) {
+        //$scope.users = [];
+// Access the factory and get the latest user list
+        /*UserFactory.getUsers().then(function(user) {
             $scope.users = user.data;
-        });
-        $scope.user = {};
+        });*/
+        /*$scope.user = {
+            email : 'test@test',
+            firstName : 'Terry',
+            lastName : 'Sterling',
+            password : 'password',
+            phone : '0299999999',
+            role : 'Administrator',
+            performanceIndex : 0,
+            previousRoles : ['Developer', 'Tester']
+        };*/
+
+        /*if you're testing user create and can't be fucked filling out the form, replace the $scope.user below
+          with the one above (you'll still need to pick the role from dropdown menu)
+         */
+        $scope.user = {
+            email : "",
+            firstName : "",
+            lastName : "",
+            password : "",
+            phone : "",
+            role : "",
+            performanceIndex : 0,
+            previousRoles : ['Developer', 'Tester']
+        };
         $scope.roles = [{name: 'Administrator'}, {name: 'Team Member'}];
         $scope.selected = undefined;
         $scope.skills = [
@@ -29,14 +51,15 @@ myApp.controller("UserCtrl", ['$scope', 'UserFactory',
 
         $scope.setRole= function(role){
           $scope.selectedRole = role;
+            $scope.user.role = role.name.toLowerCase();
         };
 
         $scope.show = function() {
             console.log($scope.user);
         }
-        $scope.saveuser = function() {
-            UserFactory.saveUser($scope.user).success(function(err, res) {
-                alert($scope.user.username + ' successfully saved in database');
+        $scope.saveUser = function() {
+            UserFactory.createUser($scope.user).success(function(err, res) {
+                alert($scope.user.email + ' successfully saved in database');
             }).error(function(err, res) {
                 var err_msg = "save user failed: ";
                 if(err.code == "23505")
@@ -45,6 +68,10 @@ myApp.controller("UserCtrl", ['$scope', 'UserFactory',
                     err_msg += err.detail;
                 alert(err_msg);
             })
+        }
+
+        $scope.submitUser = function() {
+            console.log($scope.user);
         }
     }
 ]);

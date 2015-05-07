@@ -1,7 +1,8 @@
-var express = require('express');
-var auth = require('./auth.js');
-var products = require('./products.js');
-var user = require('./users.js');
+var express = require('express'),
+    auth = require('./auth.js'),
+    products = require('./products.js'),
+    user = require('./users.js'),
+    project = require('./projects.js');
 
 var router = express.Router();
 
@@ -17,12 +18,13 @@ router.post('/login', auth.login);
 /*
  * Routes that can be accessed only by authenticated users
  */
-router.get('/api/auth/products', products.getAll);
+/* dummy comment */
+/*router.get('/api/auth/products', products.getAll);
 router.get('/api/auth/product/:id', products.getOne);
 router.post('/api/auth/product/', products.create);
 router.put('/api/auth/product/:id', products.update);
 router.delete('/api/auth/product/:id', products.delete);
-
+*/
 /*
  * Routes that can be accessed only by authenticated & authorized users
  */
@@ -34,6 +36,12 @@ router.get('/api/auth/admin/user/:email', user.getOne);
 router.post('/api/auth/admin/user/', user.create);
 router.put('/api/auth/admin/user/:email', user.update);
 router.delete('/api/auth/admin/user/:email', user.delete);
+
+router.get('/api/auth/admin/projects', project.getAll);
+router.get('/api/auth/admin/project/:project.name', project.getOne);
+router.post('/api/auth/admin/project', project.create);
+router.put('/api/auth/admin/project/:project.name', project.update);
+router.delete('/api/auth/admin/project/', project.delete);
 
 module.exports = router;
 

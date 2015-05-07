@@ -82,7 +82,7 @@ myApp.run(function($rootScope, $window, $location, AuthenticationFactory) {
         //this line below fixed the 'not authorised on refresh' error... <-- might need to check for vulnerabilities caused by it
         if (!AuthenticationFactory.userRole) AuthenticationFactory.userRole = $window.sessionStorage.userRole;
         if (!AuthenticationFactory.user) AuthenticationFactory.user = $window.sessionStorage.user;
-        if((nextRoute.access && nextRoute.access.adminOnly) && AuthenticationFactory.userRole != 'admin') {
+        if((nextRoute.access && nextRoute.access.adminOnly) && AuthenticationFactory.userRole != 'administrator') {
             $location.path("/error").replace();
         } else {
             // check if user object exists else fetch it. This is incase of a page refresh

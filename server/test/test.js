@@ -16,8 +16,8 @@ describe('Employee', function(){
     }
     var testUser = {
         email : 'test@test',
-        firstname : 'scott',
-        lastname : 'mackenzie',
+        firstName : 'scott',
+        lastName : 'mackenzie',
         password : 'password',
         phone : '0123456789',
         role : 'administrator',
@@ -49,10 +49,13 @@ describe('Employee', function(){
             .set('X-Key', 'admin@admin')
             .send({
                 email: testUser.email,
-                firstname : testUser.firstname,
-                lastname : testUser.lastname,
+                firstName : testUser.firstName,
+                lastName : testUser.lastName,
                 password: testUser.password,
-                role : testUser.role
+                phone : testUser.phone,
+                role : testUser.role,
+                performanceIndex : testUser.performanceIndex,
+                previousRoles : testUser.previousRoles
             })
             .end(function(err, res) {
                 expect(err).to.eql(null);
@@ -62,6 +65,158 @@ describe('Employee', function(){
     });
 
     it('should retrieve the employee without error', function(done) {
+        superagent
+            .get(server + '/api/auth/admin/user/' + testUser.email)
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .send({
+                email: testUser.email
+            })
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                expect(res.body[0].email).to.eql(testUser.email);
+                done();
+            });
+    })
+
+    it('should retrieve all employees without error', function(done) {
+        superagent
+            .get(server + '/api/auth/admin/users/')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .send({
+                email: testUser.email
+            })
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                done();
+            });
+    })
+
+    it('should update employee without error', function(done) {
+        superagent
+            .put(server + '/api/auth/admin/user/' + testUser.email)
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .send({
+                email: testUser.email,
+                firstName : 'newfirstname',
+                lastName : 'newlastname',
+                password : testUser.password,
+                phone : '0987654321',
+                role : testUser.role,
+                performanceIndex : 30,
+                previousRoles : ['tester', 'documenter']
+            })
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                done();
+            });
+    });
+
+
+    it('should delete employee without error', function(done) {
+        //console.log('TOKEN', token);
+        superagent
+            .del(server + '/api/auth/admin/user/' + testUser.email)
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .send({
+                email: testUser.email
+            })
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                done();
+            });
+    });
+
+
+
+})
+
+/**
+ * Testing Project API
+ */
+
+describe('Project', function(){
+    var server = 'http://localhost:3000';
+
+    var token = null;
+    var adminUser = {
+        email : 'admin@admin',
+        password : 'admin'
+    }
+    var testProject = {
+        projectName : 'Project 1',
+        description : 'Description of project',
+        budget : '500000',
+        duration : '365 days',
+        startDate : "2015-03-01",
+        estimatedEndDate : "2015-03-22",
+        progress : 0,
+        projectManager : "admin@admin"
+    };
+
+    before(function(done) {
+        superagent
+            .post(server + '/login')
+            .send({
+                email : adminUser.email,
+                password : adminUser.password
+            })
+            .end(function(err, res) {
+                if(err) console.log(err);
+                token = res.body.token; // Keep the token for authenticating test API calls
+                done();
+            });
+    })
+
+    it('should add project without error', function(done) {
+        superagent
+            .post(server + '/api/auth/admin/project/')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .send({
+                projectName : testProject.projectName,
+                description : testProject.description,
+                budget : testProject.budget,
+                duration : testProject.duration,
+                startDate : testProject.startDate,
+                estimatedEndDate : testProject.estimatedEndDate,
+                progress : testProject.progress,
+                projectManager : testProject.projectManager
+            })
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                done();
+            });
+    });
+
+    it('should delete project without error', function(done) {
+        superagent
+            .del(server + '/api/auth/admin/project/')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .send({
+                projectName: testProject.projectName
+            })
+            .end(function(err, res) {
+                //console.log(res.body);
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                expect(res.body.rowCount).to.eql(1);
+                done();
+            });
+    });
+
+    /*it('should retrieve the employee without error', function(done) {
         superagent
             .get(server + '/api/auth/admin/user/' + testUser.email)
             .set('X-Access-Token', token)
@@ -114,23 +269,8 @@ describe('Employee', function(){
             });
     });
 
+*/
 
-    it('should delete employee without error', function(done) {
-        //console.log('TOKEN', token);
-        superagent
-            .del(server + '/api/auth/admin/user/' + testUser.email)
-            .set('X-Access-Token', token)
-            .set('X-Key', 'admin@admin')
-            .set('Accept', 'application/json')
-            .send({
-                email: testUser.email
-            })
-            .end(function(err, res) {
-                expect(err).to.eql(null);
-                expect(res.status).to.eql(200);
-                done();
-            });
-    });
 
 
 
