@@ -8,10 +8,15 @@ myApp.factory('UserFactory', function($http) {
             return $http.get('http://localhost:3000/api/auth/admin/users')
         },
         saveUser: function(user) {
-            return $http.post('http://localhost:3000/api/auth/admin/user', {
-                username : user.username,
-                password : user.password,
-                userrole : user.userrole
+            return $http.post('http://localhost:3000/api/auth/admin/user/', {
+                email: user.email,
+                firstName : user.firstName,
+                lastName : user.lastName,
+                password: user.password,
+                phone : user.phone,
+                role : user.role,
+                performanceIndex : user.performanceIndex,
+                previousRoles : user.previousRoles
             })
         }
     }

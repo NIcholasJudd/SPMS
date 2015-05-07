@@ -44,7 +44,7 @@ var users = {
   },
 
   create: function(req, res) {
-      console.log('CREATE: ', req.body);
+      console.log('CREATE: ', req.body.email);
     pg.connect(connectionString, function(err, client, done) {
         if(err) {
             console.error(err.stack);
@@ -54,7 +54,7 @@ var users = {
             return res.status(500).send(new Error('email required'));
         }
       client.query("INSERT INTO employee VALUES($1, $2, $3, $4, $5, $6, $7, $8)",
-        [req.body.email, req.body.firstname, req.body.lastname, req.body.password,
+        [req.body.email, req.body.firstName, req.body.lastName, req.body.password,
             req.body.phone, req.body.role, req.body.performanceIndex, req.body.previousRoles], function(err, result) {
               done();
               if(err) {
@@ -91,7 +91,7 @@ var users = {
             //console.log(qs);
             client.query("UPDATE employee SET first_name=($2), last_name=($3), password=($4), " +
             "phone=($5), user_type=($6), performance_index=($7), previous_roles=($8) WHERE email=$1",
-            [req.body.email, req.body.firstname, req.body.lastname, req.body.password,
+            [req.body.email, req.body.firstName, req.body.lastName, req.body.password,
              req.body.phone, req.body.role, req.body.performanceIndex, req.body.previousRoles], function(err, result) {
                     done();
                     if(err) {

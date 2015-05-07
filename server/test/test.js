@@ -16,8 +16,8 @@ describe('Employee', function(){
     }
     var testUser = {
         email : 'test@test',
-        firstname : 'scott',
-        lastname : 'mackenzie',
+        firstName : 'scott',
+        lastName : 'mackenzie',
         password : 'password',
         phone : '0123456789',
         role : 'administrator',
@@ -49,10 +49,13 @@ describe('Employee', function(){
             .set('X-Key', 'admin@admin')
             .send({
                 email: testUser.email,
-                firstname : testUser.firstname,
-                lastname : testUser.lastname,
+                firstName : testUser.firstname,
+                lastName : testUser.lastname,
                 password: testUser.password,
-                role : testUser.role
+                phone : testUser.phone,
+                role : testUser.role,
+                performanceIndex : testUser.performanceIndex,
+                previousRoles : testUser.previousRoles
             })
             .end(function(err, res) {
                 expect(err).to.eql(null);
@@ -99,8 +102,8 @@ describe('Employee', function(){
             .set('X-Key', 'admin@admin')
             .send({
                 email: testUser.email,
-                firstname : 'newfirstname',
-                lastname : 'newlastname',
+                firstName : 'newfirstname',
+                lastName : 'newlastname',
                 password : testUser.password,
                 phone : '0987654321',
                 role : testUser.role,
