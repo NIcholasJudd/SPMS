@@ -19,12 +19,12 @@ router.post('/login', auth.login);
  * Routes that can be accessed only by authenticated users
  */
 /* dummy comment */
-router.get('/api/auth/products', products.getAll);
+/*router.get('/api/auth/products', products.getAll);
 router.get('/api/auth/product/:id', products.getOne);
 router.post('/api/auth/product/', products.create);
 router.put('/api/auth/product/:id', products.update);
 router.delete('/api/auth/product/:id', products.delete);
-
+*/
 /*
  * Routes that can be accessed only by authenticated & authorized users
  */

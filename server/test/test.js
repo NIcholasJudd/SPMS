@@ -49,8 +49,8 @@ describe('Employee', function(){
             .set('X-Key', 'admin@admin')
             .send({
                 email: testUser.email,
-                firstName : testUser.firstname,
-                lastName : testUser.lastname,
+                firstName : testUser.firstName,
+                lastName : testUser.lastName,
                 password: testUser.password,
                 phone : testUser.phone,
                 role : testUser.role,
@@ -156,8 +156,8 @@ describe('Project', function(){
         description : 'Description of project',
         budget : '500000',
         duration : '365 days',
-        startDate : "01/01/2015",
-        estimatedEndDate : "02/02/2016",
+        startDate : "2015-03-01",
+        estimatedEndDate : "2015-03-22",
         progress : 0,
         projectManager : "admin@admin"
     };
@@ -194,6 +194,24 @@ describe('Project', function(){
             .end(function(err, res) {
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
+                done();
+            });
+    });
+
+    it('should delete project without error', function(done) {
+        superagent
+            .del(server + '/api/auth/admin/project/')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .send({
+                projectName: testProject.projectName
+            })
+            .end(function(err, res) {
+                //console.log(res.body);
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                expect(res.body.rowCount).to.eql(1);
                 done();
             });
     });
@@ -252,22 +270,7 @@ describe('Project', function(){
     });
 
 */
-    it('should delete project without error', function(done) {
-        //console.log('TOKEN', token);
-        superagent
-            .del(server + '/api/auth/admin/project/')
-            .set('X-Access-Token', token)
-            .set('X-Key', 'admin@admin')
-            .set('Accept', 'application/json')
-            .send({
-                projectName: testProject.projectName
-            })
-            .end(function(err, res) {
-                expect(err).to.eql(null);
-                expect(res.status).to.eql(200);
-                done();
-            });
-    });
+
 
 
 

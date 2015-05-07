@@ -56,8 +56,9 @@ var projects = {
             if(req.body.projectName == '') {
                 return res.status(500).send(new Error('project name required'));
             }
+            //client.query("INSERT INTO project VALUES($1, $2, $3, $4, to_date($5, 'DD/MM/YYYY'), to_date($6, 'DD/MM/YYYY'), $7, $8)",
             client.query("INSERT INTO project VALUES($1, $2, $3, $4, $5, $6, $7, $8)",
-                [req.body.projectName, req.body.description, req.body.budget, req.body.duration,
+            [req.body.projectName, req.body.description, req.body.budget, req.body.duration,
                     req.body.startDate, req.body.estimatedEndDate, req.body.progress, req.body.projectManager], function(err, result) {
                     done();
                     if(err) {
@@ -108,14 +109,14 @@ var projects = {
                 return res.status(500).send(new Error('project name required'));
             }
             client.query("DELETE FROM project WHERE project_name = $1",
-                [req.body.email], function(err, result) {
+                [req.body.projectName], function(err, result) {
                     done();
                     if(err) {
                         console.error(err.stack);
                         return res.status(500).send(err);
                     }
                     client.end();
-                    return res.json(result.rows);
+                    return res.json(result);
                 });
         });
     }

@@ -58,7 +58,7 @@ myApp.controller("UserCtrl", ['$scope', 'UserFactory',
             console.log($scope.user);
         }
         $scope.saveUser = function() {
-            UserFactory.saveUser($scope.user).success(function(err, res) {
+            UserFactory.createUser($scope.user).success(function(err, res) {
                 alert($scope.user.email + ' successfully saved in database');
             }).error(function(err, res) {
                 var err_msg = "save user failed: ";
