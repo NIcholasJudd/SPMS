@@ -51,7 +51,7 @@
 							class="form-control"/>
 						</div>
 					</div>
-					<div class="row">
+					<!--<div class="row">
 						<div class="col-md-12">
 							<label for="usernamePM">Project Manager: </label>
 							<input  id="usernamePM"
@@ -59,6 +59,19 @@
 							type="text"
 							class="form-control"
 							placeholder="Smith, John"/>
+						</div>
+					</div>-->
+					<div class="col-md-12">
+						<label for="usernamePM">Project Manager: </label>
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" id="usernamePM" data-toggle="dropdown"  aria-expanded="true">
+								{{selectedProjectManager}}
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="role">
+								<li role="presentation" ng-repeat="pm in projectManagers">
+									<a role="menuitem" tabindex="-1" ng-click="setProjectManager($index)">{{pm.name}}</a></li>
+							</ul>
 						</div>
 					</div>
 					<div class="row">
