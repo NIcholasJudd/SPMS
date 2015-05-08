@@ -65,17 +65,31 @@ fieldset[disabled] .btn-grey.active {
     overflow-y:auto;
 }
 
+#pmDashboard {
+   height: 400px;
+}
+
+#pmDashboardTasksPanel {
+    height: 100%;
+    overflow-y:auto;
+}
+
 #dashboardPanelHeading{
     background-color: rgba(255, 120, 0, 0.5);
 }
 #dashboardPanel > .panel-heading {
     background-color : #00CCFF;
 }
-
+#adminButton {
+    width: 100%;
+}
 #gantt{
     position: absolute;
     left: 10px;
        top: 60px; /* Header Height */
        bottom: 55px; /* Footer Height */
        width: 100%;
+}
+#taskDescription {
+    resize: none;
 }

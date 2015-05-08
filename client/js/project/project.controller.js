@@ -15,6 +15,19 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
             projectManager: null
         };
 
+        $scope.taskData = {
+            taskId: 0,
+            taskNumber: 0,
+            projectName: null,
+            taskName: null,
+            duration: null,
+            description: null,
+            progress: 0,
+            status: null,
+            priority: null,
+            parentId: 0
+        };
+
         $scope.projectManagers = [];
         UserFactory.getUsers().then(function(results) {
             console.log('HERE:', results.data);

@@ -30,6 +30,13 @@ myApp.config(function($routeProvider, $httpProvider) {
               requiredLogin: true,
               adminOnly: true
           }
+      }).when('/project/taskCreate', {
+        templateUrl: 'partials/project/task.create.html',
+        controller: 'ProjectCtrl',
+        access: {
+          requiredLogin: true,
+            adminOnly : false
+        }
       }).when('/project/ganttChart', {
         templateUrl: 'partials/project/ganttChart.html',
         controller: 'ProjectCtrl',
@@ -37,6 +44,27 @@ myApp.config(function($routeProvider, $httpProvider) {
               requiredLogin: true,
               adminOnly: false
           }
+      }).when('/dashboard/adminDashboard', {
+        templateUrl: 'partials/dashboard/administrator.dashboard.html',
+        controller: 'HomeCtrl',
+        access: {
+          requiredLogin: true,
+            adminOnly : false
+        }
+      }).when('/dashboard/pmDashboard', {
+        templateUrl: 'partials/dashboard/project.manager.dashboard.html',
+        controller: 'HomeCtrl',
+        access: {
+          requiredLogin: true,
+            adminOnly : false
+        }
+      }).when('/dashboard/tmDashboard', {
+        templateUrl: 'partials/dashboard/team.member.dashboard.html',
+        controller: 'HomeCtrl',
+        access: {
+          requiredLogin: true,
+            adminOnly : false
+        }
       }).when('/user/create', {
         templateUrl: 'partials/user/user.create.html',
         controller: 'UserCtrl',
