@@ -83,6 +83,15 @@ fieldset[disabled] .btn-grey.active {
 #adminButton {
     width: 100%;
 }
+
+#tmDashboardPanel{
+    height: 100%;
+}
+
+#tmDashboard{
+    height: 255px;
+}
+
 #gantt{
     position: absolute;
     left: 10px;

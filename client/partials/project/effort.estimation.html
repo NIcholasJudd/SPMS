@@ -1,0 +1,140 @@
+<div class="container">
+	<div class="row-fluid">
+		<div class="col-md-8 col-md-offset-2">
+			<h1>Effort Estimation</h1>
+			<div class="bg-orange">
+				<form ng-submit="submitTask()" ng-controller="ProjectCtrl">
+					<div class = "row">
+						<div class= "col-md-12 text-center">
+							<h2> System Size</h2>
+							<input type="radio" name="systemSize" value="small" checked>Small
+							<input type="radio" name="systemSize" value="medium">Medium
+							<input type="radio" name="systemSize" value="large">Large
+							<input type="radio" name="systemSize" value="veryLarge">Very-Large
+						</div>
+						<hr style="width: 100%; color: black; height: 2px; background-color:black;" />
+						<div class ="col-md-12 text-center">
+							<h2>Scale Factor</h2>
+							<h4>Precedentedness (PREC): degree to which there are past examples that can be consulted</h4>
+							<input type="radio" name="PREC" value="veryLow" checked>Very Low
+							<input type="radio" name="PREC" value="low">Low
+							<input type="radio" name="PREC" value="nominal">Nominal
+							<input type="radio" name="PREC" value="high">High
+							<input type="radio" name="PREC" value="veryHigh">Very High
+							<input type="radio" name="PREC" value="extraHigh">Extra High
+						</div>
+						<div class="col-md-12 text-center">
+							<h4>Development flexibility (FLEX): degree of flexibility that exists when implementing the project</h4>
+							<input type="radio" name="FLEX" value="veryLow" checked>Very Low
+							<input type="radio" name="FLEX" value="low">Low
+							<input type="radio" name="FLEX" value="nominal">Nominal
+							<input type="radio" name="FLEX" value="high">High
+							<input type="radio" name="FLEX" value="veryHigh">Very High
+							<input type="radio" name="FLEX" value="extraHigh">Extra High
+						</div>
+						<div class="col-md-12 text-center">
+							<h4>Architecture/risk resolution (RESL): degree of uncertainty about requirements</h4>
+							<input type="radio" name="RESL" value="veryLow" checked>Very Low
+							<input type="radio" name="RESL" value="low">Low
+							<input type="radio" name="RESL" value="nominal">Nominal
+							<input type="radio" name="RESL" value="high">High
+							<input type="radio" name="RESL" value="veryHigh">Very High
+							<input type="radio" name="RESL" value="extraHigh">Extra High
+						</div>
+						<div class="col-md-12 text-center">
+							<h4>Team cohesion (TEAM): degree to which there is a large dispersed team (e.g. in different locations) as opposed to there being a small tightly knit team.</h4>
+							<input type="radio" name="TEAM" value="veryLow" checked>Very Low
+							<input type="radio" name="TEAM" value="low">Low
+							<input type="radio" name="TEAM" value="nominal">Nominal
+							<input type="radio" name="TEAM" value="high">High
+							<input type="radio" name="TEAM" value="veryHigh">Very High
+							<input type="radio" name="TEAM" value="extraHigh">Extra High
+						</div>
+						<div class = "col-md-12 text-center">
+							<h4>Process maturity (PMAT): degree to how structured and organized the way the software is produced.</h4>
+							<input type="radio" name="PMAT" value="veryLow" checked>Very Low
+							<input type="radio" name="PMAT" value="low">Low
+							<input type="radio" name="PMAT" value="nominal">Nominal
+							<input type="radio" name="PMAT" value="high">High
+							<input type="radio" name="PMAT" value="veryHigh">Very High
+							<input type="radio" name="PMAT" value="extraHigh">Extra High
+						</div>
+						<hr style="width: 100%; color: black; height: 2px; background-color:black;" />
+						<div class = "col-md-12 text-center">
+							<h2>Effort multipliers</h2>
+							<h4>RCPX: Product reliability and complexity</h4>
+							<input type="radio" name="RCPX" value="extraLow" checked>Extra Low
+							<input type="radio" name="RCPX" value="veryLow">Very Low
+							<input type="radio" name="RCPX" value="low">Low
+							<input type="radio" name="RCPX" value="nominal">Nominal
+							<input type="radio" name="RCPX" value="high">High
+							<input type="radio" name="RCPX" value="veryHigh">Very High
+							<input type="radio" name="RCPX" value="extraHigh">Extra High
+						</div>
+						<div class = "col-md-12 text-center">
+							<h4>RUSE: Reuse required</h4>
+							<input type="radio" name="RUSE" value="extraLow" checked>Extra Low
+							<input type="radio" name="RUSE" value="veryLow">Very Low
+							<input type="radio" name="RUSE" value="low">Low
+							<input type="radio" name="RUSE" value="nominal">Nominal
+							<input type="radio" name="RUSE" value="high">High
+							<input type="radio" name="RUSE" value="veryHigh">Very High
+							<input type="radio" name="RUSE" value="extraHigh">Extra High
+						</div>
+						<div class = "col-md-12 text-center">
+							<h4>PDIF: Platform difficulty</h4>
+							<input type="radio" name="PDIF" value="extraLow" checked>Extra Low
+							<input type="radio" name="PDIF" value="veryLow">Very Low
+							<input type="radio" name="PDIF" value="low">Low
+							<input type="radio" name="PDIF" value="nominal">Nominal
+							<input type="radio" name="PDIF" value="high">High
+							<input type="radio" name="PDIF" value="veryHigh">Very High
+							<input type="radio" name="PDIF" value="extraHigh">Extra High
+						</div>
+						<div class = "col-md-12 text-center">
+							<h4>PERS: Personnel capability</h4>
+							<input type="radio" name="PERS" value="extraLow" checked>Extra Low
+							<input type="radio" name="PERS" value="veryLow">Very Low
+							<input type="radio" name="PERS" value="low">Low
+							<input type="radio" name="PERS" value="nominal">Nominal
+							<input type="radio" name="PERS" value="high">High
+							<input type="radio" name="PERS" value="veryHigh">Very High
+							<input type="radio" name="PERS" value="extraHigh">Extra High
+						</div>
+						<div class = "col-md-12 text-center">
+							<h4>PREX: Personnel experience</h4>
+							<input type="radio" name="PREX" value="extraLow" checked>Extra Low
+							<input type="radio" name="PREX" value="veryLow">Very Low
+							<input type="radio" name="PREX" value="low">Low
+							<input type="radio" name="PREX" value="nominal">Nominal
+							<input type="radio" name="PREX" value="high">High
+							<input type="radio" name="PREX" value="veryHigh">Very High
+							<input type="radio" name="PREX" value="extraHigh">Extra High
+						</div>
+						<div class = "col-md-12 text-center">
+							<h4>FCIL: Facilities available</h4>
+							<input type="radio" name="FCIL" value="extraLow" checked>Extra Low
+							<input type="radio" name="FCIL" value="veryLow">Very Low
+							<input type="radio" name="FCIL" value="low">Low
+							<input type="radio" name="FCIL" value="nominal">Nominal
+							<input type="radio" name="FCIL" value="high">High
+							<input type="radio" name="FCIL" value="veryHigh">Very High
+							<input type="radio" name="FCIL" value="extraHigh">Extra High
+						</div>
+						<div class = "col-md-12 text-center">
+							<h4>SCED: Schedule pressure</h4>
+							<input type="radio" name="SCED" value="extraLow" checked>Extra Low
+							<input type="radio" name="SCED" value="veryLow">Very Low
+							<input type="radio" name="SCED" value="low">Low
+							<input type="radio" name="SCED" value="nominal">Nominal
+							<input type="radio" name="SCED" value="high">High
+							<input type="radio" name="SCED" value="veryHigh">Very High
+							<input type="radio" name="SCED" value="extraHigh">Extra High
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

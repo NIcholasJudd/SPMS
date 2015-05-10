@@ -37,6 +37,13 @@ myApp.config(function($routeProvider, $httpProvider) {
           requiredLogin: true,
             adminOnly : false
         }
+      }).when('/project/effortEstimation', {
+        templateUrl: 'partials/project/effort.estimation.html',
+        controller: 'ProjectCtrl',
+        access: {
+              requiredLogin: true,
+              adminOnly: false
+          }
       }).when('/project/ganttChart', {
         templateUrl: 'partials/project/ganttChart.html',
         controller: 'ProjectCtrl',
