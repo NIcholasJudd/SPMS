@@ -37,6 +37,13 @@ myApp.config(function($routeProvider, $httpProvider) {
           requiredLogin: true,
             adminOnly : false
         }
+      }).when('/project/functionPoints', {
+        templateUrl: 'partials/effort/functionPoints.html',
+        controller: 'EffortCtrl',
+        access: {
+              requiredLogin: true,
+              adminOnly: false
+          }
       }).when('/project/effortEstimation', {
         templateUrl: 'partials/project/effort.estimation.html',
         controller: 'EffortCtrl',

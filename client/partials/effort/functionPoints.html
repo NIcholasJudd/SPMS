@@ -1,0 +1,177 @@
+<div class="container">
+	<div class="row-fluid">
+		<div class="col-md-8 col-md-offset-2">
+			<h1>Effort Estimation</h1>
+			<div class="bg-orange">
+				<form ng-submit="submitFunctionPoints()" ng-controller="EffortCtrl">
+					<h1>Determine Value Adjustment Factor</h1>
+					<h4>Rate Each Factor: (0 - No Influence, 1 - Incidental, 2 - Moderate, 3 - Average, 4 - Significant, 5 - Essentail)</h4>
+					<div class ="col-md-12 text-center">
+						<ol type="1">
+							<li>
+								<h4>How many data communication facilities are there?
+								<select name="adjustmentFactor.one" ng-selected="setValue(name, value)">
+									<option ng-model="adjustmentFactor.one" value="0">0</option>
+									<option ng-model="adjustmentFactor.one" value="1">1</option>
+									<option ng-model="adjustmentFactor.one" value="2">2</option>
+									<option ng-model="adjustmentFactor.one" value="3">3</option>
+									<option ng-model="adjustmentFactor.one" value="4">4</option>
+									<option ng-model="adjustmentFactor.one" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>How are distributed data and processing functions handled?
+								<select name="two">
+									<option ng-model="adjustmentFactor.two" value="0">0</option>
+									<option ng-model="adjustmentFactor.two" value="1">1</option>
+									<option ng-model="adjustmentFactor.two" value="2">2</option>
+									<option ng-model="adjustmentFactor.two" value="3">3</option>
+									<option ng-model="adjustmentFactor.two" value="4">4</option>
+									<option ng-model="adjustmentFactor.two" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>Was response time or throughput required by the user?
+								<select name="three">
+									<option ng-model="adjustmentFactor.three" value="0">0</option>
+									<option ng-model="adjustmentFactor.three" value="1">1</option>
+									<option ng-model="adjustmentFactor.three" value="2">2</option>
+									<option ng-model="adjustmentFactor.three" value="3">3</option>
+									<option ng-model="adjustmentFactor.three" value="4">4</option>
+									<option ng-model="adjustmentFactor.three" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>How heavily used is the current hardware platform?
+								<select name="four">
+									<option ng-model="adjustmentFactor.four" value="0">0</option>
+									<option ng-model="adjustmentFactor.four" value="1">1</option>
+									<option ng-model="adjustmentFactor.four" value="2">2</option>
+									<option ng-model="adjustmentFactor.four" value="3">3</option>
+									<option ng-model="adjustmentFactor.four" value="4">4</option>
+									<option ng-model="adjustmentFactor.four" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>How frequently are transactions executed?
+								<select name="five">
+									<option ng-model="adjustmentFactor.five" value="0">0</option>
+									<option ng-model="adjustmentFactor.five" value="1">1</option>
+									<option ng-model="adjustmentFactor.five" value="2">2</option>
+									<option ng-model="adjustmentFactor.five" value="3">3</option>
+									<option ng-model="adjustmentFactor.five" value="4">4</option>
+									<option ng-model="adjustmentFactor.five" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>What percentage of the information is entered online?
+								<select name="six">
+									<option ng-model="adjustmentFactor.six" value="0">0</option>
+									<option ng-model="adjustmentFactor.six" value="1">1</option>
+									<option ng-model="adjustmentFactor.six" value="2">2</option>
+									<option ng-model="adjustmentFactor.six" value="3">3</option>
+									<option ng-model="adjustmentFactor.six" value="4">4</option>
+									<option ng-model="adjustmentFactor.six" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>Was the application designed for end-user efficiency?
+								<select name="seven">
+									<option ng-model="adjustmentFactor.seven" value="0">0</option>
+									<option ng-model="adjustmentFactor.seven" value="1">1</option>
+									<option ng-model="adjustmentFactor.seven" value="2">2</option>
+									<option ng-model="adjustmentFactor.seven" value="3">3</option>
+									<option ng-model="adjustmentFactor.seven" value="4">4</option>
+									<option ng-model="adjustmentFactor.seven" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>How many internal logic files are updated by online transactions?
+								<select name="eight">
+									<option ng-model="adjustmentFactor.eight" value="0">0</option>
+									<option ng-model="adjustmentFactor.eight" value="1">1</option>
+									<option ng-model="adjustmentFactor.eight" value="2">2</option>
+									<option ng-model="adjustmentFactor.eight" value="3">3</option>
+									<option ng-model="adjustmentFactor.eight" value="4">4</option>
+									<option ng-model="adjustmentFactor.eight" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>Does the application have extensive logical or math processing?
+								<select name="nine">
+									<option ng-model="adjustmentFactor.nine" value="0">0</option>
+									<option ng-model="adjustmentFactor.nine" value="1">1</option>
+									<option ng-model="adjustmentFactor.nine" value="2">2</option>
+									<option ng-model="adjustmentFactor.nine" value="3">3</option>
+									<option ng-model="adjustmentFactor.nine" value="4">4</option>
+									<option ng-model="adjustmentFactor.nine" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>Was the application developed to meet one or many user needs?
+								<select name="ten">
+									<option ng-model="adjustmentFactor.ten" value="0">0</option>
+									<option ng-model="adjustmentFactor.ten" value="1">1</option>
+									<option ng-model="adjustmentFactor.ten" value="2">2</option>
+									<option ng-model="adjustmentFactor.ten" value="3">3</option>
+									<option ng-model="adjustmentFactor.ten" value="4">4</option>
+									<option ng-model="adjustmentFactor.ten" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>How difficult is conversion and instalation?
+								<select name="eleven">
+									<option ng-model="adjustmentFactor.eleven" value="0">0</option>
+									<option ng-model="adjustmentFactor.eleven" value="1">1</option>
+									<option ng-model="adjustmentFactor.eleven" value="2">2</option>
+									<option ng-model="adjustmentFactor.eleven" value="3">3</option>
+									<option ng-model="adjustmentFactor.eleven" value="4">4</option>
+									<option ng-model="adjustmentFactor.eleven" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>How effective/automated are startup, backup, and recovery??
+								<select name="tweleve">
+									<option ng-model="adjustmentFactor.tweleve" value="0">0</option>
+									<option ng-model="adjustmentFactor.tweleve" value="1">1</option>
+									<option ng-model="adjustmentFactor.tweleve" value="2">2</option>
+									<option ng-model="adjustmentFactor.tweleve" value="3">3</option>
+									<option ng-model="adjustmentFactor.tweleve" value="4">4</option>
+									<option ng-model="adjustmentFactor.tweleve" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>Was the application designed for multiple sites/organisations??
+								<select name="thirteen">
+									<option ng-model="adjustmentFactor.thirteen" value="0">0</option>
+									<option ng-model="adjustmentFactor.thirteen" value="1">1</option>
+									<option ng-model="adjustmentFactor.thirteen" value="2">2</option>
+									<option ng-model="adjustmentFactor.thirteen" value="3">3</option>
+									<option ng-model="adjustmentFactor.thirteen" value="4">4</option>
+									<option ng-model="adjustmentFactor.thirteen" value="5">5</option>
+								</select></h4>
+							</li>
+							<li>
+								<h4>Was the application designed to facilitate change?
+								<select name="fourteen">
+									<option ng-model="adjustmentFactor.fourteen" value="0">0</option>
+									<option ng-model="adjustmentFactor.fourteen" value="1">1</option>
+									<option ng-model="adjustmentFactor.fourteen" value="2">2</option>
+									<option ng-model="adjustmentFactor.fourteen" value="3">3</option>
+									<option ng-model="adjustmentFactor.fourteen" value="4">4</option>
+									<option ng-model="adjustmentFactor.fourteen" value="5">5</option>
+								</select></h4>
+							</li>
+						</ol>
+						<input id="valueAdjust"
+							ng-model="ValueAdjustmentFactor.value"
+							type="number"
+							class="form-control"
+							/>
+						</div>
+						<button type="submit" class="btn btn-default" style="width:100%;">Create Task</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
