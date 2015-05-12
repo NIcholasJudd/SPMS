@@ -73,4 +73,10 @@
     </div>
 </div>
 </div>
+
+<!-- this div is howing that angular ui bootstrap is working, it needs to be removed -->
+<div class="row">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    <button class='btn btn-default' ng-click="addAlert()">Add Alert</button>
+</div>
 </div>

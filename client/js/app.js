@@ -1,4 +1,4 @@
-var myApp = angular.module('ngclient', ['ngRoute']);
+var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap']);
 myApp.config(function($routeProvider, $httpProvider) {
   //add Token Interceptor
   $httpProvider.interceptors.push('TokenInterceptor');
@@ -53,21 +53,21 @@ myApp.config(function($routeProvider, $httpProvider) {
           }
       }).when('/dashboard/adminDashboard', {
         templateUrl: 'partials/dashboard/administrator.dashboard.html',
-        controller: 'HomeCtrl',
+        controller: 'TaskCtrl',
         access: {
           requiredLogin: true,
             adminOnly : false
         }
       }).when('/dashboard/pmDashboard', {
         templateUrl: 'partials/dashboard/project.manager.dashboard.html',
-        controller: 'HomeCtrl',
+        controller: 'TaskCtrl',
         access: {
           requiredLogin: true,
             adminOnly : false
         }
       }).when('/dashboard/tmDashboard', {
         templateUrl: 'partials/dashboard/team.member.dashboard.html',
-        controller: 'HomeCtrl',
+        controller: 'TaskCtrl',
         access: {
           requiredLogin: true,
             adminOnly : false

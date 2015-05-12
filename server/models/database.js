@@ -11,6 +11,7 @@ client.connect();
 
 //var query = client.query("CREATE TABLE test_user(username varchar(100) PRIMARY KEY, password varchar(100) NOT NULL, userrole varchar(100) NOT NULL)");
 //var query = client.query("INSERT INTO test_user VALUES ('admin', 'admin', 'admin')");
+var query = client.query("DROP SEQUENCE IF EXISTS project_sequence");
 var query = client.query("DROP TABLE IF EXISTS project");
 var query = client.query("DROP TABLE IF EXISTS employee");
 var query = client.query("CREATE TABLE employee(" +
@@ -36,4 +37,7 @@ var query = client.query("CREATE TABLE project(" +
         "project_manager varchar(100) REFERENCES employee(email) " +
         ")"
 );
+//var query = client.query("CREATE SEQUENCE project_sequence START 1");
+//rs
+// var query = client.
 query.on('end', function() { client.end(); });
