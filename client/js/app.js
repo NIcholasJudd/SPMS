@@ -32,14 +32,14 @@ myApp.config(function($routeProvider, $httpProvider) {
           }
       }).when('/project/taskCreate', {
         templateUrl: 'partials/project/task.create.html',
-        controller: 'ProjectCtrl',
+        controller: 'TaskCtrl',
         access: {
           requiredLogin: true,
             adminOnly : false
         }
       }).when('/project/effortEstimation', {
         templateUrl: 'partials/project/effort.estimation.html',
-        controller: 'ProjectCtrl',
+        controller: 'EffortCtrl',
         access: {
               requiredLogin: true,
               adminOnly: false

@@ -15,19 +15,6 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
             projectManager: null
         };
 
-        $scope.taskData = {
-            taskId: 0,
-            taskNumber: 0,
-            projectName: null,
-            taskName: null,
-            duration: null,
-            description: null,
-            progress: 0,
-            status: null,
-            priority: null,
-            parentId: 0
-        };
-
         $scope.projectManagers = [];
         UserFactory.getUsers().then(function(results) {
             console.log('HERE:', results.data);
@@ -41,7 +28,8 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
         /*ProjectFactory.getProjects().then(function(projects) {
             $scope.projects = projects;
         })*/
-        $scope.selectedProjectManager = 'Please select one:';
+        
+
         $scope.setProjectManager = function(index) {
             $scope.selectedProjectManager = $scope.projectManagers[index].name;
             $scope.projectData.projectManager = $scope.projectManagers[index].email;
@@ -67,7 +55,7 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
                     alert(err_msg);
                 })
         };
-
+       
         function calculateDuration(startDate, endDate) {
             //calculate duration from dates entered, in days
             var millisecondsInDay = 86400000;
