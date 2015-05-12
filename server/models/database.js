@@ -12,6 +12,8 @@ client.connect();
 //var query = client.query("CREATE TABLE test_user(username varchar(100) PRIMARY KEY, password varchar(100) NOT NULL, userrole varchar(100) NOT NULL)");
 //var query = client.query("INSERT INTO test_user VALUES ('admin', 'admin', 'admin')");
 var query = client.query("DROP SEQUENCE IF EXISTS project_sequence");
+var query = client.query("DROP SEQUENCE IF EXISTS project1_seq");
+var query = client.query("DROP TABLE IF EXISTS task");
 var query = client.query("DROP TABLE IF EXISTS project");
 var query = client.query("DROP TABLE IF EXISTS employee");
 var query = client.query("CREATE TABLE employee(" +
@@ -37,7 +39,25 @@ var query = client.query("CREATE TABLE project(" +
         "project_manager varchar(100) REFERENCES employee(email) " +
         ")"
 );
-//var query = client.query("CREATE SEQUENCE project_sequence START 1");
-//rs
-// var query = client.
+
+var query = client.query("CREATE TABLE task(" +
+    "task_id serial UNIQUE NOT NULL," +
+    "task_number int NOT NULL," +
+    "project_name varchar(100) REFERENCES project," +
+    "task_name varchar(100) NOT NULL," +
+    "description text," +
+    "start_date date NOT NULL, " +
+    "likely_duration interval NOT NULL," +
+    "optimistic_duration interval NOT NULL," +
+    "pessimistic_duration interval NOT NULL," +
+    "progress_percentage real DEFAULT 0 NOT NULL," +
+    "status varchar(20) CHECK(status = 'unassigned' OR status = 'on-the-go' OR status = 'finalised' OR " +
+    "status = 'complete') DEFAULT 'unassigned' NOT NULL, " +
+    "priority varchar(20) CHECK(priority = 'critical' OR priority = 'high' OR priority = 'medium' OR " +
+    "priority = 'low') NOT NULL, " +
+    "parent_id integer REFERENCES task(task_id)," +
+    "PRIMARY KEY(task_number, project_name)" +
+    ")"
+);
+
 query.on('end', function() { client.end(); });

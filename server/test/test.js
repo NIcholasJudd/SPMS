@@ -152,7 +152,7 @@ describe('Project', function(){
         password : 'admin'
     }
     var testProject = {
-        projectName : 'Project 1',
+        projectName : 'Project1',
         description : 'Description of project',
         budget : '500000',
         duration : '365 days',
@@ -161,6 +161,19 @@ describe('Project', function(){
         progress : 0,
         projectManager : "admin@admin"
     };
+
+    var testTasks = [{
+        taskNumber : 1,
+        taskName : 'Test task 1',
+        startDate : "2015-03-03",
+        likelyDuration : "14 days",
+        optimisticDuration : "10 days",
+        pessimisticDuration : "21 days",
+        description : "Description of task 1",
+        progressPercentage : 0,
+        status : "unassigned",
+        priority : "critical"
+    }]
 
     before(function(done) {
         superagent
@@ -198,7 +211,31 @@ describe('Project', function(){
             });
     });
 
-    it('should delete project without error', function(done) {
+    it('should add a task to the project without error', function(done) {
+        superagent
+            .post(server + '/api/auth/admin/task/' + testProject.projectName)
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .send({
+                taskNumber : testTasks[0].taskNumber,
+                taskName : testTasks[0].taskName,
+                startDate : testTasks[0].startDate,
+                likelyDuration : testTasks[0].likelyDuration,
+                optimisticDuration : testTasks[0].optimisticDuration,
+                pessimisticDuration : testTasks[0].pessimisticDuration,
+                description : testTasks[0].description,
+                progressPercentage : testTasks[0].progressPercentage,
+                status : testTasks[0].status,
+                priority : testTasks[0].priority
+            })
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                done();
+            });
+    })
+
+    /*it('should delete project without error', function(done) {
         superagent
             .del(server + '/api/auth/admin/project/')
             .set('X-Access-Token', token)
@@ -214,7 +251,7 @@ describe('Project', function(){
                 expect(res.body.rowCount).to.eql(1);
                 done();
             });
-    });
+    });*/
 
     /*it('should retrieve the employee without error', function(done) {
         superagent

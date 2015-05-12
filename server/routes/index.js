@@ -2,7 +2,8 @@ var express = require('express'),
     auth = require('./auth.js'),
     products = require('./products.js'),
     user = require('./users.js'),
-    project = require('./projects.js');
+    project = require('./projects.js'),
+    projectTask = require('./projects.tasks.js');
 
 var router = express.Router();
 
@@ -42,6 +43,12 @@ router.get('/api/auth/admin/project/:project.name', project.getOne);
 router.post('/api/auth/admin/project', project.create);
 router.put('/api/auth/admin/project/:project.name', project.update);
 router.delete('/api/auth/admin/project/', project.delete);
+
+router.get('/api/auth/admin/:project.name/tasks', projectTask.getAll);
+router.get('/api/auth/admin/:project.name/task', projectTask.getOne);
+router.post('/api/auth/admin/task/:projectName', projectTask.create);
+//router.put('/api/auth/admin/:project.name/task', projectTask.update);
+//router.delete('/api/auth/admin/:project.name/task', projectTask.delete);
 
 module.exports = router;
 
