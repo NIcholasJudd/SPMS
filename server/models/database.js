@@ -43,7 +43,7 @@ var query = client.query("CREATE TABLE project(" +
 var query = client.query("CREATE TABLE task(" +
     "task_id serial UNIQUE NOT NULL," +
     "task_number int NOT NULL," +
-    "project_name varchar(100) REFERENCES project," +
+    "project_name varchar(100) REFERENCES project ON DELETE CASCADE," +
     "task_name varchar(100) NOT NULL," +
     "description text," +
     "start_date date NOT NULL, " +

@@ -330,7 +330,7 @@ describe('Project', function(){
             });
     });
 
-    /*it('should delete project without error', function(done) {
+    it('should delete project without error', function(done) {
         superagent
             .del(server + '/api/auth/admin/project/')
             .set('X-Access-Token', token)
@@ -346,7 +346,7 @@ describe('Project', function(){
                 expect(res.body.rowCount).to.eql(1);
                 done();
             });
-    });*/
+    });
 
     /*it('should retrieve the employee without error', function(done) {
         superagent

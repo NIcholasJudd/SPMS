@@ -45,10 +45,10 @@ router.put('/api/auth/admin/project/:project.name', project.update);
 router.delete('/api/auth/admin/project/', project.delete);
 
 router.get('/api/auth/admin/project/:projectName/tasks', projectTask.getAll);
-router.get('/api/auth/admin/project/:projectName/task/:taskId', projectTask.getOne);
+router.get('/api/auth/admin/project/:projectName/task/:taskNumber', projectTask.getOne);
 router.post('/api/auth/admin/task/:projectName', projectTask.create);
 //router.put('/api/auth/admin/project/:projectName/task/:taskId', projectTask.update);
-router.delete('/api/auth/admin/project/:projectName/task/:taskId', projectTask.delete);
+router.delete('/api/auth/admin/project/:projectName/task/:taskNumber', projectTask.delete);
 
 module.exports = router;
 

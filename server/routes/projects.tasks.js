@@ -105,8 +105,8 @@ var projectTask = {
             if(req.params.projectName == '') {
                 return res.status(500).send(new Error('project name required'));
             }
-            client.query("DELETE FROM task WHERE project_name = $1 AND task_id = $2",
-                [req.params.projectName, req.params.taskId], function(err, result) {
+            client.query("DELETE FROM task WHERE project_name = $1 AND task_number = $2",
+                [req.params.projectName, req.params.taskNumber], function(err, result) {
                     if(err) {
                         console.error(err.stack);
                         return rollback(client, done);//return res.status(500).send(err);
