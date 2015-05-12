@@ -62,6 +62,7 @@ var users = {
                   return res.status(500).send(err);
               }
               client.end();
+              console.log('user result: ', result.rows);
               return res.json(result.rows);
           });
     });

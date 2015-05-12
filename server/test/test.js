@@ -173,7 +173,18 @@ describe('Project', function(){
         progressPercentage : 0,
         status : "unassigned",
         priority : "critical"
-    }]
+    }, {
+        taskNumber : 2,
+        taskName : 'Test task 2',
+        startDate : "2015-03-03",
+        likelyDuration : "14 days",
+        optimisticDuration : "10 days",
+        pessimisticDuration : "21 days",
+        description : "Description of task 2",
+        progressPercentage : 0
+    }];
+
+    var retrievedTaskNumbers = [];
 
     before(function(done) {
         superagent
@@ -233,7 +244,91 @@ describe('Project', function(){
                 expect(res.status).to.eql(200);
                 done();
             });
+    });
+
+    it('should add a task to the project that does not specify status and priority without error', function(done) {
+        superagent
+            .post(server + '/api/auth/admin/task/' + testProject.projectName)
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .send({
+                taskNumber : testTasks[1].taskNumber,
+                taskName : testTasks[1].taskName,
+                startDate : testTasks[1].startDate,
+                likelyDuration : testTasks[1].likelyDuration,
+                optimisticDuration : testTasks[1].optimisticDuration,
+                pessimisticDuration : testTasks[1].pessimisticDuration,
+                description : testTasks[1].description,
+                progressPercentage : testTasks[1].progressPercentage
+            })
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                done();
+            });
+    });
+
+    it('should retrieve all tasks associated with a project', function(done) {
+        superagent
+            .get(server + '/api/auth/admin/project/' + testProject.projectName + '/tasks')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                //console.log(res.body);
+                res.body.forEach(function(task) {
+                    retrievedTaskNumbers.push(task.task_number);
+                })
+                //console.log(retrievedTaskNumbers);
+                done();
+            })
     })
+
+    it('should retrieve a task associated with a project by task number ', function(done) {
+        superagent
+            .get(server + '/api/auth/admin/project/' + testProject.projectName + '/task/' + retrievedTaskNumbers[0])
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                //console.log(res.body.rows);
+                done();
+            })
+    })
+
+    it('should delete a task from project by task number without error', function(done) {
+        superagent
+            .del(server + '/api/auth/admin/project/' + testProject.projectName + '/task/' + retrievedTaskNumbers[0])
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .end(function(err, res) {
+                //console.log(res.body);
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                expect(res.body.rowCount).to.eql(1);
+                done();
+            });
+    });
+
+    it('should delete the other test task from project - change this to delete tasks when project deleted', function(done) {
+        superagent
+            .del(server + '/api/auth/admin/project/' + testProject.projectName + '/task/' + retrievedTaskNumbers[1])
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .end(function(err, res) {
+                //console.log(res.body);
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                expect(res.body.rowCount).to.eql(1);
+                done();
+            });
+    });
 
     /*it('should delete project without error', function(done) {
         superagent
