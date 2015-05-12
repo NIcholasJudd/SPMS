@@ -11,8 +11,9 @@ client.connect();
 
 //var query = client.query("CREATE TABLE test_user(username varchar(100) PRIMARY KEY, password varchar(100) NOT NULL, userrole varchar(100) NOT NULL)");
 //var query = client.query("INSERT INTO test_user VALUES ('admin', 'admin', 'admin')");
-var query = client.query("DROP SEQUENCE IF EXISTS project_sequence");
-var query = client.query("DROP SEQUENCE IF EXISTS project1_seq");
+//var query = client.query("DROP SEQUENCE IF EXISTS project_sequence");
+//var query = client.query("DROP SEQUENCE IF EXISTS project1_seq");
+var query = client.query("DROP TABLE IF EXISTS link");
 var query = client.query("DROP TABLE IF EXISTS task");
 var query = client.query("DROP TABLE IF EXISTS project");
 var query = client.query("DROP TABLE IF EXISTS employee");
@@ -58,6 +59,16 @@ var query = client.query("CREATE TABLE task(" +
     "parent_id integer REFERENCES task(task_id)," +
     "PRIMARY KEY(task_number, project_name)" +
     ")"
+);
+
+var query = client.query("CREATE TABLE link(" +
+    "link_id serial PRIMARY KEY, " +
+    "project_name varchar(100) REFERENCES project ON DELETE CASCADE, " +
+    "source integer REFERENCES task(task_id) NOT NULL, " +
+    "target integer REFERENCES task(task_id) NOT NULL, " +
+    "type varchar(20) CHECK(type = 'finish to start' OR " +
+    "type = 'start to start' OR type = 'finish to finish' OR type = 'start to finish')" +
+    ");"
 );
 
 query.on('end', function() { client.end(); });
