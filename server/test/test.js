@@ -184,7 +184,13 @@ describe('Project', function(){
         progressPercentage : 0
     }];
 
-    var retrievedTaskNumbers = [];
+    var testLinks = [{
+        source : 1,
+        target : 2,
+        type : 'finish to start'
+    }]
+
+    var retrievedTask = [];
 
     before(function(done) {
         superagent
@@ -224,7 +230,7 @@ describe('Project', function(){
 
     it('should add a task to the project without error', function(done) {
         superagent
-            .post(server + '/api/auth/admin/task/' + testProject.projectName)
+            .post(server + '/api/auth/admin/project/' + testProject.projectName + '/task')
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .send({
@@ -248,7 +254,7 @@ describe('Project', function(){
 
     it('should add a task to the project that does not specify status and priority without error', function(done) {
         superagent
-            .post(server + '/api/auth/admin/task/' + testProject.projectName)
+            .post(server + '/api/auth/admin/project/' + testProject.projectName + '/task')
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .send({
@@ -278,17 +284,21 @@ describe('Project', function(){
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
                 //console.log(res.body);
+                var counter = 0;
                 res.body.forEach(function(task) {
-                    retrievedTaskNumbers.push(task.task_number);
+                    //console.log(task);
+                    retrievedTask.push({taskNumber : task.task_number, taskId : task.task_id});
+                    testTasks[counter].taskId = task.task_id;
+                    counter++;
                 })
-                //console.log(retrievedTaskNumbers);
+                //console.log(retrievedTask);
                 done();
             })
     })
 
     it('should retrieve a task associated with a project by task number ', function(done) {
         superagent
-            .get(server + '/api/auth/admin/project/' + testProject.projectName + '/task/' + retrievedTaskNumbers[0])
+            .get(server + '/api/auth/admin/project/' + testProject.projectName + '/task/' + retrievedTask[0].taskNumber)
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')
@@ -298,11 +308,59 @@ describe('Project', function(){
                 //console.log(res.body.rows);
                 done();
             })
-    })
+    });
+
+    it('should add a link to the project without error', function(done) {
+        superagent
+            .post(server + '/api/auth/admin/project/' + testProject.projectName + '/link')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .send({
+                source : testTasks[0].taskId,
+                target : testTasks[1].taskId,
+                type : testLinks[0].type
+            })
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                //console.log("LINK", res);
+                done();
+            });
+    });
+
+    it('should retrieve a link associated with a project by source task id', function(done) {
+        //console.log('here: ', retrievedTask[0].taskId);
+        superagent
+            .get(server + '/api/auth/admin/project/' + testProject.projectName + '/link/' + testTasks[0].taskId)
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                //console.log(res.body);
+                done();
+            })
+    });
+
+    it('should delete a link from project by source task id without error', function(done) {
+        superagent
+            .del(server + '/api/auth/admin/project/' + testProject.projectName + '/link/' + testTasks[0].taskId)
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .end(function(err, res) {
+                //console.log(res.body);
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                expect(res.body.rowCount).to.eql(1);
+                done();
+            });
+    });
 
     it('should delete a task from project by task number without error', function(done) {
         superagent
-            .del(server + '/api/auth/admin/project/' + testProject.projectName + '/task/' + retrievedTaskNumbers[0])
+            .del(server + '/api/auth/admin/project/' + testProject.projectName + '/task/' + retrievedTask[0].taskNumber)
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')
@@ -317,7 +375,7 @@ describe('Project', function(){
 
     it('should delete the other test task from project - change this to delete tasks when project deleted', function(done) {
         superagent
-            .del(server + '/api/auth/admin/project/' + testProject.projectName + '/task/' + retrievedTaskNumbers[1])
+            .del(server + '/api/auth/admin/project/' + testProject.projectName + '/task/' + retrievedTask[1].taskNumber)
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')

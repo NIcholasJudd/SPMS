@@ -3,7 +3,8 @@ var express = require('express'),
     products = require('./products.js'),
     user = require('./users.js'),
     project = require('./projects.js'),
-    projectTask = require('./projects.tasks.js');
+    projectTask = require('./projects.tasks.js'),
+    projectLink = require('./projects.links.js');
 
 var router = express.Router();
 
@@ -46,9 +47,15 @@ router.delete('/api/auth/admin/project/', project.delete);
 
 router.get('/api/auth/admin/project/:projectName/tasks', projectTask.getAll);
 router.get('/api/auth/admin/project/:projectName/task/:taskNumber', projectTask.getOne);
-router.post('/api/auth/admin/task/:projectName', projectTask.create);
+router.post('/api/auth/admin/project/:projectName/task', projectTask.create);
 //router.put('/api/auth/admin/project/:projectName/task/:taskId', projectTask.update);
 router.delete('/api/auth/admin/project/:projectName/task/:taskNumber', projectTask.delete);
+
+router.get('/api/auth/admin/project/:projectName/links', projectLink.getAll);
+router.get('/api/auth/admin/project/:projectName/link/:taskId', projectLink.getOne);
+router.post('/api/auth/admin/project/:projectName/link', projectLink.create);
+//router.put('/api/auth/admin/project/:projectName/task/:taskId', projectTask.update);
+router.delete('/api/auth/admin/project/:projectName/link/:taskId', projectLink.delete);
 
 module.exports = router;
 

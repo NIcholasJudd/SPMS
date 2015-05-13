@@ -33,21 +33,28 @@ myApp.config(function($routeProvider, $httpProvider) {
           }
       }).when('/project/taskCreate', {
         templateUrl: 'partials/project/task.create.html',
-        controller: 'ProjectCtrl',
+        controller: 'TaskCtrl',
         access: {
           requiredLogin: true,
             adminOnly : false
         }
+      }).when('/project/functionPoints', {
+        templateUrl: 'partials/effort/functionPoints.html',
+        controller: 'EffortCtrl',
+        access: {
+              requiredLogin: true,
+              adminOnly: false
+          }
       }).when('/project/effortEstimation', {
         templateUrl: 'partials/project/effort.estimation.html',
-        controller: 'ProjectCtrl',
+        controller: 'EffortCtrl',
         access: {
               requiredLogin: true,
               adminOnly: false
           }
       }).when('/project/ganttChart', {
         templateUrl: 'partials/project/ganttChart.html',
-        controller: 'ProjectCtrl',
+        controller: 'GanttChartCtrl',
         access: {
               requiredLogin: true,
               adminOnly: false

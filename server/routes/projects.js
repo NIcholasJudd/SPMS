@@ -127,15 +127,15 @@ var projects = {
             if(req.body.projectName == '') {
                 return res.status(500).send(new Error('project name required'));
             }
-            client.query("DELETE FROM project WHERE project_name = $1",
+            var sequence_name = req.body.projectName;
+            sequence_name = sequence_name.replace(/\s/g, '');
+            client.query("DROP SEQUENCE IF EXISTS " + sequence_name + "_seq", function(err) {
+                if(err) {
+                    console.error(err.stack);
+                    return rollback(client, done);//return res.status(500).send(err);
+                }
+                client.query("DELETE FROM project WHERE project_name = $1",
                 [req.body.projectName], function(err, result) {
-                    if(err) {
-                        console.error(err.stack);
-                        return rollback(client, done);//return res.status(500).send(err);
-                    }
-                    var sequence_name = req.body.projectName;
-                    sequence_name = sequence_name.replace(/\s/g, '');
-                    client.query("DROP SEQUENCE IF EXISTS " + sequence_name + "_seq", function(err) {
                         if(err) {
                             console.error(err.stack);
                             return rollback(client, done);//return res.status(500).send(err);

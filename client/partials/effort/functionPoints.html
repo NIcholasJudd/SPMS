@@ -1,0 +1,29 @@
+<div class="container">
+	<div class="row-fluid">
+		<div class="col-md-8 col-md-offset-2">
+			<h1>Effort Estimation</h1>
+			<div class="bg-orange">
+				<form ng-submit="submitFunctionPoints()" ng-controller="EffortCtrl">
+					<h1>Determine Value Adjustment Factor</h1>
+					<h4>Rate Each Factor: (0 - No Influence, 1 - Incidental, 2 - Moderate, 3 - Average, 4 - Significant, 5 - Essentail)</h4>
+					<div class ="col-md-12 text-center">
+						<ol>
+							<li ng-model = "adjustmentFactor" ng-repeat="fp in adjustmentFactor">
+								<h4>{{fp.title}}</h4>
+								<select id="functionPoints" ng-model = "adjustmentFactor" ng-change = "setValue($index, adjustmentFactor.ng-value)" style="width:100%;">
+									<option ng-value="0">0</option>
+									<option ng-value="1">1</option>
+									<option ng-value="2">2</option>
+									<option ng-value="3">3</option>
+									<option ng-value="4">4</option>
+									<option ng-value="5">5</option>
+								</select>
+							</li>
+						</ol>
+					</div>
+					<button type="submit" class="btn btn-default" style="width:100%;">Create Task</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
