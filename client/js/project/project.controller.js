@@ -29,6 +29,10 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
                 })
             });
         })
+        /*ProjectFactory.getProjects().then(function(projects) {
+            $scope.projects = projects;
+        })*/
+        
 
         ProjectFactory.getProjects().then(function(projects) {
             projects.data.forEach(function(projects){
