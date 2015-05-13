@@ -38,22 +38,77 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
        	$scope.SCED =
        	{value: null};
 
-       	$scope.adjustmentFactor = 
+       	$scope.adjustmentFactor = [
+       	{ 	
+       		id: "fp1",
+       		title: "How many data communication facilities are there?",
+       		value: null
+       	},
        	{
-       		one: null,
-       		two: null,
-       		three: null,
-       		four: null,
-       		five: null,
-       		six: null,
-       		seven: null,
-       		eight: null,
-       		nine: null,
-       		ten: null,
-       		tweleve: null,
-       		thirteen: null,
-       		fourteen: null
-       	};
+       		id: "fp2",
+       		title: "How are distributed data and processing functions handled?",
+       		value: null
+       	},
+       	{
+       		id: "fp3",
+       		title: "Was response time or throughput required by the user?",
+       		value: null
+       	},
+       	{ 	
+       		id: "fp4",
+       		title: "How heavily used is the current hardware platform?",
+       		value: null
+       	},
+       	{
+       		id: "fp5",
+       		title: "How frequently are transactions executed?",
+       		value: null
+       	},
+       	{
+       		id: "fp6",
+       		title: "What percentage of the information is entered online?",
+       		value: null
+       	},
+       	{ 	
+       		id: "fp7",
+       		title: "Was the application designed for end-user efficiency?",
+       		value: null
+       	},
+       	{
+       		id: "fp8",
+       		title: "How many internal logic files are updated by online transactions?",
+       		value:null
+       	},
+       	{
+       		id: "fp9",
+       		title: "Does the application have extensive logical or math processing?",
+       		value: null
+       	},
+       	{ 	
+       		id: "fp10",
+       		title: "Was the application developed to meet one or many user needs?",
+       		value: null
+       	},
+       	{
+       		id: "fp11",
+       		title: "How difficult is conversion and instalation?",
+       		value: null
+       	},
+       	{
+       		id: "fp12",
+       		title: "How effective/automated are startup, backup, and recovery??",
+       	},
+       	{ 	
+       		id: "fp13",
+       		title: "Was the application designed for multiple sites/organisations?",
+       		value: null
+       	},
+       	{
+       		id: "fp14",
+       		title: "Was the application designed to facilitate change?",
+       		value: null
+       	}
+       	];
        	$scope.ValueAdjustmentFactor={
        		value: null
        	};
@@ -65,9 +120,9 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
        		pm = pm.toPrecision(4);
        		window.alert(pm + " person months");
        	}
-       	$scope.setValue = function(name, value) {
-       		console.log(name);
-       		console.log(value);
+       	$scope.setValue = function(index, temp) {
+       		console.log(index);
+       		console.log(this.value);
        	}
        	$scope.submitFunctionPoints = function() {
        		$scope.ValueAdjustmentFactor.value = (Number($scope.adjustmentFactor.one) + Number($scope.adjustmentFactor.two) + Number($scope.adjustmentFactor.three) + Number($scope.adjustmentFactor.four) + Number($scope.adjustmentFactor.five) + Number($scope.adjustmentFactor.six) + Number($scope.adjustmentFactor.eight) + Number($scope.adjustmentFactor.nine) + Number($scope.adjustmentFactor.ten) + Number($scope.adjustmentFactor.eleven) + Number($scope.adjustmentFactor.twelve) + Number($scope.adjustmentFactor.thirteen) + Number($scope.adjustmentFactor.fourteen));
