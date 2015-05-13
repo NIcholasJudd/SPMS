@@ -10,13 +10,13 @@
 						<ol>
 							<li ng-model = "adjustmentFactor" ng-repeat="fp in adjustmentFactor">
 								<h4>{{fp.title}}</h4>
-								<select id="functionPoints" ng-model = "adjustmentFactor" ng-change = "setValue($index, this.options)" style="width:100%;">
-									<option value="0">0</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
+								<select id="functionPoints" ng-model = "adjustmentFactor" ng-change = "setValue($index, adjustmentFactor.ng-value)" style="width:100%;">
+									<option ng-value="0">0</option>
+									<option ng-value="1">1</option>
+									<option ng-value="2">2</option>
+									<option ng-value="3">3</option>
+									<option ng-value="4">4</option>
+									<option ng-value="5">5</option>
 								</select>
 							</li>
 						</ol>

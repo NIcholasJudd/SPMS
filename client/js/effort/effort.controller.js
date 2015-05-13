@@ -122,7 +122,7 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
        	}
        	$scope.setValue = function(index, temp) {
        		console.log(index);
-       		console.log(this.value);
+       		console.log(temp);
        	}
        	$scope.submitFunctionPoints = function() {
        		$scope.ValueAdjustmentFactor.value = (Number($scope.adjustmentFactor.one) + Number($scope.adjustmentFactor.two) + Number($scope.adjustmentFactor.three) + Number($scope.adjustmentFactor.four) + Number($scope.adjustmentFactor.five) + Number($scope.adjustmentFactor.six) + Number($scope.adjustmentFactor.eight) + Number($scope.adjustmentFactor.nine) + Number($scope.adjustmentFactor.ten) + Number($scope.adjustmentFactor.eleven) + Number($scope.adjustmentFactor.twelve) + Number($scope.adjustmentFactor.thirteen) + Number($scope.adjustmentFactor.fourteen));
