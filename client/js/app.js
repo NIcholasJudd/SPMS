@@ -53,7 +53,7 @@ myApp.config(function($routeProvider, $httpProvider) {
           }
       }).when('/project/ganttChart', {
         templateUrl: 'partials/project/ganttChart.html',
-        controller: 'ProjectCtrl',
+        controller: 'GanttChartCtrl',
         access: {
               requiredLogin: true,
               adminOnly: false

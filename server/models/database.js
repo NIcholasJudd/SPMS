@@ -11,7 +11,7 @@ client.connect();
 
 //var query = client.query("CREATE TABLE test_user(username varchar(100) PRIMARY KEY, password varchar(100) NOT NULL, userrole varchar(100) NOT NULL)");
 //var query = client.query("INSERT INTO test_user VALUES ('admin', 'admin', 'admin')");
-//var query = client.query("DROP SEQUENCE IF EXISTS project_sequence");
+var query = client.query("DROP SEQUENCE IF EXISTS project_sequence");
 //var query = client.query("DROP SEQUENCE IF EXISTS project1_seq");
 var query = client.query("DROP TABLE IF EXISTS link");
 var query = client.query("DROP TABLE IF EXISTS task");
@@ -41,6 +41,9 @@ var query = client.query("CREATE TABLE project(" +
         ")"
 );
 
+var query = client.query("INSERT INTO project VALUES(" +
+    "'My Project 1', 'Description of project', 500000, '365 days', '2016-03-13', '2017-03-13', 0.4, 'admin@admin')");
+
 var query = client.query("CREATE TABLE task(" +
     "task_id serial UNIQUE NOT NULL," +
     "task_number int NOT NULL," +
@@ -61,6 +64,33 @@ var query = client.query("CREATE TABLE task(" +
     ")"
 );
 
+var query = client.query("CREATE SEQUENCE project_sequence START 1");
+
+var query = client.query("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
+"likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
+"nextval('project_sequence'), 'My Project 1', 'Task 1', 'Task 1 Description', '2016-04-04', '2 days', '1 days', " +
+"'3 days', 0.4, 'on-the-go', 'critical')");
+
+var query = client.query("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
+"likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
+"nextval('project_sequence'), 'My Project 1', 'Task 2', 'Task 2 Description', '2016-04-7', '3 days', '4 days', " +
+"'6 days', 0.7, 'on-the-go', 'critical')");
+
+var query = client.query("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
+"likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
+"nextval('project_sequence'), 'My Project 1', 'Task 3', 'Task 3 Description', '2016-04-10', '4 days', '4 days', " +
+"'6 days', 0.7, 'on-the-go', 'critical')");
+
+var query = client.query("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
+"likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
+"nextval('project_sequence'), 'My Project 1', 'Task 4', 'Task 4 Description', '2016-04-15', '3 days', '2 days', " +
+"'6 days', 0.7, 'on-the-go', 'critical')");
+
+var query = client.query("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
+"likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
+"nextval('project_sequence'), 'My Project 1', 'Task 5', 'Task 5 Description', '2016-04-05', '10 days', '7 days', " +
+"'15 days', 0.7, 'on-the-go', 'critical')");
+
 var query = client.query("CREATE TABLE link(" +
     "link_id serial PRIMARY KEY, " +
     "project_name varchar(100) REFERENCES project ON DELETE CASCADE, " +
@@ -70,5 +100,18 @@ var query = client.query("CREATE TABLE link(" +
     "type = 'start to start' OR type = 'finish to finish' OR type = 'start to finish')" +
     ");"
 );
+
+var query = client.query("INSERT INTO link(project_name, source, target, type) VALUES('My Project 1', " +
+    "(SELECT task_id from task where task_name = 'Task 1'), (SELECT task_id from task where task_name = 'Task 2'), " +
+    "'finish to start')");
+var query = client.query("INSERT INTO link(project_name, source, target, type) VALUES('My Project 1', " +
+"(SELECT task_id from task where task_name = 'Task 2'), (SELECT task_id from task where task_name = 'Task 3'), " +
+"'finish to start')");
+var query = client.query("INSERT INTO link(project_name, source, target, type) VALUES('My Project 1', " +
+"(SELECT task_id from task where task_name = 'Task 3'), (SELECT task_id from task where task_name = 'Task 4'), " +
+"'finish to start')");
+var query = client.query("INSERT INTO link(project_name, source, target, type) VALUES('My Project 1', " +
+"(SELECT task_id from task where task_name = 'Task 1'), (SELECT task_id from task where task_name = 'Task 5'), " +
+"'finish to start')");
 
 query.on('end', function() { client.end(); });
