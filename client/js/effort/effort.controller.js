@@ -37,7 +37,47 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
        	{value: null};
        	$scope.SCED =
        	{value: null};
-
+            $scope.functionPoints = [
+            {
+                  title: "Number of User inputs!",
+                  count: null,
+                  wf: null,
+                  low: 3,
+                  med: 4,
+                  high: 6
+            },
+            {
+                  title: "Number of User outputs!",
+                  count: null,
+                  wf: null,
+                  low: 4,
+                  med: 5,
+                  high: 7
+            },
+            {
+                  title: "Number of User Inquieries",
+                  cout: null,
+                  wf: null,
+                  low: 3,
+                  med: 4,
+                  high: 6
+            },
+            {
+                  title: "Number Of files",
+                  count: null,
+                  wf: null,
+                  low: 7,
+                  med: 10,
+                  high: 15
+            },
+            {
+                  title: "Number of external interfaces",
+                  count: null,
+                  wf:null,
+                  low: 5,
+                  med: 7,
+                  high: 10
+            }];
        	$scope.adjustmentFactor = [
        	{ 	
        		id: "fp1",
@@ -112,6 +152,9 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
        	$scope.ValueAdjustmentFactor={
        		value: null
        	};
+            $scope.functionPointCount = {
+                  value:null
+            };
        	$scope.submitCocomo = function() {
        		var sf= (0.91 + 0.01 * (Number($scope.PREC.value) + Number($scope.FLEX.value) + Number($scope.RESL.value) + Number($scope.TEAM.value) + Number($scope.PMAT.value)));
        		var pm= 2.94 * Math.pow((Number($scope.systemSize.value)/1000),sf);
@@ -120,13 +163,13 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
        		pm = pm.toPrecision(4);
        		window.alert(pm + " person months");
        	}
-       	$scope.setValue = function(index, temp) {
-       		console.log(index);
-       		console.log(temp);
-       	}
        	$scope.submitFunctionPoints = function() {
-       		$scope.ValueAdjustmentFactor.value = (Number($scope.adjustmentFactor.one) + Number($scope.adjustmentFactor.two) + Number($scope.adjustmentFactor.three) + Number($scope.adjustmentFactor.four) + Number($scope.adjustmentFactor.five) + Number($scope.adjustmentFactor.six) + Number($scope.adjustmentFactor.eight) + Number($scope.adjustmentFactor.nine) + Number($scope.adjustmentFactor.ten) + Number($scope.adjustmentFactor.eleven) + Number($scope.adjustmentFactor.twelve) + Number($scope.adjustmentFactor.thirteen) + Number($scope.adjustmentFactor.fourteen));
-       		console.log($scope.adjustmentFactor);
+       		$scope.ValueAdjustmentFactor.value = (Number($scope.adjustmentFactor[0].value) + Number($scope.adjustmentFactor[1].value) + Number($scope.adjustmentFactor[2].value) + Number($scope.adjustmentFactor[3].value) + Number($scope.adjustmentFactor[4].value) + Number($scope.adjustmentFactor[5].value) + Number($scope.adjustmentFactor[6].value) + Number($scope.adjustmentFactor[7].value) + Number($scope.adjustmentFactor[8].value) + Number($scope.adjustmentFactor[9].value) + Number($scope.adjustmentFactor[10].value) + Number($scope.adjustmentFactor[11].value) + Number($scope.adjustmentFactor[12].value) + Number($scope.adjustmentFactor[13].value));
+       		for (var i = 0; i < 5; i++){
+                        $scope.functionPointCount.value += (Number($scope.functionPoints[i].count) * Number($scope.functionPoints[i].wf));
+                  }
+                  var adjustedFP = Number($scope.functionPointCount.value) * (0.65 + 0.01 * Number($scope.ValueAdjustmentFactor.value));
+                  window.alert(adjustedFP)
        	}
     }
 ]);
