@@ -4,16 +4,7 @@
 
 myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
     function($scope, ProjectFactory, UserFactory) {
-        $scope.projectData = {
-            projectName: null,
-            description: null,
-            budget: null,
-            duration : null,
-            startDate: null,
-            estimatedEndDate: null,
-            progress: 0,
-            projectManager: null
-        };
+        $scope.projectData = [];
 
         $scope.taskData = {
             taskId: 0,
@@ -38,9 +29,22 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
                 })
             });
         })
-        /*ProjectFactory.getProjects().then(function(projects) {
-            $scope.projects = projects;
-        })*/
+
+        ProjectFactory.getProjects().then(function(projects) {
+            projects.data.forEach(function(projects){
+                $scope.projectData.push({
+                    projectName:  projects.project_name,
+                    description: projects.description,
+                    budget: projects.budget,
+                    duration : projects.duration,
+                    startDate: projects.start_date,
+                    estimatedEndDate: projects.estimated_end_date,
+                    progress: 0,
+                    projectManager: projects.project_manager
+                });
+            });
+        });
+
         $scope.selectedProjectManager = 'Please select one:';
         $scope.setProjectManager = function(index) {
             $scope.selectedProjectManager = $scope.projectManagers[index].name;
@@ -74,5 +78,34 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
             var millisecondsDifference = (new Date(endDate) - new Date(startDate));
             return (millisecondsDifference / millisecondsInDay).toString() + " days";
         }
+
+        /*********************** Dashboard Functions ************************/
+
+        $scope.getProjectData = function($index){
+            return $scope.projectData[$index];
+        };
+
+        $scope.startDate = function($index){
+            var sdate = new Date($scope.projectData[$index].startDate);
+            return sdate.toDateString();
+        }
+
+        $scope.endDate = function($index){
+            var edate = new Date($scope.projectData[$index].estimatedEndDate);
+            return edate.toDateString();
+        }
+
+        $scope.currentTime = function($index){
+            console.log($scope.progressLevel);
+            var max = (new Date($scope.projectData[$index].estimatedEndDate) -
+            new Date($scope.projectData[$index].startDate));
+
+            var curr =(new Date() - new Date($scope.projectData[$index].startDate));
+            var total = ((100/max) * curr);
+
+            return total;
+        };
+
     }
+
 ]);

@@ -1,5 +1,29 @@
+body {
+    background-color: #f5f5f5;
+}
+
+.login-container{
+    background-color: rgba(245,245,245,0.5);
+    padding-bottom: 20px;
+    border-radius: 20px;
+}
+.page-bg {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right:0;
+    position: absolute;
+    padding-top: 100px;
+    width: 100%;
+}
+
+.page-login{
+    background: url("../images/SydneyBW.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
 .bg-orange {
-    background-color: rgba(255, 120, 0, 0.5);
+    background-color: rgba(246, 128, 13, 0.9);
     padding: 15px;
     border-radius: 20px;
 }
@@ -13,6 +37,8 @@
     background-color: #525252;
     border-color: #424242;
     margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     width: 100px;
 }
 .btn-grey:hover,
@@ -101,4 +127,46 @@ fieldset[disabled] .btn-grey.active {
 }
 #taskDescription {
     resize: none;
+}
+
+#loginButtons{
+    float: right;
+    margin-right: 10px;
+}
+
+#createUserBtn{
+    margin-top: 20px;
+}
+
+.row-center div{
+    text-align: center;
+}
+
+.panel-heading i {
+    float: right;
+}
+
+.custom-tabs{
+    font-size: large;
+}
+
+.custom-tabs a{
+    color: #cc590d;
+}
+
+.custom-pill {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.custom-pill a{
+    color: #888888;
+}
+
+.custom-pill span{
+    font-size: 3em;
+    margin-top: 10px;
+}
+.custom-pill-container{
+    padding: 0;
 }
