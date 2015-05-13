@@ -1,170 +1,94 @@
-<div class="row-fluid">
-	<div id="userDashBoard" class="col-md-12">
-		<div class="row-fluid">
-			<div class = "col-md-4">
-				<div id="pmDashboardTasksPanel"class = "panel panel-default">
-					<div id = "dashboardPanelHeading" class="panel-heading text-center">
-						<h4>Unassigned Tasks</h4>
-					</div>
-					<div class ="panel-body">
-						<div class="col-md-4">
-							<a href="#/project/addTask">
-								<div id = "dashboardPanel" class="panel panel-default">
-									<div class="panel-heading text-center">
-										<h6>Add Task</h6>
+<div class="page-bg page-std">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+			<tabset class="custom-tabs" justified="true">
+				<tab ng-repeat="project in projectData"
+					 heading="{{project.projectName}}"
+					 active="tab.active" disable="tab.disabled">
+					<div class="project-container">
+						<h2>{{getProjectData($index).projectName}}</h2>
+						<div class="row" style="margin-top: 20px;">
+							<div class="col-md-8">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="panel panel-danger">
+											<div class="panel-heading"><h4>Gantt Chart<i class="glyphicon glyphicon-picture"></i></h4></div>
+											<div class="panel-body" style="height: 500px"></div>
+										</div>
 									</div>
 								</div>
-							</a>
-						</div>
-						<div class="col-md-4">
-							<a href="#/project/modifyTask">
-								<div id = "dashboardPanel" class="panel panel-default">
-									<div class="panel-heading text-center">
-										<h6>Modify Task</h6>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="panel panel-danger">
+											<div class="panel-heading"><h4>Project Statistics<i class="glyphicon glyphicon-stats"></i></h4></div>
+											<div class="panel-body">
+												<div class="row">
+													<div class="col-md-3">
+														<div class=" bg-info col-md-12" style="text-align: center"><span style="font-size: 4em;">6</span><h5>Unassigned tasks</h5></div>
+													</div>
+													<div class="col-md-3">
+														<div class=" bg-info col-md-12" style="text-align: center"><span style="font-size: 4em;">3</span><h5>Tasks in progress</h5></div>
+													</div>
+													<div class="col-md-3">
+														<div class=" bg-info col-md-12" style="text-align: center"><span style="font-size: 4em;">2</span><h5>Tasks pending completion</h5></div>
+													</div>
+													<div class="col-md-3">
+														<div class=" bg-info col-md-12" style="text-align: center"><span style="font-size: 4em;">8</span><h5>Completed tasks</h5></div>
+													</div>
+												</div>
+												<br/>
+												<div class="row">
+													<div class="col-md-3">
+														<div class=" bg-info col-md-12" style="text-align: center"><span style="font-size: 4em;">1</span><h5>Tasks overdue</h5></div>
+													</div>
+													<div class="col-md-3">
+														<div class=" bg-info col-md-12" style="text-align: center"><span style="font-size: 4em;">4</span><h5>Tasks completed on time</h5></div>
+													</div>
+													<div class="col-md-3">
+														<div class=" bg-info col-md-12" style="text-align: center"><span style="font-size: 4em;">7</span><h5>Some other statistic</h5></div>
+													</div>
+													<div class="col-md-3">
+														<div class=" bg-info col-md-12" style="text-align: center"><span style="font-size: 4em;">5</span><h5>Litres of coffee consumed</h5></div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
-							</a>
-						</div>
-						<div class="col-md-4">
-							<a href="#/project/approveTask">
-								<div id = "dashboardPanel" class="panel panel-default">
-									<div class="panel-heading text-center">
-										<h6>Approve Task</h6>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-12">
+									<div class="panel panel-warning">
+										<div class="panel-heading"><h5>Project Progression<i class="glyphicon glyphicon-time"></i></h5></div>
+										<div class="panel-body">
+											<div class="col-md-12 text-center"><h3>{{startDate($index)}}</h3><span>Project start date</span></div>
+											<div class="col-md-12 text-center"><h3>{{endDate($index)}}</h3><span>Estimated completed date</span></div>
+											<div class="col-md-12" style="margin-top: 10px"><progressbar
+													value="currentTime($index)" max="100" type=""></progressbar></div>
+										</div>
 									</div>
 								</div>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class = "col-md-4">
-				<div id="pmDashboardTasksPanel"class = "panel panel-default" style="height:181px;">
-					<div id = "dashboardPanelHeading" class="panel-heading text-center">
-						<h4>Project Information</h4>
-					</div>
-					<div class ="panel-body">
-						<div>Project Title: "pull from server"</div>
-						<div>Due Date: "pull from server"</div>
-						<div>Time Remaning: "pull from server"</div>
-						<div>Projected End Date: "pull from server"</div>
-					</div>
-				</div>
-			</div>
-			<div class = "col-md-4">
-				<div id="pmDashboardTasksPanel"class = "panel panel-default">
-					<div id = "dashboardPanelHeading" class="panel-heading text-center">
-						<h4>Charts</h4>
-					</div>
-					<div class ="panel-body">
-						<div class="col-md-4">
-							<a href="#/project/addTask">
-								<div id = "dashboardPanel" class="panel panel-default">
-									<div class="panel-heading text-center">
-										<h6>Gantt Chart</h6>
+								<div class="col-md-12">
+									<div class="panel panel-warning">
+										<div class="panel-heading"><h5>Cost Management<i class="glyphicon glyphicon-usd"></i></h5></div>
+										<div class="panel-body">
+											<div class="col-md-12 text-center"><h2>${{getProjectData($index).budget}}</h2><span>Budget</span></div>
+										</div>
 									</div>
 								</div>
-							</a>
-						</div>
-						<div class="col-md-4">
-							<a href="#/project/modifyTask">
-								<div id = "dashboardPanel" class="panel panel-default">
-									<div class="panel-heading text-center">
-										<h6>APN</h6>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="col-md-4">
-							<a href="#/project/approveTask">
-								<div id = "dashboardPanel" class="panel panel-default">
-									<div class="panel-heading text-center">
-										<h6>PERT</h6>
-									</div>
-								</div>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div id="pmDashboard" class ="col-md-3">
-				<div id="pmDashboardTasksPanel"class = "panel panel-default">
-					<div id = "dashboardPanelHeading" class="panel-heading text-center">
-						<h4>Unassigned Tasks</h4>
-					</div>
-					<div class ="panel-body">
-						<div ng-repeat="Task in Tasks">
-							<div class ="ng-class: taskPriority($index);">
-								<div class="panel-heading text-center">
-									{{Task.title}}
-								</div>
-								<div class = "panel-body">
-									{{Task.description}}
-								</div>
+							</div>
+							<div class="col-md-1 custom-pill-container" ng-controller="HomeCtrl">
+								<ul class="nav nav-pills nav-stacked" ng-repeat="item in pMenuTab">
+									<li class="custom-pill" role="presentation"><a href=""><span class="{{item.iconclass}}"></span><h6>{{item.title}}</h6></a></li>
+								</ul>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div id="pmDashboard" class ="col-md-3">
-				<div id="pmDashboardTasksPanel"class = "panel panel-default">
-					<div id = "dashboardPanelHeading" class="panel-heading text-center">
-						<h4>In Progress</h4>
-					</div>
-					<div class ="panel-body">
-						<div ng-repeat="Task in Tasks">
-							<div class ="ng-class: taskPriority($index);">
-								<div class="panel-heading text-center">
-									{{Task.title}}
-								</div>
-								<div class = "panel-body">
-									{{Task.description}}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="pmDashboard" class ="col-md-3">
-				<div id="pmDashboardTasksPanel"class = "panel panel-default">
-					<div id = "dashboardPanelHeading" class="panel-heading text-center">
-						<h4>Awaiting Approval</h4>
-					</div>
-					<div class ="panel-body">
-						<div ng-repeat="Task in Tasks">
-							<div class ="ng-class: taskPriority($index);">
-								<div class="panel-heading text-center">
-									{{Task.title}}
-								</div>
-								<div class = "panel-body">
-									{{Task.description}}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="pmDashboard" class ="col-md-3">
-				<div id="pmDashboardTasksPanel"class = "panel panel-default">
-					<div id = "dashboardPanelHeading" class="panel-heading text-center">
-						<h4>Done</h4>
-					</div>
-					<div class ="panel-body">
-						<div ng-repeat="Task in Tasks">
-							<div class ="ng-class: taskPriority($index);">
-								<div class="panel-heading text-center">
-									{{Task.title}}
-								</div>
-								<div class = "panel-body">
-									{{Task.description}}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+				</tab>
+			</tabset>
+        </div>
+    </div>
+
 </div>
 </div>

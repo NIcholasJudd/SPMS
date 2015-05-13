@@ -19,6 +19,7 @@ myApp.factory('UserFactory', function($http) {
                 previousRoles : user.previousRoles
             })
         }
+
     }
 });
 

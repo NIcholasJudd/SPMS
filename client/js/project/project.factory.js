@@ -19,6 +19,7 @@ myApp.factory('ProjectFactory', function($http) {
         getLinks: function(projectName) {
             return $http.get('http://localhost:3000/api/auth/admin/project/' + projectName + '/links/');
         },
+
         createProject: function(project) {
             return $http.post('http://localhost:3000/api/auth/admin/project/', {
                 projectName: project.projectName,
@@ -30,6 +31,10 @@ myApp.factory('ProjectFactory', function($http) {
                 progress: project.progress,
                 projectManager: project.projectManager
             })
+        },
+
+        getProjects: function(){
+            return $http.get('http://localhost:3000/api/auth/admin/projects');
         }
     }
 });

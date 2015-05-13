@@ -4,7 +4,7 @@
             <code>/api/auth/admin/users</code>
         </h3>
     </div>
-    <p>{{test}}</p>
+    <p>{{1+2}}</p>
 
     <p class="lead">
     <table class="table table-striped">
@@ -12,9 +12,9 @@
             <th>ID</th>
             <th>Name</th>
         </tr>
-        <tr ng-repeat="user in users">
-            <td>{{user.username}}</td>
-            <td>{{user.userrole}}</td>
+        <tr ng-repeat="person in user">
+            <td>{{person.email}}</td>
+            <td>{{person.role}}</td>
         </tr>
     </table>
     </p>
