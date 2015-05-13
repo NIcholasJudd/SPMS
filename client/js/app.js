@@ -38,15 +38,15 @@ myApp.config(function($routeProvider, $httpProvider) {
           requiredLogin: true,
             adminOnly : false
         }
-      }).when('/project/functionPoints', {
+      }).when('/effort/functionPoints', {
         templateUrl: 'partials/effort/functionPoints.html',
         controller: 'EffortCtrl',
         access: {
               requiredLogin: true,
               adminOnly: false
           }
-      }).when('/project/effortEstimation', {
-        templateUrl: 'partials/project/effort.estimation.html',
+      }).when('/effort/effortEstimation', {
+        templateUrl: 'partials/effort/effort.estimation.html',
         controller: 'EffortCtrl',
         access: {
               requiredLogin: true,
@@ -75,7 +75,7 @@ myApp.config(function($routeProvider, $httpProvider) {
         }
       }).when('/dashboard/tmDashboard', {
         templateUrl: 'partials/dashboard/team.member.dashboard.html',
-        controller: 'HomeCtrl',
+        controller: 'TaskCtrl',
         access: {
           requiredLogin: true,
             adminOnly : false

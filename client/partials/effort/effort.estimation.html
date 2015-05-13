@@ -12,10 +12,15 @@
 							<input type="radio" ng-model="systemSize.value" value="100000">Large
 							<input type="radio" ng-model="systemSize.value" value="1000000">Very-Large
 						</div>
-						<div class="col-md-12">
-							<input type="number" ng-model="staffSize.value"/>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							Number of staff:<input type="number" ng-model="staffSize.value"/>
 						</div>
-						<hr style="width: 100%; color: black; height: 2px; background-color:black;" />
+
+					</div>
+					<div class = "row">
 						<div class ="col-md-12 text-center">
 							<h2>Scale Factor</h2>
 							<h4>Precedentedness (PREC): degree to which there are past examples that can be consulted</h4>
@@ -62,7 +67,8 @@
 							<input type="radio" ng-model="PMAT.value" value="1.56">Very High
 							<input type="radio" ng-model="PMAT.value" value='0.00'>Extra High
 						</div>
-						<hr style="width: 100%; color: black; height: 2px; background-color:black;" />
+					</div>
+					<div class = "row">
 						<div class = "col-md-12 text-center">
 							<h2>Effort multipliers</h2>
 							<h4>RCPX: Product reliability and complexity</h4>
@@ -134,6 +140,8 @@
 							<input type="radio" ng-model="SCED.value" value="1.00">Very High
 							<input type="radio" ng-model="SCED.value" value="0.00">Extra High
 						</div>
+					</div>
+					<br>
 						<div class="row">
 							<div class="col-md-12">
 								<button type="submit" class="btn btn-default" style="width:100%;">Create Task</button>

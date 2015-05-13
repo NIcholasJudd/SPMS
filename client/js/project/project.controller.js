@@ -39,7 +39,7 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
                     duration : projects.duration,
                     startDate: projects.start_date,
                     estimatedEndDate: projects.estimated_end_date,
-                    progress: 0,
+                    progress: projects.progress,
                     projectManager: projects.project_manager
                 });
             });

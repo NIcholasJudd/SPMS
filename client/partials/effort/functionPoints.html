@@ -1,38 +1,39 @@
 <div class="container">
 	<div class="row-fluid">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-md-10 col-md-offset-1">
 			<h1>Effort Estimation</h1>
 			<div class="bg-orange">
 				<form ng-submit="submitFunctionPoints()" ng-controller="EffortCtrl">
 					<div class = "row">
 						<h1>Function Points</h1>
-						<div class = "col-md-12 text-center" ng-model = "adjustmentFactor" ng-repeat="fp in functionPoints">
-							<h4>{{fp.title}}<h4>
-								<input type = "number" ng-model="fp.count">count
-								<input type="radio" ng-model="fp.wf" value="{{fp.low}}">{{fp.low}}
-								<input type="radio" ng-model="fp.wf" value="{{fp.med}}">{{fp.med}}
-								<input type="radio" ng-model="fp.wf" value="{{fp.high}}">{{fp.high}}
+						<div class = "col-md-12 text-center" ng-model = "functionPoints" ng-repeat="fp in functionPoints">
+							<h3>{{fp.title}}</h3>
+								<div class="col-md-4">
+								count:<input type = "number" ng-model="fp.count"/>
+							</div>
+							<div class="col-md-8">
+								<input type="radio" ng-model="fp.wf" value="{{fp.low}}">Low Complexity</input>
+								<input type="radio" ng-model="fp.wf" value="{{fp.med}}">Medium Complexity</input>
+								<input type="radio" ng-model="fp.wf" value="{{fp.high}}">High Complexity</input>
+							</div>
 							</div>
 						</div>
 						<div class = "row">
 							<h1>Determine Value Adjustment Factor</h1>
 							<h4>Rate Each Factor: (0 - No Influence, 1 - Incidental, 2 - Moderate, 3 - Average, 4 - Significant, 5 - Essentail)</h4>
-							<div class ="col-md-12 text-center">
+							<div class ="col-md-12 text-left">
 								<ol>
 									<li ng-model = "adjustmentFactor" ng-repeat="afp in adjustmentFactor">
 										<h4>{{afp.title}}</h4>
-										<input type="radio" ng-model="afp.value" value="0" checked>0
-										<input type="radio" ng-model="afp.value" value="1">1
-										<input type="radio" ng-model="afp.value" value="2">2
-										<input type="radio" ng-model="afp.value" value="3">3
-										<input type="radio" ng-model="afp.value" value="4">4
-										<input type="radio" ng-model="afp.value" value="5">5
+										<input type="radio" ng-model="afp.value" value="0" checked>0</input>
+										<input type="radio" ng-model="afp.value" value="1">1</input>
+										<input type="radio" ng-model="afp.value" value="2">2</input>
+										<input type="radio" ng-model="afp.value" value="3">3</input>
+										<input type="radio" ng-model="afp.value" value="4">4</input>
+										<input type="radio" ng-model="afp.value" value="5">5</input>
 									</li>
 								</ol>
 							</div>
-						</div>
-						<div class ="col-md-12 text-center">
-							<!--<input type="number" ng-model="ValueAdjustmentFactor"/>-->
 						</div>
 						<button type="submit" class="btn btn-default" style="width:100%;">Create Task</button>
 					</form>

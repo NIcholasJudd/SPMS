@@ -170,3 +170,6 @@ fieldset[disabled] .btn-grey.active {
 .custom-pill-container{
     padding: 0;
 }
+input[type="radio"]{
+  margin: 0 20px 0 10px;
+}
