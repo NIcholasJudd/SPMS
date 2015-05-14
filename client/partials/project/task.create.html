@@ -85,12 +85,12 @@
 							placeholder="Project Description"/>
 						</div>
 					</div>
-					<br/>
+					<br>
 					<div class="row" >
 						<div class = "col-md-12">
-							<select name="user"  multiple style="width:100%;" >
-								<option ng-model = "selectedUser" ng-repeat="su in selectedUser " value="-1">{{su.name}}</option>
-							</select>
+							<!--<select name="user"  multiple style="width:100%;">
+								<option ng-model="taskData" ng-repeat="tm in taskData.teamMembers" ng-click="removeValue($index)" value="-1">{{tm.name}}</option>
+							</select>-->
 						</div>
 					</div>
 					<div class = "row">
@@ -145,7 +145,7 @@
 				<div class ="row">
 					<div class="col-md-12">
 						<select name="user" multiple style="width:100%;">
-							<option ng-model = "teamMembers" ng-repeat="tm in teamMembers " ng-click="setUser($index)" value="-1">{{tm.name}}</option>
+							<option ng-model = "selectedUser" ng-repeat="tm in selectedUser track by $index" ng-click="setUser($index)" value="1">{{tm.name}}</option>
 						</select>
 					</div>
 				</div>
