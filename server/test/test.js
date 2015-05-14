@@ -228,6 +228,29 @@ describe('Project', function(){
             });
     });
 
+    it('should retrieve all  projects', function(done) {
+        superagent
+            .get(server + '/api/auth/admin/projects/')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                //console.log(res.body);
+                var counter = 0;
+                console.log(res.body);
+                /*res.body.forEach(function(task) {
+                    //console.log(task);
+                    retrievedTask.push({taskNumber : task.task_number, taskId : task.task_id});
+                    testTasks[counter].taskId = task.task_id;
+                    counter++;
+                })*/
+                //console.log(retrievedTask);
+                done();
+            })
+    })
+
     it('should add a task to the project without error', function(done) {
         superagent
             .post(server + '/api/auth/admin/project/' + testProject.projectName + '/task')

@@ -10,7 +10,7 @@ var jwt = require('jwt-simple'),
 var auth = {
 
     login: function(req, res) {
-        console.log('email: ', req.body.email, ' password: ', req.body.password);
+        //console.log('email: ', req.body.email, ' password: ', req.body.password);
         var username = req.body.email;// || '';
         var password = req.body.password;// || '';
         if (username == '' || password == '') {
@@ -29,7 +29,6 @@ var auth = {
             if(error) return console.error(error);
             if (!dbUserObj) { // If authentication fails, we send a 401 back
                 res.status(401);
-                console.log('LINE 32');
                 res.json({
                     "status": 401,
                     "message": "Invalid credentials"
@@ -54,14 +53,14 @@ var auth = {
             if(err) {
                 return console.error('error fetching client from pool: ', err);
             }
-            console.log('deets passed to query: ', username, password);
+            //console.log('deets passed to query: ', username, password);
             var query = client.query("SELECT * FROM employee WHERE email = $1 AND password = $2", [username, password]);
             query.on('row', function(row) {
                 results.push(row);
             })
             query.on('end', function() {
                 client.end();
-                console.log('results: ', results[0]);
+                //console.log('results: ', results[0]);
                 callback(null, results[0]);
             })
             /*client.query("SELECT * FROM test_user WHERE username = $1 AND password = $2", [username, password], function(err, result) {

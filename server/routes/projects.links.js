@@ -40,8 +40,8 @@ var projectLink = {
                 console.error(err.stack);
                 return res.status(500).send(err);
             }
-            client.query("SELECT * FROM link WHERE project_name = $1",
-                [req.params.projectName], function(err, result) {
+            client.query("SELECT * FROM link WHERE project_name = $1 AND link_id = $2",
+                [req.params.projectName, req.body.linkId], function(err, result) {
                     done();
                     if(err) {
                         console.error(err.stack);
@@ -54,7 +54,7 @@ var projectLink = {
     },
 
     create: function(req, res) {
-        console.log('CREATE: ', req.body);
+        //console.log('CREATE: ', req.body);
         pg.connect(connectionString, function(err, client, done) {
             if(err) {
                 console.error(err.stack);
@@ -72,14 +72,14 @@ var projectLink = {
                     }
                     done();
                     client.end();
-                    console.log("RESULTS: ", results);
+                    //console.log("RESULTS: ", results);
                     return res.json(results);
                 });
             });
     },
 
     delete: function(req, res) {
-        console.log('DELETE: ', req.params);
+        //console.log('DELETE: ', req.params);
         pg.connect(connectionString, function(err, client, done) {
             if(err) {
                 console.error(err.stack);
@@ -96,7 +96,7 @@ var projectLink = {
                     }
                     done();
                     client.end();
-                    console.log("RESULT: ", result);
+                    //console.log("RESULT: ", result);
                     return res.json(result);
                 });
         });
