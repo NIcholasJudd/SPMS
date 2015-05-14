@@ -28,13 +28,13 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-4" ng-model="countAwaitingApproval">
 								<div id = "dashboardPanel" class="panel panel-default">
 									<div class="panel-heading text-center">
-										<h6>Awaiting Approval</h6>
+										<h6>{{countAwaitingApproval.title}}</h6>
 									</div>
 									<div class = "panel-body text-center">
-										<h1>0</h1>
+										<h1>{{countAwaitingApproval.value}}</h1>
 									</div>
 								</div>
 							</div>
@@ -102,9 +102,3 @@
 
 	</div>
 
-<!--
-<script>
-	var d = new Date();
-	document.getElementById("time").innerHTML = d.toDateString();;
-</script>
--->

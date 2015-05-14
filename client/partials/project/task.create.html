@@ -3,7 +3,7 @@
 		<div class="col-md-8">
 			<h2>Create Task</h2>
 			<div class="bg-orange">
-				<form ng-submit="submitTask()" ng-controller="ProjectCtrl">
+				<form ng-submit="submitTask()" ng-controller="TaskCtrl">
 					<div class="row">
 						<div class="col-md-12">
 							<label for="projName">Project Name: </label>
@@ -88,15 +88,15 @@
 					<br>
 					<div class="row" >
 						<div class = "col-md-12">
-							<select name="user"  multiple style="width:100%;">
+							<!--<select name="user"  multiple style="width:100%;">
 								<option ng-model="taskData" ng-repeat="tm in taskData.teamMembers" ng-click="removeValue($index)" value="-1">{{tm.name}}</option>
-							</select>
+							</select>-->
 						</div>
 					</div>
 					<div class = "row">
-						<div class = "col-md-12">
+						<!--<div class = "col-md-12">
 							<button type = "removeUser" ng-model = "taskData" class="btn btn-default" ng-click="removeFromTask(index)" style="width:100%;">Remove User From Task</button>
-						</div>
+						</div>-->
 					</div>
 					<div class="row">
 						<div class="col-md-12">

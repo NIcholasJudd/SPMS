@@ -5,38 +5,7 @@
 
  myApp.controller("TaskCtrl", ['$scope','ProjectFactory', 'UserFactory',
     function($scope, ProjectFactory, UserFactory) {
-        $scope.Tasks = [
-        {title: 'Title',
-        description: 'Description',
-        priority: 'High'},
-        {title: 'Title',
-        description: 'Description',
-        priority: 'medium'},
-        {title: 'Title',
-        description: 'Description',
-        priority:'low'},
-        {title: 'Title',
-        description: 'Description',
-        priority:'low'},
-        {title: 'Title',
-        description: 'Description',
-        priority:'low'},
-        {title: 'Title',
-        description: 'Description',
-        priority:'low'},
-        {title: 'Title',
-        description: 'Description',
-        priority:'low'},
-        {title: 'Title',
-        description: 'Description',
-        priority:'low'},
-        {title: 'Title',
-        description: 'Description',
-        priority:'low'},
-        {title: 'Title',
-        description: 'Description',
-        priority:'low'}
-        ];
+        
         $scope.countOnTheGo= {
             title: "On The Go",
             value: 0
@@ -59,18 +28,20 @@
                     taskNumber: tasks.task_number,
                     projectName: tasks.project_name,
                     taskName: tasks.task_name,
-                    taskDescription: tasks.descripton,
+                    taskDescription: tasks.description,
                     startDate: tasks.start_date,
                     likleyDuration: tasks.likley_duration,
                     optomisticDuration: tasks.optomistic_duration,
                     pessimisticDuration: tasks.pessimistic_duration,
                     progress: tasks.progress_percentage,
                     status: tasks.status,
+                    teamMembers: [],
                     priority: tasks.priority,
                     parentId: tasks.parent_id
                 })
             });
             countTasks();
+            console.log($scope.taskData[0].taskDescription);
         })
         $scope.teamMembers = [];
         UserFactory.getUsers().then(function(results) {
@@ -109,14 +80,14 @@
         $scope.selectedUser = [];
         $scope.setUser = function(index) {
             console.log(searchEmail(index));
-            if (searchEmail(index) == -1){
+            /*if (searchEmail(index) == -1){
                 $scope.taskData.teamMembers.push({
                     name: $scope.selectedUser[index].name,
                     email: $scope.selectedUser[index].email
                 })
                 $scope.selectedUser.splice(index,1);
             }
-            console.log($scope.taskData.teamMembers);
+            console.log($scope.taskData.teamMembers);*/
         }
 
         function searchEmail(index) {
