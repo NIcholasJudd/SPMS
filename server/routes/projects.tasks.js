@@ -57,7 +57,7 @@ var projectTask = {
     },
 
     create: function(req, res) {
-        console.log('CREATE: ', req.body);
+        //console.log('CREATE: ', req.body);
         pg.connect(connectionString, function(err, client, done) {
             if(err) {
                 console.error(err.stack);
@@ -88,7 +88,7 @@ var projectTask = {
                         }
                         done();
                         client.end();
-                        console.log("RESULTS: ", results);
+                        //console.log("RESULTS: ", results);
                         return res.json(results);
                     });
             });
@@ -96,7 +96,7 @@ var projectTask = {
     },
 
     delete: function(req, res) {
-        console.log('DELETE: ', req.body);
+        //console.log('DELETE: ', req.body);
         pg.connect(connectionString, function(err, client, done) {
             if(err) {
                 console.error(err.stack);

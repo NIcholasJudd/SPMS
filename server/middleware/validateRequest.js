@@ -18,9 +18,6 @@ module.exports = function(req, res, next) {
     var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
     var key = (req.body && req.body.x_key) || (req.query && req.query.x_key) || req.headers['x-key'];
 
-    console.log('token: ', token);
-    console.log('key: ', key);
-
     if (token || key) {
         try {
             //decode token
@@ -41,11 +38,8 @@ module.exports = function(req, res, next) {
             function checkAuthorisation(error, dbUser) {
                 if(error) return console.error(error);
                 if (dbUser) {
-                    //console.log(dbUser.userrole);
-                    console.log('DBUSER', dbUser);
                     //check role against access level
                     if ((req.url.indexOf('admin') >= 0 && dbUser.user_type == 'administrator') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/auth/') >= 0)) {
-                        console.log('AUTHORISED');
                         next(); // To move to next middleware
                     } else {
                         res.status(403);

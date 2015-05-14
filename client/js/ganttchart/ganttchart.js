@@ -5,16 +5,22 @@
 myApp.controller("GanttChartCtrl", ['$scope', 'ProjectFactory',
     function($scope, ProjectFactory) {
         $scope.name = "Test that controller is working";
-        $scope.projectName = "My Project 1";
+
+        /*$scope.$watch(function() {
+            return ProjectFactory.getCurrentProject();
+        },
+            function() {
+                console.log('WATCH WORKING')
+            }, true);*/
+
+        $scope.projectName = ProjectFactory.getCurrentProject().projectName;
         var tasks = {
             data : [],
             links : []
         }
-        //var data = [];
-        //var links = [];
+        console.log('!!:', $scope.projectName);
         ProjectFactory.getTasks($scope.projectName).then(function(res) {
-           // console.log("Error: ", err);
-            //console.log(res.data);
+            console.log('!!');
             res.data.forEach(function(task) {
                 tasks.data.push({
                     id : task.task_id,
@@ -35,31 +41,12 @@ myApp.controller("GanttChartCtrl", ['$scope', 'ProjectFactory',
                         type : mapToType(link.type)
                     })
                 });
-                console.log(tasks);
+                console.log('tasks', tasks);
                 gantt.init("gantt");
                 gantt.parse(tasks);
 
             })
         });
-
-        /*var tasks =  {
-            data:[
-                {id:1, text:"Project #2", start_date:"01-04-2013", duration:18,order:10,
-                    progress:0.4, open: true},
-                {id:2, text:"Task #1",    start_date:"02-04-2013", duration:8, order:10,
-                    progress:0.6, parent:1},
-                {id:3, text:"Task #2",    start_date:"11-04-2013", duration:8, order:20,
-                    progress:0.6, parent:1}
-            ],
-            links:[
-                { id:1, source:1, target:2, type:"1"},
-                { id:2, source:2, target:3, type:"0"},
-                { id:3, source:3, target:2, type:"2"},
-                { id:4, source:2, target:5, type:"2"},
-            ]
-        };*/
-
-        //gantt.config.readonly = true;
         function mapToType(type) {
             switch(type) {
                 case 'finish to start' : return 0;

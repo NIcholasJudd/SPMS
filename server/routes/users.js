@@ -44,7 +44,7 @@ var users = {
   },
 
   create: function(req, res) {
-      console.log('CREATE: ', req.body.email);
+      //console.log('CREATE: ', req.body.email);
     pg.connect(connectionString, function(err, client, done) {
         if(err) {
             console.error(err.stack);
@@ -71,7 +71,7 @@ var users = {
     /* update, every field except for primary key must be updated */
 
     update: function(req, res) {
-        console.log('UPDATE: ', req.body);
+        //console.log('UPDATE: ', req.body);
         pg.connect(connectionString, function(err, client, done) {
             if(err) {
                 console.error(err.stack);
@@ -106,7 +106,7 @@ var users = {
     },
 
     delete: function(req, res) {
-        console.log('DELETE: ', req.body);
+        //console.log('DELETE: ', req.body);
         pg.connect(connectionString, function(err, client, done) {
             if(err) {
                 console.error(err.stack);
