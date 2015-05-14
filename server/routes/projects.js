@@ -23,12 +23,11 @@ var projects = {
             }
             client.query("SELECT * FROM project", function(err, result) {
                 done();
+                client.end();
                 if(err) {
                     console.error(err.stack);
                     return res.status(500).send(err);
                 }
-
-                client.end();
                 return res.json(result.rows);
             });
         })
@@ -42,11 +41,12 @@ var projects = {
             }
             client.query("SELECT * FROM project WHERE project_name = $1", [req.body.projectName], function(err, result) {
                 done();
+                client.end();
                 if(err) {
                     console.error(err.stack);
                     return res.status(500).send(err);
                 }
-                client.end();
+
                 return res.json(result.rows);
             });
         })
@@ -105,13 +105,13 @@ var projects = {
                 "start_date=($5), estimated_end_date=($6), progress=($7), project_manager=($8) WHERE project_name = $1",
                 [req.body.projectName, req.body.description, req.body.budget, req.body.duration,
                     req.body.startDate, req.body.estimatedEndDate, req.body.progress, req.body.projectManager], function(err, result) {
+                    done();
+                    client.end();
                     if(err) {
                         console.error(err.stack);
                         return res.status(500).send(err);
                     }
-                    done();
 
-                    client.end();
                     return res.json(result.rows);
                 });
         });
@@ -136,12 +136,12 @@ var projects = {
                 }
                 client.query("DELETE FROM project WHERE project_name = $1",
                 [req.body.projectName], function(err, result) {
+                        done();
+                        client.end();
                         if(err) {
                             console.error(err.stack);
                             return rollback(client, done);//return res.status(500).send(err);
                         }
-                        done();
-                        client.end();
                         return res.json(result);
 
                     })
