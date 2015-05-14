@@ -74,8 +74,8 @@ myApp.controller("HomeCtrl", ['$scope',
 
        $scope.pMenuTab = [
            {
-               title: 'User Management',
-               iconclass: 'glyphicon glyphicon-user'
+               title: 'Project Management',
+               iconclass: 'glyphicon glyphicon-folder-open'
            },
            {
                title: 'Task Management',
@@ -83,8 +83,8 @@ myApp.controller("HomeCtrl", ['$scope',
 
            },
            {
-               title: 'Calendar',
-               iconclass: 'glyphicon glyphicon-calendar'
+               title: 'User Management',
+               iconclass: 'glyphicon glyphicon-user'
            }
        ];
   }

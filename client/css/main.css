@@ -167,9 +167,14 @@ fieldset[disabled] .btn-grey.active {
     font-size: 3em;
     margin-top: 10px;
 }
+
 .custom-pill-container{
     padding: 0;
 }
 input[type="radio"]{
   margin: 0 20px 0 10px;
+}
+
+.row .mg-md {
+    margin-top: 15px;
 }
