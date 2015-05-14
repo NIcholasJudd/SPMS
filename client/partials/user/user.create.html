@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h2>Create User</h2>
@@ -72,11 +72,22 @@
         </div>
     </div>
 </div>
-</div>
+</div> -->
 
-<!-- this div is howing that angular ui bootstrap is working, it needs to be removed -->
-<div class="row">
-    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-    <button class='btn btn-default' ng-click="addAlert()">Add Alert</button>
-</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <tabset class="custom-tabs" justified="true">
+                <tab heading="Add User">
+                    <h2>Add User</h2>
+                </tab>
+                <tab heading="Modify User">
+                    <h2>Modify User</h2>
+                </tab>
+                <tab heading="Delete User">
+                    <h2>Delete User</h2>
+                </tab>
+            </tabset>
+        </div>
+    </div>
 </div>

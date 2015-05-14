@@ -13,6 +13,23 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="panel panel-danger">
+											<div class="panel-heading"><h4>Project Charts<i class="glyphicon glyphicon-picture"></i></h4></div>
+											<div class="panel-body">
+												<div class="row row-center">
+													<div class="col-md-12">
+														<ul class="nav nav-pills">
+															<li class="custom-pill" role="presentation"><a ng-href="#/../project/ganttChart"><span class="glyphicon glyphicon-random"></span><h6>Gantt Chart</h6></a></li>
+															<li class="custom-pill" role="presentation"><a ng-href="#/../project/ganttChart"><span class="glyphicon glyphicon-"></span><h6>Effort Estimation</h6></a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="panel panel-danger">
 											<div class="panel-heading"><h4>Project Statistics<i class="glyphicon glyphicon-stats"></i></h4></div>
 											<div class="panel-body">
 												<div class="row">
@@ -48,6 +65,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-md-12">
 										<div class="panel panel-danger">
@@ -90,7 +108,7 @@
 							</div>
 							<div class="col-md-1 custom-pill-container" ng-controller="HomeCtrl">
 								<ul class="nav nav-pills nav-stacked" ng-repeat="item in pMenuTab">
-									<li class="custom-pill" role="presentation"><a href=""><span class="{{item.iconclass}}"></span><h6>{{item.title}}</h6></a></li>
+									<li class="custom-pill" role="presentation"><a href="{{item.url}}"><span class="{{item.iconclass}}"></span><h6>{{item.title}}</h6></a></li>
 								</ul>
 							</div>
 						</div>

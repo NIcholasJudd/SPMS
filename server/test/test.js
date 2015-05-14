@@ -333,6 +333,20 @@ describe('Project', function(){
             })
     });
 
+    it('should retrieve all tasks associated with a user', function(done) {
+        superagent
+            .get(server + '/api/auth/admin/user/' + adminUser.email + '/tasks/')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                console.log(res.body);
+                done();
+            })
+    });
+
     it('should add a link to the project without error', function(done) {
         superagent
             .post(server + '/api/auth/admin/project/' + testProject.projectName + '/link')

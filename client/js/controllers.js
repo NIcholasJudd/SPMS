@@ -75,16 +75,19 @@ myApp.controller("HomeCtrl", ['$scope',
        $scope.pMenuTab = [
            {
                title: 'Project Management',
-               iconclass: 'glyphicon glyphicon-folder-open'
+               iconclass: 'glyphicon glyphicon-folder-open',
+               url: '#/project/create'
            },
            {
                title: 'Task Management',
-               iconclass: 'glyphicon glyphicon-paperclip'
+               iconclass: 'glyphicon glyphicon-paperclip',
+               url: '#/project/taskCreate'
 
            },
            {
                title: 'User Management',
-               iconclass: 'glyphicon glyphicon-user'
+               iconclass: 'glyphicon glyphicon-user',
+               url: '#/user/create'
            }
        ];
   }

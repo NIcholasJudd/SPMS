@@ -7,6 +7,9 @@ myApp.factory('UserFactory', function($http) {
         getUsers : function() {
             return $http.get('http://localhost:3000/api/auth/admin/users')
         },
+        getUserTasks : function(email) {
+            return $http.get('http://localhost:3000/api/auth/admin/user/' + email + '/tasks/');
+        },
         createUser: function(user) {
             return $http.post('http://localhost:3000/api/auth/admin/user/', {
                 email: user.email,
