@@ -4,7 +4,8 @@ var express = require('express'),
     user = require('./users.js'),
     project = require('./projects.js'),
     projectTask = require('./projects.tasks.js'),
-    projectLink = require('./projects.links.js');
+    projectLink = require('./projects.links.js'),
+    userTask = require('./user.tasks.js');
 
 var router = express.Router();
 
@@ -56,6 +57,8 @@ router.get('/api/auth/admin/project/:projectName/link/:taskId', projectLink.getO
 router.post('/api/auth/admin/project/:projectName/link', projectLink.create);
 //router.put('/api/auth/admin/project/:projectName/task/:taskId', projectTask.update);
 router.delete('/api/auth/admin/project/:projectName/link/:taskId', projectLink.delete);
+
+router.get('/api/auth/admin/user/:email/tasks', userTask.getAll);
 
 module.exports = router;
 

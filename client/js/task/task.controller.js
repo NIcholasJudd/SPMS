@@ -3,9 +3,9 @@
  */
 
 
- myApp.controller("TaskCtrl", ['$scope','ProjectFactory', 'UserFactory',
-    function($scope, ProjectFactory, UserFactory) {
-        
+ myApp.controller("TaskCtrl", ['$scope','ProjectFactory', 'UserFactory', '$window',
+    function($scope, ProjectFactory, UserFactory, $window) {
+
         $scope.countOnTheGo= {
             title: "On The Go",
             value: 0
@@ -20,7 +20,7 @@
         };
         $scope.taskData = [];
         $scope.projectName = "My Project 1";
-        ProjectFactory.getTasks($scope.projectName).then(function(results) {
+        /*ProjectFactory.getTasks($scope.projectName).then(function(results) {
             console.log("Tasks", results.data);
             results.data.forEach(function(tasks){
                 $scope.taskData.push({
@@ -42,6 +42,27 @@
             });
             countTasks();
             console.log($scope.taskData[0].taskDescription);
+        })*/
+        UserFactory.getUserTasks($window.sessionStorage.user).then(function(results) {
+            console.log('tasks: ', results);
+            results.data.forEach(function(tasks) {
+                $scope.taskData.push({
+                    taskId: tasks.task_id,
+                    taskNumber: tasks.task_number,
+                    projectName: tasks.project_name,
+                    taskName: tasks.task_name,
+                    taskDescription: tasks.description,
+                    startDate: tasks.start_date,
+                    likelyDuration: tasks.likely_duration,
+                    optimisticDuration: tasks.optimistic_duration,
+                    pessimisticDuration: tasks.pessimistic_duration,
+                    progress: tasks.progress_percentage,
+                    status: tasks.status,
+                    teamMembers: [],
+                    priority: tasks.priority,
+                    parentId: tasks.parent_id
+                })
+            })
         })
         $scope.teamMembers = [];
         UserFactory.getUsers().then(function(results) {
