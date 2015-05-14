@@ -14,6 +14,7 @@ client.connect();
 var query = client.query("DROP SEQUENCE IF EXISTS project_sequence");
 var query = client.query("DROP SEQUENCE IF EXISTS project_sequence_2");
 //var query = client.query("DROP SEQUENCE IF EXISTS project1_seq");
+var query = client.query("DROP TABLE IF EXISTS task_role");
 var query = client.query("DROP TABLE IF EXISTS link");
 var query = client.query("DROP TABLE IF EXISTS task");
 var query = client.query("DROP TABLE IF EXISTS project");
@@ -72,13 +73,13 @@ var query = client.query("CREATE TABLE link(" +
     ");"
 );
 
-/*var query = client.query("CREATE TABLE task_role(" +
-    "username varchar(100) REFERENCES employee(username), " +
-    "task_id integer REFERENCES task(task_id) UNIQUE NOT NULL, " +
-    "role_name varchar(100) UNIQUE NOT NULL, " +
-    "PRIMARY KEY(username, role_name)" +
+var query = client.query("CREATE TABLE task_role(" +
+    "email varchar(100) REFERENCES employee(email), " +
+    "task_id integer REFERENCES task(task_id), " +
+    "role_name varchar(100), " +
+    "PRIMARY KEY(email, task_id, role_name)" +
     ");"
-);*/
+);
 
 /* TEST SETUP DATA
  */
@@ -113,14 +114,24 @@ var query = client.query("INSERT INTO task(task_number, project_name, task_name,
 var query = client.query("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
 "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
 "nextval('project_sequence'), 'My Project 1', 'Task 4', 'Task 4 Description', '2016-04-15', '3 days', '2 days', " +
-"'6 days', 0.7, 'on-the-go', 'critical')");
+"'6 days', 0.7, 'unassigned', 'critical')");
 
 var query = client.query("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
 "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
 "nextval('project_sequence'), 'My Project 1', 'Task 5', 'Task 5 Description', '2016-04-05', '10 days', '7 days', " +
-"'15 days', 0.7, 'on-the-go', 'critical')");
+"'15 days', 0.7, 'unassigned', 'critical')");
 
+var query = client.query("INSERT INTO task_role VALUES('admin@admin'," +
+"(SELECT task_id from task where project_name = 'My Project 1' AND task_name = 'Task 1'), " +
+"'developer')");
 
+var query = client.query("INSERT INTO task_role VALUES('admin@admin'," +
+"(SELECT task_id from task where project_name = 'My Project 1' AND task_name = 'Task 2'), " +
+"'tester')");
+
+var query = client.query("INSERT INTO task_role VALUES('admin@admin'," +
+"(SELECT task_id from task where project_name = 'My Project 1' AND task_name = 'Task 3'), " +
+"'developer')");
 
 var query = client.query("INSERT INTO link(project_name, source, target, type) VALUES('My Project 1', " +
     "(SELECT task_id from task where project_name = 'My Project 1' AND task_name = 'Task 1'), " + "" +
@@ -150,12 +161,16 @@ var query = client.query("INSERT INTO task(task_number, project_name, task_name,
 var query = client.query("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
 "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
 "nextval('project_sequence_2'), 'My Project 2', 'Task 2', 'Task 2 Description', '2015-06-10', '3 days', '2 days', " +
-"'4 days', 0.4, 'on-the-go', 'critical')");
+"'4 days', 0.4, 'unassigned', 'critical')");
 
 var query = client.query("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
 "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
 "nextval('project_sequence_2'), 'My Project 2', 'Task 3', 'Task 3 Description', '2015-06-14', '3 days', '2 days', " +
-"'4 days', 0.4, 'on-the-go', 'critical')");
+"'4 days', 0.4, 'unassigned', 'critical')");
+
+var query = client.query("INSERT INTO task_role VALUES('admin@admin'," +
+"(SELECT task_id from task where project_name = 'My Project 2' AND task_name = 'Task 1'), " +
+"'developer')");
 
 var query = client.query("INSERT INTO link(project_name, source, target, type) VALUES('My Project 2', " +
 "(SELECT task_id from task where project_name = 'My Project 2' AND task_name = 'Task 1'), " +
