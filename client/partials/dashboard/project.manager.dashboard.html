@@ -5,16 +5,18 @@
 			<tabset class="custom-tabs" justified="true">
 				<tab ng-repeat="project in projectData"
 					 heading="{{project.projectName}}"
-					 active="tab.active" disable="tab.disabled">
+					 active="tab.active" disable="tab.disabled" ng-click="setProject($index)">
 					<div class="project-container">
-						<h2>{{getProjectData($index).projectName}}</h2>
+						<h2>{{project.projectName}}</h2>
 						<div class="row" style="margin-top: 20px;">
 							<div class="col-md-8">
 								<div class="row">
 									<div class="col-md-12">
 										<div class="panel panel-danger">
 											<div class="panel-heading"><h4>Gantt Chart<i class="glyphicon glyphicon-picture"></i></h4></div>
-											<div class="panel-body" style="height: 500px"></div>
+											<div class="panel-body" style="height: 500px">
+                                                <!--<div id="gantt" ng-controller="GanttChartCtrl"></div>-->
+                                            </div>
 										</div>
 									</div>
 								</div>
@@ -65,7 +67,8 @@
 											<div class="col-md-12 text-center"><h3>{{startDate($index)}}</h3><span>Project start date</span></div>
 											<div class="col-md-12 text-center"><h3>{{endDate($index)}}</h3><span>Estimated completed date</span></div>
 											<div class="col-md-12" style="margin-top: 10px"><progressbar
-													value="currentTime($index)" max="100" type=""></progressbar></div>
+													value="project.progress" max="100" type=""></progressbar></div>
+                                            <!--<p>{{project.progress}}</p>-->
 										</div>
 									</div>
 								</div>
@@ -73,7 +76,7 @@
 									<div class="panel panel-warning">
 										<div class="panel-heading"><h5>Cost Management<i class="glyphicon glyphicon-usd"></i></h5></div>
 										<div class="panel-body">
-											<div class="col-md-12 text-center"><h2>${{getProjectData($index).budget}}</h2><span>Budget</span></div>
+											<div class="col-md-12 text-center"><h2>${{project.budget}}</h2><span>Budget</span></div>
 										</div>
 									</div>
 								</div>

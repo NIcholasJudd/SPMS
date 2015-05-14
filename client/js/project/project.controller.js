@@ -39,10 +39,11 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
                     duration : projects.duration,
                     startDate: projects.start_date,
                     estimatedEndDate: projects.estimated_end_date,
-                    progress: projects.progress,
+                    progress: calculateDateProgress(projects.start_date, projects.estimated_end_date),
                     projectManager: projects.project_manager
                 });
             });
+            ProjectFactory.setCurrentProject($scope.projectData[0]);
         });
 
         $scope.selectedProjectManager = 'Please select one:';
@@ -85,6 +86,9 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
         }
 
         /*********************** Dashboard Functions ************************/
+        $scope.getProjectArray = function() {
+            return $scope.projectData;
+        };
 
         $scope.getProjectData = function($index){
             return $scope.projectData[$index];
@@ -100,16 +104,17 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
             return edate.toDateString();
         }
 
-        $scope.currentTime = function($index){
-            console.log($scope.progressLevel);
-            var max = (new Date($scope.projectData[$index].estimatedEndDate) -
-            new Date($scope.projectData[$index].startDate));
-
-            var curr =(new Date() - new Date($scope.projectData[$index].startDate));
+        function calculateDateProgress(startDate, endDate) {
+            var max = new Date(endDate) - new Date(startDate);
+            var curr = new Date() - new Date(startDate);
             var total = ((100/max) * curr);
-
             return total;
-        };
+        }
+
+        /* sets the current project in project factory, so that gantt chart can access current project */
+        $scope.setProject = function(index) {
+            ProjectFactory.setCurrentProject($scope.projectData[index]);
+        }
 
     }
 

@@ -2,13 +2,7 @@
  * Created by scottmackenzie on 5/05/2015.
  */
 myApp.factory('ProjectFactory', function($http) {
-    /*var currentProject = "";
-    function setCurrentProject(project) {
-        currentProject = project;
-    }
-    function getCurrentProject(project) {
-        return currentProject;
-    }*/
+    var currentProject = {};
     return {
         /*getProjects: function() {
                 return Projects;
@@ -35,6 +29,8 @@ myApp.factory('ProjectFactory', function($http) {
 
         getProjects: function(){
             return $http.get('http://localhost:3000/api/auth/admin/projects');
-        }
+        },
+        getCurrentProject : function() {return currentProject},
+        setCurrentProject : function(project) {currentProject = project;}
     }
 });

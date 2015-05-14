@@ -53,7 +53,7 @@ var projects = {
     },
 
     create: function(req, res) {
-        console.log('CREATE: ', req.body);
+        //console.log('CREATE: ', req.body);
         pg.connect(connectionString, function(err, client, done) {
             if(err) {
                 console.error(err.stack);
@@ -92,7 +92,7 @@ var projects = {
     /* update, every field except for primary key must be updated */
 
     update: function(req, res) {
-        console.log('UPDATE: ', req.body);
+        //console.log('UPDATE: ', req.body);
         pg.connect(connectionString, function(err, client, done) {
             if(err) {
                 console.error(err.stack);
@@ -118,7 +118,7 @@ var projects = {
     },
 
     delete: function(req, res) {
-        console.log('DELETE: ', req.body);
+        //console.log('DELETE: ', req.body);
         pg.connect(connectionString, function(err, client, done) {
             if(err) {
                 console.error(err.stack);
