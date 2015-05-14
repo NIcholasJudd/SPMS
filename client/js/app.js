@@ -11,7 +11,7 @@ myApp.config(function($routeProvider, $httpProvider) {
           requiredLogin: false
         }
       }).when('/', {
-        templateUrl: 'partials/home.html',
+        templateUrl: /*'partials/home.html'*/ 'partials/dashboard/project.manager.dashboard.html',
         controller: 'ProjectCtrl',
         access: {
           requiredLogin: true
