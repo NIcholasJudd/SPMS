@@ -72,6 +72,14 @@ var query = client.query("CREATE TABLE link(" +
     ");"
 );
 
+/*var query = client.query("CREATE TABLE task_role(" +
+    "username varchar(100) REFERENCES employee(username), " +
+    "task_id integer REFERENCES task(task_id) UNIQUE NOT NULL, " +
+    "role_name varchar(100) UNIQUE NOT NULL, " +
+    "PRIMARY KEY(username, role_name)" +
+    ");"
+);*/
+
 /* TEST SETUP DATA
  */
 
