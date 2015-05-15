@@ -58,6 +58,7 @@ var projects = {
             })
     },
 
+
     delete: function(req, res) {
         db.tx(function(t) {
             var sequence_name = req.body.projectName;
