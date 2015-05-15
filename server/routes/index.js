@@ -9,10 +9,6 @@ var express = require('express'),
 
 var router = express.Router();
 
-var pg = require('pg'),
-    path = require('path'),
-    connectionString = require(path.join(__dirname, '../', '../', 'config'));
-
 /*
  * Routes that can be accessed by any one
  */
@@ -62,10 +58,3 @@ router.get('/api/auth/admin/user/:email/tasks', userTask.getAll);
 
 module.exports = router;
 
-
-/* GET home page. */
-/*router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-module.exports = router;*/

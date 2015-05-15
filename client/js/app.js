@@ -12,13 +12,13 @@ myApp.config(function($routeProvider, $httpProvider) {
         }
       }).when('/', {
         templateUrl: /*'partials/home.html'*/ 'partials/dashboard/project.manager.dashboard.html',
-        controller: 'ProjectCtrl',
+        controller: 'ProjectDashboardCtrl',
         access: {
           requiredLogin: true
         }
       }).when('/project/create', {
         templateUrl: 'partials/project/project.create.html',
-        controller: 'ProjectCtrl',
+        controller: 'ProjectCreateCtrl',
         access: {
           requiredLogin: true,
             adminOnly: true
@@ -26,7 +26,7 @@ myApp.config(function($routeProvider, $httpProvider) {
       })
       .when('/project/list', {
           templateUrl: 'partials/project/project.list.html',
-          controller: 'ProjectCtrl',
+          controller: 'ProjectCreateCtrl',
           access: {
               requiredLogin: true,
               adminOnly: true
@@ -68,7 +68,7 @@ myApp.config(function($routeProvider, $httpProvider) {
         }
       }).when('/dashboard/pmDashboard', {
         templateUrl: 'partials/dashboard/project.manager.dashboard.html',
-        controller: 'ProjectCtrl',
+        controller: 'ProjectDashboardCtrl',
         access: {
           requiredLogin: true,
             adminOnly : false
