@@ -2,8 +2,8 @@
  * Created by scottmackenzie on 5/05/2015.
  */
 
-myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactory',
-    function($scope, ProjectFactory, UserFactory) {
+myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactory', '$window',
+    function($scope, ProjectFactory, UserFactory, $window) {
         $scope.projectData = [];
 
         $scope.taskData = {
@@ -19,7 +19,7 @@ myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactor
             parentId: 0
         };
 
-        ProjectFactory.getProjects().then(function(projects) {
+        ProjectFactory.getPMProjects($window.sessionStorage.user).then(function(projects) {
             projects.data.forEach(function(projects){
                 $scope.projectData.push({
                     projectName:  projects.project_name,

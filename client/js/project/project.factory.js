@@ -8,10 +8,10 @@ myApp.factory('ProjectFactory', function($http) {
                 return Projects;
             },*/
         getTasks: function(projectName) {
-            return $http.get('http://localhost:3000/api/auth/admin/project/' + projectName + '/tasks/');
+            return $http.get('http://localhost:3000/api/auth/project/' + projectName + '/tasks/');
         },
         getLinks: function(projectName) {
-            return $http.get('http://localhost:3000/api/auth/admin/project/' + projectName + '/links/');
+            return $http.get('http://localhost:3000/api/auth/project/' + projectName + '/links/');
         },
 
         createProject: function(project) {
@@ -28,7 +28,11 @@ myApp.factory('ProjectFactory', function($http) {
         },
 
         getProjects: function(){
-            return $http.get('http://localhost:3000/api/auth/admin/projects');
+            return $http.get('http://localhost:3000/api/auth/projects');
+        },
+
+        getPMProjects : function(email) {
+            return $http.get('http://localhost:3000/api/auth/user/' + email + '/projects');
         },
         getCurrentProject : function() {return currentProject},
         setCurrentProject : function(project) {currentProject = project;}

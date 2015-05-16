@@ -24,14 +24,7 @@ myApp.config(function($routeProvider, $httpProvider) {
             adminOnly: true
         }
       })
-      .when('/project/list', {
-          templateUrl: 'partials/project/project.list.html',
-          controller: 'ProjectCreateCtrl',
-          access: {
-              requiredLogin: true,
-              adminOnly: true
-          }
-      }).when('/project/taskCreate', {
+      .when('/project/taskCreate', {
         templateUrl: 'partials/project/task.create.html',
         controller: 'TaskCtrl',
         access: {
@@ -87,27 +80,6 @@ myApp.config(function($routeProvider, $httpProvider) {
           requiredLogin: true,
             adminOnly : true
         }
-      }).when('/user/list', {
-          templateUrl: 'partials/user/user.list.html',
-          controller: 'UserCtrl',
-          access: {
-              requiredLogin: true,
-              adminOnly : true
-          }
-      }).when('/effort/input', {
-          templateUrl: 'partials/effort/effort.input.html',
-          controller: 'EffortCtrl',
-          access: {
-              requiredLogin: true,
-              adminOnly : false
-          }
-      }).when('/effort/results', {
-          templateUrl: 'partials/effort/effort.results.html',
-          controller: 'EffortCtrl',
-          access: {
-              requiredLogin: true,
-              adminOnly : false
-          }
       }).when('/error', {
           templateUrl: 'partials/error.html'
       }).otherwise({
