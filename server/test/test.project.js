@@ -170,7 +170,7 @@ describe('Project', function() {
 
     it('should retrieve all projects', function (done) {
         superagent
-            .get(server + '/api/auth/admin/projects/')
+            .get(server + '/api/auth/projects/')
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')
@@ -183,7 +183,7 @@ describe('Project', function() {
 
     it('should add a task to the project without error', function (done) {
         superagent
-            .post(server + '/api/auth/admin/project/' + testProject.projectName + '/task')
+            .post(server + '/api/auth/project/' + testProject.projectName + '/task')
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .send({
@@ -209,7 +209,7 @@ describe('Project', function() {
 
     it('should add a task to the project that depends on first task without error', function (done) {
         superagent
-            .post(server + '/api/auth/admin/project/' + testProject.projectName + '/task')
+            .post(server + '/api/auth/project/' + testProject.projectName + '/task')
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .send({
@@ -235,7 +235,7 @@ describe('Project', function() {
 
     it('should retrieve all tasks associated with a project', function (done) {
         superagent
-            .get(server + '/api/auth/admin/project/' + testProject.projectName + '/tasks')
+            .get(server + '/api/auth/project/' + testProject.projectName + '/tasks')
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')
@@ -257,7 +257,7 @@ describe('Project', function() {
 
     it('should retrieve a task associated with a project by task number ', function (done) {
         superagent
-            .get(server + '/api/auth/admin/project/' + testProject.projectName + '/task/' + retrievedTask[0].taskNumber)
+            .get(server + '/api/auth/project/' + testProject.projectName + '/task/' + retrievedTask[0].taskNumber)
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')
@@ -271,7 +271,7 @@ describe('Project', function() {
 
     it('should retrieve all tasks associated with a user', function (done) {
         superagent
-            .get(server + '/api/auth/admin/user/' + adminUser.email + '/tasks/')
+            .get(server + '/api/auth/user/' + adminUser.email + '/tasks/')
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')
@@ -318,7 +318,7 @@ describe('Project', function() {
 
     it('should delete a link from project by link id without error', function (done) {
         superagent
-            .del(server + '/api/auth/admin/project/' + testProject.projectName + '/link/' + link_id)
+            .del(server + '/api/auth/project/' + testProject.projectName + '/link/' + link_id)
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')
@@ -333,7 +333,7 @@ describe('Project', function() {
 
     it('should delete a task from project by task number without error', function (done) {
         superagent
-            .del(server + '/api/auth/admin/project/' + testProject.projectName + '/task/' + retrievedTask[0].taskNumber)
+            .del(server + '/api/auth/project/' + testProject.projectName + '/task/' + retrievedTask[0].taskNumber)
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')
@@ -348,7 +348,7 @@ describe('Project', function() {
 
     it('should delete the other test task from project - change this to delete tasks when project deleted', function (done) {
         superagent
-            .del(server + '/api/auth/admin/project/' + testProject.projectName + '/task/' + retrievedTask[1].taskNumber)
+            .del(server + '/api/auth/project/' + testProject.projectName + '/task/' + retrievedTask[1].taskNumber)
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')

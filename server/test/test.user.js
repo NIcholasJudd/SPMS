@@ -66,7 +66,7 @@ describe('Employee', function(){
 
     it('should retrieve the employee without error', function(done) {
         superagent
-            .get(server + '/api/auth/admin/user/' + testUser.email)
+            .get(server + '/api/auth/user/' + testUser.email)
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .send({
@@ -82,7 +82,7 @@ describe('Employee', function(){
 
     it('should retrieve all employees without error', function(done) {
         superagent
-            .get(server + '/api/auth/admin/users/')
+            .get(server + '/api/auth/users/')
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .send({
@@ -97,7 +97,7 @@ describe('Employee', function(){
 
     it('should update employee without error', function(done) {
         superagent
-            .put(server + '/api/auth/admin/user/' + testUser.email)
+            .put(server + '/api/auth/user/' + testUser.email)
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .send({

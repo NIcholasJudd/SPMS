@@ -1,60 +1,65 @@
 var express = require('express'),
     auth = require('./auth.js'),
-    products = require('./products.js'),
     user = require('./users.js'),
     project = require('./projects.js'),
     projectTask = require('./projects.tasks.js'),
     projectLink = require('./projects.links.js'),
-    userTask = require('./user.tasks.js');
+    userTask = require('./user.tasks.js'),
+    userProject = require('./user.projects.js');
+
+
+/* Authorisation naming conventions:
+ *
+ * Routes that can be accessed by any one (login only)
+ *    '/*'
+ *
+ * Routes that can be accessed only by authenticated users:
+ *
+ *    '/api/auth/*'
+ *
+ * Routes that can be accessed only by authenticated & authorized(admin only) users:
+ *
+ *    '/api/auth/admin
+ *
+ */
 
 var router = express.Router();
 
-/*
- * Routes that can be accessed by any one
- */
 router.post('/login', auth.login);
 
-/*
- * Routes that can be accessed only by authenticated users
- */
-/* dummy comment */
-/*router.get('/api/auth/products', products.getAll);
-router.get('/api/auth/product/:id', products.getOne);
-router.post('/api/auth/product/', products.create);
-router.put('/api/auth/product/:id', products.update);
-router.delete('/api/auth/product/:id', products.delete);
-*/
-/*
- * Routes that can be accessed only by authenticated & authorized users
- */
-
-//router.route('/api/auth/admin/users')
-//    .get()
-router.get('/api/auth/admin/users', user.getAll);
-router.get('/api/auth/admin/user/:email', user.getOne);
+//routes for user CRUD
+router.get('/api/auth/users', user.getAll);
+router.get('/api/auth/user/:email', user.getOne);
 router.post('/api/auth/admin/user/', user.create);
-router.put('/api/auth/admin/user/:email', user.update);
+router.put('/api/auth/user/:email', user.update);
 router.delete('/api/auth/admin/user/:email', user.delete);
 
-router.get('/api/auth/admin/projects', project.getAll);
-router.get('/api/auth/admin/project/:project.name', project.getOne);
+//routes for project CRUD
+router.get('/api/auth/projects', project.getAll);
+router.get('/api/auth/project/:project.name', project.getOne);
 router.post('/api/auth/admin/project', project.create);
-router.put('/api/auth/admin/project/:project.name', project.update);
+router.put('/api/auth/project/:project.name', project.update);
 router.delete('/api/auth/admin/project/', project.delete);
 
-router.get('/api/auth/admin/project/:projectName/tasks', projectTask.getAll);
-router.get('/api/auth/admin/project/:projectName/task/:taskNumber', projectTask.getOne);
-router.post('/api/auth/admin/project/:projectName/task', projectTask.create);
+// routes for tasks involved with a particular project
+router.get('/api/auth/project/:projectName/tasks', projectTask.getAll);
+router.get('/api/auth/project/:projectName/task/:taskNumber', projectTask.getOne);
+router.post('/api/auth/project/:projectName/task', projectTask.create);
 //router.put('/api/auth/admin/project/:projectName/task/:taskId', projectTask.update);
-router.delete('/api/auth/admin/project/:projectName/task/:taskNumber', projectTask.delete);
+router.delete('/api/auth/project/:projectName/task/:taskNumber', projectTask.delete);
 
-router.get('/api/auth/admin/project/:projectName/links', projectLink.getAll);
-router.get('/api/auth/admin/project/:projectName/link/:taskId', projectLink.getOne);
-router.post('/api/auth/admin/project/:projectName/link', projectLink.create);
+// routes for links (dependencies) involved with a particular project
+router.get('/api/auth/project/:projectName/links', projectLink.getAll);
+router.get('/api/auth/project/:projectName/link/:taskId', projectLink.getOne);
+router.post('/api/auth/project/:projectName/link', projectLink.create);
 //router.put('/api/auth/admin/project/:projectName/task/:taskId', projectTask.update);
-router.delete('/api/auth/admin/project/:projectName/link/:taskId', projectLink.delete);
+router.delete('/api/auth/project/:projectName/link/:taskId', projectLink.delete);
 
-router.get('/api/auth/admin/user/:email/tasks', userTask.getAll);
+// get all tasks assigned to a user
+router.get('/api/auth/user/:email/tasks', userTask.getAll);
+
+// get all projects that a user 'project manages'
+router.get('/api/auth/user/:email/projects', userProject.getAll);
 
 module.exports = router;
 
