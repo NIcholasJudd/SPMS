@@ -18,18 +18,8 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
             title: "Awaiting Approval",
             value: 0
         };
-        $scope.priorityLevel = {
-            level: "Critical"
-        },
-        {
-            level: "High"
-        },
-        {
-            level: "Medium"
-        },
-        {
-            level: "Low"
-        };
+        $scope.priorityLevel = ["Critical", "High", "Medium", "Low"];
+        $scope.Roles = ["Developer", "Tester", "Bug Fixer", "Analyst" ,"Graphic Designer", "Interface Designer" ,"Server Designer","Database Engineer"];
         $scope.selectedUser = {
             name: null,
             email: null,
