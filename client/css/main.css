@@ -178,3 +178,18 @@ input[type="radio"]{
 .row .mg-md {
     margin-top: 15px;
 }
+
+#taskRemoveTeamMember{
+    width:100%;
+}
+
+#taskAddRole{
+    width:100%;
+}
+#search{
+    width:100%;
+}
+
+#addToTask{
+    width:100%;
+}
