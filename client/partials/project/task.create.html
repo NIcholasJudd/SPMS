@@ -92,7 +92,7 @@
                                     <select class="form-control" id="taskDependencies" ng-model="taskDependencies"
                                             ng-change="removeDependencies(taskDependencies)"
                                             ng-options="task.taskId as task.taskName for task in dependencies"
-                                            multiple></select>
+                                            multiple readonly></select>
                                 </div>
                             </div>
                             <div class="row">

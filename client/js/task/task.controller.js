@@ -101,6 +101,9 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
             $scope.newTask.projectName = item;
         }
 
+        $scope.clearDependencies = function() {
+            $scope.dependencies = [];
+        }
         $scope.setPriority = function (item) {
             $scope.newTask.priority = item;
         }
