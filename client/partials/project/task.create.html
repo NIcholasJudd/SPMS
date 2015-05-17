@@ -11,12 +11,16 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="projectList">Project Name</label>
-                                    <select class="form-control" id="projectList" ng-model="projectName" ng-change="setProjectName(projectName)" ng-options="project.projectName as project.projectName for project in projectData" >
+                                    <select class="form-control" id="projectList" ng-model="projectName"
+                                            ng-change="setProjectName(projectName)"
+                                            ng-options="project.projectName as project.projectName for project in projectData">
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="taskPriority">Task Priority</label>
-                                    <select class="form-control" id="taskPriority" ng-model="priority" ng-change="setPriority(priority)" ng-options="priority as priority for priority in priorityLevel">
+                                    <select class="form-control" id="taskPriority" ng-model="priority"
+                                            ng-change="setPriority(priority)"
+                                            ng-options="priority as priority for priority in priorityLevel">
                                     </select>
                                 </div>
                             </div>
@@ -84,19 +88,28 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label for="taskDependencies">Task  Dependencies</label>
-                                    <select class="form-control" id="taskDependencies" ng-model="taskDependencies" ng-change="setDependencies(taskDependencies)"ng-options="task.taskNumber as task.taskName for task in taskData" multiple></select>
+                                    <label for="taskDependencies">Task Dependencies</label>
+                                    <select class="form-control" id="taskDependencies" ng-model="taskDependencies"
+                                            ng-change="removeDependencies(taskDependencies)"
+                                            ng-options="task.taskNumber as task.taskName for task in dependencies"
+                                            multiple></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-success" ng-click="clearDependencies()" style="width:100%;">Clear Dependencies</button>
                                 </div>
                             </div>
                             <div class="row">
                                 <h1 class="text-center">Add Team Members</h1>
+
                                 <div class="col-md-6">
                                     <label for="taskAssignedTeamMembers">Assigned Team Members</label>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="teamMemberRole">Assigned Role</label>
                                 </div>
-                                <div ng-repeat="tm in assignedTeamMembers track by $index" >
+                                <div ng-repeat="tm in assignedTeamMembers track by $index">
                                     <div class="col-md-6">
                                         <input id="taskAssignedTeamMembers"
                                                type="text"
@@ -107,7 +120,9 @@
                                         </input>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control" id="teamMemberRole" ng-model="teamMemberRole" ng-change="setRole(teamMemberRole, $index)" ng-options="role as role for role in Roles"></select>
+                                        <select class="form-control" id="teamMemberRole" ng-model="teamMemberRole"
+                                                ng-change="setRole(teamMemberRole, $index)"
+                                                ng-options="role as role for role in Roles"></select>
                                     </div>
                                 </div>
                             </div>
@@ -116,11 +131,15 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="btn-group" style="width:100%;">
-                                        <button id="addToTask" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <button id="addToTask" type="button" class="btn btn-danger dropdown-toggle"
+                                                data-toggle="dropdown" aria-expanded="false">
                                             Remove User <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li ng-repeat="aTM in assignedTeamMembers track by $index"  ng-model="assignedTeamMember" ng-click="removeUserFromTask($index)">{{aTM.name}}</li>
+                                            <li ng-repeat="aTM in assignedTeamMembers track by $index"
+                                                ng-model="assignedTeamMember" ng-click="removeUserFromTask($index)">
+                                                {{aTM.name}}
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -140,82 +159,99 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">
-                    <h1>Search User's</h1>
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel panel-heading text-center">
+                        <h1>Add Dependencies</h1>
+                    </div>
+                    <div class="panel panel-body">
+                        <select class="form-control" id="taskDependenciesAdd" ng-model="taskDependenciesAdd"
+                                ng-change="setDependencies(taskDependenciesAdd)"
+                                ng-options="task.taskNumber as task.taskName for task in dependenciesList"
+                                multiple>
+                        </select>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="searchName">Name</label>
-                            <input id="searchName"
-                                   ng-model="search.name"
-                                   type="text"
-                                   class="form-control"
-                                   placeholder="Name">
-                            </input>
-                        </div>
+            </div>
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <h1>Search User's</h1>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="searchSkill">Skills</label>
-                            <input id="searchSkill"
-                                   ng-model="search.skill"
-                                   type="text"
-                                   class="form-control"
-                                   placeholder="Skills">
-                            </input>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="searchName">Name</label>
+                                <input id="searchName"
+                                       ng-model="search.name"
+                                       type="text"
+                                       class="form-control"
+                                       placeholder="Name">
+                                </input>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="searchRole">Roles</label>
-                            <input id="searchRole"
-                                   ng-model="search.role"
-                                   type="text"
-                                   class="form-control"
-                                   placeholder="Roles">
-                            </input>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="searchSkill">Skills</label>
+                                <input id="searchSkill"
+                                       ng-model="search.skill"
+                                       type="text"
+                                       class="form-control"
+                                       placeholder="Skills">
+                                </input>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="searchPerformanceIndex">Performance Index</label>
-                            <input id="searchPerformanceIndex"
-                                   ng-model="search.performanceIndex"
-                                   type="number"
-                                   min="0"
-                                   class="form-control">
-                            </input>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="searchRole">Roles</label>
+                                <input id="searchRole"
+                                       ng-model="search.role"
+                                       type="text"
+                                       class="form-control"
+                                       placeholder="Roles">
+                                </input>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <br>
-                            <button id="search" type="button" class="btn btn-primary">Search</button>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="searchPerformanceIndex">Performance Index</label>
+                                <input id="searchPerformanceIndex"
+                                       ng-model="search.performanceIndex"
+                                       type="number"
+                                       min="0"
+                                       class="form-control">
+                                </input>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="searchTeamMembers">Searched Team Members</label>
-                            <select class="form-control" id="searchTeamMembers" multiple>
-                                <option ng-repeat="stm in searchTeamMembers track by $index" ng-click="setTMS($index)">
-                                    {{stm.name}}
-                                </option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <br>
+                                <button id="search" type="button" class="btn btn-primary">Search</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <br>
-                            <button id="addToTask" type="button" class="btn btn-success" ng-click="addUserToTask()">Add
-                                To Task
-                            </button>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="searchTeamMembers">Searched Team Members</label>
+                                <select class="form-control" id="searchTeamMembers" multiple>
+                                    <option ng-repeat="stm in searchTeamMembers track by $index"
+                                            ng-click="setTMS($index)">
+                                        {{stm.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <br>
+                                <button id="addToTask" type="button" class="btn btn-success" ng-click="addUserToTask()">
+                                    Add
+                                    To Task
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

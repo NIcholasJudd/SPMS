@@ -36,6 +36,8 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
         $scope.taskData = [];
         $scope.projectData = [];
         $scope.newTask = {};
+        $scope.dependencies = [];
+        $scope.dependenciesList = [];
         ProjectFactory.getProjects().then(function (projects) {
             projects.data.forEach(function (projects) {
                 $scope.projectData.push({
@@ -75,6 +77,8 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
         })
         $scope.setProjectName = function (item) {
             $scope.taskData = [];
+            $scope.dependencies = [];
+            $scope.dependenciesList = [];
             ProjectFactory.getTasks(item).then(function (results) {
                 console.log('tasks: ', results);
                 results.data.forEach(function (tasks) {
@@ -94,6 +98,12 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
                         priority: tasks.priority,
                         parentId: tasks.parent_id
                     })
+                    $scope.dependenciesList.push({
+                        taskId: tasks.task_id,
+                        taskNumber: tasks.task_number,
+                        taskName: tasks.task_name,
+                        projectName: tasks.project_name
+                    })
                 })
             })
             $scope.newTask.projectName = item;
@@ -104,12 +114,30 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
         }
 
         $scope.setDependencies = function (item) {
-            console.log(item);
-            $scope.newTask.dependencies = item;
+            var bool = true;
+            var count = 0;
+            for (var i = 0; i < $scope.dependencies.length; i++) {
+                if ($scope.dependencies[i].taskId == $scope.dependenciesList[item - 1].taskId) {
+                    bool = false;
+                }
+            }
+            if (bool == true) {
+                $scope.dependencies.push(
+                    {
+                        projectName: $scope.dependenciesList[item-1].projectName,
+                        taskId: $scope.dependenciesList[item - 1].taskId,
+                        taskName: $scope.dependenciesList[item - 1].taskName
+                    })
+                console.log($scope.dependenciesList)
+            }
+        }
+
+        $scope.clearDependencies = function() {
+            $scope.dependencies =[];
         }
 
         $scope.setRole = function (item, index) {
-           $scope.assignedTeamMembers[index].role = item;
+            $scope.assignedTeamMembers[index].role = item;
         }
 
         $scope.taskPriority = function ($index) {
@@ -152,7 +180,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
                     email: $scope.selectedUser.email
                 })
             $scope.searchTeamMembers.splice($scope.selectedUser.indexValue, 1);
-            $scope.selectedUser={};
+            $scope.selectedUser = {};
         }
 
         $scope.removeUserFromTask = function (index) {
@@ -165,30 +193,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
                     email: $scope.selectedUser.email
                 })
             $scope.assignedTeamMembers.splice($scope.selectedUser.indexValue, 1);
-            $scope.selectedUser={};
-        }
-        $scope.setUser = function (index) {
-            console.log(searchEmail(index));
-            if (searchEmail(index) != -1) {
-                $scope.taskData.teamMembers.push({
-                    name: $scope.selectedUser[index].name,
-                    email: $scope.selectedUser[index].email
-                })
-                $scope.selectedUser.splice(index, 1);
-            }
-            console.log($scope.taskData.teamMembers);
-        }
-
-        function searchEmail(index) {
-            if ($scope.taskData.teamMembers.length == 0) {
-                return -1;
-            }
-            for (var i = 0; i < $scope.taskData.teamMembers.length; i++) {
-                if ($scope.selectedUser[index].email == $scope.taskData.teamMembers[i].email) {
-                    return 1;
-                }
-            }
-            return -1;
+            $scope.selectedUser = {};
         }
 
         $scope.submit = function () {
