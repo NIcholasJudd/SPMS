@@ -19,7 +19,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
             value: 0
         };
         $scope.priorityLevel = ["Critical", "High", "Medium", "Low"];
-        $scope.Roles = ["Developer", "Tester", "Bug Fixer", "Analyst" ,"Graphic Designer", "Interface Designer" ,"Server Designer","Database Engineer"];
+        $scope.Roles = ["Developer", "Tester", "Bug Fixer", "Analyst", "Graphic Designer", "Interface Designer", "Server Designer", "Database Engineer"];
         $scope.selectedUser = {
             name: null,
             email: null,
@@ -35,8 +35,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
         $scope.searchTeamMembers = [];
         $scope.taskData = [];
         $scope.projectData = [];
-        $scope.newTask = {
-        };
+        $scope.newTask = {};
         ProjectFactory.getProjects().then(function (projects) {
             projects.data.forEach(function (projects) {
                 $scope.projectData.push({
@@ -74,6 +73,45 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
                 })
             });
         })
+        $scope.setProjectName = function (item) {
+            $scope.taskData = [];
+            ProjectFactory.getTasks(item).then(function (results) {
+                console.log('tasks: ', results);
+                results.data.forEach(function (tasks) {
+                    $scope.taskData.push({
+                        taskId: tasks.task_id,
+                        taskNumber: tasks.task_number,
+                        projectName: tasks.project_name,
+                        taskName: tasks.task_name,
+                        taskDescription: tasks.description,
+                        startDate: tasks.start_date,
+                        likelyDuration: tasks.likely_duration,
+                        optimisticDuration: tasks.optimistic_duration,
+                        pessimisticDuration: tasks.pessimistic_duration,
+                        progress: tasks.progress_percentage,
+                        status: tasks.status,
+                        teamMembers: [],
+                        priority: tasks.priority,
+                        parentId: tasks.parent_id
+                    })
+                })
+            })
+            $scope.newTask.projectName = item;
+        }
+
+        $scope.setPriority = function (item) {
+            $scope.newTask.priority = item;
+        }
+
+        $scope.setDependencies = function (item) {
+            console.log(item);
+            $scope.newTask.dependencies = item;
+        }
+
+        $scope.setRole = function (item, index) {
+           $scope.assignedTeamMembers[index].role = item;
+        }
+
         $scope.taskPriority = function ($index) {
             if ($scope.taskData[$index].priority == 'critical') {
                 return 'panel panel-danger';
@@ -114,15 +152,20 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
                     email: $scope.selectedUser.email
                 })
             $scope.searchTeamMembers.splice($scope.selectedUser.indexValue, 1);
+            $scope.selectedUser={};
         }
 
-        $scope.removeUserFromTask = function () {
+        $scope.removeUserFromTask = function (index) {
+            $scope.selectedUser.name = $scope.assignedTeamMembers[index].name;
+            $scope.selectedUser.email = $scope.assignedTeamMembers[index].email;
+            $scope.selectedUser.indexValue = index;
             $scope.searchTeamMembers.push(
                 {
                     name: $scope.selectedUser.name,
                     email: $scope.selectedUser.email
                 })
             $scope.assignedTeamMembers.splice($scope.selectedUser.indexValue, 1);
+            $scope.selectedUser={};
         }
         $scope.setUser = function (index) {
             console.log(searchEmail(index));
@@ -147,8 +190,10 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
             }
             return -1;
         }
-        $scope.submit = function(){
-    console.log($scope.newTask);
+
+        $scope.submit = function () {
+            console.log($scope.newTask);
+            console.log($scope.assignedTeamMembers);
         }
     }]);
 
