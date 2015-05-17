@@ -3,8 +3,8 @@
  */
 
 
-myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$window',
-    function ($scope, ProjectFactory, UserFactory, $window) {
+myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window',
+    function ($scope, ProjectFactory, UserFactory, TaskFactory, $window) {
 
         $scope.countOnTheGo = {
             title: "On The Go",
@@ -104,12 +104,19 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
         }
 
         $scope.setDependencies = function (item) {
-            console.log(item);
-            $scope.newTask.dependencies = item;
+            var linkArray = [];
+            item.forEach(function(i) {
+                linkArray.push({
+                    source : i,
+                    type : 'finish to start'
+                });
+            })
+            $scope.newTask.dependencies = linkArray;
+            console.log($scope.newTask.dependencies);
         }
 
         $scope.setRole = function (item, index) {
-           $scope.assignedTeamMembers[index].role = item;
+           $scope.assignedTeamMembers[index].roleName = item;
         }
 
         $scope.taskPriority = function ($index) {
@@ -192,8 +199,24 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
         }
 
         $scope.submit = function () {
+            if($scope.assignedTeamMembers.length === 0)
+                $scope.newTask.status = 'unassigned';
+            else
+                $scope.newTask.status = 'on-the-go';
             console.log($scope.newTask);
             console.log($scope.assignedTeamMembers);
+            TaskFactory.createTask($scope.newTask, $scope.assignedTeamMembers)
+                .success(function(err, res) {
+                    alert($scope.newTask.taskName + ' successfully saved in database');
+                }).error(function(err, res) {
+                    alert('insert failed');
+                    /*var err_msg = "save project failed: ";
+                    if(err.code == "23505")
+                        err_msg += "that user already exists";
+                    else
+                        err_msg += err.detail;
+                    alert(err_msg);*/
+                })
         }
     }]);
 

@@ -33,9 +33,9 @@ var db = pgp(connectionString);
 
 db.tx(function(t) {
     var queries = [];
-    queries.push(t.none("DROP SEQUENCE IF EXISTS project_sequence"));
-    queries.push(t.none("DROP SEQUENCE IF EXISTS project_sequence_2"));
-    queries.push(t.none("DROP SEQUENCE IF EXISTS project_sequence_3"));
+    queries.push(t.none("DROP SEQUENCE IF EXISTS myproject1_seq"));
+    queries.push(t.none("DROP SEQUENCE IF EXISTS myproject2_seq"));
+    queries.push(t.none("DROP SEQUENCE IF EXISTS myproject3_seq"));
     queries.push(t.none("DROP TABLE IF EXISTS task_role"));
     queries.push(t.none("DROP TABLE IF EXISTS link"));
     queries.push(t.none("DROP TABLE IF EXISTS task"));
@@ -100,7 +100,7 @@ db.tx(function(t) {
 
     queries.push(t.none("CREATE TABLE task_role(" +
         "email varchar(100) REFERENCES employee(email), " +
-        "task_id integer REFERENCES task(task_id), " +
+        "task_id integer REFERENCES task(task_id) ON DELETE CASCADE, " +
         "role_name varchar(100), " +
         "PRIMARY KEY(email, task_id, role_name)" +
         ");"
@@ -128,31 +128,31 @@ db.tx(function(t) {
     queries.push(t.none("INSERT INTO project VALUES(" +
     "'My Project 1', 'Description of project', 500000, '365 days', '2016-03-13', '2017-03-13', 0.4, 'admin@admin')"));
 
-    queries.push(t.none("CREATE SEQUENCE project_sequence START 1"));
+    queries.push(t.none("CREATE SEQUENCE myproject1_seq START 1"));
 
     queries.push(t.none("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
     "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
-    "nextval('project_sequence'), 'My Project 1', 'Task 1', 'Task 1 Description', '2016-04-04', '2 days', '1 days', " +
+    "nextval('myproject1_seq'), 'My Project 1', 'Task 1', 'Task 1 Description', '2016-04-04', '2 days', '1 days', " +
     "'3 days', 0.4, 'on-the-go', 'critical')"));
 
     queries.push(t.none("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
     "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
-    "nextval('project_sequence'), 'My Project 1', 'Task 2', 'Task 2 Description', '2016-04-7', '3 days', '4 days', " +
+    "nextval('myproject1_seq'), 'My Project 1', 'Task 2', 'Task 2 Description', '2016-04-7', '3 days', '4 days', " +
     "'6 days', 0.7, 'on-the-go', 'critical')"));
 
     queries.push(t.none("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
     "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
-    "nextval('project_sequence'), 'My Project 1', 'Task 3', 'Task 3 Description', '2016-04-10', '4 days', '4 days', " +
+    "nextval('myproject1_seq'), 'My Project 1', 'Task 3', 'Task 3 Description', '2016-04-10', '4 days', '4 days', " +
     "'6 days', 0.7, 'on-the-go', 'critical')"));
 
     queries.push(t.none("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
     "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
-    "nextval('project_sequence'), 'My Project 1', 'Task 4', 'Task 4 Description', '2016-04-15', '3 days', '2 days', " +
+    "nextval('myproject1_seq'), 'My Project 1', 'Task 4', 'Task 4 Description', '2016-04-15', '3 days', '2 days', " +
     "'6 days', 0.7, 'unassigned', 'critical')"));
 
     queries.push(t.none("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
     "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
-    "nextval('project_sequence'), 'My Project 1', 'Task 5', 'Task 5 Description', '2016-04-05', '10 days', '7 days', " +
+    "nextval('myproject1_seq'), 'My Project 1', 'Task 5', 'Task 5 Description', '2016-04-05', '10 days', '7 days', " +
     "'15 days', 0.7, 'unassigned', 'critical')"));
 
     queries.push(t.none("INSERT INTO task_role VALUES('admin@admin'," +
@@ -185,21 +185,21 @@ db.tx(function(t) {
     queries.push(t.none("INSERT INTO project VALUES(" +
     "'My Project 2', 'Description of project 2', 1000000, '180 days', '2015-06-06', '2015-12-06', 0.3, 'admin@admin')"));
 
-    queries.push(t.none("CREATE SEQUENCE project_sequence_2 START 1"));
+    queries.push(t.none("CREATE SEQUENCE myproject2_seq START 1"));
 
     queries.push(t.none("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
     "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
-    "nextval('project_sequence_2'), 'My Project 2', 'Task 1', 'Task 1 Description', '2015-06-06', '3 days', '2 days', " +
+    "nextval('myproject2_seq'), 'My Project 2', 'Task 1', 'Task 1 Description', '2015-06-06', '3 days', '2 days', " +
     "'4 days', 0.4, 'on-the-go', 'critical')"));
 
     queries.push(t.none("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
     "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
-    "nextval('project_sequence_2'), 'My Project 2', 'Task 2', 'Task 2 Description', '2015-06-10', '3 days', '2 days', " +
+    "nextval('myproject2_seq'), 'My Project 2', 'Task 2', 'Task 2 Description', '2015-06-10', '3 days', '2 days', " +
     "'4 days', 0.4, 'unassigned', 'critical')"));
 
     queries.push(t.none("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
     "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
-    "nextval('project_sequence_2'), 'My Project 2', 'Task 3', 'Task 3 Description', '2015-06-14', '3 days', '2 days', " +
+    "nextval('myproject2_seq'), 'My Project 2', 'Task 3', 'Task 3 Description', '2015-06-14', '3 days', '2 days', " +
     "'4 days', 0.4, 'unassigned', 'critical')"));
 
     queries.push(t.none("INSERT INTO task_role VALUES('paul@tm'," +
@@ -219,21 +219,21 @@ db.tx(function(t) {
     queries.push(t.none("INSERT INTO project VALUES(" +
     "'My Project 3', 'Description of project 3', 1000000, '90 days', '2015-04-01', '2015-07-01', 0.3, 'scott@tm')"));
 
-    queries.push(t.none("CREATE SEQUENCE project_sequence_3 START 1"));
+    queries.push(t.none("CREATE SEQUENCE myproject3_seq START 1"));
 
     queries.push(t.none("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
     "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
-    "nextval('project_sequence_3'), 'My Project 3', 'Design', 'Design application', '2015-06-06', '5 days', '2 days', " +
+    "nextval('myproject3_seq'), 'My Project 3', 'Design', 'Design application', '2015-06-06', '5 days', '2 days', " +
     "'7 days', 0.4, 'on-the-go', 'critical')"));
 
     queries.push(t.none("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
     "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
-    "nextval('project_sequence_3'), 'My Project 3', 'Develop', 'Develop application', '2015-06-10', '4 days', '2 days', " +
+    "nextval('myproject3_seq'), 'My Project 3', 'Develop', 'Develop application', '2015-06-10', '4 days', '2 days', " +
     "'10 days', 0.4, 'unassigned', 'critical')"));
 
     queries.push(t.none("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
     "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority) VALUES(" +
-    "nextval('project_sequence_3'), 'My Project 3', 'Test', 'Task 3 Description', '2015-06-18', '5 days', '3 days', " +
+    "nextval('myproject3_seq'), 'My Project 3', 'Test', 'Task 3 Description', '2015-06-18', '5 days', '3 days', " +
     "'6 days', 0.4, 'unassigned', 'critical')"));
 
     queries.push(t.none("INSERT INTO task_role VALUES('paul@tm'," +

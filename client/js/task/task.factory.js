@@ -4,30 +4,20 @@
 myApp.factory('TaskFactory', function ($http) {
     return {
 
-        createTask: function (task) {
-            return $http.post('http://localhost:3000/api/auth/admin/project/', {
-
-                task_number: task.taskNumber,
-                project_name: task.projectName,
-                task_name: task.taskName,
+        createTask: function (task, roles) {
+            return $http.post('http://localhost:3000/api/auth/project/' + task.projectName + '/task', {
+                taskName: task.taskName,
                 description: task.taskDescription,
-                start_date: task.startDate,
-                likely_duration: task.likelyDuration,
-                optimistic_duration: task.optimisticDuration,
-                pessimistic_duration: task.pessimisticDuration,
-                progress_percentage: task.progressPercentage,
+                startDate: task.taskStartDate,
+                likelyDuration: task.taskLikelyDuration.toString() + ' days',
+                optimisticDuration: task.taskOptimisticDuration.toString() + ' days',
+                pessimisticDuration: task.taskPessimisticDuration.toString() + ' days',
+                progressPercentage: 0,
                 status: task.status,
-                priority: task.priority,
-                parent_id: task.parentId,
-                taskRoles: [{
-                    email: task.email,
-                    roleName: task.roleName
-                }],
-                links: [{
-                    projectName: task.projectName,
-                    source: task.source,
-                    type: task.type
-                }]
+                priority: task.priority.toLowerCase(),
+                parentId: task.parentId,
+                taskRoles: roles,
+                links: task.dependencies
             })
         }
     }

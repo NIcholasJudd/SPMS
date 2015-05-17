@@ -202,6 +202,7 @@ describe('Project', function() {
             .end(function (err, res) {
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
+                console.log(res.body[0].task_id);
                 testLinks[0].source = res.body[0].task_id;
                 done();
             });
@@ -227,8 +228,9 @@ describe('Project', function() {
             .end(function (err, res) {
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
-                expect(res.body[5].source).to.eql(testLinks[0].source);
-                link_id = res.body[5].link_id;
+                console.log(res.body);
+                expect(res.body[4].source).to.eql(testLinks[0].source);
+                link_id = res.body[4].link_id;
                 done();
             });
     });
