@@ -11,16 +11,12 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="projectList">Project Name</label>
-                                    <select class="form-control" id="projectList">
-                                        <option ng-model="newTask.projectName" ng-repeat="project in projectData">
-                                            {{project.projectName}}
-                                        </option>
+                                    <select class="form-control" id="projectList" ng-model="projectName" ng-change="setProjectName(projectName)" ng-options="project.projectName as project.projectName for project in projectData" >
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="taskPriority">Task Priority</label>
-                                    <select class="form-control" id="taskPriority">
-                                        <option ng-model= "newTask.priority" ng-repeat="priority in priorityLevel">{{priority}}</option>
+                                    <select class="form-control" id="taskPriority" ng-model="priority" ng-change="setPriority(priority)" ng-options="priority as priority for priority in priorityLevel">
                                     </select>
                                 </div>
                             </div>
@@ -88,13 +84,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label for="taskDependicies">Task Dependencies</label>
-                                    <input id="taskDependicies"
-                                           ng-model="newTask.taskDependicies"
-                                           type="text"
-                                           class="form-control"
-                                           placeholder="Task Name">
-                                    </input>
+                                    <label for="taskDependencies">Task  Dependencies</label>
+                                    <select class="form-control" id="taskDependencies" ng-model="taskDependencies" ng-change="setDependencies(taskDependencies)"ng-options="task.taskNumber as task.taskName for task in taskData" multiple></select>
                                 </div>
                             </div>
                             <div class="row">
@@ -105,7 +96,7 @@
                                 <div class="col-md-6">
                                     <label for="teamMemberRole">Assigned Role</label>
                                 </div>
-                                <div ng-repeat="tm in assignedTeamMembers" >
+                                <div ng-repeat="tm in assignedTeamMembers track by $index" >
                                     <div class="col-md-6">
                                         <input id="taskAssignedTeamMembers"
                                                type="text"
@@ -116,22 +107,22 @@
                                         </input>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control" id="teamMemberRole">
-                                            <option ng-model="newTask.teamMemberRole"ng-repeat="role in Roles">{{role}}</option>
-                                        </select>
+                                        <select class="form-control" id="teamMemberRole" ng-model="teamMemberRole" ng-change="setRole(teamMemberRole, $index)" ng-options="role as role for role in Roles"></select>
                                     </div>
                                 </div>
                             </div>
                             <br>
 
                             <div class="row">
-                                <div class="col-md-6">
-                                    <button id="taskAddRole" type="button" class="btn btn-primary">Add Role</button>
-                                </div>
-                                <div class="col-md-6">
-                                    <button id="taskRemoveTeamMember" type="button" class="btn btn-primary"
-                                            ng-click="removeUserFromTask()">Remove Team Member
-                                    </button>
+                                <div class="col-md-12">
+                                    <div class="btn-group" style="width:100%;">
+                                        <button id="addToTask" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Remove User <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li ng-repeat="aTM in assignedTeamMembers track by $index"  ng-model="assignedTeamMember" ng-click="removeUserFromTask($index)">{{aTM.name}}</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             <br>
