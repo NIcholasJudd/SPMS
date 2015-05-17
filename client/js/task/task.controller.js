@@ -36,6 +36,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         $scope.taskData = [];
         $scope.projectData = [];
         $scope.newTask = {};
+        $scope.dependencies = [];
         ProjectFactory.getProjects().then(function (projects) {
             projects.data.forEach(function (projects) {
                 $scope.projectData.push({
@@ -75,6 +76,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         })
         $scope.setProjectName = function (item) {
             $scope.taskData = [];
+            $scope.dependencies = [];
             ProjectFactory.getTasks(item).then(function (results) {
                 console.log('tasks: ', results);
                 results.data.forEach(function (tasks) {
@@ -104,19 +106,33 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         }
 
         $scope.setDependencies = function (item) {
+            var bool = false
+            var count = 0;
             var linkArray = [];
-            item.forEach(function(i) {
+            item.forEach(function (i) {
                 linkArray.push({
-                    source : i,
-                    type : 'finish to start'
+                    source: i.taskId,
+                    type: 'finish to start'
                 });
             })
             $scope.newTask.dependencies = linkArray;
-            console.log($scope.newTask.dependencies);
+            for (var i = 0; i < $scope.dependencies.length; i++) {
+                if ($scope.dependencies[i].taskId == item[0].taskId) {
+                    bool = true;
+                }
+            }
+            if (bool == false) {
+                count = Number(item.taskNumber -1);
+                $scope.dependencies.push({
+                    taskName: item[0].taskName,
+                    taskId: item[0].taskId
+                })
+            }
+            console.log(item);
         }
 
         $scope.setRole = function (item, index) {
-           $scope.assignedTeamMembers[index].roleName = item;
+            $scope.assignedTeamMembers[index].roleName = item;
         }
 
         $scope.taskPriority = function ($index) {
@@ -159,7 +175,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                     email: $scope.selectedUser.email
                 })
             $scope.searchTeamMembers.splice($scope.selectedUser.indexValue, 1);
-            $scope.selectedUser={};
+            $scope.selectedUser = {};
         }
 
         $scope.removeUserFromTask = function (index) {
@@ -172,7 +188,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                     email: $scope.selectedUser.email
                 })
             $scope.assignedTeamMembers.splice($scope.selectedUser.indexValue, 1);
-            $scope.selectedUser={};
+            $scope.selectedUser = {};
         }
         $scope.setUser = function (index) {
             console.log(searchEmail(index));
@@ -199,23 +215,23 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         }
 
         $scope.submit = function () {
-            if($scope.assignedTeamMembers.length === 0)
+            if ($scope.assignedTeamMembers.length === 0)
                 $scope.newTask.status = 'unassigned';
             else
                 $scope.newTask.status = 'on-the-go';
             console.log($scope.newTask);
             console.log($scope.assignedTeamMembers);
             TaskFactory.createTask($scope.newTask, $scope.assignedTeamMembers)
-                .success(function(err, res) {
+                .success(function (err, res) {
                     alert($scope.newTask.taskName + ' successfully saved in database');
-                }).error(function(err, res) {
+                }).error(function (err, res) {
                     alert('insert failed');
                     /*var err_msg = "save project failed: ";
-                    if(err.code == "23505")
-                        err_msg += "that user already exists";
-                    else
-                        err_msg += err.detail;
-                    alert(err_msg);*/
+                     if(err.code == "23505")
+                     err_msg += "that user already exists";
+                     else
+                     err_msg += err.detail;
+                     alert(err_msg);*/
                 })
         }
     }]);

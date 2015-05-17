@@ -91,7 +91,7 @@
                                     <label for="taskDependencies">Task Dependencies</label>
                                     <select class="form-control" id="taskDependencies" ng-model="taskDependencies"
                                             ng-change="removeDependencies(taskDependencies)"
-                                            ng-options="task.taskNumber as task.taskName for task in dependencies"
+                                            ng-options="task.taskId as task.taskName for task in dependencies"
                                             multiple></select>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                     <div class="panel panel-body">
                         <select class="form-control" id="taskDependenciesAdd" ng-model="taskDependenciesAdd"
                                 ng-change="setDependencies(taskDependenciesAdd)"
-                                ng-options="task.taskNumber as task.taskName for task in dependenciesList"
+                                ng-options="task as task.taskName for task in taskData"
                                 multiple>
                         </select>
                     </div>
