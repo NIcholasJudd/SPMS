@@ -2,7 +2,7 @@
  * Created by scottmackenzie on 5/05/2015.
  */
 
-myApp.controller("ProjectCreateCtrl", ['$scope','ProjectFactory', 'UserFactory',
+myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
     function($scope, ProjectFactory, UserFactory) {
         $scope.projectData = [];
 
@@ -30,9 +30,9 @@ myApp.controller("ProjectCreateCtrl", ['$scope','ProjectFactory', 'UserFactory',
             });
         })
         /*ProjectFactory.getProjects().then(function(projects) {
-         $scope.projects = projects;
-         })*/
-
+            $scope.projects = projects;
+        })*/
+        
 
         ProjectFactory.getProjects().then(function(projects) {
             projects.data.forEach(function(projects){
@@ -62,8 +62,8 @@ myApp.controller("ProjectCreateCtrl", ['$scope','ProjectFactory', 'UserFactory',
             console.log(this.projectData.duration, 'days difference between start and estimated end');//testing purposes
             console.log(this.projectData);//testing purposes
             /*  save new project.  .success/.error execute when response received from database, depending on success
-             of query
-             */
+                of query
+            */
             ProjectFactory.createProject($scope.projectData)
                 .success(function(err, res) {
                     alert($scope.projectData.projectName + ' successfully saved in database');
@@ -78,20 +78,48 @@ myApp.controller("ProjectCreateCtrl", ['$scope','ProjectFactory', 'UserFactory',
         };
 
         function calculateDuration(startDate, endDate) {
+            //calculate duration from dates entered, in days
             $scope.projectData.progress = 0;
             var millisecondsInDay = 86400000;
             var millisecondsDifference = (new Date(endDate) - new Date(startDate));
-            return(millisecondsDifference / millisecondsInDay).toString() + " days";
+            return (millisecondsDifference / millisecondsInDay).toString() + " days";
+        }
+
+        /*********************** Dashboard Functions ************************/
+        $scope.getProjectArray = function() {
+            return $scope.projectData;
+        };
+
+        $scope.getProjectData = function($index){
+            return $scope.projectData[$index];
+        };
+
+        $scope.startDate = function($index){
+            var sdate = new Date($scope.projectData[$index].startDate);
+            return sdate.toDateString();
+        }
+
+        $scope.endDate = function($index){
+            var edate = new Date($scope.projectData[$index].estimatedEndDate);
+            return edate.toDateString();
         }
 
         function calculateDateProgress(startDate, endDate) {
             var max = new Date(endDate) - new Date(startDate);
             var curr = new Date() - new Date(startDate);
             var total = ((100/max) * curr);
-            return total;
+            if(total <= 0 || total == NaN)
+                return 0;
+            else
+                return Number(total);
         }
+
+        /* sets the current project in project factory, so that gantt chart can access current project */
+        $scope.setProject = function(index) {
+            ProjectFactory.setCurrentProject($scope.projectData[index]);
+            console.log('current project is: ', ProjectFactory.getCurrentProject());
+        }
+
     }
-
-
 
 ]);

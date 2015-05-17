@@ -3,8 +3,8 @@
  */
 
 
-myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$window',
-    function ($scope, ProjectFactory, UserFactory, $window) {
+myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window',
+    function ($scope, ProjectFactory, UserFactory, TaskFactory, $window) {
 
         $scope.countOnTheGo = {
             title: "On The Go",
@@ -36,8 +36,6 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
         $scope.taskData = [];
         $scope.projectData = [];
         $scope.newTask = {};
-        $scope.dependencies = [];
-        $scope.dependenciesList = [];
         ProjectFactory.getProjects().then(function (projects) {
             projects.data.forEach(function (projects) {
                 $scope.projectData.push({
@@ -77,8 +75,6 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
         })
         $scope.setProjectName = function (item) {
             $scope.taskData = [];
-            $scope.dependencies = [];
-            $scope.dependenciesList = [];
             ProjectFactory.getTasks(item).then(function (results) {
                 console.log('tasks: ', results);
                 results.data.forEach(function (tasks) {
@@ -98,12 +94,6 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
                         priority: tasks.priority,
                         parentId: tasks.parent_id
                     })
-                    $scope.dependenciesList.push({
-                        taskId: tasks.task_id,
-                        taskNumber: tasks.task_number,
-                        taskName: tasks.task_name,
-                        projectName: tasks.project_name
-                    })
                 })
             })
             $scope.newTask.projectName = item;
@@ -114,30 +104,19 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
         }
 
         $scope.setDependencies = function (item) {
-            var bool = true;
-            var count = 0;
-            for (var i = 0; i < $scope.dependencies.length; i++) {
-                if ($scope.dependencies[i].taskId == $scope.dependenciesList[item - 1].taskId) {
-                    bool = false;
-                }
-            }
-            if (bool == true) {
-                $scope.dependencies.push(
-                    {
-                        projectName: $scope.dependenciesList[item-1].projectName,
-                        taskId: $scope.dependenciesList[item - 1].taskId,
-                        taskName: $scope.dependenciesList[item - 1].taskName
-                    })
-                console.log($scope.dependenciesList)
-            }
-        }
-
-        $scope.clearDependencies = function() {
-            $scope.dependencies =[];
+            var linkArray = [];
+            item.forEach(function(i) {
+                linkArray.push({
+                    source : i,
+                    type : 'finish to start'
+                });
+            })
+            $scope.newTask.dependencies = linkArray;
+            console.log($scope.newTask.dependencies);
         }
 
         $scope.setRole = function (item, index) {
-            $scope.assignedTeamMembers[index].role = item;
+           $scope.assignedTeamMembers[index].roleName = item;
         }
 
         $scope.taskPriority = function ($index) {
@@ -180,7 +159,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
                     email: $scope.selectedUser.email
                 })
             $scope.searchTeamMembers.splice($scope.selectedUser.indexValue, 1);
-            $scope.selectedUser = {};
+            $scope.selectedUser={};
         }
 
         $scope.removeUserFromTask = function (index) {
@@ -193,12 +172,51 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$windo
                     email: $scope.selectedUser.email
                 })
             $scope.assignedTeamMembers.splice($scope.selectedUser.indexValue, 1);
-            $scope.selectedUser = {};
+            $scope.selectedUser={};
+        }
+        $scope.setUser = function (index) {
+            console.log(searchEmail(index));
+            if (searchEmail(index) != -1) {
+                $scope.taskData.teamMembers.push({
+                    name: $scope.selectedUser[index].name,
+                    email: $scope.selectedUser[index].email
+                })
+                $scope.selectedUser.splice(index, 1);
+            }
+            console.log($scope.taskData.teamMembers);
+        }
+
+        function searchEmail(index) {
+            if ($scope.taskData.teamMembers.length == 0) {
+                return -1;
+            }
+            for (var i = 0; i < $scope.taskData.teamMembers.length; i++) {
+                if ($scope.selectedUser[index].email == $scope.taskData.teamMembers[i].email) {
+                    return 1;
+                }
+            }
+            return -1;
         }
 
         $scope.submit = function () {
+            if($scope.assignedTeamMembers.length === 0)
+                $scope.newTask.status = 'unassigned';
+            else
+                $scope.newTask.status = 'on-the-go';
             console.log($scope.newTask);
             console.log($scope.assignedTeamMembers);
+            TaskFactory.createTask($scope.newTask, $scope.assignedTeamMembers)
+                .success(function(err, res) {
+                    alert($scope.newTask.taskName + ' successfully saved in database');
+                }).error(function(err, res) {
+                    alert('insert failed');
+                    /*var err_msg = "save project failed: ";
+                    if(err.code == "23505")
+                        err_msg += "that user already exists";
+                    else
+                        err_msg += err.detail;
+                    alert(err_msg);*/
+                })
         }
     }]);
 

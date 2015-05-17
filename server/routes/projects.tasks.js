@@ -36,34 +36,40 @@ var projectTask = {
         if(!req.body.priority) req.body.priority = 'critical';
         db.one("SELECT nextval('" + sequence_name +"')")
             .then(function(data) {
-                return db.tx(function(t) {
-                    console.log(data);
-                    /* insert task */
-                    var queries = [
-                        t.one("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
-                            "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority, " +
-                            "parent_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning task_id",
-                            [data.nextval, req.params.projectName, req.body.taskName, req.body.description, req.body.startDate,
-                                req.body.likelyDuration, req.body.optimisticDuration, req.body.pessimisticDuration,
-                                0, req.body.status, req.body.priority, req.body.parentId])
-                    ];
+                return db.one("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
+                    "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority, " +
+                    "parent_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning task_id",
+                    [data.nextval, req.params.projectName, req.body.taskName, req.body.description, req.body.startDate,
+                        req.body.likelyDuration, req.body.optimisticDuration, req.body.pessimisticDuration,
+                        0, req.body.status, req.body.priority, req.body.parentId])
+                    .then(function(data) {
+                        return db.tx(function(t) {
+                            console.log('task_id: ', data.task_id);
+                            /* insert task */
+                            var queries = [];
+                            console.log('taskRoles:, ', req.body.taskRoles);
+                            /* add users assigned to task */
+                            if (req.body.taskRoles) {
+                                req.body.taskRoles.forEach(function (taskRole) {
+                                    queries.push(t.one("INSERT INTO task_role VALUES($1, $2, $3) returning task_id", [taskRole.email, data.task_id, taskRole.roleName]));
+                                })
+                            }
+                            /* add every dependency link */
+                            if (req.body.links) {
+                                req.body.links.forEach(function (link) {
+                                    queries.push(t.one("INSERT INTO link(project_name, source, target, type) VALUES ($1, $2, $3, $4) returning link_id, source",
+                                        [req.params.projectName, link.source, data.task_id, link.type]));
+                                })
+                            }
+                            return promise.all(queries);
+                        })
+                    }).then(function(data) {
+                        res.json(data);
+                    }, function(err) {
+                        console.error(err);
+                        return res.status(500).send(err);
+                    });
 
-                    console.log('taskRoles:, ', req.body.taskRoles);
-                    /* add users assigned to task */
-                    if (req.body.taskRoles) {
-                        req.body.taskRoles.forEach(function (taskRole) {
-                            queries.push(t.one("INSERT INTO task_role VALUES($1, $2, $3) returning role_name", [taskRole.email, data.nextval, taskRole.roleName]));
-                        })
-                    }
-                    /* add every dependency link */
-                    if (req.body.links) {
-                        req.body.links.forEach(function (link) {
-                            queries.push(t.one("INSERT INTO link(project_name, source, target, type) VALUES ($1, $2, $3, $4) returning link_id, source",
-                                [req.params.projectName, link.source, data.nextval, link.type]));
-                        })
-                    }
-                    return promise.all(queries);
-                })
             })
             .then(function(data) {
                 res.json(data);
