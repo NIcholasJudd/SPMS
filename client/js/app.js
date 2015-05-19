@@ -18,7 +18,7 @@ myApp.config(function($routeProvider, $httpProvider) {
         }
       }).when('/project/create', {
         templateUrl: 'partials/project/project.create.html',
-        controller: 'ProjectCreateCtrl',
+        controller: 'ProjectCtrl',
         access: {
           requiredLogin: true,
             adminOnly: true

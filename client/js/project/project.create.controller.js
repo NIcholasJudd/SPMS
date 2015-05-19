@@ -32,7 +32,11 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
         /*ProjectFactory.getProjects().then(function(projects) {
             $scope.projects = projects;
         })*/
-        
+        $scope.selectedProject = {
+            projectName: "Please Select One!"
+        };
+        $scope.setProject = function(index) {
+        }
 
         ProjectFactory.getProjects().then(function(projects) {
             projects.data.forEach(function(projects){
@@ -113,10 +117,16 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
             else
                 return Number(total);
         }
+        function endDate(){
+            var edate = new Date($scope.selectedProject.estimatedEndDate);
+            return edate.toDateString();
+        }
 
         /* sets the current project in project factory, so that gantt chart can access current project */
         $scope.setProject = function(index) {
             ProjectFactory.setCurrentProject($scope.projectData[index]);
+            $scope.selectedProject = ProjectFactory.getCurrentProject();
+            //$scope.selectedProject = endDate();
             console.log('current project is: ', ProjectFactory.getCurrentProject());
         }
 

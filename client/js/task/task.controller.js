@@ -5,7 +5,7 @@
 
 myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window',
     function ($scope, ProjectFactory, UserFactory, TaskFactory, $window) {
-
+        $scope.test = undefined;
         $scope.countOnTheGo = {
             title: "On The Go",
             value: 0
@@ -20,23 +20,27 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         };
         $scope.priorityLevel = ["Critical", "High", "Medium", "Low"];
         $scope.Roles = ["Developer", "Tester", "Bug Fixer", "Analyst", "Graphic Designer", "Interface Designer", "Server Designer", "Database Engineer"];
+        $scope.Skills = ["c++", "java", "html", "javascript", "Databases", "angular", "bootstrap"];
+        $scope.Names = [];
         $scope.selectedUser = {
             name: null,
             email: null,
             indexValue: null
         };
         $scope.search = {
-            name: null,
-            skill: null,
-            role: null,
-            performanceIndex: null
+            name: "",
+            skill: "",
+            role: "",
+            performanceIndex: 0
         }
         $scope.assignedTeamMembers = [];
         $scope.searchTeamMembers = [];
+        $scope.teamMembersList = [];
         $scope.taskData = [];
         $scope.projectData = [];
         $scope.newTask = {};
         $scope.dependencies = [];
+        $scope.searchUser = {};
         ProjectFactory.getProjects().then(function (projects) {
             projects.data.forEach(function (projects) {
                 $scope.projectData.push({
@@ -72,9 +76,25 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                     name: user.first_name + ' ' + user.last_name,
                     email: user.email
                 })
-            });
+                $scope.teamMembersList.push({
+                    name: user.first_name + ' ' + user.last_name,
+                    email: user.email,
+                    skill: user.user_type,
+                    role: user.previous_roles,
+                    performanceIndex: user.performance_index
+                })
+                $scope.Names.push({
+                    label: user.first_name + ' ' + user.last_name,
+                    value: user.email
+                });
+            })
         })
+        function TypeaheadCtrl($scope, $http) {
+
+        }
+
         $scope.setProjectName = function (item) {
+            console.log($scope.Names);
             $scope.taskData = [];
             $scope.dependencies = [];
             ProjectFactory.getTasks(item).then(function (results) {
@@ -100,8 +120,45 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
             })
             $scope.newTask.projectName = item;
         }
+        $scope.search = function () {
+            var nameBool = false;
+            var skillBool = false;
+            var roleBool = false;
+            var preformanceBool = false;
+            if (typeof $scope.search.Name == "undefined" || $scope.search.Name == "") {
+                nameBool = true;
+            }
+            if (typeof $scope.search.skill == "undefined" || $scope.search.skill == "") {
+                skillBool = true;
+            }
+            if (typeof $scope.search.role == "undefined" || $scope.search.role == "") {
+                roleBool = true;
+            }
+            if (typeof $scope.search.performanceIndex == "undefined" || $scope.search.performanceIndex == 0) {
+                preformanceBool = true;
+            }
 
-        $scope.clearDependencies = function() {
+            $scope.searchTeamMembers = [];
+            for (var i = 0; i < $scope.teamMembersList.length; i++) {
+                if ($scope.search.Name == $scope.teamMembersList[i].name || nameBool == true) {
+                    if ($scope.search.skill == $scope.teamMembersList[i].skill || skillBool == true) {
+                        if ($scope.search.role == $scope.teamMembersList[i].role || roleBool == true) {
+                            console.log($scope.search.performanceIndex);
+                            console.log($scope.teamMembersList[i].performanceIndex);
+                            if ($scope.search.performanceIndex <= $scope.teamMembersList[i].performanceIndex || preformanceBool == true) {
+                                console.log("preformance Check");
+                                $scope.searchTeamMembers.push({
+                                    name: $scope.teamMembersList[i].name,
+                                    email: $scope.teamMembersList[i].email
+                                })
+                            }
+                        }
+                    }
+                }
+            }
+            $scope.searchUser = {};
+        }
+        $scope.clearDependencies = function () {
             $scope.dependencies = [];
         }
         $scope.setPriority = function (item) {
@@ -125,7 +182,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                 }
             }
             if (bool == false) {
-                count = Number(item.taskNumber -1);
+                count = Number(item.taskNumber - 1);
                 $scope.dependencies.push({
                     taskName: item[0].taskName,
                     taskId: item[0].taskId
@@ -237,5 +294,8 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                      alert(err_msg);*/
                 })
         }
-    }]);
+    }
+])
+;
+
 
