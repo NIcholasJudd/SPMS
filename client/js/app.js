@@ -23,6 +23,13 @@ myApp.config(function($routeProvider, $httpProvider) {
           requiredLogin: true,
             adminOnly: true
         }
+      }).when('/project/modify', {
+          templateUrl: 'partials/project/project.modify.html',
+          controller: 'ProjectModCtrl',
+          access: {
+              requiredLogin: true,
+              adminOnly: false
+          }
       })
       .when('/project/taskCreate', {
         templateUrl: 'partials/project/task.create.html',
