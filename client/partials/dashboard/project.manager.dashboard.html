@@ -8,18 +8,20 @@
 					 active="tab.active" disable="tab.disabled" ng-click="setProject($index)">
 					<div class="project-container">
 						<h2>{{project.projectName}}</h2>
-						<div class="row" style="margin-top: 20px;">
+						<div class="row m-top-md">
 							<div class="col-md-8">
 								<div class="row">
 									<div class="col-md-12">
 										<div class="panel panel-danger">
-											<div class="panel-heading"><h4>Project Charts<i class="glyphicon glyphicon-picture"></i></h4></div>
+											<div class="panel-heading"><h4>Project Tracking<i class="glyphicon glyphicon-picture"></i></h4></div>
 											<div class="panel-body">
 												<div class="row row-center">
 													<div class="col-md-12">
-														<ul class="nav nav-pills">
+														<ul class="nav nav-pills nav-justified">
 															<li class="custom-pill" role="presentation"><a ng-href="#/../project/ganttChart"><span class="glyphicon glyphicon-random"></span><h6>Gantt Chart</h6></a></li>
-															<li class="custom-pill" role="presentation"><a ng-href="#/../project/ganttChart"><span class="glyphicon glyphicon-"></span><h6>Effort Estimation</h6></a></li>
+															<li class="custom-pill" role="presentation"><a ng-href="#/../effort/functionPoints"><span class="glyphicon glyphicon-tasks"></span><h6>Effort Estimation</h6></a></li>
+															<li class="custom-pill" role="presentation"><a ng-href="#/../effort/effortEstimation"><span class="glyphicon glyphicon-leaf"></span><h6>Cocomo II</h6></a></li>
+															<li class="custom-pill" role="presentation"><a ng-href=""><span class="glyphicon glyphicon-transfer"></span><h6>APN</h6></a></li>
 														</ul>
 													</div>
 												</div>
@@ -65,29 +67,11 @@
 										</div>
 									</div>
 								</div>
-
-								<div class="row">
-									<div class="col-md-12">
-										<div class="panel panel-danger">
-											<div class="panel-heading"><h4>Project Charts<i class="glyphicon glyphicon-picture"></i></h4></div>
-											<div class="panel-body">
-												<div class="row row-center">
-													<div class="col-md-12">
-														<ul class="nav nav-pills">
-															<li class="custom-pill" role="presentation"><a href="#/project/ganttChart"><span class="glyphicon glyphicon-random"></span><h6>Gantt Chart</h6></a></li>
-														</ul>
-													</div>
-												</div>
-												<!--<div id="gantt" ng-controller="GanttChartCtrl"></div>-->
-											</div>
-										</div>
-									</div>
-								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="col-md-12">
 									<div class="panel panel-warning">
-										<div class="panel-heading"><h5>Project Progression<i class="glyphicon glyphicon-time"></i></h5></div>
+										<div class="panel-heading"><h4>Project Progression<i class="glyphicon glyphicon-time"></i></h4></div>
 										<div class="panel-body">
 											<div class="col-md-12 text-center"><h3>{{startDate($index)}}</h3><span>Project start date</span></div>
 											<div class="col-md-12 text-center"><h3>{{endDate($index)}}</h3><span>Estimated completed date</span></div>
@@ -99,7 +83,7 @@
 								</div>
 								<div class="col-md-12">
 									<div class="panel panel-warning">
-										<div class="panel-heading"><h5>Cost Management<i class="glyphicon glyphicon-usd"></i></h5></div>
+										<div class="panel-heading"><h4>Cost Management<i class="glyphicon glyphicon-usd"></i></h4></div>
 										<div class="panel-body">
 											<div class="col-md-12 text-center"><h2>${{project.budget}}</h2><span>Budget</span></div>
 										</div>

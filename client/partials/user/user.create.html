@@ -1,93 +1,107 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h2>Create User</h2>
-            <div class="bg-orange">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="fname">First Name: </label>
-                            <input  id="fname"
-                            type="text"
-                            class="form-control"
-                            ng-model="user.firstName"
-                            placeholder="First Name"/>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="lname">Last Name: </label>
-                            <input  id="lname"
-                            type="text"
-                            class="form-control"
-                            ng-model="user.lastName"
-                            placeholder="Last Name"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="email">Email: </label>
-                            <input  id="email"
-                            type="text"
-                            class="form-control"
-                            ng-model="user.email"
-                            placeholder="Email"/>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="password">Password: </label>
-                            <input  id="password"
-                            type="password"
-                            class="form-control"
-                            ng-model="user.password"
-                            placeholder="Password"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="phoneNumber">Phone Number: </label>
-                            <input  id="phoneNumber"
-                            type="text"
-                            class="form-control"
-                            ng-model="user.phone"
-                            placeholder="Phone Number"/>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="role">Roles: </label>
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="role" data-toggle="dropdown"  aria-expanded="true">
-                                {{selectedRole.name}}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="role">
-                                <li role="presentation" ng-repeat="role in roles">
-                                    <a role="menuitem" tabindex="-1" ng-click="setRole(role)">{{role.name}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
-                            <button  id="createUserBtn" type="submit" class="form-control btn btn-default" ng-click="saveUser()">Create User</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-
-<!--<div class="container">
-    <div class="row">
-        <div class="col-md-12">
             <tabset class="custom-tabs" justified="true">
                 <tab heading="Add User">
                     <h2>Add User</h2>
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">Enter user details</div>
+                    <div class="panel-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="fname">First Name: </label>
+                                <input  id="fname"
+                                        type="text"
+                                        class="form-control"
+                                        ng-model="user.firstName"
+                                        placeholder="First Name"/>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="lname">Last Name: </label>
+                                <input  id="lname"
+                                        type="text"
+                                        class="form-control"
+                                        ng-model="user.lastName"
+                                        placeholder="Last Name"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="email">Email: </label>
+                                <input  id="email"
+                                        type="text"
+                                        class="form-control"
+                                        ng-model="user.email"
+                                        placeholder="Email"/>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="password">Password: </label>
+                                <input  id="password"
+                                        type="password"
+                                        class="form-control"
+                                        ng-model="user.password"
+                                        placeholder="Password"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="phoneNumber">Phone Number: </label>
+                                <input  id="phoneNumber"
+                                        type="text"
+                                        class="form-control"
+                                        ng-model="user.phone"
+                                        placeholder="Phone Number"/>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="role">Roles: </label>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="role" data-toggle="dropdown"  aria-expanded="true">
+                                        {{selectedRole.name}}
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="role">
+                                        <li role="presentation" ng-repeat="role in roles">
+                                            <a role="menuitem" tabindex="-1" ng-click="setRole(role)">{{role.name}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <button  id="createUserBtn" type="submit" class="form-control btn btn-default" ng-click="saveUser()">Create User</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                 </tab>
-                <tab heading="Modify User">
-                    <h2>Modify User</h2>
-                </tab>
-                <tab heading="Delete User">
-                    <h2>Delete User</h2>
+                <tab heading="Update User">
+                    <h2>Update User</h2>
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">Search for user to update</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <i class="glyphicon glyphicon-search"></i>
+                                            </button>
+                                        </span>
+                                        <input type="text" ng-model="user.email"
+                                               typeahead="users for users in user | filter: $viewValue | limitTo:5"
+                                               class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <pre>Model: {{user.email | json }}</pre>
+                        </div>
+                    </div>
                 </tab>
             </tabset>
         </div>
     </div>
-</div>-->
+</div>
+

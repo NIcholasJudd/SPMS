@@ -176,7 +176,7 @@ input[type="radio"]{
 }
 
 .row .mg-md {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 #taskRemoveTeamMember{
@@ -192,4 +192,98 @@ input[type="radio"]{
 
 #addToTask{
     width:100%;
+}
+
+.statistic-box {
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+}
+
+.statistic-box .statistic-title {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 16px;
+    z-index: 2;
+}
+
+.statistic-box .statistic-value {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.statistic-box .statistic-icon-background{
+    position: absolute;
+    font-size: 120px;
+    right: 0px;
+    bottom: -40px;
+    opacity: 0.2;
+}
+
+.statistic-box .statistic-icon-bg{
+    position: absolute;
+    font-size: 90px;
+    right: 10px;
+    bottom: -25px;
+    opacity: 0.3;
+}
+
+.statistic-box .statistic-title-tm{
+    text-align: left;
+    text-transform: uppercase;
+    padding-left: 10px;
+    font-size: 16px;
+    z-index: 2;
+}
+
+.statistic-box .statistic-value-tm {
+    text-align: left;
+    font-size: 40px;
+    font-weight: 500;
+    z-index: 2;
+    padding-left: 70px;
+}
+
+.statistic-box .info {
+    text-align: left;
+    opacity: 0.2;
+}
+
+.m-top-md{
+    margin-top: 20px;
+}
+.bg-spark {
+    background-color: #f2eac2;
+}
+.bg-spark:hover{
+    background-color: #f2e291;
+}
+.bg-ember {
+    background-color: #f2d6c2;
+}
+.bg-ember:hover{
+    background-color: #f2ba91;
+}
+.bg-flame{
+    background-color: #f2c2c2;
+}
+.bg-flame:hover{
+    background-color: #f29191;
+}
+.row .home-link{
+    text-decoration: none;
+    color: inherit;
+
+}
+
+#user-rem{
+    border-style: none;
+    background-color: inherit;
+    color: #c12e2a;
+    font-size: 25px;
 }

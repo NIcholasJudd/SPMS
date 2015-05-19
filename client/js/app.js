@@ -1,4 +1,4 @@
-var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap']);
+var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.slider']);
 
 myApp.config(function($routeProvider, $httpProvider) {
   //add Token Interceptor
@@ -11,8 +11,8 @@ myApp.config(function($routeProvider, $httpProvider) {
           requiredLogin: false
         }
       }).when('/', {
-        templateUrl: /*'partials/home.html'*/ 'partials/dashboard/project.manager.dashboard.html',
-        controller: 'ProjectDashboardCtrl',
+        templateUrl: 'partials/home.html',
+        controller: 'LoginCtrl',
         access: {
           requiredLogin: true
         }

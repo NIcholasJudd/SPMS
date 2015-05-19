@@ -5,6 +5,8 @@
 
 myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window',
     function ($scope, ProjectFactory, UserFactory, TaskFactory, $window) {
+
+
         $scope.test = undefined;
         $scope.countOnTheGo = {
             title: "On The Go",
@@ -294,6 +296,34 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                      alert(err_msg);*/
                 })
         }
+        $scope.assigned = false;
+        $scope.onTheGo = false;
+        $scope.complete = false;
+        $scope.showTaskPanel = function(type){
+            if(type == 1){
+                $scope.assigned = true;
+                $scope.onTheGo = false;
+                $scope.complete = false;
+            }
+            else if(type == 2){
+                $scope.assigned = false;
+                $scope.onTheGo = true;
+                $scope.complete = false;
+            }
+            else if(type == 3){
+                $scope.assigned = false;
+                $scope.onTheGo = false;
+                $scope.complete = true;
+            }
+        };
+
+        $scope.startTask = function($index){
+            $scope.taskData[$index].status = 'on-the-go';
+        };
+
+        $scope.markComplete = function($index){
+            $scope.taskData[$index].status = 'complete';
+        };
     }
 ])
 ;

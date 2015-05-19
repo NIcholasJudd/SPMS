@@ -1,4 +1,4 @@
-<div class="container">
+ <!--<div class="container">
 	<div class="row-fluid">
 		<div class="col-md-10 col-md-offset-1">
 			<h1>Effort Estimation</h1>
@@ -20,17 +20,12 @@
 						</div>
 						<div class = "row">
 							<h1>Determine Value Adjustment Factor</h1>
-							<h4>Rate Each Factor: (0 - No Influence, 1 - Incidental, 2 - Moderate, 3 - Average, 4 - Significant, 5 - Essentail)</h4>
+							<h4>Rate Each Factor: (0 - No Influence, 1 - Incidental, 2 - Moderate, 3 - Average, 4 - Significant, 5 - Essential)</h4>
 							<div class ="col-md-12 text-left">
 								<ol>
 									<li ng-model = "adjustmentFactor" ng-repeat="afp in adjustmentFactor">
 										<h4>{{afp.title}}</h4>
-										<input type="radio" ng-model="afp.value" value="0" checked>0</input>
-										<input type="radio" ng-model="afp.value" value="1">1</input>
-										<input type="radio" ng-model="afp.value" value="2">2</input>
-										<input type="radio" ng-model="afp.value" value="3">3</input>
-										<input type="radio" ng-model="afp.value" value="4">4</input>
-										<input type="radio" ng-model="afp.value" value="5">5</input>
+										<slider ng-model="afp.value" floor="0" ceiling="5" step="1"></slider>
 									</li>
 								</ol>
 							</div>
@@ -40,4 +35,67 @@
 				</div>
 			</div>
 		</div>
+	</div> -->
+
+<div class="container">
+	<div class="row m-top-md">
+		<h2>Function Point Estimation</h2>
+		<br/>
+		<form ng-submit="submitFunctionPoints()" ng-controller="EffortCtrl">
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="panel panel-danger">
+						<div class="panel-heading"><h4>Function Point Count and Complexity</h4></div>
+						<div class="panel-body">
+							<div class = "col-md-12 text-center" ng-model = "functionPoints" ng-repeat="fp in functionPoints">
+								<h3>{{fp.title}}</h3>
+								<div class="row">
+									<div class="col-md-6 col-md-offset-3">
+										count:<input type = "number" ng-model="fp.count"/>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-md-8 col-md-offset-2">
+										<input type="radio" ng-model="fp.wf" value="{{fp.low}}">Low Complexity</input>
+										<input type="radio" ng-model="fp.wf" value="{{fp.med}}">Medium Complexity</input>
+										<input type="radio" ng-model="fp.wf" value="{{fp.high}}">High Complexity</input>
+									</div>
+								</div>
+								<hr/>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="panel panel-danger">
+						<div class="panel-heading"><h4>Value Adjustment Factor</h4></div>
+							<div class="panel-body">
+								<div class ="col-md-12 text-left">
+									<h4><strong>Determine the impact each system characteristic will
+										have on the project</strong><br/>
+									<i>Scale: 0 to 5</i></h4>
+									<hr/>
+									<ol>
+										<li ng-model = "adjustmentFactor" ng-repeat="afp in adjustmentFactor">
+											<h4>{{afp.title}}</h4>
+											<slider ng-model="afp.value" floor="0" ceiling="5" step="1"></slider>
+											<hr/>
+										</li>
+									</ol>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<button type="submit" class="btn  btn-lg btn-success" style="width:100%;">Calculate Function Point Estimation</button>
+				</div>
+			</div>
+		</form>
 	</div>
+</div>
