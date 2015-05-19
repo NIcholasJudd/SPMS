@@ -60,18 +60,6 @@ myApp.controller("HomeCtrl", ['$scope',
     }
   };
 
-      $scope.greetingTime = function(){
-
-          var currTime = (new Date()).getHours();
-          if(currTime < 12) {
-              return "Morning";
-          }else if(currTime > 12 && currTime < 18){
-              return "Afternoon";
-          }else {
-              return "Evening";
-          }
-      };
-
        $scope.pMenuTab = [
            {
                title: 'Project Management',

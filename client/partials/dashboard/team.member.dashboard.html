@@ -1,116 +1,140 @@
-<!--<div class="row-fluid">
-	<div id="userDashBoard" class="col-md-12">
-		<div class="row-fluid">
-			<div id="tmDashboardpanel" class="col-md-8">
-				<div id="tmDashboard" class="panel panel-default">
-					<div id = "dashboardPanelHeading" class="panel-heading text-center">
-						<h4>Tasks</h4>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<tabset class="custom-tabs" justified="true">
+				<tab ng-repeat="project in projectData"
+					 heading="{{project.projectName}}"
+					 active="tab.active" disable="tab.disabled" ng-click="setProject($index)">
+					<div class="project-container">
+						<h2>{{project.projectName}}</h2>
+						<div class="row m-top-md">
+						<div class="col-md-10">
+						<div class="row">
+				<div class="col-md-4">
+					<a class="home-link" href="" ng-click="showTaskPanel(1)">
+					<div class="statistic-box bg-danger">
+						<div class="statistic-value-tm">3</div>
+						<div class="statistic-title-tm">Tasks assigned</div>
+						<div class="statistic-icon-bg">
+							<i class="glyphicon glyphicon-hand-down"></i>
+						</div>
 					</div>
-					<div class = "panel-body">
-						<div class="row-fluid">
-							<div class="col-md-4" ng-model"countToBeDone">
-								<div id = "dashboardPanel" class="panel panel-default">
-									<div class="panel-heading text-center">
-										<h6>{{countToBeDone.title}}</h6>
-									</div>
-									<div class = "panel-body text-center">
-										<h1>{{countToBeDone.value}}</h1>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4" ng-model="countOnTheGo">
-								<div id = "dashboardPanel" class="panel panel-default" >
-									<div class="panel-heading text-center" >
-										<h6>{{countOnTheGo.title}}</h6>
-									</div>
-									<div class = "panel-body text-center">
-										<h1>{{countOnTheGo.value}}</h1>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4" ng-model="countAwaitingApproval">
-								<div id = "dashboardPanel" class="panel panel-default">
-									<div class="panel-heading text-center">
-										<h6>{{countAwaitingApproval.title}}</h6>
-									</div>
-									<div class = "panel-body text-center">
-										<h1>{{countAwaitingApproval.value}}</h1>
-									</div>
-								</div>
-							</div>
+					</a>
+				</div>
+				<div class="col-md-4">
+					<a class="home-link" href="" ng-click="showTaskPanel(2)">
+					<div class="statistic-box bg-warning">
+						<div class="statistic-value-tm">3</div>
+						<div class="statistic-title-tm">Tasks in progress</div>
+						<div class="statistic-icon-bg">
+							<i class="glyphicon glyphicon-hand-right"></i>
+						</div>
+					</div>
+					</a>
+				</div>
+				<div class="col-md-4">
+					<a class="home-link" href="" ng-click="showTaskPanel(3)">
+					<div class="statistic-box bg-success">
+						<div class="statistic-value-tm">3</div>
+						<div class="statistic-title-tm">Tasks Completed</div>
+						<div class="statistic-icon-bg">
+							<i class="glyphicon glyphicon-thumbs-up"></i>
+						</div>
+					</div>
+					</a>
+				</div>
+			</div>
+						<div ng-controller="LoginCtrl" class="row m-top-md">
+				<div class="col-md-12" ng-show="assigned">
+					<div class="panel panel-danger">
+						<div class="panel-heading"><h4>Tasks assigned to {{getUserName()}}.</h4></div>
+						<div class="panel-body">
+							<table class=" table table-hover">
+								<tr>
+									<th>Task ID</th>
+									<th>Task Name</th>
+									<th>Description</th>
+									<th>Priority</th>
+									<th>Progress</th>
+									<th>Add</th>
+								</tr>
+								<tr ng-repeat='unassigned in taskData | filter: {status: "unassigned"}'>
+									<td>{{unassigned.taskId}}</td>
+									<td>{{unassigned.taskName}}</td>
+									<td>{{unassigned.taskDescription}}</td>
+									<td>{{unassigned.priority}}</td>
+									<td><progressbar max="1" value="unassigned.progress"></progressbar></td>
+									<td><button ng-click="startTask($index)"><i class="glyphicon glyphicon-plus"></i></button></td>
+								</tr>
+							</table>
 						</div>
 					</div>
 				</div>
-				<div id="tmDashboard" class="panel panel-default">
-					<div id = "dashboardPanelHeading" class="panel-heading text-center">
-						<h4>Charts</h4>
+				<div class="col-md-12" ng-show="onTheGo">
+					<div class="panel panel-warning">
+						<div class="panel-heading"><h4>Tasks {{getUserName()}} is working on.</h4></div>
+						<div class="panel-body">
+							<table class=" table table-hover">
+								<tr>
+									<th>Task ID</th>
+									<th>Task Name</th>
+									<th>Description</th>
+									<th>Priority</th>
+									<th>Progress</th>
+									<th>Done</th>
+								</tr>
+								<tr ng-repeat='otg in taskData | filter: {status: "on-the-go"}'">
+									<td>{{otg.taskId}}</td>
+									<td>{{otg.taskName}}</td>
+									<td>{{otg.taskDescription}}</td>
+									<td>{{otg.priority}}</td>
+									<td><progressbar max="1" value="otg.progress"></progressbar></td>
+									<td><button ng-click="markComplete($index)"><i class="glyphicon glyphicon-ok"></i></button></td>
+								</tr>
+							</table>
+						</div>
 					</div>
-					<div class = "panel-body">
-						<div class="row-fluid">
-							<div class="col-md-4">
-								<a href="#/project/ganttChart">
-									<div id = "dashboardPanel" class="panel panel-default">
-										<div class="panel-heading text-center">
-											<h6>Gantt Chart</h6>
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="col-md-4">
-								<a href="/apn">
-									<div id = "dashboardPanel" class="panel panel-default">
-										<div type="button" class="panel-heading text-center" >
-											<h6>APN</h6>
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="col-md-4">
-								<a href="/Pert">
-									<div id = "dashboardPanel" class="panel-default">
-										<div class="panel-heading text-center">
-											<h6>PERT</h6>
-										</div>
-									</div>
-								</a>
-							</div>
+				</div>
+				<div class="col-md-12" ng-show="complete">
+					<div class="panel panel-success">
+						<div class="panel-heading"><h4>Tasks completed by {{getUserName()}}.</h4></div>
+						<div class="panel-body">
+							<table class=" table table-hover">
+								<tr>
+									<th>Task ID</th>
+									<th>Task Name</th>
+									<th>Description</th>
+									<th>Priority</th>
+									<th>Status</th>
+
+								</tr>
+								<tr ng-repeat='done in taskData | filter: {status: "complete"}'">
+									<td>{{done.taskId}}</td>
+									<td>{{done.taskName}}</td>
+									<td>{{done.taskDescription}}</td>
+									<td>{{done.priority}}</td>
+									<td>{{done.status}}</td>
+								</tr>
+							</table>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div id="myTasks" class ="col-md-3">
-				<div id="myTasksPanel" class="panel panel-default" >
-					<div id = "dashboardPanelHeading" class="panel-heading text-center">
-						<h4>My Tasks</h4>
-					</div>
-					<div class = "panel-body">
-						<div ng-model="taskData" ng-repeat="Task in taskData">
-							<div class ="ng-class: taskPriority($index);">
-								<div class="panel-heading text-center">
-									{{Task.taskName}}
-								</div>
-								<div class = "panel-body">
-									{{Task.taskDescription}}
-								</div>
+							</div>
+							<div class="col-md-1 custom-pill-container" ng-controller="HomeCtrl">
+							<ul class="nav nav-pills nav-stacked" ng-repeat="item in pMenuTab">
+							<li class="custom-pill" role="presentation"><a ng-href="{{item.url}}"><span class="{{item.iconclass}}"></span><h6>{{item.title}}</h6></a></li>
+							</ul>
+							<ul class="nav nav-pills nav-stacked">
+								<li class="custom-pill" role="presentation"><a ng-href="#/../project/ganttChart"><span class="glyphicon glyphicon-random"></span><h6>Gantt Chart</h6></a></li>
+							</ul>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>			
-
-		</div>
-
-	</div> -->
-
-<div class="container">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-
-		</div>
-		<div class="col-md-1 custom-pill-container" ng-controller="HomeCtrl">
-			<ul class="nav nav-pills nav-stacked" ng-repeat="item in pMenuTab">
-				<li class="custom-pill" role="presentation"><a ng-href=""><span class="{{item.iconclass}}"></span><h6>{{item.title}}</h6></a></li>
-			</ul>
+				</tab>
+			</tabset>
 		</div>
 	</div>
 </div>

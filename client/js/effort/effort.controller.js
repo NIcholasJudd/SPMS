@@ -39,7 +39,7 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
        	{value: null};
             $scope.functionPoints = [
             {
-                  title: "Number of User inputs!",
+                  title: "Number of External Inputs",
                   count: null,
                   wf: null,
                   low: 3,
@@ -47,7 +47,7 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
                   high: 6
             },
             {
-                  title: "Number of User outputs!",
+                  title: "Number of External Outputs",
                   count: null,
                   wf: null,
                   low: 4,
@@ -55,7 +55,7 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
                   high: 7
             },
             {
-                  title: "Number of User Inquieries",
+                  title: "Number of External Queries",
                   cout: null,
                   wf: null,
                   low: 3,
@@ -63,7 +63,7 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
                   high: 6
             },
             {
-                  title: "Number Of files",
+                  title: "Number of Internal Logical Files",
                   count: null,
                   wf: null,
                   low: 7,
@@ -71,7 +71,7 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
                   high: 15
             },
             {
-                  title: "Number of external interfaces",
+                  title: " NUmber of External Interface Files",
                   count: null,
                   wf:null,
                   low: 5,
