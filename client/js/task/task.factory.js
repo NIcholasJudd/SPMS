@@ -21,7 +21,6 @@ myApp.factory('TaskFactory', function ($http) {
                 links: task.dependencies
             })
         },
-        
 
         archiveTask: function(taskId, active) {
             return $http.put('http://localhost:3000/api/auth/task/' + taskId + '/archive', {active: active});
