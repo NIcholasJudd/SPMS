@@ -33,7 +33,7 @@ router.post('/login', auth.login);
 router.get('/api/auth/users', user.getAll);
 router.get('/api/auth/user/:email', user.getOne);
 router.post('/api/auth/admin/user/', user.create);
-router.put('/api/auth/user/:email', user.update);
+router.put('/api/auth/admin/user/:email', user.update);
 router.delete('/api/auth/admin/user/:email', user.delete);
 router.put('/api/auth/admin/user/:email/archive', user.archive);
 

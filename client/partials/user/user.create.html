@@ -80,23 +80,101 @@
                     <h2>Update User</h2>
                     <div class="panel panel-danger">
                         <div class="panel-heading">Search for user to update</div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">
-                                                <i class="glyphicon glyphicon-search"></i>
-                                            </button>
-                                        </span>
-                                        <input type="text" ng-model="user.email"
-                                               typeahead="users for users in user | filter: $viewValue | limitTo:5"
-                                               class="form-control"/>
+                        <div class="panel-body" ng-controller="TypeaheadCtrl">
+                            <div class="input-group">
+                                <input id="searchName"
+                                       ng-model="selectedNames"
+                                       typeahead="name.name for name in user | filter:$viewValue | limitTo:8"
+                                       class="form-control"
+                                       placeholder="Employee Name"/>
+                                </input>
+                                <span class="input-group-btn"><button class="btn btn-default" ng-click="findUser(selectedNames)">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button></span>
+                            </div>
+                            <hr/>
+                                <div class="form-group" ng-show="updateForm">
+                                    <div class="row m-top-md">
+                                        <div class="col-md-6">
+                                            <label for="fnameUpdate">First Name: </label>
+                                            <input  id="fnameUpdate"
+                                                    type="text"
+                                                    class="form-control"
+                                                    ng-model="activeUser.firstName"
+                                                    value="{{activeUser.firstName}}"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnameUpdate">Last Name: </label>
+                                            <input  id="lnameUpdate"
+                                                    type="text"
+                                                    class="form-control"
+                                                    ng-model="activeUser.lastName"
+                                                    value="{{activeUser.lastName}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="row m-top-md">
+                                        <div class="col-md-6">
+                                            <label for="emailUpdate">Email: </label>
+                                            <input  id="emailUpdate"
+                                                    type="text"
+                                                    class="form-control"
+                                                    ng-model="activeUser.email"
+                                                    value="{{activeUser.email}}"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="passwordUpdate">Password: </label>
+                                            <input  id="passwordUpdate"
+                                                    type="password"
+                                                    class="form-control"
+                                                    ng-model="activeUser.password"
+                                                    value="{{activeUser.password}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="row m-top-md">
+                                        <div class="col-md-6">
+                                            <label for="phoneUpdate">Phone: </label>
+                                            <input  id="phoneUpdate"
+                                                    type="text"
+                                                    class="form-control"
+                                                    ng-model="activeUser.phone"
+                                                    value="{{activeUser.phone}}"/>
+                                        </div>
+                                        <div class="col-md-6" ng-controller="UserCtrl">
+                                            <label for="role">Roles: </label>
+                                            <div class="dropdown">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="role" data-toggle="dropdown"  aria-expanded="true">
+                                                    {{activeUser.role}}
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="role">
+                                                    <li role="presentation" ng-repeat="role in roles">
+                                                        <a role="menuitem" tabindex="-1" ng-click="updateRole(role)">{{role.name}}</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-top-md">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <label for="phoneUpdate">User Performance:</label>
+                                            <rating ng-model="activeUser.performance" max="10"></rating>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <pre>Performance: {{activeUser.performance}}</pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button  id="updateBtn" type="submit" class="form-control btn btn-info" ng-click="update()">Update User</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button  id="archiveBtn" type="submit" class="form-control btn btn-danger" ng-click="archive()">Archive User</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <hr/>
-                            <pre>Model: {{user.email | json }}</pre>
                         </div>
                     </div>
                 </tab>

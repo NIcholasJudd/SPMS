@@ -6,7 +6,8 @@
 			<tabset class="custom-tabs" justified="true">
 				<tab ng-repeat="projectName in projectNames"
 					 heading="{{projectName}}"
-					 active="tab.active" disable="tab.disabled">
+					 active="tab.active" disable="tab.disabled"
+						ng-click="aFunction(projectName)">
 					<div class="project-container">
 						<h2>{{projectName}}</h2>
 						<div class="row m-top-md">
@@ -60,7 +61,7 @@
 									<th>Progress</th>
 									<th>Add</th>
 								</tr>
-								<tr ng-repeat='unassigned in taskData | filter: {status: "unassigned"}'>
+								<tr ng-repeat='unassigned in tasks | filter: {status: "unassigned"} track by $index'>
 									<td>{{unassigned.taskId}}</td>
 									<td>{{unassigned.taskName}}</td>
 									<td>{{unassigned.taskDescription}}</td>
@@ -85,7 +86,7 @@
 									<th>Progress</th>
 									<th>Done</th>
 								</tr>
-								<tr ng-repeat='otg in taskData | filter: {status: "on-the-go"} track by $index' ng-click="(setTask($index))">
+								<tr ng-repeat='otg in tasks | filter: {status: "on-the-go"} track by $index' ng-click="(setTask($index))">
 									<td>{{otg.taskId}}</td>
 									<td>{{otg.taskName}}</td>
 									<td>{{otg.taskDescription}}</td>
@@ -110,7 +111,7 @@
 									<th>Status</th>
 
 								</tr>
-								<tr ng-repeat='done in taskData | filter: {status: "complete"}'">
+								<tr ng-repeat='done in tasks | filter: {status: "complete"}'">
 									<td>{{done.taskId}}</td>
 									<td>{{done.taskName}}</td>
 									<td>{{done.taskDescription}}</td>

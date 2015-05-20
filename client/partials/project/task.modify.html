@@ -20,11 +20,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="taskPriority">Task Priority</label>
-                                    <select class="form-control" id="taskPriority" ng-model="modifyTask.priority"
-                                        <option ng-change="setPriority(priority)"
-                                                ng-options="priority as priority for priority in priorityLevel"
-                                                >
-                                        </option>
+                                    <select class="form-control" id="taskPriority">
+                                        <!--  <option ng-change="setPriority(priority)"
+                                                  ng-options="priority as priority for priority in priorityLevel"
+                                          </option> -->
                                     </select>
                                 </div>
                             </div>
@@ -43,7 +42,7 @@
                                 <div class="col-md-12">
                                     <label for="taskDescription">Task Description</label>
                                     <textarea id="taskDescription"
-                                              ng-model="taskData.taskDescription"
+                                              ng-model="modifyTask.taskDescription"
                                               type="text"
                                               class="form-control"
                                               rows="3">
@@ -53,40 +52,42 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="taskStartDate">Start Date</label>
-                                    <input id="taskStartDate"
-                                           ng-model="modifyTask.taskStartDate"
-                                           type="date"
-                                           class="form-control">
-                                    </input>
+
+                                    <div style="display:inline-block; min-height:290px;">
+                                        <datepicker id="taskStartDate" ng-model="modifyTask.startDate"
+                                                    min-date="minDate" show-weeks="true"
+                                                    class="well well-sm"></datepicker>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="taskLikelyDuration">Task Likely Duration</label>
-                                    <input id="taskLikelyDuration"
-                                           ng-model="modifyTask.taskLikelyDuration"
-                                           type="number"
-                                           class="form-control"
-                                           min="0">
-                                    </input>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="taskOptimisticDuration">Task Optimistic Duration</label>
-                                    <input id="taskOptimisticDuration"
-                                           ng-model="modifyTask.taskOptimisticDuration"
-                                           type="number"
-                                           class="form-control"
-                                           min="0">
-                                    </input>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="taskPessimisticDuration">Task Pessimistic Duration</label>
-                                    <input id="taskPessimisticDuration"
-                                           ng-model="modifyTask.taskPessimisticDuration"
-                                           type="number"
-                                           class="form-control"
-                                           min="0">
-                                    </input>
+                                    <div class="row">
+                                        <label for="taskLikelyDuration">Task Likely Duration</label>
+                                        <input id="taskLikelyDuration"
+                                               ng-model="modifyTask.likelyDuration.days"
+                                               type="number"
+                                               class="form-control"
+                                               min="0">
+                                        </input>
+                                    </div>
+                                    <div class="row">
+                                        <label for="taskOptimisticDuration">Task Optimistic Duration</label>
+                                        <input id="taskOptimisticDuration"
+                                               ng-model="modifyTask.optimisticDuration.days"
+                                               type="number"
+                                               class="form-control"
+                                               min="0">
+                                        </input>
+                                    </div>
+
+                                    <div class="row">
+                                        <label for="taskPessimisticDuration">Task Pessimistic Duration</label>
+                                        <input id="taskPessimisticDuration"
+                                               ng-model="modifyTask.pessimisticDuration.days"
+                                               type="number"
+                                               class="form-control"
+                                               min="0">
+                                        </input>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -178,7 +179,7 @@
                                 <input id="searchName"
                                        ng-controller="TypeaheadCtrl"
                                        ng-model="selectedNames"
-                                       typeahead="name for name in user | filter:$viewValue | limitTo:8"
+                                       typeahead="name.name for name in user | filter:$viewValue | limitTo:8"
                                        class="form-control"
                                        placeholder="Name">
                                 </input>
@@ -224,7 +225,8 @@
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 <br>
-                                <button id="search" type="button" class="btn btn-primary" ng-click="search()">Search</button>
+                                <button id="search" type="button" class="btn btn-primary" ng-click="search()">Search
+                                </button>
                             </div>
                         </div>
                         <div class="row">
@@ -247,10 +249,10 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 

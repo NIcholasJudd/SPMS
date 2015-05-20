@@ -41,6 +41,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         $scope.searchTeamMembers = [];
         $scope.teamMembersList = [];
         $scope.taskData = [];
+        $scope.tasks = [];
         $scope.projectNames =[];
         //$scope.projectData = [];
         $scope.newTask = {};
@@ -330,11 +331,11 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         };
 
         $scope.startTask = function ($index) {
-            $scope.taskData[$index].status = 'on-the-go';
+            $scope.tasks[$index].status = 'on-the-go';
         };
 
         $scope.markComplete = function ($index) {
-            $scope.taskData[$index].status = 'complete';
+            $scope.tasks[$index].status = 'complete';
         };
         $scope.getUserName = function(){
             return $window.sessionStorage.firstName;
@@ -343,6 +344,22 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         $scope.setTask = function(index) {
             $window.sessionStorage.taskNumber = $scope.taskData[index].taskNumber;
             console.log("cur task: " + $window.sessionStorage.taskNumber);
+        }
+
+        $scope.aFunction = function(proName) {
+            ProjectFactory.getTasks(proName).then(function (res) {
+                console.log('!!');
+                res.data.forEach(function (task) {
+                    $scope.tasks.push({
+                        taskId: task.task_id,
+                        taskName: task.task_name,
+                        taskDescription: task.description,
+                        priority: task.priority,
+                        status: task.status,
+                        progress: task.progress_percentage
+                    })
+                })
+            })
         }
     }
 ])

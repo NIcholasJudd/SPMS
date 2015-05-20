@@ -22,6 +22,20 @@ myApp.factory('UserFactory', function($http) {
                 previousRoles : user.previousRoles
             })
         },
+
+        updateUser: function(user){
+            return $http.put('http://localhost:3000/api/auth/admin/user/' + email, {
+                email: user.email,
+                firstName : user.firstName,
+                lastName : user.lastName,
+                password: user.password,
+                phone : user.phone,
+                role : user.role,
+                performanceIndex : user.performanceIndex,
+                previousRoles : user.previousRoles
+
+            })
+        },
         archiveUser: function(email, active) {
             return $http.put('http://localhost:3000/api/auth/admin/user/' + email + '/archive', {
                 active : active
