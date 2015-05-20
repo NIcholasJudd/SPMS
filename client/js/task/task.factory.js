@@ -22,6 +22,21 @@ myApp.factory('TaskFactory', function ($http) {
             })
         },
 
+        updateTask: function (task, roles, dependencies) {
+            return $http.put('http://localhost:3000/api/auth/task/' + task.taskId, {
+                taskName: task.taskName,
+                description: task.taskDescription,
+                startDate: task.taskStartDate,
+                likelyDuration: task.taskLikelyDuration.toString() + ' days',
+                optimisticDuration: task.taskOptimisticDuration.toString() + ' days',
+                pessimisticDuration: task.taskPessimisticDuration.toString() + ' days',
+                priority: task.priority.toLowerCase(),
+                parentId: task.parentId,
+                taskRoles: roles,
+                links: dependencies
+            })
+        },
+
         archiveTask: function(taskId, active) {
             return $http.put('http://localhost:3000/api/auth/task/' + taskId + '/archive', {active: active});
         },
