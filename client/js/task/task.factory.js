@@ -33,7 +33,7 @@ myApp.factory('TaskFactory', function ($http) {
                 priority: task.priority.toLowerCase(),
                 parentId: task.parentId,
                 taskRoles: roles,
-                links: dependencies  
+                links: dependencies
             })
         },
 
