@@ -28,7 +28,7 @@ myApp.factory('ProjectFactory', function($http) {
         },
 
         updateProject: function(project){
-            return $http.post('http://localhost:3000/api/auth/admin/project/', {
+            return $http.put('http://localhost:3000/api/auth/admin/project/', {
                 projectName: project.projectName,
                 description: project.description,
                 budget: project.budget,

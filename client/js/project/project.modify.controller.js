@@ -13,7 +13,6 @@ myApp.controller("ProjectModCtrl", ['$scope', 'ProjectFactory', 'UserFactory',
         $scope.projectManager = {};
         $scope.projectManagers = [];
         UserFactory.getUsers().then(function (results) {
-            console.log('HERE:', results.data);
             results.data.forEach(function (user) {
                 $scope.projectManagers.push({
                     name: user.first_name + ' ' + user.last_name,
@@ -24,7 +23,6 @@ myApp.controller("ProjectModCtrl", ['$scope', 'ProjectFactory', 'UserFactory',
                     $scope.projectManager.email = user.email
                 }
             });
-            console.log($scope.projectManager);
         })
 
         $scope.submit = function() {
@@ -39,11 +37,11 @@ myApp.controller("ProjectModCtrl", ['$scope', 'ProjectFactory', 'UserFactory',
 
             ProjectFactory.updateProject($scope.projectData)
                 .success(function(err, res) {
-                    alert($scope.projectData.projectName + ' successfully saved in database');
+                    alert($scope.projectData.projectName + ' successfully updated in database');
                 }).error(function(err, res) {
-                    var err_msg = "save project failed: ";
+                    var err_msg = "updated project failed: ";
                     if(err.code == "23505")
-                        err_msg += "that user already exists";
+                        err_msg += "that project dosent exists";
                     else
                         err_msg += err.detail;
                     alert(err_msg);
@@ -60,7 +58,6 @@ myApp.controller("ProjectModCtrl", ['$scope', 'ProjectFactory', 'UserFactory',
         $scope.open = function ($event) {
             $event.preventDefault();
             $event.stopPropagation();
-            console.log($event);
             $scope.opened = true;
         };
     }

@@ -21,6 +21,8 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
             value: 0
         };
         $scope.priorityLevel = ["Critical", "High", "Medium", "Low"];
+
+
         $scope.Roles = ["Developer", "Tester", "Bug Fixer", "Analyst", "Graphic Designer", "Interface Designer", "Server Designer", "Database Engineer"];
         $scope.Skills = ["c++", "java", "html", "javascript", "Databases", "angular", "bootstrap"];
         $scope.Names = [];
@@ -91,9 +93,6 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                 });
             })
         })
-        function TypeaheadCtrl($scope, $http) {
-
-        }
 
         $scope.setProjectName = function (item) {
             console.log($scope.Names);
@@ -142,6 +141,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
 
             $scope.searchTeamMembers = [];
             for (var i = 0; i < $scope.teamMembersList.length; i++) {
+                console.log($scope.search.Name + " " + $scope.teamMembersList[i].name);
                 if ($scope.search.Name == $scope.teamMembersList[i].name || nameBool == true) {
                     if ($scope.search.skill == $scope.teamMembersList[i].skill || skillBool == true) {
                         if ($scope.search.role == $scope.teamMembersList[i].role || roleBool == true) {
@@ -299,33 +299,59 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         $scope.assigned = false;
         $scope.onTheGo = false;
         $scope.complete = false;
-        $scope.showTaskPanel = function(type){
-            if(type == 1){
+        $scope.showTaskPanel = function (type) {
+            if (type == 1) {
                 $scope.assigned = true;
                 $scope.onTheGo = false;
                 $scope.complete = false;
             }
-            else if(type == 2){
+            else if (type == 2) {
                 $scope.assigned = false;
                 $scope.onTheGo = true;
                 $scope.complete = false;
             }
-            else if(type == 3){
+            else if (type == 3) {
                 $scope.assigned = false;
                 $scope.onTheGo = false;
                 $scope.complete = true;
             }
         };
 
-        $scope.startTask = function($index){
+        $scope.startTask = function ($index) {
             $scope.taskData[$index].status = 'on-the-go';
         };
 
-        $scope.markComplete = function($index){
+        $scope.markComplete = function ($index) {
             $scope.taskData[$index].status = 'complete';
         };
     }
 ])
 ;
+myApp.factory("Roles", function () {
+    var rolesList = ["Developer", "Tester", "Bug Fixer", "Analyst", "Graphic Designer", "Interface Designer", "Server Designer", "Database Engineer"];
+    return rolesList;
+
+});
+myApp.factory("Skill", function () {
+    var skillsList = ["c++", "java", "html", "javascript", "Databases", "angular", "bootstrap"];
+    return skillsList;
+
+});
+
+// setup controller and pass data source
+myApp.controller("TypeaheadCtrl", ['$scope','UserFactory', function ($scope, UserFactory, Roles, Skill) {
+
+    $scope.selected = undefined;
+    $scope.roles = Roles;
+    $scope.skills = Skill;
+    $scope.user = [];
+    UserFactory.getUsers().then(function (results) {
+        console.log('HERE:', results.data);
+        results.data.forEach(function (user) {
+            $scope.user.push(user.first_name + ' ' + user.last_name)
+        })
+    })
+
+}]);
 
 

@@ -1,4 +1,4 @@
-var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.slider']);
+var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead']);
 
 myApp.config(function($routeProvider, $httpProvider) {
   //add Token Interceptor
@@ -30,14 +30,20 @@ myApp.config(function($routeProvider, $httpProvider) {
               requiredLogin: true,
               adminOnly: false
           }
-      })
-      .when('/project/taskCreate', {
+      }).when('/project/taskCreate', {
         templateUrl: 'partials/project/task.create.html',
         controller: 'TaskCtrl',
         access: {
           requiredLogin: true,
             adminOnly : false
         }
+      }).when('/project/taskModify', {
+          templateUrl: 'partials/project/task.modify.html',
+          controller: 'TaskModCtrl',
+          access: {
+              requiredLogin: true,
+              adminOnly : false
+          }
       }).when('/effort/functionPoints', {
         templateUrl: 'partials/effort/functionPoints.html',
         controller: 'EffortCtrl',
