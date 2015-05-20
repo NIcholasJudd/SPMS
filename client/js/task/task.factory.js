@@ -22,8 +22,8 @@ myApp.factory('TaskFactory', function ($http) {
             })
         },
 
-        getCurrentTask: function(projectName, taskId) {
-            return $http.get('http://localhost:3000/api/auth/project/' + projectName + taskId + '/task');
+        getCurrentTask: function(projectName, taskNumber) {
+            return $http.get('http://localhost:3000/api/auth/project/' + projectName + '/task/' + taskNumber);
         }
     }
 });
