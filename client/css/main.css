@@ -254,6 +254,17 @@ input[type="radio"]{
     opacity: 0.2;
 }
 
+.bg-success:hover{
+    background-color: #c1e2b3;
+}
+
+.bg-warning:hover{
+    background-color: #f7ecb5
+}
+
+.bg-danger:hover{
+    background-color: #e4b9b9;
+}
 .m-top-md{
     margin-top: 20px;
 }
