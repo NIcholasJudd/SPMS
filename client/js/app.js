@@ -30,6 +30,11 @@ myApp.config(function($routeProvider, $httpProvider) {
           access: {
               requiredLogin: true,
               adminOnly: false
+          },
+          resolve : {
+              currentProject : function(ProjectFactory, $window) {
+                  return ProjectFactory.getProject($window.sessionStorage.projectName);
+              }
           }
       }).when('/project/taskCreate', {
         templateUrl: 'partials/project/task.create.html',

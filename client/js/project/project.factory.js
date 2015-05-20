@@ -39,12 +39,22 @@ myApp.factory('ProjectFactory', function($http) {
             })
         },
 
+        archiveProject: function(projectName, active) {
+            return $http.put('http://localhost:3000/api/auth/admin/project/' + projectName + '/archive', {
+                active : active
+            })
+        },
+
+        getProject : function(projectName) {
+            return $http.get('http://localhost:3000/api/auth/project/' + projectName);
+        },
+
         getProjects: function(){
             return $http.get('http://localhost:3000/api/auth/projects');
         },
 
         getPMProjects : function(email) {
             return $http.get('http://localhost:3000/api/auth/user/' + email + '/projects');
-        },
+        }
     }
 });

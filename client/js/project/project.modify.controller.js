@@ -1,14 +1,17 @@
 /**
  * Created by nicholasjudd on 18/05/15.
  */
-myApp.controller("ProjectModCtrl", ['$scope', 'ProjectFactory', 'UserFactory',
-    function ($scope, ProjectFactory, UserFactory) {
-        $scope.$watch(function () {
-                return ProjectFactory.getCurrentProject();
-            },
-            function () {
-                $scope.projectData = ProjectFactory.getCurrentProject();
-            }, true);
+myApp.controller("ProjectModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'currentProject',
+    function ($scope, ProjectFactory, UserFactory, currentProject) {
+
+        $scope.projectData = {
+            projectName : currentProject.data.project_name,
+            budget : currentProject.data.budget,
+            startDate : currentProject.data.start_date,
+            endDate : currentProject.data.end_date,
+            projectManager : currentProject.data.project_manager,
+            description : currentProject.data.description
+        }
 
         $scope.projectManager = {};
         $scope.projectManagers = [];
@@ -60,5 +63,24 @@ myApp.controller("ProjectModCtrl", ['$scope', 'ProjectFactory', 'UserFactory',
             $event.stopPropagation();
             $scope.opened = true;
         };
+
+        /* this stuff is required for archiving a project */
+        $scope.active = !currentProject.data.active;
+
+        $scope.archiveProject = function(projectName, active) {
+            ProjectFactory.archiveProject(projectName, active)
+                .success(function(err, res) {
+                    if(active === false)
+                        alert(projectName + ' has been successfully archived');
+                    else
+                        alert(projectName + ' has been successfully restored');
+                })
+                .error(function(err, res) {
+                    if(active === false)
+                        alert('archive failed');
+                    else
+                        alert('restore failed');
+                })
+        }
     }
 ]);
