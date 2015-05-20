@@ -28,6 +28,10 @@ myApp.factory('TaskFactory', function ($http) {
             
         getCurrentTask: function(projectName, taskNumber) {
             return $http.get('http://localhost:3000/api/auth/project/' + projectName + '/task/' + taskNumber);
+        },
+
+        getUsers : function(taskId) {
+            return $http.get('http://localhost:3000/api/auth/task/' + taskId + '/users');
         }
     }
 });

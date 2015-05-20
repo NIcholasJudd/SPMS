@@ -20,6 +20,17 @@
                     console.log(err);
              return res.status(500).send(err);
          });
+     },
+
+     getUsers: function(req, res) {
+         db.query("select * from employee where email IN (select email from task_role where task_id = $1) AND active = true",
+             [req.params.taskId])
+             .then(function(data) {
+                 return res.json(data);
+             }, function(err) {
+                 console.error(err);
+                 return res.status(500).send(err);
+             })
      }
  }
 

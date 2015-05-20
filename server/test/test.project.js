@@ -302,6 +302,20 @@ describe('Project', function() {
             })
     });
 
+    it('should retrieve all users assigned to a task', function(done) {
+        superagent
+            .get(server + '/api/auth/task/' + testTasks[0].taskId + '/users')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                console.log(res.body);
+                done();
+            })
+    })
+
     /*it('should add a link to the project without error', function (done) {
         superagent
             .post(server + '/api/auth/admin/project/' + testProject.projectName + '/link')
