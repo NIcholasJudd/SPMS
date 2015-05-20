@@ -32,7 +32,11 @@ myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactor
                     projectManager: projects.project_manager
                 });
             });
+
             //ProjectFactory.setCurrentProject($scope.projectData[1]);
+        }).finally(function() {
+            if($scope.projectData.length > 0)
+                $window.sessionStorage.projectName = $scope.projectData[0].projectName;
         });
 
         function calculateDuration(startDate, endDate) {
@@ -71,8 +75,6 @@ myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactor
         /* sets the current project in project factory, so that gantt chart can access current project */
         $scope.setProject = function(index) {
             $window.sessionStorage.projectName = $scope.projectData[index].projectName;
-            //ProjectFactory.setCurrentProject($scope.projectData[index]);
-            console.log('current project is: ', ProjectFactory.getCurrentProject());
         }
 
     }
