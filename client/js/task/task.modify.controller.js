@@ -40,10 +40,12 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
             console.log(item);
         }
 
-        TaskFactory.getCurrentTask($window.sessionStorage.projectName, $window.sessionStorage.taskId).then(function (results) {
-            console.log('tasks: ', results);
+        TaskFactory.getCurrentTask($window.sessionStorage.projectName, $window.sessionStorage.taskNumber).then(function (results) {
+            console.log($window.sessionStorage.projectName + " " + $window.sessionStorage.taskNumber);
             results.data.forEach(function (tasks) {
-                $scope.taskData.push({
+                console.log("its a mother fucking mother flipping god dam fucking test statement");
+                console.log('tasks: ', tasks);
+                $scope.modifyTask.push({
                     taskId: tasks.task_id,
                     taskNumber: tasks.task_number,
                     projectName: tasks.project_name,
@@ -59,21 +61,17 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
                     priority: tasks.priority,
                     parentId: tasks.parent_id
                 })
-
+                console.log('tasks: ',$scope.modifyTask);
             })
         })
 
-            $scope.setRole = function (item, index) {
-                $scope.assignedTeamMembers[index].roleName = item;
-            }
-
-            $scope.getCurrentProject = function () {
-                return $window.sessionStorage.projectName;
-            }
-
-            $scope.getCurrentTask = function () {
-                return $window.sessionStorage.taskId;
-            }
+        $scope.setRole = function (item, index) {
+            $scope.assignedTeamMembers[index].roleName = item;
         }
-        ])
-        ;
+
+        $scope.getCurrentProject = function () {
+            return $window.sessionStorage.projectName;
+        }
+    }
+])
+;

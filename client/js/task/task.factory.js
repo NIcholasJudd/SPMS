@@ -20,14 +20,15 @@ myApp.factory('TaskFactory', function ($http) {
                 taskRoles: roles,
                 links: task.dependencies
             })
-        }, 
-
-        getCurrentTask: function(projectName, taskId) {
-            return $http.get('http://localhost:3000/api/auth/project/' + projectName + taskId + '/task');
         },
+        
 
         archiveTask: function(taskId, active) {
-            return $http.put('http://localhost:3000/api/auth/task/' + taskId + '/archive', {active : active});
+            return $http.put('http://localhost:3000/api/auth/task/' + taskId + '/archive', {active: active});
+        },
+            
+        getCurrentTask: function(projectName, taskNumber) {
+            return $http.get('http://localhost:3000/api/auth/project/' + projectName + '/task/' + taskNumber);
         }
     }
 });

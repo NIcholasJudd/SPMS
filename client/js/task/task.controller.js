@@ -341,8 +341,8 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         }
 
         $scope.setTask = function(index) {
-            $window.sessionStorage.taskId = $scope.taskData[index].taskId;
-            console.log($window.sessionStorage.taskId);
+            $window.sessionStorage.taskNumber = $scope.taskData[index].taskNumber;
+            console.log("cur task: " + $window.sessionStorage.taskNumber);
         }
     }
 ])
