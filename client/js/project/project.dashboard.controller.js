@@ -32,7 +32,7 @@ myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactor
                     projectManager: projects.project_manager
                 });
             });
-            ProjectFactory.setCurrentProject($scope.projectData[0]);
+            ProjectFactory.setCurrentProject($scope.projectData[1]);
         });
 
         function calculateDuration(startDate, endDate) {

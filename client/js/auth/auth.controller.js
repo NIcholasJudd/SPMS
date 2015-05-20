@@ -51,7 +51,7 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactor
 
         $scope.getUserName = function(){
             return $window.sessionStorage.user;
-
+            console.log($window.sessionStorage);
         }
     }
 ]);
