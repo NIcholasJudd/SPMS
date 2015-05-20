@@ -22,8 +22,16 @@ myApp.factory('TaskFactory', function ($http) {
             })
         },
 
+        archiveTask: function(taskId, active) {
+            return $http.put('http://localhost:3000/api/auth/task/' + taskId + '/archive', {active: active});
+        },
+            
         getCurrentTask: function(projectName, taskNumber) {
             return $http.get('http://localhost:3000/api/auth/project/' + projectName + '/task/' + taskNumber);
+        },
+
+        getUsers : function(taskId) {
+            return $http.get('http://localhost:3000/api/auth/task/' + taskId + '/users');
         }
     }
 });

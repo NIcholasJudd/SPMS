@@ -80,6 +80,23 @@ describe('Employee', function(){
             });
     })
 
+    it('should archive an employee without error', function(done) {
+        superagent
+            .put(server + '/api/auth/admin/user/' + testUser.email + '/archive')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .send({
+                active : true
+            })
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                expect(res.body.email).to.eql(testUser.email);
+                expect(res.body.active).to.eql(true);
+                done();
+            });
+    })
+
     it('should retrieve all employees without error', function(done) {
         superagent
             .get(server + '/api/auth/users/')

@@ -38,7 +38,7 @@ var projectTask = {
             .then(function(data) {
                 return db.one("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
                     "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority, " +
-                    "parent_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) returning task_id",
+                    "parent_id, active) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) returning task_id",
                     [data.nextval, req.params.projectName, req.body.taskName, req.body.description, req.body.startDate,
                         req.body.likelyDuration, req.body.optimisticDuration, req.body.pessimisticDuration,
                         0, req.body.status, req.body.priority, req.body.parentId, true])

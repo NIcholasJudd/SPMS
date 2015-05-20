@@ -50,7 +50,8 @@ db.tx(function(t) {
     "phone varchar(20)," +
     "user_type varchar(20) CHECK (user_type = 'administrator' OR user_type = 'team member') NOT NULL," +
     "performance_index real DEFAULT 0, " +
-    "previous_roles varchar(100)[]" +
+    "previous_roles varchar(100)[], " +
+    "active boolean " +
     ")"));
 
     queries.push(t.none("CREATE TABLE skill(skill_name varchar(100) NOT NULL, email varchar(100) references employee)"));
@@ -114,15 +115,15 @@ db.tx(function(t) {
 
 // The O.G. Admin will always exist, as an initial entry point into the application
 
-    queries.push(t.none("INSERT INTO employee VALUES('admin@admin','Adam', 'Minty', 'admin', '0123456789', 'administrator', 0, ARRAY['tester', 'developer'])"));
+    queries.push(t.none("INSERT INTO employee VALUES('admin@admin','Adam', 'Minty', 'admin', '0123456789', 'administrator', 0, ARRAY['tester', 'developer'], true)"));
 
 
     // test team members
 
-    queries.push(t.none("INSERT INTO employee VALUES('scott@tm','Scott', 'Mackenzie', 'pass', '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'operations'])"));
-    queries.push(t.none("INSERT INTO employee VALUES('paul@tm','Paul', 'Beavis', 'pass', '0123456789', 'team member', 0.5, ARRAY['developer', 'designer'])"));
-    queries.push(t.none("INSERT INTO employee VALUES('nick@tm','Nick', 'Judd', 'pass', '0123456789', 'team member', 0.5, ARRAY['designer', 'tester', 'analyst'])"));
-    queries.push(t.none("INSERT INTO employee VALUES('jim@tm','Jim', 'Gollop', 'pass', '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'analyst' ])"));
+    queries.push(t.none("INSERT INTO employee VALUES('scott@tm','Scott', 'Mackenzie', 'pass', '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'operations'], true)"));
+    queries.push(t.none("INSERT INTO employee VALUES('paul@tm','Paul', 'Beavis', 'pass', '0123456789', 'team member', 0.5, ARRAY['developer', 'designer'], true)"));
+    queries.push(t.none("INSERT INTO employee VALUES('nick@tm','Nick', 'Judd', 'pass', '0123456789', 'team member', 0.5, ARRAY['designer', 'tester', 'analyst'], true)"));
+    queries.push(t.none("INSERT INTO employee VALUES('jim@tm','Jim', 'Gollop', 'pass', '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'analyst' ], true)"));
 
 
 

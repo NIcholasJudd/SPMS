@@ -208,6 +208,23 @@ describe('Project', function() {
             });
     });
 
+    it('should archive a task', function(done) {
+        superagent
+            .put(server + '/api/auth/task/' + testLinks[0].source + '/archive')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .send({
+                active : false
+            })
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                expect(res.body[0].active).to.eql(false);
+                console.log(res.body);
+                done();
+            });
+    });
+
     it('should add a task to the project that depends on first task without error', function (done) {
         superagent
             .post(server + '/api/auth/project/' + testProject.projectName + '/task')
@@ -284,6 +301,20 @@ describe('Project', function() {
                 done();
             })
     });
+
+    it('should retrieve all users assigned to a task', function(done) {
+        superagent
+            .get(server + '/api/auth/task/' + testTasks[0].taskId + '/users')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                console.log(res.body);
+                done();
+            })
+    })
 
     /*it('should add a link to the project without error', function (done) {
         superagent

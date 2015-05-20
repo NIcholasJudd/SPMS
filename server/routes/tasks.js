@@ -2,18 +2,42 @@
  * Created by scottmackenzie on 12/05/2015.
  */
 
-/*var pg = require('pg'),
-    path = require('path'),
-    connectionString = require(path.join(__dirname, '../', '../', 'config'));
+ var promise = require('promise'),
+     db = require('../models/database');
 
-var rollback = function(client, done) {
-    client.query('ROLLBACK', function(err) {
-        return done(err);
-    });
-}
+ var task = {
+
+     archive: function(req, res) {
+         db.tx(function(t) {
+             var q1 = t.one("UPDATE task SET active = $1 WHERE task_id = $2 returning task_id, active",
+                [req.body.active, req.params.taskId]);
+             var q2 = t.query("UPDATE task_role set active = $1 WHERE task_id = $2 returning task_id, active",
+                 [req.body.active, req.params.taskId]);
+             return promise.all([q1, q2]);
+             }).then(function(data) {
+                    res.json(data);
+             }, function(err) {
+                    console.log(err);
+             return res.status(500).send(err);
+         });
+     },
+
+     getUsers: function(req, res) {
+         db.query("select * from employee where email IN (select email from task_role where task_id = $1) AND active = true",
+             [req.params.taskId])
+             .then(function(data) {
+                 return res.json(data);
+             }, function(err) {
+                 console.error(err);
+                 return res.status(500).send(err);
+             })
+     }
+ }
+
+ module.exports = task;
 
 
-var projects = {
+/*var projects = {
 
     getAll: function(req, res) {
         pg.connect(connectionString, function(err, client, done) {

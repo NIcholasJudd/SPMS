@@ -31,7 +31,7 @@ var projects = {
 
             var q1 = t.one("INSERT INTO project VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) returning project_name",
                 [req.body.projectName, req.body.description, req.body.budget, req.body.duration,
-                    req.body.startDate, req.body.estimatedEndDate, req.body.progress, req.body.projectManager, true]);
+                    req.body.startDate, req.body.estimatedEndDate, req.body.progress, true, req.body.projectManager]);
             var q2 = t.none("CREATE SEQUENCE " + sequence_name + " START 1");
 
             return promise.all([q1, q2]);
