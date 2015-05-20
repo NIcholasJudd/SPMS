@@ -18,7 +18,7 @@ myApp.controller("APNCtrl", ['$scope', 'ProjectFactory',
                             name : task.task_name,
                             duration : task.likely_duration.days
                         })
-                    });
+                    }); 
                     ProjectFactory.getLinks($scope.projectName).then(function(res) {
                         res.data.forEach(function(link) {
                             dependencies.push({
