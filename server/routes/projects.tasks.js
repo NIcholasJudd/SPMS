@@ -19,7 +19,7 @@ var projectTask = {
 
     getOne: function(req, res) {
         db.query("SELECT * FROM task WHERE project_name = $1 AND task_number = $2",
-            [req.body.projectName, req.params.taskNumber])
+            [req.params.projectName, req.params.taskNumber])
             .then(function(data) {
                 return res.json(data);
             }, function(err) {

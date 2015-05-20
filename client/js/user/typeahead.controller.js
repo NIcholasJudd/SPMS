@@ -7,7 +7,7 @@ myApp.controller("TypeaheadCtrl", ['$scope','UserFactory', function ($scope, Use
     $scope.skills = ["c++", "java", "html", "javascript", "Databases", "angular", "bootstrap"];
     $scope.user = [];
     UserFactory.getUsers().then(function (results) {
-        console.log('HERE:', results.data);
+        //console.log('HERE:', results.data);
         results.data.forEach(function (user) {
             $scope.user.push(user.first_name + ' ' + user.last_name)
         })
