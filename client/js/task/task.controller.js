@@ -339,6 +339,11 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         $scope.getUserName = function(){
             return $window.sessionStorage.firstName;
         }
+
+        $scope.setTask = function(index) {
+            $window.sessionStorage.taskId = $scope.taskData[index].taskId;
+            console.log($window.sessionStorage.taskId);
+        }
     }
 ])
 ;

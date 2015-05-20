@@ -72,7 +72,7 @@ myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactor
         $scope.setProject = function(index) {
             $window.sessionStorage.projectName = $scope.projectData[index].projectName;
             //ProjectFactory.setCurrentProject($scope.projectData[index]);
-            //console.log('current project is: ', ProjectFactory.getCurrentProject());
+            console.log('current project is: ', ProjectFactory.getCurrentProject());
         }
 
     }

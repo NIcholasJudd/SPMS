@@ -46,7 +46,5 @@ myApp.factory('ProjectFactory', function($http) {
         getPMProjects : function(email) {
             return $http.get('http://localhost:3000/api/auth/user/' + email + '/projects');
         },
-        getCurrentProject : function() {return currentProject},
-        setCurrentProject : function(project) {currentProject = project;}
     }
 });

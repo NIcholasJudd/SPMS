@@ -1,25 +1,15 @@
 /**
  * Created by nicholasjudd on 20/05/15.
  */
-myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory',
-    function ($scope, ProjectFactory, UserFactory) {
+myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window',
+    function ($scope, ProjectFactory, UserFactory, TaskFactory, $window) {
 
-        $scope.modifyTask={};
-        $scope.dependencies=[];
-        $scope.projectData={};
-        $scope.search={};
-        $scope.priorityLevel = ["Critical", "High", "Medium", "Low"];
-        $scope.Roles = ["Developer", "Tester", "Bug Fixer", "Analyst", "Graphic Designer", "Interface Designer", "Server Designer", "Database Engineer"];
-        $scope.Skills = ["c++", "java", "html", "javascript", "Databases", "angular", "bootstrap"];
+        $scope.modifyTask = {};
+        $scope.dependencies = [];
+        $scope.projectData = {};
+        $scope.search = {};
 
-        $scope.$watch(function () {
-                return ProjectFactory.getCurrentProject();
-            },
-            function () {
-                $scope.projectData = ProjectFactory.getCurrentProject().projectName;
-           }, true);
-
-        /****   Form Fucntions  ****/
+        /****   Form Functions  ****/
         $scope.clearDependencies = function () {
             $scope.dependencies = [];
         }
@@ -50,9 +40,40 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory',
             console.log(item);
         }
 
-        $scope.setRole = function (item, index) {
-            $scope.assignedTeamMembers[index].roleName = item;
-        }
+        TaskFactory.getCurrentTask($window.sessionStorage.projectName, $window.sessionStorage.taskId).then(function (results) {
+            console.log('tasks: ', results);
+            results.data.forEach(function (tasks) {
+                $scope.taskData.push({
+                    taskId: tasks.task_id,
+                    taskNumber: tasks.task_number,
+                    projectName: tasks.project_name,
+                    taskName: tasks.task_name,
+                    taskDescription: tasks.description,
+                    startDate: tasks.start_date,
+                    likelyDuration: tasks.likely_duration,
+                    optimisticDuration: tasks.optimistic_duration,
+                    pessimisticDuration: tasks.pessimistic_duration,
+                    progress: tasks.progress_percentage,
+                    status: tasks.status,
+                    teamMembers: [],
+                    priority: tasks.priority,
+                    parentId: tasks.parent_id
+                })
 
-    }
-]);
+            })
+        })
+
+            $scope.setRole = function (item, index) {
+                $scope.assignedTeamMembers[index].roleName = item;
+            }
+
+            $scope.getCurrentProject = function () {
+                return $window.sessionStorage.projectName;
+            }
+
+            $scope.getCurrentTask = function () {
+                return $window.sessionStorage.taskId;
+            }
+        }
+        ])
+        ;
