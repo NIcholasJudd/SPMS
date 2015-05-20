@@ -2,14 +2,14 @@
  * Created by scottmackenzie on 12/05/15.
  */
 
-myApp.controller("GanttChartCtrl", ['$scope', 'ProjectFactory',
-    function($scope, ProjectFactory) {
-        $scope.$watch(function() {
+myApp.controller("GanttChartCtrl", ['$scope', '$window', 'ProjectFactory',
+    function($scope, $window, ProjectFactory) {
+        /*$scope.$watch(function() {
             return ProjectFactory.getCurrentProject();
-        },
-            function() {
-                console.log('WATCH WORKING');
-                $scope.projectName = ProjectFactory.getCurrentProject().projectName;
+        },*/
+           // function() {
+                console.log($window.sessionStorage);
+                $scope.projectName = $window.sessionStorage.projectName;//ProjectFactory.getCurrentProject().projectName;
                 var tasks = {
                     data : [],
                     links : []
@@ -49,7 +49,7 @@ myApp.controller("GanttChartCtrl", ['$scope', 'ProjectFactory',
                 });
 
 
-            }, true);
+           // }, true);
 
         function mapToType(type) {
             switch(type) {

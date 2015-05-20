@@ -2,7 +2,7 @@
  * Created by scottmackenzie on 5/05/2015.
  */
 myApp.factory('ProjectFactory', function($http) {
-    var currentProject = {};
+    //$window.sessionStorage.project = {};//var currentProject = {};
     return {
         /*getProjects: function() {
                 return Projects;
@@ -28,8 +28,7 @@ myApp.factory('ProjectFactory', function($http) {
         },
 
         updateProject: function(project){
-            return $http.put('http://localhost:3000/api/auth/admin/project/', {
-                projectName: project.projectName,
+            return $http.put('http://localhost:3000/api/auth/project/' + project.projectName, {
                 description: project.description,
                 budget: project.budget,
                 duration : project.duration,

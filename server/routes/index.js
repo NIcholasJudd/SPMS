@@ -36,9 +36,9 @@ router.delete('/api/auth/admin/user/:email', user.delete);
 
 //routes for project CRUD
 router.get('/api/auth/projects', project.getAll);
-router.get('/api/auth/project/:project.name', project.getOne);
+router.get('/api/auth/project/:projectName', project.getOne);
 router.post('/api/auth/admin/project', project.create);
-router.put('/api/auth/project/:project.name', project.update);
+router.put('/api/auth/project/:projectName', project.update);
 router.delete('/api/auth/admin/project/', project.delete);
 
 // routes for tasks involved with a particular project

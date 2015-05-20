@@ -41,19 +41,24 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         $scope.searchTeamMembers = [];
         $scope.teamMembersList = [];
         $scope.taskData = [];
-        $scope.projectData = [];
+        $scope.projectNames =[];
+        //$scope.projectData = [];
         $scope.newTask = {};
         $scope.dependencies = [];
         $scope.searchUser = {};
-        ProjectFactory.getProjects().then(function (projects) {
+        /*ProjectFactory.getProjects().then(function (projects) {
             projects.data.forEach(function (projects) {
                 $scope.projectData.push({
                     projectName: projects.project_name
                 });
             });
-        });
+        });*/
+
+        $scope.$on('')
+
         UserFactory.getUserTasks($window.sessionStorage.user).then(function (results) {
             console.log('tasks: ', results);
+            var projectNames = [];
             results.data.forEach(function (tasks) {
                 $scope.taskData.push({
                     taskId: tasks.task_id,
@@ -71,7 +76,14 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                     priority: tasks.priority,
                     parentId: tasks.parent_id
                 })
+                projectNames.push(tasks.project_name);
             })
+            $scope.projectNames = projectNames.filter(function(item, pos) {
+                return projectNames.indexOf(item) == pos;
+            });
+            /*$scope.taskData.forEach(function(task) {
+
+            })*/
         })
         UserFactory.getUsers().then(function (results) {
             console.log('HERE:', results.data);
@@ -324,6 +336,9 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         $scope.markComplete = function ($index) {
             $scope.taskData[$index].status = 'complete';
         };
+        $scope.getUserName = function(){
+            return $window.sessionStorage.firstName;
+        }
     }
 ])
 ;

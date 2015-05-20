@@ -4,11 +4,11 @@
 	<div class="row">
 		<div class="col-md-12">
 			<tabset class="custom-tabs" justified="true">
-				<tab ng-repeat="project in projectData"
-					 heading="{{project.projectName}}"
-					 active="tab.active" disable="tab.disabled" ng-click="setProject($index)">
+				<tab ng-repeat="projectName in projectNames"
+					 heading="{{projectName}}"
+					 active="tab.active" disable="tab.disabled">
 					<div class="project-container">
-						<h2>{{project.projectName}}</h2>
+						<h2>{{projectName}}</h2>
 						<div class="row m-top-md">
 						<div class="col-md-10">
 						<div class="row">
@@ -46,7 +46,7 @@
 					</a>
 				</div>
 			</div>
-						<div ng-controller="LoginCtrl" class="row m-top-md">
+						<div class="row m-top-md">
 				<div class="col-md-12" ng-show="assigned">
 					<div class="panel panel-danger">
 						<div class="panel-heading"><h4>Tasks assigned to {{getUserName()}}.</h4></div>

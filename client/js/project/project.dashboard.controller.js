@@ -70,8 +70,9 @@ myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactor
 
         /* sets the current project in project factory, so that gantt chart can access current project */
         $scope.setProject = function(index) {
-            ProjectFactory.setCurrentProject($scope.projectData[index]);
-            console.log('current project is: ', ProjectFactory.getCurrentProject());
+            $window.sessionStorage.projectName = $scope.projectData[index].projectName;
+            //ProjectFactory.setCurrentProject($scope.projectData[index]);
+            //console.log('current project is: ', ProjectFactory.getCurrentProject());
         }
 
     }
