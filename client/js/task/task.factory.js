@@ -2,6 +2,7 @@
  * Created by nicholasjudd on 17/05/15.
  */
 myApp.factory('TaskFactory', function ($http) {
+    var currentTask = {};
     return {
 
         createTask: function (task, roles) {
@@ -19,6 +20,10 @@ myApp.factory('TaskFactory', function ($http) {
                 taskRoles: roles,
                 links: task.dependencies
             })
+        },
+
+        getCurrentTask: function(projectName, taskId) {
+            return $http.get('http://localhost:3000/api/auth/project/' + projectName + taskId + '/task');
         }
     }
 });

@@ -342,16 +342,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
     }
 ])
 ;
-myApp.factory("Roles", function () {
-    var rolesList = ["Developer", "Tester", "Bug Fixer", "Analyst", "Graphic Designer", "Interface Designer", "Server Designer", "Database Engineer"];
-    return rolesList;
 
-});
-myApp.factory("Skill", function () {
-    var skillsList = ["c++", "java", "html", "javascript", "Databases", "angular", "bootstrap"];
-    return skillsList;
-
-});
 
 
 

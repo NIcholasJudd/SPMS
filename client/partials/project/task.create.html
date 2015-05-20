@@ -190,7 +190,7 @@
                                 <label for="searchName">Name</label>
                                 <input id="searchName"
                                        ng-controller="TypeaheadCtrl"
-                                       ng-model="selected"
+                                       ng-model="selectedNames"
                                        typeahead="name for name in user | filter:$viewValue | limitTo:8"
                                        class="form-control"
                                        placeholder="Name">
@@ -202,7 +202,7 @@
                                 <label for="searchSkill">Skills</label>
                                 <input id="searchSkill"
                                        ng-controller="TypeaheadCtrl"
-                                       ng-model="selected"
+                                       ng-model="selectedSkill"
                                        type="text"
                                        typeahead="skill for skill in skills | filter:$viewValue | limitTo:8"
                                        class="form-control"
@@ -215,7 +215,7 @@
                                 <label for="searchRole">Roles</label>
                                 <input id="searchRole"
                                        ng-controller="TypeaheadCtrl"
-                                       ng-model="selected"
+                                       ng-model="selectedRoles"
                                        type="text"
                                        typeahead="role for role in roles | filter:$viewValue | limitTo:8"
                                        class="form-control"

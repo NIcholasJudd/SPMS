@@ -1,8 +1,10 @@
 myApp.controller("TypeaheadCtrl", ['$scope','UserFactory', function ($scope, UserFactory, Roles, Skill) {
 
-    $scope.selected = undefined;
-    $scope.roles = Roles;
-    $scope.skills = Skill;
+    $scope.selectedNames = undefined;
+    $scope.selectedRoles = undefined;
+    $scope.selectedSkill = undefined;
+    $scope.roles = ["Developer", "Tester", "Bug Fixer", "Analyst", "Graphic Designer", "Interface Designer", "Server Designer", "Database Engineer"];
+    $scope.skills = ["c++", "java", "html", "javascript", "Databases", "angular", "bootstrap"];
     $scope.user = [];
     UserFactory.getUsers().then(function (results) {
         console.log('HERE:', results.data);
