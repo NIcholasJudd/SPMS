@@ -52,6 +52,13 @@ myApp.config(function($routeProvider, $httpProvider) {
               requiredLogin: true,
               adminOnly: false
           }
+      }).when('/project/apn', {
+          templateUrl: 'partials/project/apn.html',
+          controller: 'APNCtrl',
+          access: {
+              requiredLogin: true,
+              adminOnly : false
+          }
       }).when('/dashboard/adminDashboard', {
         templateUrl: 'partials/dashboard/administrator.dashboard.html',
         controller: 'HomeCtrl',
