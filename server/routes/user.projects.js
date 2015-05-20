@@ -7,7 +7,7 @@ var promise = require('promise'),
 
 var userProject = {
     getAll: function(req, res) {
-        db.query("select * from project where project_manager = $1", [req.params.email])
+        db.query("select * from project where project_manager = $1 and active = true", [req.params.email])
             .then(function(data) {
                 return res.json(data);
             }, function(err) {

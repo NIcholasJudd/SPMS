@@ -29,9 +29,9 @@ var projects = {
             var sequence_name = req.body.projectName;
             sequence_name = (sequence_name.replace(/\s/g, '')) + '_seq';
 
-            var q1 = t.one("INSERT INTO project VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning project_name",
+            var q1 = t.one("INSERT INTO project VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) returning project_name",
                 [req.body.projectName, req.body.description, req.body.budget, req.body.duration,
-                    req.body.startDate, req.body.estimatedEndDate, req.body.progress, req.body.projectManager]);
+                    req.body.startDate, req.body.estimatedEndDate, req.body.progress, req.body.projectManager, true]);
             var q2 = t.none("CREATE SEQUENCE " + sequence_name + " START 1");
 
             return promise.all([q1, q2]);
@@ -72,8 +72,44 @@ var projects = {
             console.log(err);
             return res.status(500).send(err);
         });
+    },
+
+    archive: function(req, res) {
+        db.tx(function(t) {
+            var q1 = t.query("UPDATE project SET active = $1 WHERE project_name = $2 returning project_name",
+                [req.body.active, req.params.projectName]);
+            var q2 = t.query("UPDATE task SET active = $1 WHERE project_name = $2 returning project_name",
+                [req.body.active, req.params.projectName]);
+            var q3 = t.query("UPDATE task_role set active = $1 WHERE task_id IN " +
+            "(select task_id from task where project_name = $2);", [req.body.active, req.params.projectName]);
+            return promise.all([q1, q2]);
+        }).then(function(data) {
+            res.json(data);
+        }, function(err) {
+            console.log(err);
+            return res.status(500).send(err);
+        });
     }
+
 };
 
 module.exports = projects;
 
+/*var archiveProject = {
+    put: function(req, res) {
+        db.tx(function(t) {
+            var q1 = t.query("UPDATE project SET active = $1 WHERE project_name = $2 returning project_name",
+                [req.body.active, req.params.projectName]);
+            var q2 = t.query("UPDATE task SET active = $1 WHERE project_name = $2 returning project_name",
+                [req.body.active, req.params.projectName]);
+            return promise.all([q1, q2]);
+        }).then(function(data) {
+            res.json(data);
+        }, function(err) {
+            console.log(err);
+            return res.status(500).send(err);
+        });
+    }
+};
+
+module.exports = archiveProject;*/
