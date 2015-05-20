@@ -189,7 +189,9 @@
                             <div class="col-md-12">
                                 <label for="searchName">Name</label>
                                 <input id="searchName"
-                                       ng-model="search.Name"
+                                       ng-controller="TypeaheadCtrl"
+                                       ng-model="selected"
+                                       typeahead="name for name in user | filter:$viewValue | limitTo:8"
                                        class="form-control"
                                        placeholder="Name">
                                 </input>
@@ -199,8 +201,10 @@
                             <div class="col-md-12">
                                 <label for="searchSkill">Skills</label>
                                 <input id="searchSkill"
-                                       ng-model="search.skill"
+                                       ng-controller="TypeaheadCtrl"
+                                       ng-model="selected"
                                        type="text"
+                                       typeahead="skill for skill in skills | filter:$viewValue | limitTo:8"
                                        class="form-control"
                                        placeholder="Skills">
                                 </input>
@@ -210,8 +214,10 @@
                             <div class="col-md-12">
                                 <label for="searchRole">Roles</label>
                                 <input id="searchRole"
-                                       ng-model="search.role"
+                                       ng-controller="TypeaheadCtrl"
+                                       ng-model="selected"
                                        type="text"
+                                       typeahead="role for role in roles | filter:$viewValue | limitTo:8"
                                        class="form-control"
                                        placeholder="Roles">
                                 </input>

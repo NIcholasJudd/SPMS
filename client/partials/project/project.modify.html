@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="row-fluid">
+        <div class="col-md-8 col-md-offset-2">
+            <h2>Modify Project</h2>
+
+            <div class="panel panel-danger">
+                <div class="panel panel-heading">
+                    Project Details
+                </div>
+                <div class="panel-body">
+                    <form ng-submit="submit()">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="projectName">Project Title</label>
+                                <input id="projectName"
+                                       type="text"
+                                       ng-model="projectData.projectName"
+                                       style="width:100%"
+                                       readonly/>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="budget">Estiamated Budget</label>
+                                <input id="budget"
+                                       ng-model="projectData.budget"
+                                       style="width:100%"
+                                       type="number"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="startDate">Start Date</label>
+                                <div style="display:inline-block; min-height:290px;">
+                                    <datepicker id="startDate"  ng-model="projectData.startDate" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="startDate">Start Date</label>
+                                <div style="display:inline-block; min-height:290px;">
+                                    <datepicker id="startDate"  ng-model="projectData.estimatedEndDate" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="projectManager">Project Manager</label>
+                                <select id="projectManager"
+                                        ng-model="projectData.projectManager"
+                                        ng-options="pm.email as pm.name for pm in projectManagers"
+                                        style="width:100%"
+                                        placeholder="Project Manager"></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="modProjectManager">Current Project Manager</label>
+                                <input id="modProjectManager"
+                                       type="text"
+                                       ng-model="projectManager.name"
+                                       style="width:100%"
+                                       readonly/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="description">Project Description</label>
+                            <textarea id="description"
+                                      ng-model="projectData.description"
+                                      style="width:100%; resize: none;"
+                                      type="text"
+                                      class="form-control"
+                                      resiz
+                                      rows="3"
+                                    >
+                            </textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-success" style="width:100%;">Modify
+                                    Project
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

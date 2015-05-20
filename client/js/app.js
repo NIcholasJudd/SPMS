@@ -1,3 +1,4 @@
+var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead']);
 var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.slider', 'mj.scrollingTabs']);
 
 myApp.config(function($routeProvider, $httpProvider) {
@@ -23,14 +24,27 @@ myApp.config(function($routeProvider, $httpProvider) {
           requiredLogin: true,
             adminOnly: true
         }
-      })
-      .when('/project/taskCreate', {
+      }).when('/project/modify', {
+          templateUrl: 'partials/project/project.modify.html',
+          controller: 'ProjectModCtrl',
+          access: {
+              requiredLogin: true,
+              adminOnly: false
+          }
+      }).when('/project/taskCreate', {
         templateUrl: 'partials/project/task.create.html',
         controller: 'TaskCtrl',
         access: {
           requiredLogin: true,
             adminOnly : false
         }
+      }).when('/project/taskModify', {
+          templateUrl: 'partials/project/task.modify.html',
+          controller: 'TaskModCtrl',
+          access: {
+              requiredLogin: true,
+              adminOnly : false
+          }
       }).when('/effort/functionPoints', {
         templateUrl: 'partials/effort/functionPoints.html',
         controller: 'EffortCtrl',
@@ -51,6 +65,13 @@ myApp.config(function($routeProvider, $httpProvider) {
         access: {
               requiredLogin: true,
               adminOnly: false
+          }
+      }).when('/project/apn', {
+          templateUrl: 'partials/project/apn.html',
+          controller: 'APNCtrl',
+          access: {
+              requiredLogin: true,
+              adminOnly : false
           }
       }).when('/dashboard/adminDashboard', {
         templateUrl: 'partials/dashboard/administrator.dashboard.html',

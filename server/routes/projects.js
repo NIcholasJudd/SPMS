@@ -46,7 +46,7 @@ var projects = {
     /* update, every field except for primary key must be updated */
 
     update: function(req, res) {
-        db.none("UPDATE project SET description=($2), budget=($3), duration=($4), " +
+        db.one("UPDATE project SET description=($2), budget=($3), duration=($4), " +
             "start_date=($5), estimated_end_date=($6), progress=($7), project_manager=($8) WHERE project_name = $1",
             [req.body.projectName, req.body.description, req.body.budget, req.body.duration,
                 req.body.startDate, req.body.estimatedEndDate, req.body.progress, req.body.projectManager])
