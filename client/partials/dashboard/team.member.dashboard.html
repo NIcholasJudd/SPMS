@@ -85,6 +85,7 @@
 									<th>Progress</th>
 									<th>Done</th>
 								</tr>
+								<tr ng-repeat='otg in taskData | filter: {status: "on-the-go"}'>
 								<tr ng-repeat='otg in taskData | filter: {status: "on-the-go"} track by $index' ng-click="(setTask($index))">
 									<td>{{otg.taskId}}</td>
 									<td>{{otg.taskName}}</td>

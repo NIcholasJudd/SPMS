@@ -74,5 +74,7 @@ myApp.controller("UserCtrl", ['$scope', 'UserFactory',
             console.log($scope.user);
         }
 
+
+
     }
 ]);
