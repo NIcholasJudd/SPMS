@@ -24,9 +24,9 @@ var users = {
     },
 
     create: function(req, res) {
-        db.one("INSERT INTO employee VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning email", [req.body.email, req.body.firstName,
+        db.one("INSERT INTO employee VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) returning email", [req.body.email, req.body.firstName,
             req.body.lastName, req.body.password, req.body.phone, req.body.role, req.body.performanceIndex,
-            req.body.previousRoles])
+            req.body.previousRoles, true])
             .then(function(data) {
                 return res.json(data);
             }, function(err) {
@@ -62,6 +62,16 @@ var users = {
             console.log(err);
             return res.status(500).send(err);
         });
+    },
+
+    archive: function(req, res) {
+        db.one("update employee set active = $1 where email = $2 returning email, active", [req.body.active, req.params.email])
+            .then(function(data) {
+                res.json(data);
+            }, function(err) {
+                console.log(err);
+                return res.status(500).send(err);
+            });
     }
 };
 

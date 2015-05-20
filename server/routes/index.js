@@ -6,7 +6,8 @@ var express = require('express'),
     projectLink = require('./projects.links.js'),
     userTask = require('./user.tasks.js'),
     userProject = require('./user.projects.js'),
-    archiveProject = require('./projects.js');
+    archiveProject = require('./projects.js'),
+    task = require('./tasks.js');
 
 
 /* Authorisation naming conventions:
@@ -34,6 +35,7 @@ router.get('/api/auth/user/:email', user.getOne);
 router.post('/api/auth/admin/user/', user.create);
 router.put('/api/auth/user/:email', user.update);
 router.delete('/api/auth/admin/user/:email', user.delete);
+router.put('/api/auth/admin/user/:email/archive', user.archive);
 
 //routes for project CRUD
 router.get('/api/auth/projects', project.getAll);
@@ -59,6 +61,9 @@ router.delete('/api/auth/project/:projectName/link/:taskId', projectLink.delete)
 
 // get all tasks assigned to a user
 router.get('/api/auth/user/:email/tasks', userTask.getAll);
+
+// archive a task
+router.put('/api/auth/task/:taskId/archive', task.archive);
 
 // get all projects that a user 'project manages'
 router.get('/api/auth/user/:email/projects', userProject.getAll);
