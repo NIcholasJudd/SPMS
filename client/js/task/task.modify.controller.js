@@ -12,6 +12,7 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
         $scope.taskData = [];
         $scope.dependencies = [];
         $scope.searchTeamMembers = [];
+        $scope.teamMembersList = [];
         /****   Form Functions  ****/
         $scope.clearDependencies = function () {
             $scope.dependencies = [];
@@ -61,6 +62,13 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
                 $scope.searchTeamMembers.push({
                     name: user.first_name + ' ' + user.last_name,
                     email: user.email
+                })
+                $scope.teamMembersList.push({
+                    name: user.first_name + ' ' + user.last_name,
+                    email: user.email,
+                    skill: user.user_type,
+                    role: user.previous_roles,
+                    performanceIndex: user.performance_index
                 })
             })
         })

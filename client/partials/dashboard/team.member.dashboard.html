@@ -61,7 +61,7 @@
 									<th>Progress</th>
 									<th>Add</th>
 								</tr>
-								<tr ng-repeat='unassigned in tasks | filter: {status: "unassigned"}'>
+								<tr ng-repeat='unassigned in tasks | filter: {status: "unassigned"} track by $index'>
 									<td>{{unassigned.taskId}}</td>
 									<td>{{unassigned.taskName}}</td>
 									<td>{{unassigned.taskDescription}}</td>
