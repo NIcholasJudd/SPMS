@@ -85,6 +85,9 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
             /*$scope.taskData.forEach(function(task) {
 
             })*/
+        }).finally(function() {
+            if($scope.projectNames > 0)
+                $scope.aFunction($scope.projectNames[0]);
         })
         UserFactory.getUsers().then(function (results) {
             console.log('HERE:', results.data);
