@@ -65,6 +65,7 @@ router.get('/api/auth/user/:email/tasks', userTask.getAll);
 // archive a task
 router.put('/api/auth/task/:taskId/archive', task.archive);
 router.get('/api/auth/task/:taskId/users', task.getUsers);
+router.put('/api/auth/task/:taskId', task.update);
 
 // get all projects that a user 'project manages'
 router.get('/api/auth/user/:email/projects', userProject.getAll);
