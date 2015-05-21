@@ -137,6 +137,7 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
        	{
        		id: "fp12",
        		title: "How effective/automated are startup, backup, and recovery??",
+			value: null
        	},
        	{ 	
        		id: "fp13",
@@ -165,11 +166,11 @@ myApp.controller("EffortCtrl", ['$scope', 'ProjectFactory',
        	}
        	$scope.submitFunctionPoints = function() {
        		$scope.ValueAdjustmentFactor.value = (Number($scope.adjustmentFactor[0].value) + Number($scope.adjustmentFactor[1].value) + Number($scope.adjustmentFactor[2].value) + Number($scope.adjustmentFactor[3].value) + Number($scope.adjustmentFactor[4].value) + Number($scope.adjustmentFactor[5].value) + Number($scope.adjustmentFactor[6].value) + Number($scope.adjustmentFactor[7].value) + Number($scope.adjustmentFactor[8].value) + Number($scope.adjustmentFactor[9].value) + Number($scope.adjustmentFactor[10].value) + Number($scope.adjustmentFactor[11].value) + Number($scope.adjustmentFactor[12].value) + Number($scope.adjustmentFactor[13].value));
-       		for (var i = 0; i < 5; i++){
+			for (var i = 0; i < 5; i++){
                         $scope.functionPointCount.value += (Number($scope.functionPoints[i].count) * Number($scope.functionPoints[i].wf));
                   }
                   var adjustedFP = Number($scope.functionPointCount.value) * (0.65 + 0.01 * Number($scope.ValueAdjustmentFactor.value));
-                  window.alert(adjustedFP)
+                  window.alert(Number(adjustedFP));
        	}
     }
 ]);

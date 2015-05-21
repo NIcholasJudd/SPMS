@@ -20,9 +20,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="taskPriority">Task Priority</label>
-                                    <select class="form-control" id="taskPriority" ng-model="priority"
+                                    <select class="form-control" id="taskPriority" ng-model="modifyTask.priority"
                                             ng-change="setPriority(priority)"
-                                            ng-options="priority as priority for priority in priorityLevel">
+                                            ng-options="priority as priority for priority in priorityLevel track by modifyTask.priority">
                                     </select>
                                 </div>
                             </div>

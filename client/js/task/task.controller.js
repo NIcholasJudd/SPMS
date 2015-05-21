@@ -43,17 +43,17 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         $scope.taskData = [];
         $scope.tasks = [];
         $scope.projectNames =[];
-        //$scope.projectData = [];
+        $scope.projectData = [];
         $scope.newTask = {};
         $scope.dependencies = [];
         $scope.searchUser = {};
-        /*ProjectFactory.getProjects().then(function (projects) {
+        ProjectFactory.getProjects().then(function (projects) {
             projects.data.forEach(function (projects) {
                 $scope.projectData.push({
                     projectName: projects.project_name
                 });
             });
-        });*/
+        });
 
         $scope.$on('')
 

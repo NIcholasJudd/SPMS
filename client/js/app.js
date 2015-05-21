@@ -38,7 +38,7 @@ myApp.config(function($routeProvider, $httpProvider) {
           }
       }).when('/project/taskCreate', {
         templateUrl: 'partials/project/task.create.html',
-        controller: 'TaskCtrl',
+        controller: 'TaskCreateCtrl',
         access: {
           requiredLogin: true,
             adminOnly : false

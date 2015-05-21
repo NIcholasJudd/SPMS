@@ -4,7 +4,7 @@
 myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window',
     function ($scope, ProjectFactory, UserFactory, TaskFactory, $window) {
         $scope.Roles = ["Developer", "Tester", "Bug Fixer", "Analyst", "Graphic Designer", "Interface Designer", "Server Designer", "Database Engineer"];
-        $scope.priorityLevel = ["Critical", "High", "Medium", "Low"];
+        $scope.priorityLevel = ["critical", "high", "medium", "low"];
 
         $scope.modifyTask = {};
         $scope.dependencies = [];

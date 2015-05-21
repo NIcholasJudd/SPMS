@@ -29,14 +29,18 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="startDate">Start Date</label>
+
                                 <div style="display:inline-block; min-height:290px;">
-                                    <datepicker id="startDate"  ng-model="projectData.startDate" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                                    <datepicker id="startDate" ng-model="projectData.startDate" min-date="minDate"
+                                                show-weeks="true" class="well well-sm"></datepicker>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="startDate">Start Date</label>
+
                                 <div style="display:inline-block; min-height:290px;">
-                                    <datepicker id="startDate"  ng-model="projectData.estimatedEndDate" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                                    <datepicker id="startDate" ng-model="projectData.estimatedEndDate"
+                                                min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
                                 </div>
                             </div>
                         </div>
@@ -73,16 +77,34 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-12">
                             <h5>Archive Project</h5>
+
                             <div class="btn-group">
-                                <label class="btn btn-primary" ng-click="archiveProject(projectData.projectName, active)" ng-model="active" btn-checkbox>Archive/Restore</label>
+                                <label class="btn btn-primary"
+                                       ng-click="archiveProject(projectData.projectName, active)" ng-model="active"
+                                       btn-checkbox>Archive/Restore</label>
+                            </div>
                             </div>
                         </div>
+                        <br>
+
                         <div class="row">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-success" style="width:100%;">Modify
                                     Project
                                 </button>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="#/dashboard/pmDashboard">
+                                    <button id="backToDash" type="button" class="btn btn-success" style="width:100%;">
+                                        Return To Dashboard
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </form>
