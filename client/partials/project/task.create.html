@@ -10,17 +10,20 @@
                         <form ng-submit="submitTask()">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="projectList">Project Name</label>
-                                    <select class="form-control" id="projectList" ng-model="projectName"
-                                            ng-change="setProjectName(projectName)"
-                                            ng-options="project.projectName as project.projectName for project in projectData">
-                                    </select>
+                                    <label for="ProjectName">Project Name</label>
+                                    <input id="ProjectName"
+                                           ng-value="getCurrentProject()"
+                                           type="text"
+                                           class="form-control"
+                                           style="width:100%"
+                                           readonly/>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="taskPriority">Task Priority</label>
                                     <select class="form-control" id="taskPriority" ng-model="priority"
                                             ng-change="setPriority(priority)"
                                             ng-options="priority as priority for priority in priorityLevel">
+                                        <option value="">Select a Priority Level</option>
                                     </select>
                                 </div>
                             </div>
@@ -121,13 +124,14 @@
                                                class="form-control"
                                                value="{{tm.name}}"
                                                readonly
-                                               ng-click="setTMA($index)">
+                                               ng-click="setTMA($index)"
                                         </input>
                                     </div>
                                     <div class="col-md-5">
-                                        <select class="form-control" id="teamMemberRole" ng-model="teamMemberRole"
+                                        <select class="form-control" id="teamMemberRole" ng-model="$scope.assignedTeamMembers.role"
                                                 ng-change="setRole(teamMemberRole, $index)"
-                                                ng-options="role as role for role in Roles"></select>
+                                                ng-options="role as role for role in Roles">
+                                        </select>
                                     </div>
                                     <button id="user-rem"
                                             ng-click="removeUserFromTask($index)">

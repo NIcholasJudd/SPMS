@@ -46,7 +46,6 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         $scope.projectData = [];
         $scope.newTask = {};
         $scope.dependencies = [];
-        $scope.searchUser = {};
         ProjectFactory.getProjects().then(function (projects) {
             projects.data.forEach(function (projects) {
                 $scope.projectData.push({
@@ -174,7 +173,6 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                     }
                 }
             }
-            $scope.searchUser = {};
         }
         $scope.clearDependencies = function () {
             $scope.dependencies = [];
