@@ -207,11 +207,11 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
             }
             $scope.searchUser = {};
         }
-        $scope.submit = function() {
+       /* $scope.submit = function() {
             //calculate project duration
             console.log("Task Data: " + $scope.modifyTask.taskName);
             console.log("Team: " + $scope.assignedTeamMembers[0].name);
-            /*ProjectFactory.updateProject($scope.projectData)
+            TaskFactory.updateProject($scope.modifyTask, $scope.assignedTeamMembers)
                 .success(function(err, res) {
                     alert($scope.projectData.projectName + ' successfully updated in database');
                 }).error(function(err, res) {
@@ -221,8 +221,8 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
                     else
                         err_msg += err.detail;
                     alert(err_msg);
-                })*/
-        };
+                })
+        };*/
     }
 ])
 ;
