@@ -20,10 +20,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="taskPriority">Task Priority</label>
-                                    <select class="form-control" id="taskPriority">
-                                        <!--  <option ng-change="setPriority(priority)"
-                                                  ng-options="priority as priority for priority in priorityLevel"
-                                          </option> -->
+                                    <select class="form-control" id="taskPriority" ng-model="priority"
+                                            ng-change="setPriority(priority)"
+                                            ng-options="priority as priority for priority in priorityLevel">
                                     </select>
                                 </div>
                             </div>
@@ -124,14 +123,14 @@
                                         <input id="taskAssignedTeamMembers"
                                                type="text"
                                                class="form-control"
-                                        <!--value="{{tm.name}}"
+                                      value="{{tm.name}}"
                                         readonly
-                                        ng-click="setTMA($index)"-->
+                                        ng-click="setTMA($index)"
                                         </input>
                                     </div>
                                     <div class="col-md-5">
                                         <select class="form-control" id="teamMemberRole" ng-model="teamMemberRole"
-                                        <!-- ng-change="setRole(teamMemberRole, $index)"
+                                        < ng-change="setRole(teamMemberRole, $index)"
                                          ng-options="role as role for role in Roles">--></select>
                                     </div>
                                     <button id="user-rem"
@@ -160,9 +159,9 @@
                     </div>
                     <div class=" panel panel-body">
                         <select class="form-control" id="taskDependenciesAdd" ng-model="taskDependenciesAdd"
-                        <!-- ng-change="setDependencies(taskDependenciesAdd)"
+                        < ng-change="setDependencies(taskDependenciesAdd)"
                          ng-options="task as task.taskName for task in taskData"
-                         multiple>-->
+                         multiple/>
                         </select>
                     </div>
                 </div>
