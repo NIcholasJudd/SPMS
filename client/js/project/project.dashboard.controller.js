@@ -2,8 +2,8 @@
  * Created by scottmackenzie on 5/05/2015.
  */
 
-myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactory', '$window',
-    function($scope, ProjectFactory, UserFactory, $window) {
+myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactory', '$window', 'assignedProjects',
+    function($scope, ProjectFactory, UserFactory, $window, assignedProjects) {
         $scope.projectData = [];
 
         $scope.taskData = {
@@ -19,7 +19,25 @@ myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactor
             parentId: 0
         };
 
-        ProjectFactory.getPMProjects($window.sessionStorage.user).then(function(projects) {
+        /* 'assignedProjects' is resolved within app.js before the page loads, so that the tab-set always has
+            data before loading.
+         */
+        assignedProjects.data.forEach(function(projects){
+            $scope.projectData.push({
+                projectName:  projects.project_name,
+                description: projects.description,
+                budget: projects.budget,
+                duration : projects.duration,
+                startDate: projects.start_date,
+                estimatedEndDate: projects.estimated_end_date,
+                progress: calculateDateProgress(projects.start_date, projects.estimated_end_date),
+                projectManager: projects.project_manager
+            });
+            if($scope.projectData.length > 0)
+                $window.sessionStorage.projectName = $scope.projectData[0].projectName;
+        });
+
+        /*ProjectFactory.getPMProjects($window.sessionStorage.user).then(function(projects) {
             projects.data.forEach(function(projects){
                 $scope.projectData.push({
                     projectName:  projects.project_name,
@@ -37,7 +55,8 @@ myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactor
         }).finally(function() {
             if($scope.projectData.length > 0)
                 $window.sessionStorage.projectName = $scope.projectData[0].projectName;
-        });
+            //$scope.$apply();
+        });*/
 
         function calculateDuration(startDate, endDate) {
             //calculate duration from dates entered, in days
@@ -72,8 +91,9 @@ myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactor
             return total;
         }
 
-        /* sets the current project in project factory, so that gantt chart can access current project */
+        /* sets the current project in $window.sessionStorage, so that other pages can access current project */
         $scope.setProject = function(index) {
+            console.log('called');
             $window.sessionStorage.projectName = $scope.projectData[index].projectName;
         }
 

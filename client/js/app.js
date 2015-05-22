@@ -91,7 +91,15 @@ myApp.config(function($routeProvider, $httpProvider) {
         access: {
           requiredLogin: true,
             adminOnly : false
-        }
+        },
+          resolve : {
+              assignedProjects : function(ProjectFactory, $window) {
+                  if($window.sessionStorage.userRole === 'administrator')
+                      return ProjectFactory.getProjects();
+                  else
+                      return ProjectFactory.getPMProjects($window.sessionStorage.user);
+              }
+          }
       }).when('/dashboard/tmDashboard', {
         templateUrl: 'partials/dashboard/team.member.dashboard.html',
         controller: 'TaskCtrl',
