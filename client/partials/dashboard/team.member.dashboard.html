@@ -1,12 +1,13 @@
 
 
-<div class="container">
+<div class="container" ng-init="">
 	<div class="row">
 		<div class="col-md-12">
 			<tabset class="custom-tabs" justified="true">
 				<tab ng-repeat="projectName in projectNames"
 					 heading="{{projectName}}"
-						ng-init="importTasks(projectName); ">
+					 ng-click="setProject(projectName);">
+						<!--ng-init="importTasks(projectName); "-->
 					<div class="project-container">
 						<h2>{{projectName}}</h2>
 						<div class="row m-top-md">

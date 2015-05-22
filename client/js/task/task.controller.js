@@ -31,6 +31,11 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
             email: null,
             indexValue: null
         };
+        $scope.status = {
+            unassigned: 0,
+            otg: 0,
+            finalised: 0
+        };
         $scope.search = {
             name: "",
             skill: "",
@@ -59,6 +64,13 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
 
         UserFactory.getUserTasks($window.sessionStorage.user).then(function (results) {
             console.log('tasks: ', results);
+            if ($window.sessionStorage.userRole == "administrator") {
+                ProjectFactory.getProjects().then(function (projects) {
+                    projects.data.forEach(function (projects) {
+                        $scope.projectNames.push(projects.project_name);
+                    });
+                });
+            }else {
             var projectNames = [];
             results.data.forEach(function (tasks) {
                 $scope.taskData.push({
@@ -80,16 +92,18 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                 projectNames.push(tasks.project_name);
             })
 
-            $scope.projectNames = projectNames.filter(function(item, pos) {
+            $scope.projectNames = projectNames.filter(function (item, pos) {
                 return projectNames.indexOf(item) == pos;
             });
             /*$scope.taskData.forEach(function(task) {
 
-            })*/
+             })*/
+        }
         }).finally(function() {
             if($scope.projectNames > 0)
                 $scope.importTasks($scope.projectNames[0]);
         })
+
         UserFactory.getUsers().then(function (results) {
             console.log('HERE:', results.data);
             results.data.forEach(function (user) {
@@ -134,6 +148,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                         priority: tasks.priority,
                         parentId: tasks.parent_id
                     })
+                    countTasks($scope.taskData);
                 })
             })
             $scope.newTask.projectName = item;
@@ -222,14 +237,18 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                 return 'panel panel-info';
             }
         }
-        function countTasks() {
-            for (var i = 0; i < $scope.taskData.length; i++) {
-                if ($scope.taskData[i].status == "on-the-go") {
-                    $scope.countOnTheGo.value += Number(1);
-                } else if ($scope.taskData[i].status == "finalised") {
-                    $scope.countAwaitingApproval += Number(1);
-                }
-            }
+        function countTasks(task) {
+            $scope.status = {
+                unassigned: 0,
+                otg: 0,
+                finalised: 0
+            };
+            if (task.status == "on-the-go")
+                $scope.status.otg += Number(1);
+            else if (task.status = "unassigned")
+                $scope.status.unassigned += Number(1);
+            else if (task.status = "finalised")
+                $scope.status.complete += Number(1);
         }
 
         $scope.setTMS = function (index) {
@@ -349,7 +368,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
 
 
         }
-        ProjectFactory.getTasks($window.sessionStorage.projectName).then(function (res) {
+        /*ProjectFactory.getTasks($window.sessionStorage.projectName).then(function (res) {
             console.log('!!');
             $scope.status = {
                 unassigned: 0,
@@ -368,22 +387,12 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                     $scope.status.finalised += Number(1);
 
             })
-        })
+        })*/
         $scope.importTasks = function(proName) {
             ProjectFactory.getTasks(proName).then(function (res) {
                 console.log(proName);
-                $scope.status = {
-                    unassigned: 0,
-                    otg: 0,
-                    finalised: 0
-                };
                 res.data.forEach(function (task) {
-                    if (task.status == "on-the-go")
-                        $scope.status.otg += Number(1);
-                    else if (task.status = "unassigned")
-                        $scope.status.unassigned += Number(1);
-                    else if (task.status = "finalised")
-                        $scope.status.complete += Number(1);
+                    console.log(task.status);
                     $scope.tasks.push({
                         taskId: task.task_id,
                         taskName: task.task_name,

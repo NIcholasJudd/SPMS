@@ -203,7 +203,6 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
             //calculate project duration
             var date = new Date($scope.modifyTask.taskStartDate);
             $scope.modifyTask.taskStartDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear();
-            //date.toLocaleString().substring(0,date.toLocaleString().indexOf("T"));
             console.log("DATE YA CUNT " ,$scope.modifyTask.taskStartDate);
             console.log("Task Data: " ,$scope.modifyTask);
             console.log("Team: " , $scope.assignedTeamMembers);

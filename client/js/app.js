@@ -102,7 +102,7 @@ myApp.config(function($routeProvider, $httpProvider) {
           }
       }).when('/dashboard/tmDashboard', {
         templateUrl: 'partials/dashboard/team.member.dashboard.html',
-        controller: 'TaskCtrl',
+        controller: 'TaskDashCtrl',
         access: {
           requiredLogin: true,
             adminOnly : false
