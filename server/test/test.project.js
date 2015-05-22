@@ -202,7 +202,6 @@ describe('Project', function() {
             .end(function (err, res) {
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
-                console.log(res.body[0].task_id);
                 testLinks[0].source = res.body[0].task_id;
                 done();
             });
@@ -220,7 +219,22 @@ describe('Project', function() {
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
                 expect(res.body[0].active).to.eql(false);
-                console.log(res.body);
+                done();
+            });
+    });
+
+    it('should restore a task', function(done) {
+        superagent
+            .put(server + '/api/auth/task/' + testLinks[0].source + '/archive')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .send({
+                active : true
+            })
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                expect(res.body[0].active).to.eql(true);
                 done();
             });
     });
@@ -245,7 +259,6 @@ describe('Project', function() {
             .end(function (err, res) {
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
-                console.log(res.body);
                 expect(res.body[4].source).to.eql(testLinks[0].source);
                 link_id = res.body[4].link_id;
                 done();
@@ -261,15 +274,12 @@ describe('Project', function() {
             .end(function (err, res) {
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
-                //console.log(res.body);
                 var counter = 0;
                 res.body.forEach(function (task) {
-                    //console.log(task);
                     retrievedTask.push({taskNumber: task.task_number, taskId: task.task_id});
                     testTasks[counter].taskId = task.task_id;
                     counter++;
                 })
-                //console.log(retrievedTask);
                 done();
             })
     })
@@ -283,10 +293,39 @@ describe('Project', function() {
             .end(function (err, res) {
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
-                //console.log(res.body.rows);
                 done();
             })
     });
+
+    it('should update progress of a task without error', function(done) {
+        superagent
+            .put(server + '/api/auth/task/' + retrievedTask[0].taskId + '/progress')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .send({progressPercentage : 0.7})
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                expect(res.body.progress_percentage).to.eql(0.7);
+                done();
+            })
+    });
+
+    it('should update status of a task without error', function(done) {
+        superagent
+            .put(server + '/api/auth/task/' + retrievedTask[0].taskId + '/status')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .send({status : 'complete'})
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                expect(res.body.status).to.eql('complete');
+                done();
+            })
+    })
 
     it('should retrieve all tasks associated with a user', function (done) {
         superagent
@@ -297,7 +336,6 @@ describe('Project', function() {
             .end(function (err, res) {
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
-                //console.log(res.body);
                 done();
             })
     });
@@ -311,7 +349,6 @@ describe('Project', function() {
             .end(function (err, res) {
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
-                console.log(res.body);
                 done();
             })
     })
@@ -356,7 +393,6 @@ describe('Project', function() {
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')
             .end(function (err, res) {
-                //console.log(res.body);
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
                 //expect(res.body.rowCount).to.eql(1);
@@ -371,7 +407,6 @@ describe('Project', function() {
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')
             .end(function (err, res) {
-                //console.log(res.body);
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
                 //expect(res.body.rowCount).to.eql(1);
@@ -386,7 +421,6 @@ describe('Project', function() {
             .set('X-Key', 'admin@admin')
             .set('Accept', 'application/json')
             .end(function (err, res) {
-                //console.log(res.body);
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
                 //expect(res.body.rowCount).to.eql(1);
@@ -404,7 +438,6 @@ describe('Project', function() {
                 projectName: testProject.projectName
             })
             .end(function (err, res) {
-                //console.log(res.body);
                 expect(err).to.eql(null);
                 expect(res.status).to.eql(200);
                 expect(res.body[1].project_name).to.eql(testProject.projectName);
@@ -414,7 +447,6 @@ describe('Project', function() {
 
     testEmployees.forEach(function(testEmployee) {
         after(function(done) {
-            //console.log('TOKEN', token);
             superagent
                 .del(server + '/api/auth/admin/user/' + adminUser.email)
                 .set('X-Access-Token', token)

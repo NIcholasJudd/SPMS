@@ -114,7 +114,7 @@ describe('Employee', function(){
 
     it('should update employee without error', function(done) {
         superagent
-            .put(server + '/api/auth/user/' + testUser.email)
+            .put(server + '/api/auth/admin/user/' + testUser.email)
             .set('X-Access-Token', token)
             .set('X-Key', 'admin@admin')
             .send({

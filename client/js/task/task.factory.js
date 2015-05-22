@@ -37,6 +37,14 @@ myApp.factory('TaskFactory', function ($http) {
             })
         },
 
+        updateProgress : function(taskId, progress) {
+            return $http.put('http://localhost:3000/api/auth/task/' + taskId + '/progress', {progressPercentage : progress});
+        },
+
+        updateStatus : function(taskId, status) {
+            return $http.put('http://localhost:3000/api/auth/task/' + taskId + '/status', {status : status});
+        },
+
         archiveTask: function(taskId, active) {
             return $http.put('http://localhost:3000/api/auth/task/' + taskId + '/archive', {active: active});
         },

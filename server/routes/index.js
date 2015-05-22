@@ -66,6 +66,8 @@ router.get('/api/auth/user/:email/tasks', userTask.getAll);
 router.get('/api/auth/task/:taskId/userRoles', task.getUserRoles);
 router.get('/api/auth/task/:taskId/users', task.getUsers);
 router.put('/api/auth/task/:taskId', task.update);
+router.put('/api/auth/task/:taskId/status', task.updateStatus);
+router.put('/api/auth/task/:taskId/progress', task.updateProgress);
 router.put('/api/auth/task/:taskId/archive', task.archive);
 
 // get all projects that a user 'project manages'
