@@ -20,9 +20,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="taskPriority">Task Priority</label>
-                                    <select class="form-control" id="taskPriority" ng-model="modifyTask.priority"
+                                    <select class="form-control" id="taskPriority" ng-model="newTask.priority"
                                             ng-change="setPriority(priority)"
-                                            ng-options="priority as priority for priority in priorityLevel track by modifyTask.priority">
+                                            ng-options="priority as priority for priority in priorityLevel track by newTask.priority">
                                     </select>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                     <label for="taskStartDate">Start Date</label>
 
                                     <div style="display:inline-block; min-height:290px;">
-                                        <datepicker id="taskStartDate" ng-model="modifyTask.startDate"
+                                        <datepicker id="taskStartDate" ng-model="modifyTask.taskStartDate"
                                                     min-date="minDate" show-weeks="true"
                                                     class="well well-sm"></datepicker>
                                     </div>
@@ -62,7 +62,7 @@
                                     <div class="row">
                                         <label for="taskLikelyDuration">Task Likely Duration</label>
                                         <input id="taskLikelyDuration"
-                                               ng-model="modifyTask.likelyDuration.days"
+                                               ng-model="modifyTask.taskLikelyDuration"
                                                type="number"
                                                class="form-control"
                                                min="0">
@@ -71,7 +71,7 @@
                                     <div class="row">
                                         <label for="taskOptimisticDuration">Task Optimistic Duration</label>
                                         <input id="taskOptimisticDuration"
-                                               ng-model="modifyTask.optimisticDuration.days"
+                                               ng-model="modifyTask.taskOptimisticDuration"
                                                type="number"
                                                class="form-control"
                                                min="0">
@@ -81,7 +81,7 @@
                                     <div class="row">
                                         <label for="taskPessimisticDuration">Task Pessimistic Duration</label>
                                         <input id="taskPessimisticDuration"
-                                               ng-model="modifyTask.pessimisticDuration.days"
+                                               ng-model="modifyTask.taskPessimisticDuration"
                                                type="number"
                                                class="form-control"
                                                min="0">
@@ -93,10 +93,10 @@
                                 <div class="col-md-12">
                                     <label for="taskDependencies">Task Dependencies</label>
                                     <select class="form-control" id="taskDependencies"
-                                            ng-model="modifyTask.taskDependencies"
-                                    <!-- ng-change="removeDependencies(taskDependencies)"
+                                            ng-model="taskDependencies"
+                                     ng-change="removeDependencies(taskDependencies)"
                                      ng-options="task.taskId as task.taskName for task in dependencies"
-                                     multiple readonly--></select>
+                                     multiple readonly></select>
                                 </div>
                             </div>
                             <br>
@@ -131,7 +131,9 @@
                                     <div class="col-md-5">
                                         <select class="form-control" id="teamMemberRole" ng-model="teamMemberRole"
                                         ng-change="setRole(teamMemberRole, $index)"
-                                         ng-options="role as role for role in Roles"></select>
+                                         ng-options="role as role for role in Roles">
+                                            <option value="">{{tm.roleName}}</option>
+                                        </select>
                                     </div>
                                     <button id="user-rem"
                                             ng-click="removeUserFromTask($index)">
@@ -159,9 +161,9 @@
                     </div>
                     <div class=" panel panel-body">
                         <select class="form-control" id="taskDependenciesAdd" ng-model="taskDependenciesAdd"
-                        < ng-change="setDependencies(taskDependenciesAdd)"
+                         ng-change="setDependencies(taskDependenciesAdd)"
                          ng-options="task as task.taskName for task in taskData"
-                         multiple/>
+                         multiple>
                         </select>
                     </div>
                 </div>

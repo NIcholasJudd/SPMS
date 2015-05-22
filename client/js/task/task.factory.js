@@ -5,7 +5,7 @@ myApp.factory('TaskFactory', function ($http) {
     var currentTask = {};
     return {
 
-        createTask: function (task, roles) {
+        createTask: function (task, roles, dependencies) {
             return $http.post('http://localhost:3000/api/auth/project/' + task.projectName + '/task', {
                 taskName: task.taskName,
                 description: task.taskDescription,
@@ -18,7 +18,7 @@ myApp.factory('TaskFactory', function ($http) {
                 priority: task.priority.toLowerCase(),
                 parentId: task.parentId,
                 taskRoles: roles,
-                links: task.dependencies
+                links: dependencies
             })
         },
 
