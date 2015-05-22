@@ -1,5 +1,5 @@
-var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead']);
-var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.tabs', 'ui.slider', 'mj.scrollingTabs']);
+var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead', 'ui.bootstrap.tabs', 'mj.scrollingTabs']);
+//var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.tabs', 'ui.slider', 'mj.scrollingTabs']);
 
 myApp.config(function($routeProvider, $httpProvider) {
   //add Token Interceptor
@@ -34,6 +34,21 @@ myApp.config(function($routeProvider, $httpProvider) {
           resolve : {
               currentProject : function(ProjectFactory, $window) {
                   return ProjectFactory.getProject($window.sessionStorage.projectName);
+              }
+          }
+      }).when('/project/archive', {
+          templateUrl: 'partials/project/project.archive.html',
+          controller: 'ProjectArchiveCtrl',
+          access: {
+              requiredLogin: true,
+              adminOnly : true
+          },
+          resolve: {
+              CurrentProject : function(ProjectFactory, $window) {
+                  return ProjectFactory.getProject($window.sessionStorage.projectName);
+              },
+              ArchivedProjects : function(ProjectFactory) {
+                  return ProjectFactory.getArchivedProjects();
               }
           }
       }).when('/project/taskCreate', {

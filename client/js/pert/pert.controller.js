@@ -34,23 +34,13 @@ myApp.controller('PERTCtrl', ['$scope', '$window', '$q', 'ProjectFactory',
                 var tasks = result[0];
                 var links = result[1];
                 var project = result[2];
-                console.log(tasks);
-                console.log(links);
-                console.log(project);
                 var projectDuration = (new Date(project.estimated_end_date) - new Date(project.start_date))/86400000;
-                console.log(projectDuration);
-                //calculate critical path
                 tasks = findCriticalPath(tasks, links);
-                console.log(tasks);
                 var expectedDurationArray = calculateExpectedDurationArray(tasks);
                 var varianceSquaredArray = calculateVarianceArray(tasks);
-                console.log(expectedDurationArray);
                 var expectedDuration = expectedDurationArray.reduce(function(a,b) { return a + b}, 0);
-                console.log(expectedDuration);
-                console.log('variance', varianceSquaredArray);
                 var variance = Math.sqrt(varianceSquaredArray.reduce(function(a,b) { return a + b}, 0));
                 var z_value = (projectDuration - expectedDuration) / variance;
-                console.log('z_value, ', z_value);
                 $scope.pert = convertZValue(z_value);
 
             });
@@ -113,12 +103,7 @@ myApp.controller('PERTCtrl', ['$scope', '$window', '$q', 'ProjectFactory',
                 edgelist[index][2].push(link.source);
             });
 
-            console.log('edgelist', edgelist);
-
             myTree = new Array(0);
-//console.log("Size of myTree: ",myTree.length);
-//console.log("myTree contains: ",myTree);
-
             var treeLevel = 0
             var nodeCount = 0
             var changed = false;
@@ -158,9 +143,6 @@ myApp.controller('PERTCtrl', ['$scope', '$window', '$q', 'ProjectFactory',
                     AbortJavaScript();
                 }
             }
-
-            console.log("Size of myTree: ",myTree.length);
-            console.log("myTree contains: ",myTree);
 
             var startNode = new node("Start", 0, ' '); // Create start node
             startNode.ls = 0;
@@ -208,9 +190,6 @@ myApp.controller('PERTCtrl', ['$scope', '$window', '$q', 'ProjectFactory',
                 }
             }
 
-            console.log("startNode:",startNode);
-            console.log("  endNode:",endNode);
-
 // Rearrange Nodes (from right to left, move all terminal nodes to the last column) <-- FIX THIS
             for (var i = (myTree.length)-2; i >= 0; i--) {
 //    console.log("Checking myTree index:",i);
@@ -227,15 +206,12 @@ myApp.controller('PERTCtrl', ['$scope', '$window', '$q', 'ProjectFactory',
             }
 
 // Display Critical Path
-            console.log("CRITICAL PATH:");
             var criticalPath = [];
-            console.log('tasks', tasks);
             for (var i = 0; i < myTree.length; i++) {
                 for (var j = 0; j < myTree[i].length; j++) {
                     if (myTree[i][j].float == 0) {
                         for(var k = 0; k < tasks.length; k++) {
                             if(myTree[i][j].label === tasks[k].task_id) {
-                                console.log(tasks[k].task_id);
                                 criticalPath.push(tasks[k]);
                             }
                         }

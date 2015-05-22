@@ -67,7 +67,8 @@ db.tx(function(t) {
         "estimated_end_date date NOT NULL, " +
         "progress real NOT NULL DEFAULT 0, " +
         "active boolean, " +
-        "project_manager varchar(100) REFERENCES employee(email) " +
+        "project_manager varchar(100) REFERENCES employee(email)," +
+        "archive_reason text NULL " +
         ")"
     ));
 

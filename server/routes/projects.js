@@ -5,7 +5,7 @@ var promise = require('promise'),
 var projects = {
 
     getAll: function(req, res) {
-        db.query("SELECT * FROM project")
+        db.query("SELECT * FROM project where active = true")
             .then(function (data) {
                 return res.json(data);
             }, function (err) {
@@ -20,6 +20,16 @@ var projects = {
                 return res.json(data);
             }, function(err) {
                 console.error(err);
+                return res.status(500).send(err);
+            })
+    },
+
+    getArchivedProjects : function(req, res) {
+        db.query("SELECT * FROM project where active = false")
+            .then(function (data) {
+                return res.json(data);
+            }, function (err) {
+                console.log(err);
                 return res.status(500).send(err);
             })
     },
@@ -76,8 +86,8 @@ var projects = {
 
     archive: function(req, res) {
         db.tx(function(t) {
-            var q1 = t.query("UPDATE project SET active = $1 WHERE project_name = $2 returning project_name",
-                [req.body.active, req.params.projectName]);
+            var q1 = t.query("UPDATE project SET active = $1, archive_reason = $2 WHERE project_name = $3 returning project_name",
+                [req.body.active, req.body.reason, req.params.projectName]);
             var q2 = t.query("UPDATE task SET active = $1 WHERE project_name = $2 returning project_name",
                 [req.body.active, req.params.projectName]);
             var q3 = t.query("UPDATE task_role set active = $1 WHERE task_id IN " +
