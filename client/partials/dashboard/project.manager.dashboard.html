@@ -38,16 +38,16 @@
 											<div class="panel-body">
 												<div class="row">
 													<div class="col-md-3">
-														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">6</span><h5>Unassigned tasks</h5></div>
+														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;" ng-bind="status.unassigned"></span><h5>Unassigned tasks</h5></div>
 													</div>
 													<div class="col-md-3">
-														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">3</span><h5>Tasks in progress</h5></div>
+														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;"ng-bind="status.otg"></span><h5>Tasks in progress</h5></div>
 													</div>
 													<div class="col-md-3">
-														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">2</span><h5>Tasks pending completion</h5></div>
+														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;"ng-bind="status.finalised"></span><h5>Tasks pending completion</h5></div>
 													</div>
 													<div class="col-md-3">
-														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">8</span><h5>Completed tasks</h5></div>
+														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;"ng-bind="status.complete"></span><h5>Completed tasks</h5></div>
 													</div>
 												</div>
 												<hr/>

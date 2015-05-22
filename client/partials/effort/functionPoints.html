@@ -52,19 +52,14 @@
                                  ng-repeat="fp in functionPoints">
                                 <h3>{{fp.title}}</h3>
 
-                                <div class="row">
-                                    <div class="col-md-6 col-md-offset-3">
-                                        count:<input type="number" ng-model="fp.count"/>
-                                    </div>
-                                </div>
+
                                 <br/>
 
                                 <div class="row">
-                                    <div class="col-md-8 col-md-offset-2">
-                                        <input type="radio" ng-model="fp.wf" value="{{fp.low}}">Low Complexity</input>
-                                        <input type="radio" ng-model="fp.wf" value="{{fp.med}}">Medium
-                                        Complexity</input>
-                                        <input type="radio" ng-model="fp.wf" value="{{fp.high}}">High Complexity</input>
+                                    <div class="col-md-12">
+                                        Low Complexity<input type="number" ng-model="fp.count1"/>
+                                        Medium Complexity<input type="number" ng-model="fp.count2"/>
+                                        High Complexity<input type="number" ng-model="fp.count3"/>
                                     </div>
                                 </div>
                                 <hr/>
