@@ -5,7 +5,6 @@
 myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactory', '$window', 'assignedProjects',
     function($scope, ProjectFactory, UserFactory, $window, assignedProjects) {
         $scope.projectData = [];
-
         $scope.taskData = {
             taskId: 0,
             taskNumber: 0,
@@ -34,7 +33,7 @@ myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactor
                 projectManager: projects.project_manager
             });
             if($scope.projectData.length > 0)
-                $window.sessionStorage.projectName = $scope.projectData[0].projectName;
+                $window.sessionStorage.projectName = $scope.currentProject = $scope.projectData[0].projectName;
         });
 
         /*ProjectFactory.getPMProjects($window.sessionStorage.user).then(function(projects) {
@@ -94,7 +93,7 @@ myApp.controller("ProjectDashboardCtrl", ['$scope','ProjectFactory', 'UserFactor
         /* sets the current project in $window.sessionStorage, so that other pages can access current project */
         $scope.setProject = function(index) {
             console.log('called');
-            $window.sessionStorage.projectName = $scope.projectData[index].projectName;
+            $window.sessionStorage.projectName = $scope.currentProject = $scope.projectData[index].projectName;
         }
 
     }
