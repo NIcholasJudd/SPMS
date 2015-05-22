@@ -15,7 +15,7 @@
 				<div class="col-md-4">
 					<a class="home-link" href="" ng-click="showTaskPanel(1)">
 					<div class="statistic-box bg-danger">
-						<div class="statistic-value-tm">3</div>
+						<div class="statistic-value-tm"><span ng-bind="status.unassigned"/></div>
 						<div class="statistic-title-tm">Tasks assigned</div>
 						<div class="statistic-icon-bg">
 							<i class="glyphicon glyphicon-hand-down"></i>
@@ -26,7 +26,7 @@
 				<div class="col-md-4">
 					<a class="home-link" href="" ng-click="showTaskPanel(2)">
 					<div class="statistic-box bg-warning">
-						<div class="statistic-value-tm">3</div>
+						<div class="statistic-value-tm"><span ng-bind="status.otg"/></div>
 						<div class="statistic-title-tm">Tasks in progress</div>
 						<div class="statistic-icon-bg">
 							<i class="glyphicon glyphicon-hand-right"></i>
@@ -37,7 +37,7 @@
 				<div class="col-md-4">
 					<a class="home-link" href="" ng-click="showTaskPanel(3)">
 					<div class="statistic-box bg-success">
-						<div class="statistic-value-tm">3</div>
+						<div class="statistic-value-tm"><span ng-bind="status.finalised"/></div>
 						<div class="statistic-title-tm">Tasks Completed</div>
 						<div class="statistic-icon-bg">
 							<i class="glyphicon glyphicon-thumbs-up"></i>
@@ -112,7 +112,7 @@
 									<th>Status</th>
 
 								</tr>
-								<tr ng-repeat='done in tasks | filter: {status: "complete"}'">
+								<tr ng-repeat='done in tasks | filter: {status: "complete"}'>
 									<td>{{done.taskId}}</td>
 									<td>{{done.taskName}}</td>
 									<td>{{done.taskDescription}}</td>

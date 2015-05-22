@@ -353,7 +353,18 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         $scope.importTasks = function(proName) {
             ProjectFactory.getTasks(proName).then(function (res) {
                 console.log(proName);
+                $scope.status = {
+                    unassigned: 0,
+                    otg: 0,
+                    finalised: 0
+                };
                 res.data.forEach(function (task) {
+                    if (task.status == "on-the-go")
+                        $scope.status.otg += Number(1);
+                    else if (task.status = "unassigned")
+                        $scope.status.unassigned += Number(1);
+                    else if (task.status = "finalised")
+                        $scope.status.complete += Number(1);
                     $scope.tasks.push({
                         taskId: task.task_id,
                         taskName: task.task_name,
