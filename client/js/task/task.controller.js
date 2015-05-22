@@ -3,8 +3,8 @@
  */
 
 
-myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window',
-    function ($scope, ProjectFactory, UserFactory, TaskFactory, $window) {
+myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window', '$modal',
+    function ($scope, ProjectFactory, UserFactory, TaskFactory, $window, $modal) {
 
 
         $scope.test = undefined;
@@ -46,6 +46,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
         $scope.projectData = [];
         $scope.newTask = {};
         $scope.dependencies = [];
+
         ProjectFactory.getProjects().then(function (projects) {
             projects.data.forEach(function (projects) {
                 $scope.projectData.push({
@@ -78,6 +79,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                 })
                 projectNames.push(tasks.project_name);
             })
+
             $scope.projectNames = projectNames.filter(function(item, pos) {
                 return projectNames.indexOf(item) == pos;
             });
@@ -86,7 +88,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
             })*/
         }).finally(function() {
             if($scope.projectNames > 0)
-                $scope.aFunction($scope.projectNames[0]);
+                $scope.importTasks($scope.projectNames[0]);
         })
         UserFactory.getUsers().then(function (results) {
             console.log('HERE:', results.data);
@@ -344,12 +346,13 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
 
         $scope.setTask = function(index) {
             $window.sessionStorage.taskNumber = $scope.taskData[index].taskNumber;
-            console.log("cur task: " + $window.sessionStorage.taskNumber);
+
+
         }
 
-        $scope.aFunction = function(proName) {
+        $scope.importTasks = function(proName) {
             ProjectFactory.getTasks(proName).then(function (res) {
-                console.log('!!');
+                console.log(proName);
                 res.data.forEach(function (task) {
                     $scope.tasks.push({
                         taskId: task.task_id,
@@ -357,15 +360,33 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
                         taskDescription: task.description,
                         priority: task.priority,
                         status: task.status,
-                        progress: task.progress_percentage
+                        progress: task.progress_percentage,
+                        projectName: task.project_name
                     })
                 })
             })
         }
+
+        $scope.animationsEnabled = true;
+
+        $scope.open= function(index){
+            console.log("Open modal");
+            var modal = $modal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'task.modal.html',
+                controller: 'ModalCtrl',
+                resolve:{
+                    task: function(){
+                        return $scope.tasks;
+                    }
+                }
+            })
+        }
+
     }
 ])
 ;
 
-
+myApp.controller('ModalCtrl',['$scope', '$modal', ] )
 
 

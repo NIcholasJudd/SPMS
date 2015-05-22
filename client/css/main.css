@@ -298,3 +298,16 @@ input[type="radio"]{
     color: #c12e2a;
     font-size: 25px;
 }
+
+.taskTable {
+    text-align: center;
+}
+
+.taskTable th{
+    text-align: center;
+}
+
+.taskButton {
+    border-style: none;
+    background-color: inherit;
+}

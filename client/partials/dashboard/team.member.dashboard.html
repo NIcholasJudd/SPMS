@@ -6,8 +6,7 @@
 			<tabset class="custom-tabs" justified="true">
 				<tab ng-repeat="projectName in projectNames"
 					 heading="{{projectName}}"
-					 active="tab.active" disable="tab.disabled"
-						ng-click="aFunction(projectName)">
+						ng-init="importTasks(projectName); ">
 					<div class="project-container">
 						<h2>{{projectName}}</h2>
 						<div class="row m-top-md">
@@ -52,22 +51,24 @@
 					<div class="panel panel-danger">
 						<div class="panel-heading"><h4>Tasks assigned to {{getUserName()}}.</h4></div>
 						<div class="panel-body">
-							<table class=" table table-hover">
+							<table class="table table-hover taskTable">
 								<tr>
+									<th>Project</th>
 									<th>Task ID</th>
 									<th>Task Name</th>
-									<th>Description</th>
 									<th>Priority</th>
 									<th>Progress</th>
+									<th>Details</th>
 									<th>Add</th>
 								</tr>
 								<tr ng-repeat='unassigned in tasks | filter: {status: "unassigned"} track by $index'>
+									<td>{{unassigned.projectName}}</td>
 									<td>{{unassigned.taskId}}</td>
 									<td>{{unassigned.taskName}}</td>
-									<td>{{unassigned.taskDescription}}</td>
 									<td>{{unassigned.priority}}</td>
 									<td><progressbar max="1" value="unassigned.progress"></progressbar></td>
-									<td><button ng-click="startTask($index)"><i class="glyphicon glyphicon-plus"></i></button></td>
+									<td><button class="taskButton" ng-click="open($index)"><i class="glyphicon glyphicon-pencil"></i></button></td>
+									<td><button class="taskButton" ng-click="startTask($index)"><i class="glyphicon glyphicon-plus"></i></button></td>
 								</tr>
 							</table>
 						</div>
@@ -77,7 +78,7 @@
 					<div class="panel panel-warning">
 						<div class="panel-heading"><h4>Tasks {{getUserName()}} is working on.</h4></div>
 						<div class="panel-body">
-							<table class=" table table-hover">
+							<table class=" table table-hover taskTable">
 								<tr>
 									<th>Task ID</th>
 									<th>Task Name</th>
@@ -86,13 +87,13 @@
 									<th>Progress</th>
 									<th>Done</th>
 								</tr>
-								<tr ng-repeat='otg in tasks | filter: {status: "on-the-go"} track by $index' ng-click="(setTask($index))">
+								<tr ng-repeat='otg in tasks | filter: {status: "on-the-go"} track by $index'>
 									<td>{{otg.taskId}}</td>
 									<td>{{otg.taskName}}</td>
 									<td>{{otg.taskDescription}}</td>
 									<td>{{otg.priority}}</td>
 									<td><progressbar max="1" value="otg.progress"></progressbar></td>
-									<td><button ng-click="markComplete($index)"><i class="glyphicon glyphicon-ok"></i></button></td>
+									<td><button class="taskButton" ng-click="markComplete($index)"><i class="glyphicon glyphicon-ok"></i></button></td>
 								</tr>
 							</table>
 						</div>
@@ -102,7 +103,7 @@
 					<div class="panel panel-success">
 						<div class="panel-heading"><h4>Tasks completed by {{getUserName()}}.</h4></div>
 						<div class="panel-body">
-							<table class=" table table-hover">
+							<table class=" table table-hover taskTable">
 								<tr>
 									<th>Task ID</th>
 									<th>Task Name</th>
