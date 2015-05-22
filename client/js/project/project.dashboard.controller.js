@@ -52,8 +52,13 @@ myApp.controller("ProjectDashboardCtrl", ['$scope', 'ProjectFactory', 'UserFacto
                 progress: calculateDateProgress(projects.start_date, projects.estimated_end_date),
                 projectManager: projects.project_manager
             });
-            if ($scope.projectData.length > 0)
-                $window.sessionStorage.projectName = $scope.currentProject = $scope.projectData[0].projectName;
+            if ($scope.projectData.length > 0) {
+                if(!$window.sessionStorage.projectName || $window.sessionStorage.projectName != null)
+                    $window.sessionStorage.projectName = $scope.currentProject = $scope.projectData[0].projectName;
+                else
+                    $scope.currentProject = $window.sessionStorage.projectName;
+            }
+
         });
 
         /*ProjectFactory.getPMProjects($window.sessionStorage.user).then(function(projects) {

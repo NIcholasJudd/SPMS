@@ -6,7 +6,7 @@
 			<tabset class="custom-tabs" justified="true">
 				<tab ng-repeat="project in projectData"
 					 heading="{{project.projectName}}"
-					 active="tab.active" disable="tab.disabled" ng-click="setProject($index)">
+                     active="project.projectName === currentProject" ng-click="setProject($index)">
 					<!-- the ng-if below prevents every tab being reloaded on tab change -->
 					<div class="project-container" ng-if="project.projectName === currentProject">
 						<h2>{{project.projectName}}</h2>

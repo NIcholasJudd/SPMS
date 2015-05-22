@@ -41,6 +41,7 @@ router.put('/api/auth/admin/user/:email/archive', user.archive);
 //routes for project CRUD
 router.get('/api/auth/projects', project.getAll);
 router.get('/api/auth/project/:projectName', project.getOne);
+router.get('/api/auth/admin/projects', project.getArchivedProjects);
 router.post('/api/auth/admin/project', project.create);
 router.put('/api/auth/project/:projectName', project.update);
 router.delete('/api/auth/admin/project/', project.delete);
