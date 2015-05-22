@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="taskOptimisticDuration">Task Optimistic Duration</label>
                                     <input id="taskOptimisticDuration"
                                            ng-model="newTask.taskOptimisticDuration"
@@ -79,10 +79,19 @@
                                            min="0">
                                     </input>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="taskPessimisticDuration">Task Pessimistic Duration</label>
                                     <input id="taskPessimisticDuration"
                                            ng-model="newTask.taskPessimisticDuration"
+                                           type="number"
+                                           class="form-control"
+                                           min="0">
+                                    </input>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="taskComfortZone">Task Pessimistic Duration</label>
+                                    <input id="taskComfortZone"
+                                           ng-model="newTask.taskComfortZone"
                                            type="number"
                                            class="form-control"
                                            min="0">
