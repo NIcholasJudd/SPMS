@@ -8,6 +8,7 @@ myApp.controller("TaskCreateCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
         $scope.priorityLevel = ["Critical", "High", "Medium", "Low"];
         $scope.newTask = {};
         $scope.taskData = [];
+        $scope.taskDependencies = [];
         $scope.assignedTeamMembers = [];
         $scope.searchTeamMembers = [];
         $scope.teamMembersList = [];
@@ -43,7 +44,7 @@ myApp.controller("TaskCreateCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
                     type: 'finish to start'
                 });
             })
-            $scope.newTask.dependencies = linkArray;
+            $scope.taskDependencies = linkArray;
             for (var i = 0; i < $scope.dependencies.length; i++) {
                 if ($scope.dependencies[i].taskId == item[0].taskId) {
                     bool = true;
@@ -69,7 +70,6 @@ myApp.controller("TaskCreateCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
         }
 
         $scope.addUserToTask = function () {
-            console.log($scope.selectedUser.email);
             if ($scope.selectedUser.email == null){
                 return;
             }
@@ -77,9 +77,14 @@ myApp.controller("TaskCreateCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
                 {
                     name: $scope.selectedUser.name,
                     email: $scope.selectedUser.email,
-                    role: null
+                    roleName: null
                 })
             $scope.searchTeamMembers.splice($scope.selectedUser.indexValue, 1);
+        }
+
+        $scope.setRole = function (item, index) {
+            console.log(item);
+            $scope.assignedTeamMembers[index].roleName = item;
         }
 
         $scope.removeUserFromTask = function (index) {
@@ -167,19 +172,20 @@ myApp.controller("TaskCreateCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
                 $scope.newTask.status = 'unassigned';
             else
                 $scope.newTask.status = 'on-the-go';
-            console.log("TEST TASK DATA: " + $scope.newTask);
-            console.log("TEAM MEMBERS: " + $scope.assignedTeamMembers);
-            TaskFactory.createTask($scope.newTask, $scope.assignedTeamMembers)
+            console.log("TEST TASK DATA: " , $scope.newTask);
+            console.log("TEAM MEMBERS: " , $scope.assignedTeamMembers);
+            console.log($scope.taskDependencies);
+            TaskFactory.createTask($scope.newTask, $scope.assignedTeamMembers, $scope.taskDependencies)
                 .success(function (err, res) {
                     alert($scope.newTask.taskName + ' successfully saved in database');
                 }).error(function (err, res) {
                     alert('insert failed');
-                    /*var err_msg = "save project failed: ";
+                    var err_msg = "save project failed: ";
                      if(err.code == "23505")
                      err_msg += "that user already exists";
                      else
                      err_msg += err.detail;
-                     alert(err_msg);*/
+                     alert(err_msg);
                 })
         }
     }]);

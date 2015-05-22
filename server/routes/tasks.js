@@ -70,7 +70,7 @@
      update: function(req, res) {
          db.tx(function(t) {
              var queries = [];
-             queries.push(t.query("UPDATE task SET taskName = $1, description = $2, start_date = $3, likely_duration = $4, " +
+             queries.push(t.query("UPDATE task SET task_name = $1, description = $2, start_date = $3, likely_duration = $4, " +
              "optimistic_duration = $5, pessimistic_duration = $6, priority = $7 WHERE task_id = $8",
              [req.body.taskName, req.body.description, req.body.startDate, req.body.likelyDuration,
              req.body.optimisticDuration, req.body.pessimisticDuration, req.body.priority, req.params.taskId]));
