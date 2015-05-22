@@ -62,14 +62,14 @@
 									<th>Details</th>
 									<th>Add</th>
 								</tr>
-								<tr ng-repeat='unassigned in tasks | filter: {status: "unassigned"} track by $index'>
+								<tr ng-repeat='unassigned in tasks | filter: {status: "unassigned"} track by unassigned.taskId '>
 									<td>{{unassigned.projectName}}</td>
 									<td>{{unassigned.taskId}}</td>
 									<td>{{unassigned.taskName}}</td>
 									<td>{{unassigned.priority}}</td>
 									<td><progressbar max="1" value="unassigned.progress"></progressbar></td>
-									<td><button class="taskButton" ng-click="open($index)"><i class="glyphicon glyphicon-pencil"></i></button></td>
-									<td><button class="taskButton" ng-click="startTask($index)"><i class="glyphicon glyphicon-plus"></i></button></td>
+									<td><button class="taskButton" ng-click="open(unassigned.taskId)"><i class="glyphicon glyphicon-pencil"></i></button></td>
+									<td><button class="taskButton" ng-click="startTask(unassigned.taskId)"><i class="glyphicon glyphicon-plus"></i></button></td>
 								</tr>
 							</table>
 						</div>
@@ -88,13 +88,13 @@
 									<th>Progress</th>
 									<th>Done</th>
 								</tr>
-								<tr ng-repeat='otg in tasks | filter: {status: "on-the-go"} track by $index'>
+								<tr ng-repeat='otg in tasks | filter: {status: "on-the-go"} track by otg.taskId'>
 									<td>{{otg.taskId}}</td>
 									<td>{{otg.taskName}}</td>
 									<td>{{otg.taskDescription}}</td>
 									<td>{{otg.priority}}</td>
 									<td><progressbar max="1" value="otg.progress"></progressbar></td>
-									<td><button class="taskButton" ng-click="markComplete($index)"><i class="glyphicon glyphicon-ok"></i></button></td>
+									<td><button class="taskButton" ng-click="markComplete(otg.taskId)"><i class="glyphicon glyphicon-ok"></i></button></td>
 								</tr>
 							</table>
 						</div>
@@ -113,12 +113,12 @@
 									<th>Status</th>
 
 								</tr>
-								<tr ng-repeat='done in tasks | filter: {status: "complete"}'>
-									<td>{{done.taskId}}</td>
-									<td>{{done.taskName}}</td>
-									<td>{{done.taskDescription}}</td>
-									<td>{{done.priority}}</td>
-									<td>{{done.status}}</td>
+								<tr ng-repeat='fin in tasks | filter: {status: "finalised"}'>
+									<td>{{fin.taskId}}</td>
+									<td>{{fin.taskName}}</td>
+									<td>{{fin.taskDescription}}</td>
+									<td>{{fin.priority}}</td>
+									<td>{{fin.status}}</td>
 								</tr>
 							</table>
 						</div>

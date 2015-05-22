@@ -17,6 +17,7 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
             projects.data.forEach(function (projects) {
                 if ($window.sessionStorage.userRole == "administrator") {
                     $scope.projectNames.push(projects.project_name);
+                    $window.sessionStorage.projectName = $scope.projectNames[0];
                 }else {
                     UserFactory.getUserTasks($window.sessionStorage.user).then(function (results) {
                         results.data.forEach(function (userProjects) {
@@ -32,48 +33,7 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
             })
             $scope.importTasks($window.sessionStorage.projectName);
         });
-        /*
-         console.log('tasks: ', results);
-         if ($window.sessionStorage.userRole == "administrator") {
-         ProjectFactory.getProjects().then(function (projects) {
-         projects.data.forEach(function (projects) {
-         $scope.projectNames.push(projects.project_name);
-         });
-         });
-         } else {
-         /// nest factorys
-         var projectNames = [];
-         results.data.forEach(function (tasks) {
-         $scope.taskData.push({
-         taskId: tasks.task_id,
-         taskNumber: tasks.task_number,
-         projectName: tasks.project_name,
-         taskName: tasks.task_name,
-         taskDescription: tasks.description,
-         startDate: tasks.start_date,
-         likelyDuration: tasks.likely_duration,
-         optimisticDuration: tasks.optimistic_duration,
-         pessimisticDuration: tasks.pessimistic_duration,
-         progress: tasks.progress_percentage,
-         status: tasks.status,
-         teamMembers: [],
-         priority: tasks.priority,
-         parentId: tasks.parent_id
-         })
-         projectNames.push(tasks.project_name);
-         })
 
-         $scope.projectNames = projectNames.filter(function (item, pos) {
-         return projectNames.indexOf(item) == pos;
-         });
-         /*$scope.taskData.forEach(function(task) {
-
-         })
-         }
-         }).finally(function () {
-         if ($scope.projectNames > 0)
-         $scope.importTasks($scope.projectNames[0]);
-         })*/
 
         $scope.importTasks = function (proName) {
             ProjectFactory.getTasks(proName).then(function (res) {
@@ -89,10 +49,10 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
                     res.data.forEach(function (task) {
                         if (task.status == "on-the-go")
                             $scope.status.otg += Number(1);
-                        else if (task.status = "unassigned")
+                        else if (task.status == "unassigned")
                             $scope.status.unassigned += Number(1);
-                        else if (task.status = "finalised")
-                            $scope.status.complete += Number(1);
+                        else if (task.status == "finalised")
+                            $scope.status.finalised += Number(1);
                         $scope.tasks.push({
                             taskId: task.task_id,
                             taskName: task.task_name,
@@ -133,6 +93,21 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
             })
         }
 
+        for(var i=0; i<$scope.tasks.length;i++){
+            if($scope.tasks[i].taskId == index)
+                found = i;
+        }
+/* track by taskId create index server side*/
+        $scope.startTask = function ($index) {
+            TaskFactory.updateStatus($index, 'on-the-go');
+            $scope.importTasks($window.sessionStorage.projectName);
+        };
+
+        $scope.markComplete = function ($index) {
+            console.log($index);
+            TaskFactory.updateStatus($index, 'finalised');
+            $scope.importTasks($window.sessionStorage.projectName);
+        };
 
 $scope.setProject = function (projectName) {
     $scope.importTasks(projectName);
