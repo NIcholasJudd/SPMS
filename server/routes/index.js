@@ -7,7 +7,8 @@ var express = require('express'),
     userTask = require('./user.tasks.js'),
     userProject = require('./user.projects.js'),
     archiveProject = require('./projects.js'),
-    task = require('./tasks.js');
+    task = require('./tasks.js'),
+    taskComment = require('./task.comment.js');
 
 
 /* Authorisation naming conventions:
@@ -69,6 +70,9 @@ router.put('/api/auth/task/:taskId', task.update);
 router.put('/api/auth/task/:taskId/status', task.updateStatus);
 router.put('/api/auth/task/:taskId/progress', task.updateProgress);
 router.put('/api/auth/task/:taskId/archive', task.archive);
+
+router.get('/api/auth/task/:taskId/comments', taskComment.getAll);
+router.post('/api/auth/task/:taskId/comment', taskComment.create);
 
 // get all projects that a user 'project manages'
 router.get('/api/auth/user/:email/projects', userProject.getAll);

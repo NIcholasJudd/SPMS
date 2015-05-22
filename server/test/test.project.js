@@ -312,6 +312,38 @@ describe('Project', function() {
             })
     });
 
+    it('should add a comment to a task without error', function(done) {
+        superagent
+            .post(server + '/api/auth/task/' + retrievedTask[0].taskId + '/comment')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .send({
+                commentText : 'This is a comment',
+                commentDate : '2015-05-22',
+                email : 'admin@admin'
+            })
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                done();
+            })
+    });
+
+    it('should retrieve comments associated with a task without error', function(done) {
+        superagent
+            .get(server + '/api/auth/task/' + retrievedTask[0].taskId + '/comments')
+            .set('X-Access-Token', token)
+            .set('X-Key', 'admin@admin')
+            .set('Accept', 'application/json')
+            .end(function(err, res) {
+                expect(err).to.eql(null);
+                expect(res.status).to.eql(200);
+                expect(res.body[0].comment_text).to.eql('This is a comment');
+                done();
+            })
+    });
+
     it('should update status of a task without error', function(done) {
         superagent
             .put(server + '/api/auth/task/' + retrievedTask[0].taskId + '/status')

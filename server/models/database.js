@@ -36,12 +36,14 @@ db.tx(function(t) {
     queries.push(t.none("DROP SEQUENCE IF EXISTS myproject1_seq"));
     queries.push(t.none("DROP SEQUENCE IF EXISTS myproject2_seq"));
     queries.push(t.none("DROP SEQUENCE IF EXISTS myproject3_seq"));
+    queries.push(t.none("DROP TABLE IF EXISTS task_comment"));
     queries.push(t.none("DROP TABLE IF EXISTS task_role"));
     queries.push(t.none("DROP TABLE IF EXISTS link"));
     queries.push(t.none("DROP TABLE IF EXISTS task"));
     queries.push(t.none("DROP TABLE IF EXISTS project"));
     queries.push(t.none("DROP TABLE IF EXISTS skill"));
     queries.push(t.none("DROP TABLE IF EXISTS employee"));
+
     queries.push(t.none("CREATE TABLE employee(" +
     "email varchar(100) PRIMARY KEY," +
     "first_name varchar(100) NOT NULL," +
@@ -107,6 +109,15 @@ db.tx(function(t) {
         "role_name varchar(100), " +
         "active boolean, " +
         "PRIMARY KEY(email, task_id, role_name)" +
+        ");"
+    ));
+
+    queries.push(t.none("CREATE TABLE task_comment(" +
+        "comment_id serial PRIMARY KEY, " +
+        "task_id int REFERENCES task(task_id) ON DELETE CASCADE, " +
+        "comment_date date NOT NULL, " +
+        "comment_text text NOT NULL, " +
+        "email varchar(100) REFERENCES employee(email) ON DELETE CASCADE NOT NULL" +
         ");"
     ));
 

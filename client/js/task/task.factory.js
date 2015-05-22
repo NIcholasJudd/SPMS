@@ -59,6 +59,21 @@ myApp.factory('TaskFactory', function ($http) {
 
         getUserRoles : function(taskId) {
             return $http.get('http://localhost:3000/api/auth/task/' + taskId + '/userRoles');
+        },
+
+        /* add a comment to a particular task */
+        addComment : function(taskId, comment, email) {
+            return $http.post('http://localhost:3000/api/auth/task/' + taskId + '/comment', {
+                commentText : comment.commentText,
+                commentDate : comment.commentDate,
+                email : email
+            })
+        },
+
+        /*  get all comments for a particular task.  the commenter's first name and lastname are returned, as well
+            as comment data */
+        getComments : function(taskId) {
+            return $http.get('http://localhost:3000/api/auth/task/' + taskId + '/comments');
         }
     }
 });
