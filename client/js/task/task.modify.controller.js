@@ -21,6 +21,12 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
             $scope.dependencies = [];
         }
 
+        /* TEST OF GET TASK ROLES, HARD CODED TO GET TASKS FOR task_id 9 */
+        TaskFactory.getUserRoles(9).then(function(result) {
+            console.log('task roles for task_id 9: ', result.data);
+        })
+
+
         $scope.setPriority = function (item) {
             $scope.modifyTask.priority = item;
         }

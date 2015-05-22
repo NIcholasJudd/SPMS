@@ -33,6 +33,17 @@
              })
      },
 
+     getUserRoles: function(req, res) {
+         db.query("select * from employee JOIN task_role ON task_role.email = employee.email where task_role.task_id = $1 AND employee.active = true",
+             [req.params.taskId])
+             .then(function(data) {
+                 return res.json(data);
+             }, function(err) {
+                 console.error(err);
+                 return res.status(500).send(err);
+             })
+     },
+
      update: function(req, res) {
          db.tx(function(t) {
              var queries = [];
