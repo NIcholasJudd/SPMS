@@ -18,7 +18,26 @@ myApp.controller("ProjectDashboardCtrl", ['$scope', 'ProjectFactory', 'UserFacto
             parentId: 0
         };
 
+        ProjectFactory.getTasks($window.sessionStorage.projectName).then(function (res) {
+            console.log('!!');
+            $scope.status = {
+                unassigned: 0,
+                otg: 0,
+                finalised: 0,
+                complete: 0
+            };
+            res.data.forEach(function (task) {
+                if (task.status == "on-the-go")
+                    $scope.status.otg += Number(1);
+                else if (task.status = "unassigned")
+                    $scope.status.unassigned += Number(1);
+                else if (task.status = "complete")
+                    $scope.status.complete += Number(1);
+                else if (task.status = "finalised")
+                    $scope.status.finalised += Number(1);
 
+            })
+        })
         /* 'assignedProjects' is resolved within app.js before the page loads, so that the tab-set always has
          data before loading.
          */
