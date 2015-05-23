@@ -5,6 +5,7 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
     function ($scope, ProjectFactory, UserFactory, TaskFactory, $window, $modal, $route) {
 
         $scope.projectNames = [];
+        $scope.currentProject;
         $scope.taskData = [];
         $scope.status = {
             unassigned: 0,
@@ -154,5 +155,17 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
             }
         };
     }
+    else if (type == 2) {
+        $scope.assigned = false;
+        $scope.onTheGo = true;
+        $scope.complete = false;
+    }
+    else if (type == 3) {
+        $scope.assigned = false;
+        $scope.onTheGo = false;
+        $scope.complete = true;
+    }
+};
+}
 ])
 ;

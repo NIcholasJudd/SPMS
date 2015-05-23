@@ -36,12 +36,10 @@ var projectTask = {
         if(!req.body.priority) req.body.priority = 'critical';
         db.one("SELECT nextval('" + sequence_name +"')")
             .then(function(data) {
-                return db.one("INSERT INTO task(task_number, project_name, task_name, description, start_date, " +
-                    "likely_duration, optimistic_duration, pessimistic_duration, progress_percentage, status, priority, " +
-                    "parent_id, active) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) returning task_id",
+                return db.one("INSERT INTO task VALUES (nextval('task_task_id_seq'), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) returning task_id",
                     [data.nextval, req.params.projectName, req.body.taskName, req.body.description, req.body.startDate,
-                        req.body.likelyDuration, req.body.optimisticDuration, req.body.pessimisticDuration,
-                        0, req.body.status, req.body.priority, req.body.parentId, true])
+                        req.body.likelyDuration, req.body.optimisticDuration, req.body.pessimisticDuration, req.body.comfortZone,
+                        0, req.body.status, req.body.priority, true])
                     .then(function(data) {
                         return db.tx(function(t) {
                             console.log('task_id: ', data.task_id);
@@ -57,7 +55,7 @@ var projectTask = {
                             /* add every dependency link */
                             if (req.body.links) {
                                 req.body.links.forEach(function (link) {
-                                    queries.push(t.one("INSERT INTO link(project_name, source, target, type) VALUES ($1, $2, $3, $4) returning link_id, source",
+                                    queries.push(t.one("INSERT INTO link VALUES (nextval('link_link_id_seq'), $1, $2, $3, $4) returning link_id, source",
                                         [req.params.projectName, link.source, data.task_id, link.type]));
                                 })
                             }

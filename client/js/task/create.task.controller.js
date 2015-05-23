@@ -137,6 +137,7 @@ myApp.controller("TaskCreateCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
                     likelyDuration: tasks.likely_duration,
                     optimisticDuration: tasks.optimistic_duration,
                     pessimisticDuration: tasks.pessimistic_duration,
+                    comfortZone : tasks.comfort_zone,
                     progress: tasks.progress_percentage,
                     status: tasks.status,
                     teamMembers: [],
@@ -175,17 +176,43 @@ myApp.controller("TaskCreateCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
             console.log("TEST TASK DATA: " , $scope.newTask);
             console.log("TEAM MEMBERS: " , $scope.assignedTeamMembers);
             console.log($scope.taskDependencies);
-            TaskFactory.createTask($scope.newTask, $scope.assignedTeamMembers, $scope.taskDependencies)
-                .success(function (err, res) {
-                    alert($scope.newTask.taskName + ' successfully saved in database');
-                }).error(function (err, res) {
-                    alert('insert failed');
-                    var err_msg = "save project failed: ";
-                     if(err.code == "23505")
-                     err_msg += "that user already exists";
-                     else
-                     err_msg += err.detail;
-                     alert(err_msg);
+            var ok = true;
+            var errMessages = [];
+            if(!$scope.newTask.taskName) {
+                ok = false;
+                errMessages.push("Task name is null");
+            }
+            if(!$scope.newTask.taskDescription) {
+                ok = false;
+                errMessages.push("Task description is null");
+            }
+            if(!($scope.newTask.taskOptimisticDuration < $scope.newTask.taskLikelyDuration &&
+                $scope.newTask.likelyDuration < $scope.newTask.PessimisticDuration)) {
+                ok = false;
+                errMessages.push("Optimistic duration needs to be less than likely duration, and likely duration " +
+                "needs to be less than pessimistic duration");
+            }
+            if(ok) {
+                TaskFactory.createTask($scope.newTask, $scope.assignedTeamMembers, $scope.taskDependencies)
+                    .success(function (err, res) {
+                        alert($scope.newTask.taskName + ' successfully saved in database');
+                    }).error(function (err, res) {
+                        alert('insert failed');
+                        var err_msg = "save project failed: ";
+                        if(err.code == "23505")
+                            err_msg += "that user already exists";
+                        else
+                            err_msg += err.detail;
+                        alert(err_msg);
+                    })
+            } else {
+                var message = "The following errors were found:\n";
+                errMessages.forEach(function(err) {
+                    message += (err + "\n");
                 })
+                alert(message);
+            }
+
+
         }
     }]);
