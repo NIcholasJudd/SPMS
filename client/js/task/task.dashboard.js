@@ -119,7 +119,7 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
             TaskFactory.updateStatus($index, 'finalised');
             $route.reload();
         };
-        $scope.getUserName = function(){
+        $scope.getUserName = function () {
             return $window.sessionStorage.firstName;
         }
 
@@ -154,18 +154,7 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
                 $scope.complete = true;
             }
         };
-    }
-    else if (type == 2) {
-        $scope.assigned = false;
-        $scope.onTheGo = true;
-        $scope.complete = false;
-    }
-    else if (type == 3) {
-        $scope.assigned = false;
-        $scope.onTheGo = false;
-        $scope.complete = true;
-    }
-};
+
 }
 ])
 ;
