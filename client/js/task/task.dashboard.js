@@ -5,6 +5,7 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
     function ($scope, ProjectFactory, UserFactory, TaskFactory, $window, $modal, $route) {
 
         $scope.projectNames = [];
+        $scope.currentProject;
         $scope.taskData = [];
         $scope.status = {
             unassigned: 0,
@@ -119,6 +120,7 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
         };
 
 $scope.setProject = function (projectName) {
+    console.log('here');
     $window.sessionStorage.projectName = $scope.currentProject = projectName;
     $scope.importTasks(projectName);
 }

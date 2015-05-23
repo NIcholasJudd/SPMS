@@ -71,9 +71,9 @@
          db.tx(function(t) {
              var queries = [];
              queries.push(t.query("UPDATE task SET task_name = $1, description = $2, start_date = $3, likely_duration = $4, " +
-             "optimistic_duration = $5, pessimistic_duration = $6, priority = $7 WHERE task_id = $8",
+             "optimistic_duration = $5, pessimistic_duration = $6, comfort_zone = $7, priority = $8 WHERE task_id = $9",
              [req.body.taskName, req.body.description, req.body.startDate, req.body.likelyDuration,
-             req.body.optimisticDuration, req.body.pessimisticDuration, req.body.priority, req.params.taskId]));
+             req.body.optimisticDuration, req.body.pessimisticDuration, req.body.comfortZone, req.body.priority, req.params.taskId]));
              queries.push(t.query("DELETE FROM task_role WHERE task_id = $1", [req.params.taskId]));
              queries.push(t.query("DELETE FROM link WHERE target = $1", [req.params.taskId]));
              /* add users assigned to task */
@@ -86,7 +86,7 @@
              /* add every dependency link */
              if (req.body.links) {
                  req.body.links.forEach(function (link) {
-                     queries.push(t.one("INSERT INTO link(project_name, source, target, type) VALUES ($1, $2, $3, $4) returning link_id, source",
+                     queries.push(t.one("INSERT INTO link VALUES (nextval('link_link_id_seq'), $1, $2, $3, $4)  returning link_id, source",
                          [req.params.projectName, link.source, req.params.taskId, link.type]));
                  })
              }

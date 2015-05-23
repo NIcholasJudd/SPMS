@@ -98,6 +98,7 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
                 $scope.modifyTask.taskLikelyDuration = tasks.likely_duration.days;
                 $scope.modifyTask.taskOptimisticDuration = tasks.optimistic_duration.days;
                 $scope.modifyTask.taskPessimisticDuration = tasks.pessimistic_duration.days;
+                $scope.modifyTask.taskComfortZone = tasks.comfort_zone.days;
                 $scope.modifyTask.progress = tasks.progress_percentage;
                 $scope.modifyTask.status = tasks.status;
                 $scope.modifyTask.dependencies = [];
@@ -128,6 +129,7 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
                     likelyDuration: tasks.likely_duration,
                     optimisticDuration: tasks.optimistic_duration,
                     pessimisticDuration: tasks.pessimistic_duration,
+                    comfortZone : tasks.comfort_zone,
                     progress: tasks.progress_percentage,
                     status: tasks.status,
                     teamMembers: [],

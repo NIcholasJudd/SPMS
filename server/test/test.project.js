@@ -37,6 +37,7 @@ describe('Project', function() {
         likelyDuration: "14 days",
         optimisticDuration: "10 days",
         pessimisticDuration: "21 days",
+        comfortZone : "5 days",
         description: "Description of task 1",
         progressPercentage: 0,
         status: "unassigned",
@@ -48,6 +49,7 @@ describe('Project', function() {
         likelyDuration: "14 days",
         optimisticDuration: "10 days",
         pessimisticDuration: "21 days",
+        comfortZone : "5 days",
         description: "Description of task 2",
         progressPercentage: 0
     }];
@@ -193,6 +195,7 @@ describe('Project', function() {
                 likelyDuration: testTasks[0].likelyDuration,
                 optimisticDuration: testTasks[0].optimisticDuration,
                 pessimisticDuration: testTasks[0].pessimisticDuration,
+                comfortZone : testTasks[0].comfortZone,
                 description: testTasks[0].description,
                 progressPercentage: testTasks[0].progressPercentage,
                 status: testTasks[0].status,
@@ -251,6 +254,7 @@ describe('Project', function() {
                 likelyDuration: testTasks[1].likelyDuration,
                 optimisticDuration: testTasks[1].optimisticDuration,
                 pessimisticDuration: testTasks[1].pessimisticDuration,
+                comfortZone : testTasks[1].comfortZone,
                 description: testTasks[1].description,
                 progressPercentage: testTasks[1].progressPercentage,
                 taskRoles : testTaskRoles,
