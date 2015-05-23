@@ -21,6 +21,7 @@ myApp.controller("ProjectArchiveCtrl", ['$scope', '$window', '$route', 'ProjectF
         $scope.archiveProject = function(projectName, archiveReason) {
             ProjectFactory.archiveProject(projectName, false, archiveReason).then(function(result) {
                 console.log(result);
+                $window.sessionStorage.projectName = "";
                 alert((result.data[0][0].project_name) + ' has been archived');
                 $route.reload();//$window.location.href = '/#/project/archive';
             })

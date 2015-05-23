@@ -62,10 +62,8 @@ db.tx(function(t) {
         "project_name varchar(100) PRIMARY KEY, " +
         "description text NOT NULL, " +
         "budget real NOT NULL, " +
-        "duration interval NOT NULL, " +
         "start_date date NOT NULL, " +
         "estimated_end_date date NOT NULL, " +
-        "progress real NOT NULL DEFAULT 0, " +
         "active boolean, " +
         "project_manager varchar(100) REFERENCES employee(email)," +
         "archive_reason text NULL " +
@@ -143,7 +141,7 @@ db.tx(function(t) {
 // A test project - 'My Project 1', with 5 tasks, 4 dependencies between tasks
 
     queries.push(t.none("INSERT INTO project VALUES(" +
-    "'My Project 1', 'Description of project', 500000, '365 days', '2016-03-13', '2017-03-13', 0.4, true, 'admin@admin')"));
+    "'My Project 1', 'Description of project', 500000, '2016-03-13', '2017-03-13', true, 'admin@admin')"));
 
     queries.push(t.none("CREATE SEQUENCE myproject1_seq START 1"));
 
@@ -199,7 +197,7 @@ db.tx(function(t) {
 // My Project 2 - 3 tasks, 2 dependencies
 
     queries.push(t.none("INSERT INTO project VALUES(" +
-    "'My Project 2', 'Description of project 2', 1000000, '180 days', '2015-06-06', '2015-12-06', 0.3, true, 'admin@admin')"));
+    "'My Project 2', 'Description of project 2', 1000000, '2015-06-06', '2015-12-06', true, 'admin@admin')"));
 
     queries.push(t.none("CREATE SEQUENCE myproject2_seq START 1"));
 
@@ -230,7 +228,7 @@ db.tx(function(t) {
 // My Project 3 - 3 tasks, 2 dependencies, assigned to Scott
 
     queries.push(t.none("INSERT INTO project VALUES(" +
-    "'My Project 3', 'Description of project 3', 1000000, '90 days', '2015-04-01', '2015-05-01', 0.3, true, 'scott@tm')"));
+    "'My Project 3', 'Description of project 3', 1000000, '2015-04-01', '2015-05-01', true, 'scott@tm')"));
 
     queries.push(t.none("CREATE SEQUENCE myproject3_seq START 1"));
 

@@ -23,10 +23,8 @@ describe('Project', function() {
         projectName: 'Project1',
         description: 'Description of project',
         budget: '500000',
-        duration: '365 days',
         startDate: "2015-03-01",
         estimatedEndDate: "2015-03-22",
-        progress: 0,
         projectManager: "admin@admin"
     };
 
@@ -156,10 +154,8 @@ describe('Project', function() {
                 projectName: testProject.projectName,
                 description: testProject.description,
                 budget: testProject.budget,
-                duration: testProject.duration,
                 startDate: testProject.startDate,
                 estimatedEndDate: testProject.estimatedEndDate,
-                progress: testProject.progress,
                 projectManager: testProject.projectManager
             })
             .end(function (err, res) {

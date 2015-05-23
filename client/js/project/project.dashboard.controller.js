@@ -2,9 +2,10 @@
  * Created by scottmackenzie on 5/05/2015.
  */
 
-myApp.controller("ProjectDashboardCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '$window', 'assignedProjects',
-    function ($scope, ProjectFactory, UserFactory, $window, assignedProjects) {
+myApp.controller("ProjectDashboardCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'UserFactory', '$window', 'assignedProjects',
+    function ($scope, $rootScope, ProjectFactory, UserFactory, $window, assignedProjects) {
         $scope.projectData = [];
+        $scope.currentProject;
         $scope.taskData = {
             taskId: 0,
             taskNumber: 0,
@@ -18,29 +19,10 @@ myApp.controller("ProjectDashboardCtrl", ['$scope', 'ProjectFactory', 'UserFacto
             parentId: 0
         };
 
-        ProjectFactory.getTasks($window.sessionStorage.projectName).then(function (res) {
-            console.log('!!');
-            $scope.status = {
-                unassigned: 0,
-                otg: 0,
-                finalised: 0,
-                complete: 0
-            };
-            res.data.forEach(function (task) {
-                if (task.status == "on-the-go")
-                    $scope.status.otg += Number(1);
-                else if (task.status = "unassigned")
-                    $scope.status.unassigned += Number(1);
-                else if (task.status = "complete")
-                    $scope.status.complete += Number(1);
-                else if (task.status = "finalised")
-                    $scope.status.finalised += Number(1);
-
-            })
-        })
         /* 'assignedProjects' is resolved within app.js before the page loads, so that the tab-set always has
          data before loading.
          */
+
         assignedProjects.data.forEach(function (projects) {
             $scope.projectData.push({
                 projectName: projects.project_name,
@@ -52,14 +34,54 @@ myApp.controller("ProjectDashboardCtrl", ['$scope', 'ProjectFactory', 'UserFacto
                 progress: calculateDateProgress(projects.start_date, projects.estimated_end_date),
                 projectManager: projects.project_manager
             });
-            if ($scope.projectData.length > 0) {
-                if(!$window.sessionStorage.projectName || $window.sessionStorage.projectName != null)
+        });
+
+
+        function getTasks() {
+            ProjectFactory.getTasks($window.sessionStorage.projectName).then(function (res) {
+                console.log(res.data);
+                $scope.status = {
+                    unassigned: 0,
+                    otg: 0,
+                    finalised: 0,
+                    complete: 0
+                };
+                res.data.forEach(function (task) {
+                    if (task.status == "on-the-go")
+                        $scope.status.otg += Number(1);
+                    else if (task.status = "unassigned")
+                        $scope.status.unassigned += Number(1);
+                    else if (task.status = "complete")
+                        $scope.status.complete += Number(1);
+                    else if (task.status = "finalised")
+                        $scope.status.finalised += Number(1);
+
+                })
+            })
+        }
+
+
+
+
+
+
+        console.log('window sesoin: ', $window.sessionStorage.projectName);
+        if ($scope.projectData.length > 0) {
+            if(!$window.sessionStorage.projectName) {
+                console.log('!');
+                $window.sessionStorage.projectName = $scope.currentProject = $scope.projectData[0].projectName;
+            }
+            else {
+                console.log('not !');
+                if($window.sessionStorage.projectName == null) {
                     $window.sessionStorage.projectName = $scope.currentProject = $scope.projectData[0].projectName;
+                    console.log('null');
+                }
                 else
                     $scope.currentProject = $window.sessionStorage.projectName;
             }
-
-        });
+            getTasks();
+        }
 
         /*ProjectFactory.getPMProjects($window.sessionStorage.user).then(function(projects) {
          projects.data.forEach(function(projects){
@@ -117,8 +139,12 @@ myApp.controller("ProjectDashboardCtrl", ['$scope', 'ProjectFactory', 'UserFacto
 
         /* sets the current project in $window.sessionStorage, so that other pages can access current project */
         $scope.setProject = function (index) {
-            ProjectFactory.getTasks($window.sessionStorage.projectName).then(function (res) {
-                console.log('!!');
+            console.log('set Project');
+            $window.sessionStorage.projectName = $scope.currentProject = $scope.projectData[index].projectName;
+            $rootScope.$broadcast('project-changed');
+            getTasks();
+            /*ProjectFactory.getTasks($window.sessionStorage.projectName).then(function (res) {
+                console.log('!!!');
                 $scope.status = {
                     unassigned: 0,
                     otg: 0,
@@ -140,6 +166,7 @@ myApp.controller("ProjectDashboardCtrl", ['$scope', 'ProjectFactory', 'UserFacto
 
             console.log('called');
             $window.sessionStorage.projectName = $scope.currentProject = $scope.projectData[index].projectName;
+            console.log($window.sessionStorage.projectName);*/
         }
 
     }
