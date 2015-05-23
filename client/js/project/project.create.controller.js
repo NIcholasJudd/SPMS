@@ -35,7 +35,7 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
         $scope.selectedProject = {
             projectName: "Please Select One!"
         };
-        $scope.setProject = function(index) {
+        /*$scope.setProject = function(index) {
         }
 
         ProjectFactory.getProjects().then(function(projects) {
@@ -52,7 +52,7 @@ myApp.controller("ProjectCtrl", ['$scope','ProjectFactory', 'UserFactory',
                 });
             });
             ProjectFactory.setCurrentProject($scope.projectData[0]);
-        });
+        });*/
 
         $scope.selectedProjectManager = 'Please select one:';
         $scope.setProjectManager = function(index) {

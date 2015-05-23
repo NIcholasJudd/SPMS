@@ -32,6 +32,10 @@ myApp.controller('PERTCtrl', ['$scope', '$window', '$q', 'ProjectFactory',
         var calculatePert = function() {
             $q.all([getTasks(), getLinks(), getProject()]).then(function(result) {
                 var tasks = result[0];
+                if(tasks.length === 0) {
+                    $scope.pert = -1;
+                    return;
+                }
                 var links = result[1];
                 var project = result[2];
                 var projectDuration = (new Date(project.estimated_end_date) - new Date(project.start_date))/86400000;

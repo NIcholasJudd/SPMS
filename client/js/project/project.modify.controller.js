@@ -8,7 +8,7 @@ myApp.controller("ProjectModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
             projectName : currentProject.data.project_name,
             budget : currentProject.data.budget,
             startDate : currentProject.data.start_date,
-            endDate : currentProject.data.end_date,
+            estimatedEndDate : currentProject.data.estimated_end_date,
             projectManager : currentProject.data.project_manager,
             description : currentProject.data.description
         }
