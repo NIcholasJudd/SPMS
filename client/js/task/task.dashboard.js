@@ -1,8 +1,8 @@
 /**
  * Created by nicholasjudd on 22/05/15.
  */
-myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window', '$modal',
-    function ($scope, ProjectFactory, UserFactory, TaskFactory, $window, $modal) {
+myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window', '$modal', '$route',
+    function ($scope, ProjectFactory, UserFactory, TaskFactory, $window, $modal, $route) {
 
         $scope.projectNames = [];
         $scope.taskData = [];
@@ -12,12 +12,21 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
             finalised: 0
         };
         $scope.tasks = [];
+        $scope.assigned = true;
+        $scope.onTheGo = false;
+        $scope.complete = false;
 
         ProjectFactory.getProjects().then(function (projects) {
+            console.log("check: " ,$window.sessionStorage.projectName);
             projects.data.forEach(function (projects) {
                 if ($window.sessionStorage.userRole == "administrator") {
                     $scope.projectNames.push(projects.project_name);
-                    $window.sessionStorage.projectName = $scope.projectNames[0];
+                    if ($scope.projectNames.length > 0) {
+                        if(!$window.sessionStorage.projectName || $window.sessionStorage.projectName == null) {
+                            $window.sessionStorage.projectName = $scope.currentProject = $scope.projectNames[0];
+                        }else
+                            $scope.currentProject = $window.sessionStorage.projectName;
+                    }
                 }else {
                     UserFactory.getUserTasks($window.sessionStorage.user).then(function (results) {
                         results.data.forEach(function (userProjects) {
@@ -25,7 +34,12 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
                                 if ($scope.projectNames.indexOf(projects.project_name) < 0) {
                                     $scope.projectNames.push(userProjects.project_name);
                                 }
-                                $window.sessionStorage.projectName = $scope.projectNames[0];
+                                if ($scope.projectNames.length > 0) {
+                                    if(!$window.sessionStorage.projectName || $window.sessionStorage.projectName != null)
+                                        $window.sessionStorage.projectName = $scope.currentProject = $scope.projectNames[0];
+                                    else
+                                        $scope.currentProject = $window.sessionStorage.projectName;
+                                }
                             }
                         })
                     })
@@ -93,29 +107,23 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
             })
         }
 
-        for(var i=0; i<$scope.tasks.length;i++){
-            if($scope.tasks[i].taskId == index)
-                found = i;
-        }
 /* track by taskId create index server side*/
         $scope.startTask = function ($index) {
             TaskFactory.updateStatus($index, 'on-the-go');
-            $scope.importTasks($window.sessionStorage.projectName);
+            $route.reload();
         };
 
         $scope.markComplete = function ($index) {
-            console.log($index);
             TaskFactory.updateStatus($index, 'finalised');
-            $scope.importTasks($window.sessionStorage.projectName);
+            $route.reload();
         };
 
 $scope.setProject = function (projectName) {
+    $window.sessionStorage.projectName = $scope.currentProject = projectName;
     $scope.importTasks(projectName);
 }
 
-$scope.assigned = false;
-$scope.onTheGo = false;
-$scope.complete = false;
+
 $scope.showTaskPanel = function (type) {
     if (type == 1) {
         $scope.assigned = true;

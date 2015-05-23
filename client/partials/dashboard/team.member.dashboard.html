@@ -6,9 +6,9 @@
 			<tabset class="custom-tabs" justified="true">
 				<tab ng-repeat="projectName in projectNames"
 					 heading="{{projectName}}"
-					 ng-click="setProject(projectName);">
+					 active="projectName === currentProject" ng-click="setProject(projectName);">
 						<!--ng-init="importTasks(projectName); "-->
-					<div class="project-container">
+					<div class="project-container" ng-if="projectName === currentProject">
 						<h2>{{projectName}}</h2>
 						<div class="row m-top-md">
 						<div class="col-md-10">
