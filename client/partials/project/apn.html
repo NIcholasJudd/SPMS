@@ -4,20 +4,34 @@
         <br/>
         <form>
             <div class="row">
+
                 <div class="col-md-10 col-md-offset-1">
                     <div class="panel panel-danger">
-                        <div class="panel-heading"><h4>JSON Object</h4></div>
+                        <div class="panel-heading"><h4>Activity Precedence Network</h4></div>
                         <div class="panel-body">
                             <div class = "col-md-12 text-center">
-                                <h2>Jims code goes in scripts/apn/apn.controller.js, tasks/dependencies are in those variables</h2>
+                                <div id="myholder" style="height: auto; width: auto; overflow: auto;"> </div>
+                                <!--<h2>Jims code goes in scripts/apn/apn.controller.js, tasks/dependencies are in those variables</h2>
                                 <h3>Tasks retrieved from database for this project:</h3>
                                 <p>{{tasks}}</p>
                                 <br/>
                                 <div class="row">
                                     <h3>Dependencies retrieved from database for this project:</h3>
                                     <p>{{dependencies}}</p>
-                                </div>
+                                </div>-->
+                                <p ng-if="tasks.length === 0">Hmmm... there doesn't seem to be any tasks created for this project.  Please create
+                                    some tasks so that an APN chart can be generated</p>
+
                                 <hr/>
+                                <h3>Legend</h3>
+                                <table class="table table-striped">
+                                    <tr><th>Task Id</th><th>Name</th><th>Description</th></tr>
+                                    <tr ng-repeat="task in tasks">
+                                        <td>{{task.task_id}}</td>
+                                        <td>{{task.task_name}}</td>
+                                        <td>{{task.description}}</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
