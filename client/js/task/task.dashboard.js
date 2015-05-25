@@ -126,8 +126,15 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
             })
         };
 
-        $scope.markComplete = function ($index) {
+        $scope.markFinalised = function ($index) {
             TaskFactory.updateStatus($index, 'finalised').then(function(res) {
+                /*once task status has been updated, reload tasks from database */
+                $rootScope.$broadcast('task-updated');
+            });
+        };
+
+        $scope.markComplete = function ($index) {
+            TaskFactory.updateStatus($index, 'complete').then(function(res) {
                 /*once task status has been updated, reload tasks from database */
                 $rootScope.$broadcast('task-updated');
             });
@@ -208,8 +215,42 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
                     found = i;
             }
             var modalInstance = $modal.open({
-                    templateUrl: 'myModalContent.html',
+                    templateUrl: '/partials/dashboard/myModalContent.html',
                     controller: 'ModalInstanceCtrl',
+                    resolve: {
+                        task:function(){
+                            return $scope.tasks[found];
+                        }
+                    }
+                }
+            )
+        };
+
+        $scope.priorityLevel = function(level){
+            if(level == 'critical'){
+                return "danger";
+            }
+            else if(level == 'high'){
+                return "warning";
+            }
+            else if(level == 'medium'){
+                return "success";
+            }
+            else if(level == 'low'){
+                return "info";
+            }
+        };
+
+        $scope.openUserModal = function (index) {
+            var found;
+            for(var i=0; i<$scope.tasks.length;i++){
+                if($scope.tasks[i].taskId == index)
+                    found = i;
+            }
+            var modalInstance = $modal.open({
+                    templateUrl: '/partials/dashboard/taskUserModal.html',
+                    controller: 'TaskModalInstanceCtrl',
+                    size: 'sm',
                     resolve: {
                         task:function(){
                             return $scope.tasks[found];
