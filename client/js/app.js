@@ -113,8 +113,10 @@ myApp.config(function($routeProvider, $httpProvider) {
               assignedProjects : function(ProjectFactory, $window) {
                   if($window.sessionStorage.userRole === 'administrator')
                       return ProjectFactory.getProjects();
-                  else
+                  else {
+                      console.log('team member');
                       return ProjectFactory.getPMProjects($window.sessionStorage.user);
+                  }
               }
           }
       }).when('/dashboard/tmDashboard', {

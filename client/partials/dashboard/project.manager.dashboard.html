@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-			<div scrolling-tabs-wrapper>
+			<!--<div scrolling-tabs-wrapper>-->
 			<tabset class="custom-tabs" justified="true">
 				<tab ng-repeat="project in projectData"
 					 heading="{{project.projectName}}"
@@ -51,7 +51,7 @@
 													</div>
 												</div>
 												<hr/>
-                                                <!--
+
 												<div class="row">
 													<div class="col-md-3">
 														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">1</span><h5>Tasks overdue</h5></div>
@@ -84,7 +84,7 @@
 														<div ng-if="pert !== -1" class="col-md-12" style="text-align: center"><span style="font-size: 4em;">{{pert}}%</span><h5>Chance of not finishing project on time (PERT analysis)</h5></div>
 													</div>
 												</div>
-												-->
+
 											</div>
 										</div>
 									</div>
@@ -121,7 +121,7 @@
 					</div>
 				</tab>
 			</tabset>
-			</div>
+			<!--</div>-->
         </div>
     </div>
 
