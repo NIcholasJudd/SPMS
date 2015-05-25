@@ -67,7 +67,7 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
         });
 
         createAPNChart = function(tasks, dependencies) {
-            var graph = new joint.dia.Graph;
+            /*var graph = new joint.dia.Graph;
 
             var paper = new joint.dia.Paper({
                 el: $('#myholder'),
@@ -76,11 +76,19 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
                 model: graph,
                 gridSize: 1,
                 interactive: true
+            });*/
+
+            var graph = new joint.dia.Graph;
+
+            var paper = new joint.dia.Paper({
+                el: $('#myholder'),
+                width: 3000,
+                height: 400,
+                model: graph,
+                gridSize: 1,
+                interactive: true
             });
-
-
 //////
-
 
 
 //////
@@ -88,73 +96,38 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
 //  label, duration, dependency, flag
 
             var edgelist = [];
-            tasks.forEach(function(task) {
-                edgelist.push([task.task_id, task.likely_duration.days, [], 0, task.task_name]);
+            tasks.forEach(function (task) {
+                edgelist.push([task.task_id, task.likely_duration.days, [], 0, task.comfort_zone.days, "Task " + task.task_number]);
             })
-            dependencies.forEach(function(dependency) {
+            dependencies.forEach(function (dependency) {
                 var index = -1;
-                for(var i = 0; i < edgelist.length; i++) {
-                    if(edgelist[i][0] === dependency.target)
+                for (var i = 0; i < edgelist.length; i++) {
+                    if (edgelist[i][0] === dependency.target)
                         index = i;
                 }
-                if(index === -1) {
+                if (index === -1) {
                     console.log('LINK ERROR');
                     return;
                 }
                 edgelist[index][2].push(dependency.source);
             });
             console.log('edgelist: ', edgelist);
-            /*var edgelist = [['A', 7, 'q', 0],
-             ['B', 69, 'q', 0],
-             ['C', 68, 'q', 0],
-             ['D', 66, 'q', 0],
-             ['E', 5, 'q', 0],
-             ['F', 13, 'q', 0],
-             ['G', 6, 'q', 0],
-             ['H', 4, 'q', 0],
-             ['I', 8, 'q', 0],
-             ['J', 16, 'q', 0],
-             ['K', 32, 'q', 0]];
 
-             edgelist[0][2] = new Array(0); // A
-             edgelist[0][2].push(' ');
 
-             edgelist[1][2] = new Array(0); // B
-             edgelist[1][2].push('A');
 
-             edgelist[2][2] = new Array(0); // C
-             edgelist[2][2].push('A');
+//  label (uniqID), duration, dependency, flag, comfortZone, Name (label)
+           /* var edgelist = [['A', 1, 'q', 0, 1, "TestName 1"],
+                ['B', 2, 'q', 0, 1, "TestName 2"],
+                ['C', 3, 'q', 0, 2, "TestName 3"],
+                ['D', 4, 'q', 0, 2, "TestName 4"],
+                ['E', 5, 'q', 0, 3, "TestName 5"],
+                ['F', 6, 'q', 0, 4, "TestName 6"],
+                ['G', 7, 'q', 0, 4, "TestName 7"],
+                ['H', 8, 'q', 0, 5, "TestName 8"],
+                ['I', 9, 'q', 0, 6, "TestName 9"],
+                ['J', 10, 'q', 0, 7, "TestName10"],
+                ['K', 11, 'q', 0, 7, "TestName11"]];*/
 
-             edgelist[3][2] = new Array(0); // D
-             edgelist[3][2].push('B');
-             edgelist[3][2].push('C');
-
-             edgelist[4][2] = new Array(0); // E
-             edgelist[4][2].push('A');
-             edgelist[4][2].push('B');
-             edgelist[4][2].push('C');
-
-             edgelist[5][2] = new Array(0); // F
-             edgelist[5][2].push('A');
-             edgelist[5][2].push('B');
-             edgelist[5][2].push('C');
-             edgelist[5][2].push('D');
-
-             edgelist[6][2] = new Array(0); // G
-             edgelist[6][2].push(' ');
-
-             edgelist[7][2] = new Array(0); // H
-             edgelist[7][2].push('D');
-
-             edgelist[8][2] = new Array(0); // I
-             edgelist[8][2].push('E');
-
-             edgelist[9][2] = new Array(0); // J
-             edgelist[9][2].push('F');
-             edgelist[9][2].push('I');
-
-             edgelist[10][2] = new Array(0); // K
-             edgelist[10][2].push(' ');*/
 
             //console.log("edgelist is length:",edgelist.length);
             //console.log("edgelist:",edgelist);
@@ -175,7 +148,7 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
                     if (edgelist[i][3] == 0) {
                         var check = true;
                         for (var j = 0; j < edgelist[i][2].length; j++) {
-                            if (!inTree(myTree,edgelist[i][2][j])) {
+                            if (!inTree(myTree, edgelist[i][2][j])) {
                                 check = false;
                             }
                         }
@@ -189,7 +162,7 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
 
                 for (var i = 0; i < edgelist.length; i++) {
                     if (edgelist[i][3] == 1) {
-                        var myNode = new node(edgelist[i][0], edgelist[i][1],edgelist[i][2]);
+                        var myNode = new node(edgelist[i][0], edgelist[i][1], edgelist[i][2], edgelist[i][4], edgelist[i][5]);
                         myTree[treeLevel].push(myNode);
                         //            console.log(edgelist[i][0],"added to myTree");
                         edgelist[i][3] = 2;
@@ -199,21 +172,21 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
                 treeLevel++;
                 if (!changed) {
                     console.log("REKT: Can't continue building tree, check your dependencies");
-                    AbortJavaScript();
+                    return;//AbortJavaScript();
                 }
             }
 
 //console.log("Size of myTree: ",myTree.length);
 //console.log("myTree contains: ",myTree);
 
-            var startNode = new node("Start", 0, ' '); // Create start node
+            var startNode = new node("Start", 0, ' ', -1, "sN"); // Create start node
             startNode.ls = 0;
             for (var i = 0; i < myTree[0].length; i++) { // Link start node to level 0 of myTree
                 startNode.fwdLinks.push(myTree[0][i].label);
                 //myTree[0][i].es = 0; // Set earliest start for all level 0 nodes to 0
                 //myTree[0][i].ef = myTree[0][i].duration;
             }
-            var endNode = new node("endNode", 0, ' '); // Create end node
+            var endNode = new node("endNode", 0, ' ', -1, "eN"); // Create end node
             endNode.dependency = new Array(0);
 
 // Calculate forward links - This is not as bad as it looks!
@@ -244,7 +217,7 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
             endNode.ls = endNode.es;
 
 // Calculate Latest Finish, Latest Start and Float
-            for (var i = myTree.length-1; i >= 0; i--) { // Visits each level in tree starting at max level
+            for (var i = myTree.length - 1; i >= 0; i--) { // Visits each level in tree starting at max level
                 //console.log("i: ",'i');
                 for (var j = 0; j < myTree[i].length; j++) { // Visits each node in that level
                     //console.log("Assessing node",myTree[i][j].label);
@@ -255,14 +228,14 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
 //console.log("startNode:",startNode);
 //console.log("  endNode:",endNode);
 
-// Rearrange Nodes (from right to left, move all terminal nodes to the last column) <-- FIX THIS
-            for (var i = (myTree.length)-2; i >= 0; i--) {
+// Rearrange Nodes (from right to left, move all terminal nodes to the last column)
+            for (var i = (myTree.length) - 2; i >= 0; i--) {
                 //    console.log("Checking myTree index:",i);
                 for (var j = 0; j < myTree[i].length; j++) {
                     if (myTree[i][j].fwdLinks[0] == "endNode") {
                         //            console.log(myTree[i][j].label,"is directly connected to the endNode");
                         var temp = myTree[i][j];
-                        myTree[myTree.length-1].push(temp);
+                        myTree[myTree.length - 1].push(temp);
                         myTree[i].splice(j, 1);
                         j--;
                         //            console.log("temp looks a little something like this: ", temp);
@@ -270,15 +243,19 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
                 }
             }
 
-            /*// Display Critical Path
-             console.log("CRITICAL PATH:");
-             for (var i = 0; i < myTree.length; i++) {
-             for (var j = 0; j < myTree[i].length; j++) {
-             if (myTree[i][j].float == 0) {
-             console.log(" ",myTree[i][j].label);
-             }
-             }
-             }*/
+// Display Critical Path, calculate Critical Buffer
+//console.log("CRITICAL PATH:");
+            var criticalBuffer = 0;
+            for (var i = 0; i < myTree.length; i++) {
+                for (var j = 0; j < myTree[i].length; j++) {
+                    if (myTree[i][j].float == 0) {
+                        criticalBuffer += myTree[i][j].cz;
+                        //console.log(" ",myTree[i][j].label);
+                    }
+                }
+            }
+            criticalBuffer /= 2;
+//console.log("Critical Buffer: "+criticalBuffer);
 
 
 //////
@@ -386,26 +363,56 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
             var scale = .6; // Scales the size of nodes and their contained text
             var xOffset = 100; // Change these if you want to move offset the entire graph
             var yOffset = 50;
+
+//**
+            var critX = myTree.length * (250 * scale) + xOffset;
+            var critY = 0;
+// Find rightmost node with float = 0
+            var critBuffNode = new node("Crit.Buffer", 0, ' ', -1, "C.Buff");
+            for (var i = 0; i < myTree[myTree.length - 1].length; i++) {
+                if (myTree[myTree.length - 1][i].float == 0) {
+                    //console.log("Found the bugger! It's "+myTree[myTree.length-1][i].name);
+                    critBuffNode.dependency = myTree[myTree.length - 1][i].label;
+                    critBuffNode.fwdLinks[0] = "endNode";
+                    myTree[myTree.length - 1][i].fwdLinks[0] = "Crit.Buffer";
+                    critY = i * 150 * scale + yOffset;
+                    //console.log("yOffset: ",i);
+                    //console.log("critY: ",critY);
+                }
+            }
+
+//console.log("critX: "+critX+", critY: "+critY);
+            var critBox = new joint.shapes.basic.Rect({
+                position: {x: critX, y: critY},
+                size: {width: 150 * scale, height: 100 * scale},
+                attrs: {
+                    rect: {fill: 'red', 'fill-opacity': 0.5},
+                    text: {text: 'Critical\nBuffer: ' + criticalBuffer, fill: 'black'}
+                }
+            });
+            graph.addCells([critBox]);
+//**
+
             for (var i = 0; i < myTree.length; i++) {
                 for (var j = 0; j < myTree[i].length; j++) {
                     var tempNode = new joint.shapes.basic.myShape({
-                        size: {width: 150*scale, height: 100*scale}
+                        size: {width: 150 * scale, height: 100 * scale}
                     });
                     tempNode.attr({
-                        '.label': { text: myTree[i][j].label },
-                        '.textES': { text: myTree[i][j].es },
-                        '.textDUR': { text: myTree[i][j].duration },
-                        '.textLS': { text: myTree[i][j].ef }, // Swapped ef and ls here to fix display bug
-                        '.textEF': { text: myTree[i][j].ls }, // Worst hack ever
-                        '.textFLT': { text: myTree[i][j].float },
-                        '.textLF': { text: myTree[i][j].lf }
+                        '.label': {text: myTree[i][j].name},
+                        '.textES': {text: myTree[i][j].es},
+                        '.textDUR': {text: myTree[i][j].duration},
+                        '.textLS': {text: myTree[i][j].ef}, // Swapped ef and ls here to fix display bug
+                        '.textEF': {text: myTree[i][j].ls}, // Worst hack ever
+                        '.textFLT': {text: myTree[i][j].float},
+                        '.textLF': {text: myTree[i][j].lf}
                     });
                     if (myTree[i][j].float == 0) {
                         tempNode.attr({
-                            '.outer': { fill: 'red' }
+                            '.outer': {fill: 'red'}
                         });
                     }
-                    tempNode.translate((i*250*scale)+xOffset, (j*150*scale)+yOffset);
+                    tempNode.translate((i * 250 * scale) + xOffset, (j * 150 * scale) + yOffset);
                     myTree[i][j].jointID = tempNode.id; // Puts JointJS object ID into myTree for link calc
                     graph.addCells([tempNode]);
                 }
@@ -419,8 +426,9 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
                         }
                     }
                 }
-                console.log("REKT: Can't find id for node"+c);
-                AbortJavaScript();
+                console.log("REKT: Can't find id for node" + c);
+                return;
+                //AbortJavaScript();
             }
 
 // Returns the height (h) of the graph measured in nodes
@@ -437,159 +445,160 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
 // Build links
             var mySource;
             var myTarget;
-            for (var i = 0; i < myTree.length-1; i++) { // -1 to avoid linking to endNode (need buffers)
+            for (var i = 0; i < myTree.length - 1; i++) { // -1 to avoid linking to endNode (need buffers)
                 for (var j = 0; j < myTree[i].length; j++) { // Traverse myTree
                     mySource = myTree[i][j].jointID;
                     for (var k = 0; k < myTree[i][j].fwdLinks.length; k++) { // Iterate through fwdLinks
                         myTarget = getJointID(myTree, myTree[i][j].fwdLinks[k]);
                         var link = new joint.dia.Link({
-                            source: { id: mySource },
-                            target: { id: myTarget },
+                            source: {id: mySource},
+                            target: {id: myTarget},
                         });
                         link.attr({
-                            '.marker-target': { fill: 'black', d: 'M 6 0 L 0 3 L 6 6 z' }
+                            '.marker-target': {fill: 'black', d: 'M 6 0 L 0 3 L 6 6 z'}
                         });
                         graph.addCells([link]);
                     }
                 }
             }
 
-            var terminalY = (getGraphHeight(myTree)*150*scale+yOffset)/2;
+            var terminalY = (getGraphHeight(myTree) * 150 * scale + yOffset) / 2;
             var startCircle = new joint.shapes.basic.Circle({
-                position: { x: 10, y: terminalY },
-                size: { width: 20, height: 20 },
-                attrs: { text: { text: 'start', 'font-size': 7 }, circle: { fill: '#999999' } }
+                position: {x: 10, y: terminalY},
+                size: {width: 20, height: 20},
+                attrs: {text: {text: 'start', 'font-size': 7}, circle: {fill: '#999999'}}
             });
             graph.addCell(startCircle);
             mySource = startCircle.id;
             for (var i = 0; i < startNode.fwdLinks.length; i++) {
                 myTarget = getJointID(myTree, startNode.fwdLinks[i]);
                 var link = new joint.dia.Link({
-                    source: { id: mySource },
-                    target: { id: myTarget }
+                    source: {id: mySource},
+                    target: {id: myTarget}
                 });
                 link.attr({
-                    '.marker-target': { fill: 'black', d: 'M 6 0 L 0 3 L 6 6 z' },
+                    '.marker-target': {fill: 'black', d: 'M 6 0 L 0 3 L 6 6 z'},
                 });
                 graph.addCells([link]);
             }
 
             var endCircle = new joint.shapes.basic.Circle({
-                position: { x: (myTree.length*250*scale)+xOffset, y: terminalY },
-                size: { width: 20, height: 20 },
-                attrs: { text: { text: 'end', 'font-size': 7 }, circle: { fill: '#999999' } }
+                position: {x: ((myTree.length + 1) * 250 * scale) + xOffset, y: terminalY},
+                size: {width: 20, height: 20},
+                attrs: {text: {text: 'end', 'font-size': 7}, circle: {fill: '#999999'}}
             });
             graph.addCell(endCircle);
             myTarget = endCircle.id;
             for (var i = 0; i < endNode.dependency.length; i++) {
                 mySource = getJointID(myTree, endNode.dependency[i]);
                 var link = new joint.dia.Link({
-                    source: { id: mySource },
-                    target: { id: myTarget }
+                    source: {id: mySource},
+                    target: {id: myTarget}
                 })
                 link.attr({
-                    '.marker-target': { fill: 'black', d: 'M 6 0 L 0 3 L 6 6 z' },
+                    '.marker-target': {fill: 'black', d: 'M 6 0 L 0 3 L 6 6 z'},
                 });
                 graph.addCells([link]);
             }
-        }
 
+//////
 
-
-
-
-
-        function inTree(tree, c) {
-            //    console.log("Checking to see if '",c,"' is in the tree...");
-            if (c == ' ') { // If c has no dependencies
-                //        console.log("Node has no dependencies");
-                return true;
-            }
-            for (var i = 0; i < tree.length; i++) {
-                for (var j = 0; j < tree[i].length; j++) {
-                    if (tree[i][j].label == c) { // If dependency c is in the tree
-                        //                console.log("Dependency",c,"is in the tree");
-                        return true;
+            function inTree(tree, c) {
+                //    console.log("Checking to see if '",c,"' is in the tree...");
+                if (c == ' ') { // If c has no dependencies
+                    //        console.log("Node has no dependencies");
+                    return true;
+                }
+                for (var i = 0; i < tree.length; i++) {
+                    for (var j = 0; j < tree[i].length; j++) {
+                        if (tree[i][j].label == c) { // If dependency c is in the tree
+                            //                console.log("Dependency",c,"is in the tree");
+                            return true;
+                        }
                     }
                 }
+                //    console.log("Dependency",c,"is NOT in the tree");
+                return false;
             }
-            //    console.log("Dependency",c,"is NOT in the tree");
-            return false;
-        }
 
-        function node(label, duration, dependency) {
-            this.label = label;
-            this.duration = duration;
-            this.dependency = dependency;
-            this.fwdLinks = new Array(0);
-            this.es = -1; // Earliest Start
-            this.ls = -1; // Latest Start
-            this.ef = -1; // Earliest Finish
-            this.lf = -1; // Latest Finish
-            this.float = -1;
-            this.jointID = -1;
-        }
-
-        function calcEsEf(tree, myNode) {
-            var myEs = -1;
-            var myEf = -1;
-            var temp = -1;
-            for (var i = 0; i < myNode.dependency.length; i++) { // Step through dependencies of node being calculated
-                temp = getEf(tree, myNode.dependency[i]);
-                if (temp > myEs) {
-                    myEs = temp;
-                }
+            function node(label, duration, dependency, comfortZone, name) {
+                this.label = label;
+                this.cz = comfortZone;
+                this.name = name;
+                this.duration = duration;
+                this.dependency = dependency;
+                this.fwdLinks = new Array(0);
+                this.es = -1; // Earliest Start
+                this.ls = -1; // Latest Start
+                this.ef = -1; // Earliest Finish
+                this.lf = -1; // Latest Finish
+                this.float = -1;
+                this.jointID = -1;
             }
-            myNode.es = myEs; // myEs should now contain the greatest EF of the nodes myNode is dependent on
-            myNode.ef = myEs + myNode.duration; // EF = ES + Duration
-        }
 
-        function calcLfLs(tree, myNode, endNode) {
-            //console.log("calcLfLs for node",myNode.label);
-            var myLs = -1;
-            var myLf = -1;
-            var temp = -1;
-            for (var i = 0; i < myNode.fwdLinks.length; i++) {
-                temp = getLs(tree, myNode.fwdLinks[i], endNode);
-                if (myLf == -1 || temp < myLf) {
-                    myLf = temp;
-                }
-            }
-            myNode.lf = myLf; // myLf should now contain the lowest LS of all fwdLinks
-            myNode.ls = myNode.lf - myNode.duration;
-            myNode.float = myNode.ls - myNode.es;
-        }
-
-
-        function getEf(tree, l) {
-            if (l == ' ') {
-                return 0;
-            }
-            for (var i = 0; i < tree.length; i++) {
-                for (var j = 0; j < tree[i].length; j++) {
-                    if (tree[i][j].label == l) {
-                        return tree[i][j].ef;
+            function calcEsEf(tree, myNode) {
+                var myEs = -1;
+                var myEf = -1;
+                var temp = -1;
+                for (var i = 0; i < myNode.dependency.length; i++) { // Step through dependencies of node being calculated
+                    temp = getEf(tree, myNode.dependency[i]);
+                    if (temp > myEs) {
+                        myEs = temp;
                     }
                 }
+                myNode.es = myEs; // myEs should now contain the greatest EF of the nodes myNode is dependent on
+                myNode.ef = myEs + myNode.duration; // EF = ES + Duration
             }
-            console.log("REKT: Function getEf() has failed");
-            AbortJavaScript();
-        }
 
-        function getLs(tree, l, endNode) {
-            if (l == 'endNode') {
-                //console.log("That one was attached to endNode");
-                return endNode.ls;
-            }
-            for (var i = 0; i < tree.length; i++) {
-                for (var j = 0; j < tree[i].length; j++) {
-                    if (tree[i][j].label == l) {
-                        return tree[i][j].ls;
+            function calcLfLs(tree, myNode, endNode) {
+                //console.log("calcLfLs for node",myNode.label);
+                var myLs = -1;
+                var myLf = -1;
+                var temp = -1;
+                for (var i = 0; i < myNode.fwdLinks.length; i++) {
+                    temp = getLs(tree, myNode.fwdLinks[i], endNode);
+                    if (myLf == -1 || temp < myLf) {
+                        myLf = temp;
                     }
                 }
+                myNode.lf = myLf; // myLf should now contain the lowest LS of all fwdLinks
+                myNode.ls = myNode.lf - myNode.duration;
+                myNode.float = myNode.ls - myNode.es;
             }
-            console.log("REKT: Function getLs() has failed");
-            AbortJavaScript();
+
+
+            function getEf(tree, l) {
+                if (l == ' ') {
+                    return 0;
+                }
+                for (var i = 0; i < tree.length; i++) {
+                    for (var j = 0; j < tree[i].length; j++) {
+                        if (tree[i][j].label == l) {
+                            return tree[i][j].ef;
+                        }
+                    }
+                }
+                console.log("REKT: Function getEf() has failed");
+                return;//AbortJavaScript();
+            }
+
+            function getLs(tree, l, endNode) {
+                if (l == 'endNode') {
+                    //console.log("That one was attached to endNode");
+                    return endNode.ls;
+                }
+                for (var i = 0; i < tree.length; i++) {
+                    for (var j = 0; j < tree[i].length; j++) {
+                        if (tree[i][j].label == l) {
+                            return tree[i][j].ls;
+                        }
+                    }
+                }
+                console.log("REKT: Function getLs() has failed");
+                return;//AbortJavaScript();
+            }
         }
+
+
     }
 ]);

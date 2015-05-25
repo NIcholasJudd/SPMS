@@ -299,11 +299,11 @@ db.tx(function(t) {
     "'tester', true)"));
 
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'My Project 3', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'My Project 3', " +
     "(SELECT task_id from task where project_name = 'My Project 3' AND task_name = 'Design'), " +
     "(SELECT task_id from task where project_name = 'My Project 3' AND task_name = 'Develop'), 'finish to start')"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'My Project 3', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'My Project 3', " +
     "(SELECT task_id from task where project_name = 'My Project 3' AND task_name = 'Develop'), " +
     "(SELECT task_id from task where project_name = 'My Project 3' AND task_name = 'Test'), 'finish to start')"));
 
@@ -326,17 +326,17 @@ db.tx(function(t) {
 
     queries.push(t.none("INSERT INTO task VALUES(nextval('task_task_id_seq'), " +
     "nextval('projectflappybird_seq'), 'Project Flappy Bird', 'Design UI', 'Design User Interface', '2015-05-20', '5 days', '3 days', " +
-    "'9 days', '3 days', 0.4, 'unassigned', 'critical', true)"));
+    "'9 days', '3 days', 0.4, 'on-the-go', 'critical', true)"));
 
     queries.push(t.none("INSERT INTO task VALUES(nextval('task_task_id_seq'), " +
     "nextval('projectflappybird_seq'), 'Project Flappy Bird', 'Develop UI', 'Develop User Interface', '2015-05-25', '3 days', '2 days', " +
     "'6 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'Project Flappy Bird', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'Project Flappy Bird', " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Recruit Staff'), " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Design UI'), 'finish to start')"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'Project Flappy Bird', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'Project Flappy Bird', " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Design UI'), " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Develop UI'), 'finish to start')"));
 
@@ -352,15 +352,15 @@ db.tx(function(t) {
     "nextval('projectflappybird_seq'), 'Project Flappy Bird', 'Functionality Unit Testing', 'Unit testing of game functionality', '2015-06-01', '7 days', '5 days', " +
     "'10 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'Project Flappy Bird', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'Project Flappy Bird', " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Recruit Staff'), " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Design Game'), 'finish to start')"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'Project Flappy Bird', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'Project Flappy Bird', " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Design Game'), " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Develop Game'), 'finish to start')"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'Project Flappy Bird', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'Project Flappy Bird', " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Develop Game'), " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Functionality Unit Testing'), 'finish to start')"));
 
@@ -368,11 +368,11 @@ db.tx(function(t) {
     "nextval('projectflappybird_seq'), 'Project Flappy Bird', 'Integrate Application', 'Integrate application', '2015-06-08', '7 days', '5 days', " +
     "'10 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'Project Flappy Bird', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'Project Flappy Bird', " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Functionality Unit Testing'), " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Integrate Application'), 'finish to start')"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'Project Flappy Bird', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'Project Flappy Bird', " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Develop UI'), " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Integrate Application'), 'finish to start')"));
 
@@ -380,7 +380,7 @@ db.tx(function(t) {
     "nextval('projectflappybird_seq'), 'Project Flappy Bird', 'End to end testing', 'e2e testing', '2015-06-15', '7 days', '5 days', " +
     "'10 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'Project Flappy Bird', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'Project Flappy Bird', " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Integrate Application'), " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'End to end testing'), 'finish to start')"));
 
@@ -388,7 +388,7 @@ db.tx(function(t) {
     "nextval('projectflappybird_seq'), 'Project Flappy Bird', 'Beta testing', 'Beta testing', '2015-06-22', '3 days', '2 days', " +
     "'5 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'Project Flappy Bird', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'Project Flappy Bird', " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'End to end testing'), " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Beta testing'), 'finish to start')"));
 
@@ -396,11 +396,11 @@ db.tx(function(t) {
     "nextval('projectflappybird_seq'), 'Project Flappy Bird', 'Documentation', 'Document application', '2015-06-18', '3 days', '2 days', " +
     "'5 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'Project Flappy Bird', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'Project Flappy Bird', " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Develop Game'), " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Documentation'), 'finish to start')"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'Project Flappy Bird', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'Project Flappy Bird', " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Develop UI'), " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Documentation'), 'finish to start')"));
 
@@ -408,7 +408,7 @@ db.tx(function(t) {
     "nextval('projectflappybird_seq'), 'Project Flappy Bird', 'Deploy', 'Deploy application', '2015-06-25', '3 days', '2 days', " +
     "'5 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
 
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'Project Flappy Bird', " +
+    queries.push(t.none("INSERT INTO link VALUES(nextval('link_link_id_seq'), 'Project Flappy Bird', " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Beta testing'), " +
     "(SELECT task_id from task where project_name = 'Project Flappy Bird' AND task_name = 'Deploy'), 'finish to start')"));
 

@@ -7,7 +7,7 @@
 
                 <div class="col-md-10 col-md-offset-1">
                     <div class="panel panel-danger">
-                        <div class="panel-heading"><h4>Activity Precedence Network</h4></div>
+                        <div class="panel-heading"><h4>Activity Precedence Network & Critical Chain</h4></div>
                         <div class="panel-body">
                             <div class = "col-md-12 text-center">
                                 <div id="myholder" style="height: auto; width: auto; overflow: auto;"> </div>
@@ -23,12 +23,14 @@
                                     some tasks so that an APN chart can be generated</p>
 
                                 <hr/>
+                                <p>Red = Critical Path</p>
                                 <h3>Legend</h3>
                                 <table class="table table-striped">
-                                    <tr><th>Task Id</th><th>Name</th><th>Description</th></tr>
+                                    <tr><th>Task Number</th><th>Name</th><th>Start Date</th><th>Description</th></tr>
                                     <tr ng-repeat="task in tasks">
-                                        <td>{{task.task_id}}</td>
+                                        <td>{{task.project_name}}: Task {{task.task_number}}</td>
                                         <td>{{task.task_name}}</td>
+                                        <td>{{task.start_date.substring(0, 10)}}</td>
                                         <td>{{task.description}}</td>
                                     </tr>
                                 </table>
