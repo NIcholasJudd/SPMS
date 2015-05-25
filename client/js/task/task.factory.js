@@ -55,6 +55,10 @@ myApp.factory('TaskFactory', function ($http) {
             return $http.get('http://localhost:3000/api/auth/project/' + projectName + '/task/' + taskNumber);
         },
 
+        getTask: function(taskId) {
+            return $http.get('http://localhost:3000/api/auth/task/' + taskId);
+        },
+
         getUsers : function(taskId) {
             return $http.get('http://localhost:3000/api/auth/task/' + taskId + '/users');
         },

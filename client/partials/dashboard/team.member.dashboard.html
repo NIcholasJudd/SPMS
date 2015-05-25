@@ -134,7 +134,7 @@
 									<td>{{unassigned.taskName}}</td>
 									<td>{{unassigned.priority}}</td>
 
-									<td class="lborder"><a href="#/project/taskModify"><button class="taskButton"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
+									<td class="lborder"><a href="#/project/taskModify"><button class="taskButton" ng-click="setCurrentTask(unassigned.taskId)"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
 									<td class="lborder"><button class="taskButton" ng-click="openModal(unassigned.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
 								</tr>
 							</table>
@@ -162,7 +162,7 @@
 									<td>{{otg.taskName}}</td>
 									<td>{{otg.priority}}</td>
 									<td><progressbar max="1" value="otg.progress"></progressbar></td>
-									<td class="lborder"><a href="#/project/taskModify"><button class="taskButton"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
+									<td class="lborder"><a href="#/project/taskModify"><button class="taskButton" ng-click="setCurrentTask(otg.taskId)"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
 									<td class="lborder"><button class="taskButton" ng-click="openModal(otg.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
 									<td class="lborder finalise"><button class="taskButton" ng-click="markComplete(otg.taskId)"><i class="glyphicon glyphicon-ok"></i></button></td>
 								</tr>

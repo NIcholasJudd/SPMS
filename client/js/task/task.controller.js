@@ -412,6 +412,7 @@ myApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, task, Ta
     }
     $scope.getComment = function(taskId){
         TaskFactory.getComments(taskId).then(function(results){
+            console.log(results);
             results.data.forEach(function(comment){
                 $scope.commentData.push({
                     commentId: comment.comment_id,

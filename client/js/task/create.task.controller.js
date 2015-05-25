@@ -187,7 +187,7 @@ myApp.controller("TaskCreateCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
                 errMessages.push("Task description is null");
             }
             if(!($scope.newTask.taskOptimisticDuration < $scope.newTask.taskLikelyDuration &&
-                $scope.newTask.likelyDuration < $scope.newTask.PessimisticDuration)) {
+                $scope.newTask.taskLikelyDuration < $scope.newTask.taskPessimisticDuration)) {
                 ok = false;
                 errMessages.push("Optimistic duration needs to be less than likely duration, and likely duration " +
                 "needs to be less than pessimistic duration");
@@ -197,6 +197,7 @@ myApp.controller("TaskCreateCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
                     .success(function (err, res) {
                         alert($scope.newTask.taskName + ' successfully saved in database');
                     }).error(function (err, res) {
+                        console.log(err);
                         alert('insert failed');
                         var err_msg = "save project failed: ";
                         if(err.code == "23505")

@@ -22,6 +22,17 @@
          });
      },
 
+     getOne: function(req, res) {
+         db.one("select * from task where task_id = $1",
+             [req.params.taskId])
+             .then(function(data) {
+                 return res.json(data);
+             }, function(err) {
+                 console.error(err);
+                 return res.status(500).send(err);
+             })
+     },
+
      getUsers: function(req, res) {
          db.query("select * from employee where email IN (select email from task_role where task_id = $1) AND active = true",
              [req.params.taskId])
@@ -68,6 +79,7 @@
      },
 
      update: function(req, res) {
+         console.log('LINK: ', req.body.links);
          db.tx(function(t) {
              var queries = [];
              queries.push(t.query("UPDATE task SET task_name = $1, description = $2, start_date = $3, likely_duration = $4, " +
@@ -87,7 +99,7 @@
              if (req.body.links) {
                  req.body.links.forEach(function (link) {
                      queries.push(t.one("INSERT INTO link VALUES (nextval('link_link_id_seq'), $1, $2, $3, $4)  returning link_id, source",
-                         [req.params.projectName, link.source, req.params.taskId, link.type]));
+                         [link.projectName, link.source, req.params.taskId, link.type]));
                  })
              }
              return promise.all(queries);

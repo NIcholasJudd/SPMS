@@ -148,13 +148,15 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
         }
 
         $scope.setCurrentTask = function (taskNumber) {
-            TaskFactory.getCurrentTask($window.sessionStorage.projectName, taskNumber).then(function (results) {
+            console.log("set current task", taskNumber);
+            $window.sessionStorage.taskId = taskNumber;
+            /*TaskFactory.getCurrentTask($window.sessionStorage.projectName, taskNumber).then(function (results) {
                 results.data.forEach(function (tasks) {
                     console.log("SET CURRENT TAKS: ", tasks);
                     $window.sessionStorage.taskId = tasks.task_id;
                     $window.sessionStorage.taskNumber = tasks.task_number;
                 })
-            })
+            })*/
         }
 
 
