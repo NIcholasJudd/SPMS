@@ -5,7 +5,8 @@
 var jwt = require('jwt-simple'),
     path = require('path'),
     connectionString = require(path.join(__dirname, '../', '../', 'config')),
-    pg = require('pg');
+    pg = require('pg'),
+    bcrypt = require('bcrypt');
 
 var auth = {
 
@@ -26,6 +27,7 @@ var auth = {
         auth.validate(username, password, retrievedCredentials)
 
         function retrievedCredentials(error, dbUserObj) {
+            console.log('error: ', error, 'dbUserObj: ', dbUserObj);
             if(error) return console.error(error);
             if (!dbUserObj) { // If authentication fails, we send a 401 back
                 res.status(401);
@@ -54,13 +56,21 @@ var auth = {
                 return console.error('error fetching client from pool: ', err);
             }
             //console.log('deets passed to query: ', username, password);
-            var query = client.query("SELECT * FROM employee WHERE email = $1 AND password = $2", [username, password]);
+            var query = client.query("SELECT * FROM employee WHERE email = $1", [username]);
+            //var query = client.query("SELECT * FROM employee WHERE email = $1 AND password = $2", [username, password]);
             query.on('row', function(row) {
-                results.push(row);
+                console.log('db retrieval', row);
+                /*bcrypt.compare(password, row.password, function(err, res) {
+                    console.log('err: ', err, ' res: ', res);
+                    if(err) return err;
+                    console.log('here');*/
+                    results.push(row);
+                    //console.log(results);
+                //})
             })
             query.on('end', function() {
                 client.end();
-                //console.log('results: ', results[0]);
+                console.log('results: ', results);
                 callback(null, results[0]);
             })
             /*client.query("SELECT * FROM test_user WHERE username = $1 AND password = $2", [username, password], function(err, result) {

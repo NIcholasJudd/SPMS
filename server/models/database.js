@@ -127,15 +127,15 @@ db.tx(function(t) {
 
 // The O.G. Admin will always exist, as an initial entry point into the application
 
-    queries.push(t.none("INSERT INTO employee VALUES('admin@admin','Adam', 'Minty', 'admin', '0123456789', 'administrator', 0, ARRAY['tester', 'developer'], true)"));
+    queries.push(t.none("INSERT INTO employee VALUES('admin@admin','Adam', 'Minty', '$2a$09$weewOzJX3vt0gTuOLTLsM.FW20WLz9BuyHXM/Bt9qGzMAdOx2Jav.', '0123456789', 'administrator', 0, ARRAY['tester', 'developer'], true)"));
 
 
     // test team members
 
-    queries.push(t.none("INSERT INTO employee VALUES('scott@tm','Scott', 'Mackenzie', 'pass', '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'operations'], true)"));
-    queries.push(t.none("INSERT INTO employee VALUES('paul@tm','Paul', 'Beavis', 'pass', '0123456789', 'team member', 0.5, ARRAY['developer', 'designer'], true)"));
-    queries.push(t.none("INSERT INTO employee VALUES('nick@tm','Nick', 'Judd', 'pass', '0123456789', 'team member', 0.5, ARRAY['designer', 'tester', 'analyst'], true)"));
-    queries.push(t.none("INSERT INTO employee VALUES('jim@tm','Jim', 'Gollop', 'pass', '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'analyst' ], true)"));
+    queries.push(t.none("INSERT INTO employee VALUES('scott@tm','Scott', 'Mackenzie', '$2a$09$Kb5UjG26n.UbQ2JBRzGVeOc3roitpOEUsf89.mXxrJg0YZFEoPK7G', '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'operations'], true)"));
+    queries.push(t.none("INSERT INTO employee VALUES('paul@tm','Paul', 'Beavis', '$2a$09$Kb5UjG26n.UbQ2JBRzGVeOc3roitpOEUsf89.mXxrJg0YZFEoPK7G', '0123456789', 'team member', 0.5, ARRAY['developer', 'designer'], true)"));
+    queries.push(t.none("INSERT INTO employee VALUES('nick@tm','Nick', 'Judd', '$2a$09$Kb5UjG26n.UbQ2JBRzGVeOc3roitpOEUsf89.mXxrJg0YZFEoPK7G', '0123456789', 'team member', 0.5, ARRAY['designer', 'tester', 'analyst'], true)"));
+    queries.push(t.none("INSERT INTO employee VALUES('jim@tm','Jim', 'Gollop', '$2a$09$Kb5UjG26n.UbQ2JBRzGVeOc3roitpOEUsf89.mXxrJg0YZFEoPK7G', '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'analyst' ], true)"));
 
 
 
