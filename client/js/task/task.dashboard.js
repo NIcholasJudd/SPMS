@@ -18,7 +18,7 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
         $scope.complete = false;
 
         ProjectFactory.getProjects().then(function (projects) {
-            console.log("check: ", $window.sessionStorage.projectName);
+            console.log("GET PROJECTS: ", projects.data);
             projects.data.forEach(function (projects) {
                 if ($window.sessionStorage.userRole == "administrator") {
                     $scope.projectNames.push(projects.project_name);
@@ -36,21 +36,25 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
                                     $scope.projectNames.push(userProjects.project_name);
                                 }
                                 if ($scope.projectNames.length > 0) {
+                                    console.log('Project names: ', $scope.projectNames);
                                     if (!$window.sessionStorage.projectName || $window.sessionStorage.projectName != null)
                                         $window.sessionStorage.projectName = $scope.currentProject = $scope.projectNames[0];
                                     else
                                         $scope.currentProject = $window.sessionStorage.projectName;
+                                    //console.log("before iport tasks");
                                 }
                             }
                         })
                     })
+                    //$rootScope.$broadcast('task-updated');
                 }
             })
-            $scope.importTasks($window.sessionStorage.projectName);
+            $scope.retrieveTasks($window.sessionStorage.projectName);
         });
 
 
-        $scope.importTasks = function (proName) {
+        $scope.retrieveTasks = function (proName) {
+            console.log("IMPORT TAKSS");
             ProjectFactory.getTasks(proName).then(function (res) {
                 console.log(proName);
                 $scope.status = {
@@ -80,16 +84,20 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
                         })
                     })
                 } else {
+                    console.log("HERE");
                     res.data.forEach(function (task) {
+                        console.log("TASK: ", task);
                         TaskFactory.getUserRoles(task.task_id).then(function (results) {
+                            console.log("task_id: ", results);
                             results.data.forEach(function (tempUser) {
                                 if ($window.sessionStorage.user == tempUser.email && tempUser.task_id == task.task_id) {
                                     if (task.status == "on-the-go")
                                         $scope.status.otg += Number(1);
-                                    else if (task.status = "unassigned")
+                                    else if (task.status == "unassigned")
                                         $scope.status.unassigned += Number(1);
-                                    else if (task.status = "finalised")
-                                        $scope.status.complete += Number(1);
+                                    else if (task.status == "finalised") {
+                                        $scope.status.finalised += Number(1);
+                                    }
                                     $scope.tasks.push({
                                         taskId: task.task_id,
                                         taskName: task.task_name,
@@ -127,7 +135,7 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
 
         /* this is called by any $rootScope.$broadcast('task-updated'), refreshes tasks from db */
         $scope.$on('task-updated', function() {
-            $scope.importTasks($window.sessionStorage.projectName);
+            $scope.retrieveTasks($window.sessionStorage.projectName);
         })
 
         $scope.getUserName = function () {
@@ -136,12 +144,13 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
 
         $scope.setProject = function (projectName) {
             $window.sessionStorage.projectName = $scope.currentProject = projectName;
-            $scope.importTasks(projectName);
+            $scope.retrieveTasks(projectName);
         }
 
         $scope.setCurrentTask = function (taskNumber) {
             TaskFactory.getCurrentTask($window.sessionStorage.projectName, taskNumber).then(function (results) {
                 results.data.forEach(function (tasks) {
+                    console.log("SET CURRENT TAKS: ", tasks);
                     $window.sessionStorage.taskId = tasks.task_id;
                     $window.sessionStorage.taskNumber = tasks.task_number;
                 })
