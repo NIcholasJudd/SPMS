@@ -400,6 +400,7 @@ myApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, task, Ta
     $scope.taskData = task;
     $scope.comment = '';
     $scope.commentData = [];
+    $scope.tracker = 0;
 
     $scope.startDate = function () {
         var sdate = new Date($scope.taskData.startDate);
@@ -428,6 +429,17 @@ myApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, task, Ta
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+
+    $scope.back = function(tracker){
+        if($scope.tracker > 0) {
+            $scope.tracker = tracker - 1;
+        }
+    }
+    $scope.forward = function(tracker){
+        if($scope.tracker != ($scope.commentData.length - 1)) {
+            $scope.tracker = tracker + 1;
+        }
+    }
 });
 
 

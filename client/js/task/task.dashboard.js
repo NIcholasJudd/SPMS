@@ -190,9 +190,7 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
                 })
             })
         }
-
         $scope.openModal = function (index) {
-            console.log("yo mofo");
             var found;
             for(var i=0; i<$scope.tasks.length;i++){
                 if($scope.tasks[i].taskId == index)

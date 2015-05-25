@@ -31,20 +31,31 @@
 		</div>
 		<hr/>
 		<br/>
-		<form ng-submit="saveComment()">
+		<form ng-submit="saveComment(); ok()">
 		<div class="row">
 			<div class="col-md-12 form-group">
 				<div>Comments:</div>
-				<textarea cols="85" rows="5" placeholder="Add comment.." ng-model="comment" required></textarea>
+				<textarea cols="80" style="width:100%" rows="5" placeholder="Add comment.." ng-model="comment" required></textarea>
 				<button class="btn btn-default" type="submit">Save Comment</button>
-				<button class="btn btn-default" ng-click="getComment()">View Comments</button>
+				<button class="btn btn-default" ng-click="getComment(taskData.taskId)">View Comments</button>
 			</div>
 		</div>
 		</form>
 		<hr/>
-		<div class="well" ng-repeat="comment in commentData">
-			<div>Comment Id: {{comment.commentId}}</div>
+		<div class="well" ng-repeat="comment in commentData|limitTo:1" ng-model="tracker">
+			<div>Comment Id: {{commentData[tracker].commentId}}</div>
+			<hr/>
+			<div>"{{commentData[tracker].commentText}}"</div>
+			<hr/>
+			<div class="row">
+				<div class="col-md-6"><i style="color: grey;">{{commentData[tracker].user}}</i></div>
+				<div class="col-md-3 col-md-offset-3"><i style="color: grey;">{{commentData[tracker].commentDate | date: 'dd/MM/yyyy'}}</i></div>
+			</div>
 		</div>
+			<div class="btn-group">
+			<label class="btn btn-default" ng-click="back(tracker)"><i class="glyphicon glyphicon-chevron-left"></i></label>
+			<label class="btn btn-default" ng-click="forward(tracker)"><i class="glyphicon glyphicon-chevron-right"></i></label>
+			</div>
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-primary" ng-click="ok()">OK</button>
