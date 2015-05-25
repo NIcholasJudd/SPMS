@@ -43,6 +43,7 @@ myApp.controller("GanttChartCtrl", ['$scope', '$window', 'ProjectFactory',
                                 type : mapToType(link.type)
                             })
                         });
+                        gantt.config.readonly = true;
                         console.log('tasks', tasks);
                         gantt.parse(tasks);
                     })

@@ -125,6 +125,12 @@ fieldset[disabled] .btn-grey.active {
        bottom: 55px; /* Footer Height */
        width: 100%;
 }
+
+#export{
+    position:fixed;
+    left:10px;
+    bottom:20px;
+}
 #taskDescription {
     resize: none;
 }
