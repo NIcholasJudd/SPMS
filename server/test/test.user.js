@@ -12,7 +12,7 @@ describe('Employee', function(){
     var token = null;
     var adminUser = {
         email : 'admin@admin',
-        password : 'admin'
+        password : '$2a$09$weewOzJX3vt0gTuOLTLsM.FW20WLz9BuyHXM/Bt9qGzMAdOx2Jav.'//'admin'
     }
     var testUser = {
         email : 'test@test',

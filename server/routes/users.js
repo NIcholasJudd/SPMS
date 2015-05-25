@@ -1,5 +1,6 @@
 var promise = require('promise'),
-    db = require('../models/database');
+    db = require('../models/database'),
+    bcrypt = require('bcrypt');
 
 var users = {
 
@@ -24,15 +25,22 @@ var users = {
     },
 
     create: function(req, res) {
-        db.one("INSERT INTO employee VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) returning email", [req.body.email, req.body.firstName,
-            req.body.lastName, req.body.password, req.body.phone, req.body.role, req.body.performanceIndex,
-            req.body.previousRoles, true])
-            .then(function(data) {
-                return res.json(data);
-            }, function(err) {
-                console.log(err);
+        bcrypt.hash(req.body.password, 9, function(err, hash) {
+            if(err)
                 return res.status(500).send(err);
-            })
+            console.log(hash);
+            req.body.password = hash;
+            db.one("INSERT INTO employee VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) returning email", [req.body.email, req.body.firstName,
+                req.body.lastName, hash, req.body.phone, req.body.role, req.body.performanceIndex,
+                req.body.previousRoles, true])
+                .then(function(data) {
+                    return res.json(data);
+                }, function(err) {
+                    console.log(err);
+                    return res.status(500).send(err);
+                })
+        })
+
     },
 
     /* update, every field except for primary key must be updated */
