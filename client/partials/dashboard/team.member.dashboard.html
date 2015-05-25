@@ -1,5 +1,59 @@
+<!-------------------- Modal HTML (Do not play with this) ------------>
 
+<script type="text/ng-template" id="myModalContent.html">
+	<div class="modal-header">
+		<h4 class="modal-title">Task ID: {{taskData.taskId}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-6">
+				<div>Project: {{taskData.projectName}}</div>
+			</div>
+			<div class="col-md-6">
+				<div>Task: {{taskData.taskName}}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div>Start Date: {{startDate()}}</div>
+			</div>
+			<div class="col-md-6">
+				<div>Likely Duration: {{taskData.likelyDuration.days}} days</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div>Optimistic Duration: {{taskData.optimisticDuration.days}} days</div>
+			</div>
+			<div class="col-md-6">
+				<div>Pessimistic Duration: {{taskData.pessimisticDuration.days}} days</div>
+			</div>
+		</div>
+		<hr/>
+		<br/>
+		<form ng-submit="saveComment()">
+		<div class="row">
+			<div class="col-md-12 form-group">
+				<div>Comments:</div>
+				<textarea cols="85" rows="5" placeholder="Add comment.." ng-model="comment" required></textarea>
+				<button class="btn btn-default" type="submit">Save Comment</button>
+				<button class="btn btn-default" ng-click="getComment()">View Comments</button>
+			</div>
+		</div>
+		</form>
+		<hr/>
+		<div class="well" ng-repeat="comment in commentData">
+			<div>Comment Id: {{comment.commentId}}</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="ok()">OK</button>
+		<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	</div>
+</script>
+<!-------------------------------- End -------------------------------------->
 
+<!---  Team Member Dashboard HTML --->
 <div class="container" ng-init="">
 	<div class="row">
 		<div class="col-md-12">
@@ -54,24 +108,23 @@
 						<div class="panel-body">
 							<table class="table table-hover taskTable">
 								<tr>
+									<th></th>
 									<th>Project</th>
-									<th>Task Number</th>
+									<th>Task#</th>
 									<th>Task Name</th>
 									<th>Priority</th>
-									<th>Progress</th>
-									<th>Comment</th>
 									<th>Modify</th>
-									<th>Add</th>
+									<th>Comment</th>
 								</tr>
-								<tr ng-repeat='unassigned in tasks | filter: {status: "unassigned"} track by unassigned.taskNumber'>
+								<tr ng-repeat='unassigned in tasks | filter: {status: "unassigned"} track by unassigned.taskId'>
+									<td class="add"><button class="taskButton" ng-click="startTask(unassigned.taskId)"><i class="glyphicon glyphicon-plus"></i></button></td>
 									<td>{{unassigned.projectName}}</td>
 									<td>{{unassigned.taskNumber}}</td>
 									<td>{{unassigned.taskName}}</td>
 									<td>{{unassigned.priority}}</td>
-									<td><progressbar max="1" value="unassigned.progress"></progressbar></td>
-									<td><button class="taskButton" ng-click="open(unassigned.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
-									<td><a href="#/project/taskModify"><button class="taskButton" ng-click="setCurrentTask(unassigned.taskNumber)"><i class="glyphicon glyphicon-pencil"></i></button></a></td>
-									<td><button class="taskButton" ng-click="startTask(unassigned.taskId)"><i class="glyphicon glyphicon-plus"></i></button></td>
+									<!--<td><progressbar max="1" value="unassigned.progress"></progressbar></td>-->
+									<td class="lborder"><a href="#/project/taskModify"><button class="taskButton"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
+									<td class="lborder"><button class="taskButton" ng-click="openModal(unassigned.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
 								</tr>
 							</table>
 						</div>
@@ -84,21 +137,23 @@
 							<table class=" table table-hover taskTable">
 								<tr>
 									<th>Project</th>
-									<th>Task Number</th>
+									<th>Task#</th>
 									<th>Task Name</th>
-									<th>Description</th>
 									<th>Priority</th>
 									<th>Progress</th>
-									<th>Done</th>
+									<th>Modify</th>
+									<th>Comment</th>
+									<th>Finalise</th>
 								</tr>
 								<tr ng-repeat='otg in tasks | filter: {status: "on-the-go"} track by otg.taskId'>
 									<td>{{otg.projectName}}</td>
 									<td>{{otg.taskNumber}}</td>
 									<td>{{otg.taskName}}</td>
-									<td>{{otg.taskDescription}}</td>
 									<td>{{otg.priority}}</td>
 									<td><progressbar max="1" value="otg.progress"></progressbar></td>
-									<td><button class="taskButton" ng-click="markComplete(otg.taskId)"><i class="glyphicon glyphicon-ok"></i></button></td>
+									<td class="lborder"><a href="#/project/taskModify"><button class="taskButton"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
+									<td class="lborder"><button class="taskButton" ng-click="openModal(otg.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
+									<td class="lborder finalise"><button class="taskButton" ng-click="markComplete(otg.taskId)"><i class="glyphicon glyphicon-ok"></i></button></td>
 								</tr>
 							</table>
 						</div>
@@ -111,20 +166,17 @@
 							<table class=" table table-hover taskTable">
 								<tr>
 									<th>Project</th>
-									<th>Task Number</th>
+									<th>Task#</th>
 									<th>Task Name</th>
-									<th>Description</th>
-									<th>Priority</th>
 									<th>Status</th>
-
+									<th>Comment</th>
 								</tr>
 								<tr ng-repeat='fin in tasks | filter: {status: "finalised"}'>
 									<td>{{fin.projectName}}</td>
 									<td>{{fin.taskNumber}}</td>
 									<td>{{fin.taskName}}</td>
-									<td>{{fin.taskDescription}}</td>
-									<td>{{fin.priority}}</td>
 									<td>{{fin.status}}</td>
+									<td class="lborder"><button class="taskButton" ng-click="openModal(fin.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
 								</tr>
 							</table>
 						</div>

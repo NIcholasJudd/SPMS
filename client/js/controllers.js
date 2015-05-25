@@ -77,6 +77,8 @@ myApp.controller("HomeCtrl", ['$scope', '$window', '$location', '$routeParams',
             };
         }
 
+
+
         /*<ul class="nav nav-pills nav-stacked">
         <li class="custom-pill" role="presentation"><a ng-href="#/../project/ganttChart"><span class="glyphicon glyphicon-random"></span><h6>Gantt Chart</h6></a></li>
         </ul>*/

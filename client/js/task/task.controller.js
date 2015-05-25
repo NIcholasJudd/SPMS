@@ -3,8 +3,8 @@
  */
 
 
-myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window', '$modal',
-    function ($scope, ProjectFactory, UserFactory, TaskFactory, $window, $modal) {
+myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window', '$modal', '$log',
+    function ($scope, ProjectFactory, UserFactory, TaskFactory, $window, $modal, $log) {
 
 
         $scope.test = undefined;
@@ -390,44 +390,44 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
 
             })
         })*/
-        $scope.importTasks = function(proName) {
-            ProjectFactory.getTasks(proName).then(function (res) {
-                console.log(proName);
-                res.data.forEach(function (task) {
-                    console.log(task.status);
-                    $scope.tasks.push({
-                        taskId: task.task_id,
-                        taskName: task.task_name,
-                        taskDescription: task.description,
-                        priority: task.priority,
-                        status: task.status,
-                        progress: task.progress_percentage,
-                        projectName: task.project_name
-                    })
-                })
-            })
-        }
-
-        $scope.animationsEnabled = true;
-
-        $scope.open= function(index){
-            console.log("Open modal");
-            var modal = $modal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: 'task.modal.html',
-                controller: 'ModalCtrl',
-                resolve:{
-                    task: function(){
-                        return $scope.tasks;
-                    }
-                }
-            })
-        }
 
     }
-])
-;
+]);
+/*-------------------  Modal Controller  -------------------- */
 
-myApp.controller('ModalCtrl',['$scope', '$modal', ] )
+myApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, task, TaskFactory, $window) {
+
+    $scope.taskData = task;
+    $scope.comment = '';
+    $scope.commentData = [];
+
+    $scope.startDate = function () {
+        var sdate = new Date($scope.taskData.startDate);
+        return sdate.toDateString();
+    };
+
+    $scope.saveComment = function(){
+        TaskFactory.addComment($scope.taskData.taskId, $scope.comment, new Date(), $window.sessionStorage.user);
+    }
+    $scope.getComment = function(taskId){
+        TaskFactory.getComments(taskId).then(function(results){
+            results.data.forEach(function(comment){
+                $scope.commentData.push({
+                    commentId: comment.comment_id,
+                    commentText: comment.comment_text,
+                    commentDate: comment.comment_date,
+                    user: comment.email
+                })
+            })
+        })
+    }
+    $scope.ok = function () {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});
 
 

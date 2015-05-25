@@ -148,6 +148,7 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
             })
         }
 
+
         $scope.showTaskPanel = function (type) {
             if (type == 1) {
                 $scope.assigned = true;
@@ -164,6 +165,49 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
                 $scope.onTheGo = false;
                 $scope.complete = true;
             }
+        };
+
+        $scope.importTasks = function(proName) {
+            ProjectFactory.getTasks(proName).then(function (res) {
+                console.log(proName);
+                res.data.forEach(function (task) {
+                    console.log(task.status);
+                    $scope.tasks.push({
+                        taskId: task.task_id,
+                        taskName: task.task_name,
+                        taskDescription: task.description,
+                        priority: task.priority,
+                        status: task.status,
+                        progress: task.progress_percentage,
+                        projectName: task.project_name,
+                        startDate: task.start_date,
+                        taskNumber: task.task_number,
+                        likelyDuration: task.likely_duration,
+                        optimisticDuration: task.optimistic_duration,
+                        pessimisticDuration: task.pessimistic_duration,
+                        parentId: task.parent_id
+                    })
+                })
+            })
+        }
+
+        $scope.openModal = function (index) {
+            console.log("yo mofo");
+            var found;
+            for(var i=0; i<$scope.tasks.length;i++){
+                if($scope.tasks[i].taskId == index)
+                    found = i;
+            }
+            var modalInstance = $modal.open({
+                    templateUrl: 'myModalContent.html',
+                    controller: 'ModalInstanceCtrl',
+                    resolve: {
+                        task:function(){
+                            return $scope.tasks[found];
+                        }
+                    }
+                }
+            )
         };
 
 }

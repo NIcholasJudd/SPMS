@@ -1,5 +1,4 @@
-var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead', 'ui.bootstrap.tabs', 'mj.scrollingTabs']);
-//var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.bootstrap.tabs', 'ui.slider', 'mj.scrollingTabs']);
+var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead', 'ui.bootstrap.tabs', 'mj.scrollingTabs', 'angularModalService']);
 
 myApp.config(function($routeProvider, $httpProvider) {
   //add Token Interceptor
@@ -125,6 +124,13 @@ myApp.config(function($routeProvider, $httpProvider) {
           requiredLogin: true,
             adminOnly : false
         }
+      }).when('/modal', {
+          templateUrl: 'partials/modal.html',
+          controller: 'HomeCtrl',
+          access: {
+              requiredLogin: true,
+              adminOnly : false
+          }
       }).when('/user/create', {
         templateUrl: 'partials/user/user.create.html',
         controller: 'UserCtrl',

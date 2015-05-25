@@ -317,3 +317,19 @@ input[type="radio"]{
     border-style: none;
     background-color: inherit;
 }
+
+.taskTable a{
+    color: inherit;
+}
+
+.taskTable .lborder{
+    border-left:solid 1px lightgray;
+}
+
+.taskTable .add{
+    color: #91cef5;
+}
+
+.taskTable .finalise{
+    color: #70c494;
+}

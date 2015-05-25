@@ -64,10 +64,10 @@ myApp.factory('TaskFactory', function ($http) {
         },
 
         /* add a comment to a particular task */
-        addComment : function(taskId, comment, email) {
+        addComment : function(taskId, commentText, commentDate, email) {
             return $http.post('http://localhost:3000/api/auth/task/' + taskId + '/comment', {
-                commentText : comment.commentText,
-                commentDate : comment.commentDate,
+                commentText : commentText,
+                commentDate : commentDate,
                 email : email
             })
         },
@@ -77,5 +77,7 @@ myApp.factory('TaskFactory', function ($http) {
         getComments : function(taskId) {
             return $http.get('http://localhost:3000/api/auth/task/' + taskId + '/comments');
         }
+
+
     }
 });
