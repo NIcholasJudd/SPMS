@@ -126,8 +126,15 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
             })
         };
 
-        $scope.markComplete = function ($index) {
+        $scope.markFinalised = function ($index) {
             TaskFactory.updateStatus($index, 'finalised').then(function(res) {
+                /*once task status has been updated, reload tasks from database */
+                $rootScope.$broadcast('task-updated');
+            });
+        };
+
+        $scope.markComplete = function ($index) {
+            TaskFactory.updateStatus($index, 'complete').then(function(res) {
                 /*once task status has been updated, reload tasks from database */
                 $rootScope.$broadcast('task-updated');
             });

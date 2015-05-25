@@ -358,9 +358,11 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
             $scope.tasks[$index].status = 'on-the-go';
         };
 
-        $scope.markComplete = function ($index) {
-            $scope.tasks[$index].status = 'complete';
+        $scope.markFinalised = function ($index) {
+            $scope.tasks[$index].status = 'finalised';
         };
+
+
         $scope.getUserName = function(){
             return $window.sessionStorage.firstName;
         }
