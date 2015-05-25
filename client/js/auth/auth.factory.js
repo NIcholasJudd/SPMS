@@ -36,6 +36,9 @@ myApp.factory('UserAuthFactory', function($window, $location, $http, Authenticat
                 delete $window.sessionStorage.token;
                 delete $window.sessionStorage.user;
                 delete $window.sessionStorage.userRole;
+                delete $window.sessionStorage.projectName;
+                delete $window.sessionStorage.taskId;
+                delete $window.sessionStorage.taskNumber;
                 $location.path("/login");
             }
         }

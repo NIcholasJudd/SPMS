@@ -103,13 +103,6 @@ myApp.config(function($routeProvider, $httpProvider) {
               requiredLogin: true,
               adminOnly : false
           }
-      }).when('/dashboard/adminDashboard', {
-        templateUrl: 'partials/dashboard/administrator.dashboard.html',
-        controller: 'HomeCtrl',
-        access: {
-          requiredLogin: true,
-            adminOnly : false
-        }
       }).when('/dashboard/pmDashboard', {
         templateUrl: 'partials/dashboard/project.manager.dashboard.html',
         controller: 'ProjectDashboardCtrl',

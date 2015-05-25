@@ -26,6 +26,7 @@ myApp.controller("ProjectDashboardCtrl", ['$scope', '$rootScope', 'ProjectFactor
          */
 
         assignedProjects.data.forEach(function (projects) {
+            console.log("PROJECTS: ", projects);
             $scope.projectData.push({
                 projectName: projects.project_name,
                 description: projects.description,

@@ -1,8 +1,8 @@
 /**
  * Created by nicholasjudd on 22/05/15.
  */
-myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window', '$modal', '$route',
-    function ($scope, ProjectFactory, UserFactory, TaskFactory, $window, $modal, $route) {
+myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window', '$modal', '$route',
+    function ($scope, $rootScope, ProjectFactory, UserFactory, TaskFactory, $window, $modal, $route) {
 
         $scope.projectNames = [];
         $scope.currentProject;
@@ -93,6 +93,7 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
                                     $scope.tasks.push({
                                         taskId: task.task_id,
                                         taskName: task.task_name,
+                                        taskNumber : task.task_number,
                                         taskDescription: task.description,
                                         priority: task.priority,
                                         status: task.status,
@@ -111,14 +112,24 @@ myApp.controller("TaskDashCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Ta
 
         /* track by taskId create index server side*/
         $scope.startTask = function ($index) {
-            TaskFactory.updateStatus($index, 'on-the-go');
-            $route.reload();
+            TaskFactory.updateStatus($index, 'on-the-go').then(function(res) {
+                /*once task status has been updated, reload tasks from database */
+                $rootScope.$broadcast('task-updated');
+            })
         };
 
         $scope.markComplete = function ($index) {
-            TaskFactory.updateStatus($index, 'finalised');
-            $route.reload();
+            TaskFactory.updateStatus($index, 'finalised').then(function(res) {
+                /*once task status has been updated, reload tasks from database */
+                $rootScope.$broadcast('task-updated');
+            });
         };
+
+        /* this is called by any $rootScope.$broadcast('task-updated'), refreshes tasks from db */
+        $scope.$on('task-updated', function() {
+            $scope.importTasks($window.sessionStorage.projectName);
+        })
+
         $scope.getUserName = function () {
             return $window.sessionStorage.firstName;
         }
