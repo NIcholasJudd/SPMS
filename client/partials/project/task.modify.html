@@ -103,7 +103,7 @@
                                     <label for="taskDependencies">Task Dependencies</label>
                                     <select class="form-control" id="taskDependencies"
                                             ng-model="dependencies"
-                                            ng-options="task.taskId as task.taskName for task in curTaskDependencies"
+                                            ng-options="task.taskId as task.name for task in depList"
                                             multiple readonly></select>
                                 </div>
                             </div>

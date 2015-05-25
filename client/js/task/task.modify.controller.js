@@ -10,6 +10,8 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
         $scope.dependencies = [];
         $scope.projectData = {};
         $scope.search = {};
+        $scope.depList=[];
+        $scope.taskDependenciesAdd={};
         $scope.linksList = [];
         $scope.taskData = [];
         $scope.dependencies = [];
@@ -31,28 +33,17 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
             $scope.modifyTask.priority = item;
         }
         $scope.setDependencies = function (item) {
-            var bool = false
-            var count = 0;
-            var linkArray = [];
-            linkArray = $scope.modifyTask.dependencies;
-            console.log("1 ", linkArray);
-            item.forEach(function (i) {
-                linkArray.push({
-                    source: i.taskId,
-                    type: 'finish to start'
-                });
-            })
-            $scope.modifyTask.dependencies = linkArray;
-            for (var i = 0; i < $scope.dependencies.length; i++) {
-                if ($scope.dependencies[i].taskId == item[0].taskId) {
+            var bool = false;
+            for (var x = 0; x < $scope.depList.length; x++){
+                if ($scope.depList[x].target == item[0].taskId || item[0].taskNumber == $window.sessionStorage.taskNumber){
                     bool = true;
                 }
             }
             if (bool == false) {
-                count = Number(item.taskNumber - 1);
-                $scope.dependencies.push({
-                    taskName: item[0].taskName,
-                    taskId: item[0].taskId
+                $scope.depList.push({
+                    type: 'finish to start',
+                    target: item[0].taskId,
+                    name: item[0].taskName
                 })
             }
         }
@@ -108,13 +99,19 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
         })
 
         TaskFactory.getUserRoles($window.sessionStorage.taskId).then(function (results) {
+            console.log("TEST",$window.sessionStorage.taskId);
+            console.log(results);
             results.data.forEach(function (user) {
-                console.log(user);
                 $scope.assignedTeamMembers.push({
                     name: user.first_name + ' ' + user.last_name,
                     email: user.email,
                     roleName: user.role_name
                 })
+                for (var i = 0; i < $scope.searchTeamMembers.length; i++){
+                    if($scope.searchTeamMembers[i].email == user.email){
+                        $scope.searchTeamMembers.splice(i, 1);
+                    }
+                }
             })
         })
         ProjectFactory.getTasks($window.sessionStorage.projectName).then(function (results) {
@@ -146,28 +143,35 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
                         source: link.source,
                         type: mapToType(link.type)
                     });
+                    console.log("linksList: ", $scope.linksList);
                     $scope.dependencies.push({
                         source: link.source,
                         target: link.target,
                         type: mapToType(link.type)
                     });
-                    console.log(link.source);
-                    TaskFactory.getCurrentTask($window.sessionStorage.projectName, link.source).then(function (results) {
-                        results.data.forEach(function (tasks) {
-                            $scope.curTaskDependencies.push({
-                                taskId: tasks.task_id,
-                                taskName: tasks.task_name
-                            })
-
-                        })
-                    });
-                    console.log("TES", $scope.curTaskDependencies);
+                    buildList(link.source);
+                    console.log("Dependencies: ", $scope.dependencies);
                 }
 
             });
         })
 
 
+
+        function buildList(source){
+            ProjectFactory.getTasks($window.sessionStorage.projectName).then(function (results) {
+                results.data.forEach(function (tasks) {
+                        if (tasks.task_id == source){
+                            $scope.depList.push({
+                                type:'finish to start',
+                                source: source,
+                                target: tasks.task_id,
+                                name: tasks.task_name
+                            })
+                        }
+                })
+            })
+        }
         $scope.setRole = function (item, index) {
             $scope.assignedTeamMembers[index].roleName = item;
         }
@@ -226,13 +230,16 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
         }
 
         $scope.addUserToTask = function () {
-            $scope.assignedTeamMembers.push(
-                {
-                    name: $scope.selectedUser.name,
-                    email: $scope.selectedUser.email
-                })
-            $scope.searchTeamMembers.splice($scope.selectedUser.indexValue, 1);
-            $scope.selectedUser = {};
+            console.log($scope.selectedUser);
+            if ($scope.selectedUser>0) {
+                $scope.assignedTeamMembers.push(
+                    {
+                        name: $scope.selectedUser.name,
+                        email: $scope.selectedUser.email
+                    })
+                $scope.searchTeamMembers.splice($scope.selectedUser.indexValue, 1);
+                $scope.selectedUser = {};
+            }
         }
 
         $scope.removeUserFromTask = function (index) {
@@ -278,8 +285,8 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
             console.log("DATE YA CUNT ", $scope.modifyTask.taskStartDate);
             console.log("Task Data: ", $scope.modifyTask);
             console.log("Team: ", $scope.assignedTeamMembers);
-            console.log("dep: ", $scope.taskDependencies);
-            TaskFactory.updateTask($scope.modifyTask, $scope.assignedTeamMembers, $scope.taskDependencies)
+            console.log("dep: ", $scope.depList);
+           /* TaskFactory.updateTask($scope.modifyTask, $scope.assignedTeamMembers, $scope.depList)
                 .success(function (err, res) {
                     alert($scope.projectData.projectName + ' successfully updated in database');
                 }).error(function (err, res) {
@@ -289,7 +296,7 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
                     else
                         err_msg += err.detail;
                     alert(err_msg);
-                })
+                })*/
         };
     }
 ])
