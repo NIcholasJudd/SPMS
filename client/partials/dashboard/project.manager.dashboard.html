@@ -56,7 +56,14 @@
 														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">1</span><h5>Tasks overdue</h5></div>
 													</div>
 													<div class="col-md-3">
-														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">4</span><h5>Tasks completed on time</h5></div>
+														<div ng-if="cocomoCalculated === false">
+															<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;"></span><h5>Please enter your COCOMO estimations
+																above so we can display COCOMO score for you!</h5></div>
+														</div>
+														<div ng-if="cocomoCalculated === true">
+															<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">{{cocomoScore}}</span><h5>
+																Person-months (Cocomo Score)</h5></div>
+														</div>
 													</div>
 													<div class="col-md-3">
 														<div ng-if="functionPointCalculated === false">

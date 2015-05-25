@@ -9,7 +9,8 @@ var express = require('express'),
     archiveProject = require('./projects.js'),
     task = require('./tasks.js'),
     taskComment = require('./task.comment.js'),
-    projectFunctionPoints = require('./projects.functionPoints.js');
+    projectFunctionPoints = require('./projects.functionPoints.js'),
+    cocomoScores = require('./projects.cocomoScores.js');
 
 
 /* Authorisation naming conventions:
@@ -81,6 +82,9 @@ router.get('/api/auth/user/:email/projects', userProject.getAll);
 
 router.get('/api/auth/project/:projectName/functionPoint', projectFunctionPoints.getOne);
 router.put('/api/auth/project/:projectName/functionPoint', projectFunctionPoints.update);
+
+router.get('/api/auth/project/:projectName/cocomoScore', cocomoScores.getOne);
+router.put('/api/auth/project/:projectName/cocomoScore', cocomoScores.update);
 
 module.exports = router;
 

@@ -3,10 +3,12 @@
  */
 
 myApp.controller("ProjectDashboardCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'UserFactory', '$window',
-    'assignedProjects', 'FunctionPointData',
-    function ($scope, $rootScope, ProjectFactory, UserFactory, $window, assignedProjects, FunctionPointData) {
+    'assignedProjects', 'FunctionPointData', 'CocomoScores',
+    function ($scope, $rootScope, ProjectFactory, UserFactory, $window, assignedProjects, FunctionPointData, CocomoScores) {
         $scope.functionPointCalculated = FunctionPointData.data.calculated;
         $scope.functionPoints = FunctionPointData.data.adjusted_function_point_count;
+        $scope.cocomoCalculated = CocomoScores.data.calculated;
+        $scope.cocomoScore = CocomoScores.data.person_months;
         $scope.projectData = [];
         $scope.currentProject;
         $scope.taskData = {

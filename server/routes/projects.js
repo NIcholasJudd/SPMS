@@ -44,8 +44,9 @@ var projects = {
                     req.body.startDate, req.body.estimatedEndDate, true, req.body.projectManager]);
             var q2 = t.none("CREATE SEQUENCE " + sequence_name + " START 1");
             var q3 = t.one("INSERT INTO function_point VALUES($1, null, null, null, false)", [req.body.projectName]);
+            var q4 = t.one("INSERT INTO cocomo_score VALUES($1, null, null, false)", [req.body.projectName]);
 
-            return promise.all([q1, q2, q3]);
+            return promise.all([q1, q2, q3, q4]);
         }).then(function(data) {
             res.json(data);
         }, function(err) {

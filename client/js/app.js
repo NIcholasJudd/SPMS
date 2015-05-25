@@ -83,6 +83,11 @@ myApp.config(function($routeProvider, $httpProvider) {
         access: {
               requiredLogin: true,
               adminOnly: false
+          },
+          resolve : {
+              CocomoScores : function(ProjectFactory, $window) {
+                  return ProjectFactory.getCocomoScores($window.sessionStorage.projectName);
+              }
           }
       }).when('/project/ganttChart', {
         templateUrl: 'partials/project/ganttChart.html',
@@ -121,6 +126,9 @@ myApp.config(function($routeProvider, $httpProvider) {
               },
               FunctionPointData : function(ProjectFactory, $window) {
                   return ProjectFactory.getFunctionPointData($window.sessionStorage.projectName);
+              },
+              CocomoScores : function(ProjectFactory, $window) {
+                  return ProjectFactory.getCocomoScores($window.sessionStorage.projectName);
               }
           }
       }).when('/dashboard/tmDashboard', {
