@@ -1,3 +1,4 @@
+
 <div class="page-bg page-std">
 <div class="container">
     <div class="row">
@@ -20,6 +21,7 @@
 												<div class="row row-center">
 													<div class="col-md-12">
 														<ul class="nav nav-pills nav-justified">
+															<li class="custom-pill" role="presentation"><a ng-click="displayTasks()"><span class="glyphicon glyphicon-paperclip"></span><h6>Tasks</h6></a></li>
 															<li class="custom-pill" role="presentation"><a ng-href="#/../project/ganttChart"><span class="glyphicon glyphicon-random"></span><h6>Gantt Chart</h6></a></li>
 															<li class="custom-pill" role="presentation"><a ng-href="#/../effort/functionPoints"><span class="glyphicon glyphicon-tasks"></span><h6>Effort Estimation</h6></a></li>
 															<li class="custom-pill" role="presentation"><a ng-href="#/../effort/effortEstimation"><span class="glyphicon glyphicon-leaf"></span><h6>Cocomo II</h6></a></li>
@@ -31,6 +33,39 @@
 										</div>
 									</div>
 								</div>
+
+								<div class="row" ng-show="seeTasks">
+									<div class="col-md-12">
+										<div class="panel panel-danger">
+											<div class="panel-heading"><h4>{{project.projectName}} Tasks<i class="glyphicon glyphicon-paperclip"></i></h4></div>
+											<div class="panel-body">
+												<table  ng-controller="TaskDashCtrl" class="table table-hover taskTable">
+													<tr>
+														<th>Task#</th>
+														<th>Task Name</th>
+														<th>Priority</th>
+														<th>Progress</th>
+														<th>Assigned To</th>
+														<th>Modify</th>
+														<th>Comment</th>
+														<th>Completed</th>
+													</tr>
+													<tr ng-repeat='task in tasks track by task.taskId'>
+														<td>{{task.taskNumber}}</td>
+														<td>{{task.taskName}}</td>
+														<td ng-class="priorityLevel(task.priority)">{{task.priority}}</td>
+														<td><progressbar max="1" value="task.progress"></progressbar></td>
+														<td><button class="taskButton" ng-click="openUserModal(task.taskId)"><i class="glyphicon glyphicon-user"></i></button></td>
+														<td class="lborder"><a href="#/project/taskModify"><button class="taskButton"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
+														<td class="lborder"><button class="taskButton" ng-click="openModal(task.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
+														<td class="lborder complete"><button class="taskButton" ng-click=""><i class="glyphicon glyphicon-saved"></i></button></td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+
 								<div class="row">
 									<div class="col-md-12">
 										<div class="panel panel-danger">
@@ -38,41 +73,41 @@
 											<div class="panel-body">
 												<div class="row">
 													<div class="col-md-3">
-														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;" ng-bind="status.unassigned"></span><h5>Unassigned tasks</h5></div>
+														<div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;" ng-bind="status.unassigned"></span><h5>Unassigned tasks</h5></div>
 													</div>
 													<div class="col-md-3">
-														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;"ng-bind="status.otg"></span><h5>Tasks in progress</h5></div>
+														<div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"ng-bind="status.otg"></span><h5>Tasks in progress</h5></div>
 													</div>
 													<div class="col-md-3">
-														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;"ng-bind="status.finalised"></span><h5>Tasks pending completion</h5></div>
+														<div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"ng-bind="status.finalised"></span><h5>Tasks pending completion</h5></div>
 													</div>
 													<div class="col-md-3">
-														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;"ng-bind="status.complete"></span><h5>Completed tasks</h5></div>
+														<div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"ng-bind="status.complete"></span><h5>Completed tasks</h5></div>
 													</div>
 												</div>
 												<hr/>
 
 												<div class="row">
 													<div class="col-md-3">
-														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">1</span><h5>Tasks overdue</h5></div>
+														<div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">1</span><h5>Tasks overdue</h5></div>
 													</div>
 													<div class="col-md-3">
 														<div ng-if="cocomoCalculated === false">
-															<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;"></span><h5>Please enter your COCOMO estimations
+															<div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"></span><h5>Please enter your COCOMO estimations
 																above so we can display COCOMO score for you!</h5></div>
 														</div>
 														<div ng-if="cocomoCalculated === true">
-															<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">{{cocomoScore}}</span><h5>
+															<div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">{{cocomoScore}}</span><h5>
 																Person-months (Cocomo Score)</h5></div>
 														</div>
 													</div>
 													<div class="col-md-3">
 														<div ng-if="functionPointCalculated === false">
-															<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;"></span><h5>Please enter your function points
+															<div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"></span><h5>Please enter your function points
 															above so we can display function point count for you!</h5></div>
 														</div>
 														<div ng-if="functionPointCalculated === true">
-															<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">{{functionPoints}}</span><h5>
+															<div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">{{functionPoints}}</span><h5>
 																Person-months (function point count)</h5></div>
 														</div>
 													</div>
@@ -81,7 +116,7 @@
 															<span style="font-size: 4em;"></span>
 															<h5>Please add some tasks so that we can generate a PERT analysis for you!</h5>
 														</div>
-														<div ng-if="pert !== -1" class="col-md-12" style="text-align: center"><span style="font-size: 4em;">{{pert}}%</span><h5>Chance of not finishing project on time (PERT analysis)</h5></div>
+														<div ng-if="pert !== -1" class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">{{pert}}%</span><h5>Chance of not finishing project on time (PERT analysis)</h5></div>
 													</div>
 												</div>
 

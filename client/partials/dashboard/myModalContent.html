@@ -1,0 +1,65 @@
+<!-------------------- Modal HTML (Do not play with this) ------------>
+
+
+    <div class="modal-header">
+        <h4 class="modal-title">Task ID: {{taskData.taskId}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div>Project: {{taskData.projectName}}</div>
+            </div>
+            <div class="col-md-6">
+                <div>Task: {{taskData.taskName}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div>Start Date: {{startDate()}}</div>
+            </div>
+            <div class="col-md-6">
+                <div>Likely Duration: {{taskData.likelyDuration.days}} days</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div>Optimistic Duration: {{taskData.optimisticDuration.days}} days</div>
+            </div>
+            <div class="col-md-6">
+                <div>Pessimistic Duration: {{taskData.pessimisticDuration.days}} days</div>
+            </div>
+        </div>
+        <hr/>
+        <br/>
+        <form ng-submit="saveComment(); ok()">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <div>Comments:</div>
+                    <textarea cols="80" style="width:100%" rows="5" placeholder="Add comment.." ng-model="comment" required></textarea>
+                    <button class="btn btn-default" type="submit">Save Comment</button>
+                    <button class="btn btn-default" ng-click="getComment(taskData.taskId)">View Comments</button>
+                </div>
+            </div>
+        </form>
+        <hr/>
+        <div class="well" ng-repeat="comment in commentData|limitTo:1" ng-model="tracker">
+            <div>Comment Id: {{commentData[tracker].commentId}}</div>
+            <hr/>
+            <div>"{{commentData[tracker].commentText}}"</div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-6"><i style="color: grey;">{{commentData[tracker].user}}</i></div>
+                <div class="col-md-3 col-md-offset-3"><i style="color: grey;">{{commentData[tracker].commentDate | date: 'dd/MM/yyyy'}}</i></div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <label class="btn btn-default" ng-click="back(tracker)"><i class="glyphicon glyphicon-chevron-left"></i></label>
+            <label class="btn btn-default" ng-click="forward(tracker)"><i class="glyphicon glyphicon-chevron-right"></i></label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+
+<!-------------------------------- End -------------------------------------->

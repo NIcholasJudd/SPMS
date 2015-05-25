@@ -193,6 +193,11 @@ myApp.controller("ProjectDashboardCtrl", ['$scope', '$rootScope', 'ProjectFactor
             console.log($window.sessionStorage.projectName);*/
         }
 
+        $scope.seeTasks = false;
+        $scope.displayTasks = function(){
+            $scope.seeTasks = !$scope.seeTasks;
+        }
+
     }
 
 ]);

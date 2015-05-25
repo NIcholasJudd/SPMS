@@ -215,7 +215,7 @@
                                 <input id="searchName"
                                        ng-controller="TypeaheadCtrl"
                                        ng-model="selectedNames"
-                                       typeahead="name for name in user | filter:$viewValue | limitTo:8"
+                                       typeahead="name.name for name in user | filter:$viewValue | limitTo:8"
                                        class="form-control"
                                        placeholder="Name">
                                 </input>

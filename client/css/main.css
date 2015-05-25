@@ -333,3 +333,7 @@ input[type="radio"]{
 .taskTable .finalise{
     color: #70c494;
 }
+
+.taskTable .complete{
+    color: #21a9ef;
+}

@@ -1,0 +1,22 @@
+<!-------------------- Modal HTML (Do not play with this) ------------>
+
+
+<div class="modal-header">
+    <h4 class="modal-title">Assigned Team Members</h4>
+</div>
+<div class="modal-body">
+    <div ng-init="getTeamMembers(taskData.taskId)">
+        <div class="well">
+            <div ng-repeat="team in teamData">
+            <h4>{{team.firstName}} {{team.lastName}}</h4>
+            <h5>{{team.role}}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>
+
+<!-------------------------------- End -------------------------------------->

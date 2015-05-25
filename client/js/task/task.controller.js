@@ -443,4 +443,35 @@ myApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, task, Ta
     }
 });
 
+/*-------------------  User Modal Controller  -------------------- */
+
+myApp.controller('TaskModalInstanceCtrl', function ($scope, $modalInstance, task, TaskFactory, $window, UserFactory) {
+
+    $scope.taskData = task;
+    $scope.teamData = [];
+
+
+    $scope.getTeamMembers = function(taskId){
+        TaskFactory.getUserRoles(taskId).then(function(results){
+            results.data.forEach(function(user){
+                $scope.teamData.push({
+                    firstName: user.first_name,
+                    lastName: user.last_name,
+                    email: user.email,
+                    role: user.role_name.toUpperCase()
+                })
+                console.log($scope.teamData);
+            })
+        })
+    }
+
+    $scope.ok = function () {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+});
 
