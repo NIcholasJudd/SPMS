@@ -2,8 +2,11 @@
  * Created by scottmackenzie on 5/05/2015.
  */
 
-myApp.controller("ProjectDashboardCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'UserFactory', '$window', 'assignedProjects',
-    function ($scope, $rootScope, ProjectFactory, UserFactory, $window, assignedProjects) {
+myApp.controller("ProjectDashboardCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'UserFactory', '$window',
+    'assignedProjects', 'FunctionPointData',
+    function ($scope, $rootScope, ProjectFactory, UserFactory, $window, assignedProjects, FunctionPointData) {
+        $scope.functionPointCalculated = FunctionPointData.data.calculated;
+        $scope.functionPoints = FunctionPointData.data.adjusted_function_point_count;
         $scope.projectData = [];
         $scope.currentProject;
         $scope.taskData = {

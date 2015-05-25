@@ -60,6 +60,19 @@ myApp.factory('ProjectFactory', function($http) {
 
         getArchivedProjects : function() {
             return $http.get('http://localhost:3000/api/auth/admin/projects');
+        },
+
+        getFunctionPointData : function(projectName) {
+            return $http.get('http://localhost:3000/api/auth/project/' + projectName + '/functionPoint');
+        },
+
+        saveFunctionPointData : function(projectName, adjustedFP, valueArray, functionCounts, calculated) {
+            return $http.put('http://localhost:3000/api/auth/project/' + projectName + '/functionPoint', {
+                adjustedFP : adjustedFP,
+                valueArray : valueArray,
+                calculated : calculated,
+                functionCounts : functionCounts
+            })
         }
     }
 });

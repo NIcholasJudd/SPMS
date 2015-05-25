@@ -8,7 +8,8 @@ var express = require('express'),
     userProject = require('./user.projects.js'),
     archiveProject = require('./projects.js'),
     task = require('./tasks.js'),
-    taskComment = require('./task.comment.js');
+    taskComment = require('./task.comment.js'),
+    projectFunctionPoints = require('./projects.functionPoints.js');
 
 
 /* Authorisation naming conventions:
@@ -77,6 +78,9 @@ router.post('/api/auth/task/:taskId/comment', taskComment.create);
 
 // get all projects that a user 'project manages'
 router.get('/api/auth/user/:email/projects', userProject.getAll);
+
+router.get('/api/auth/project/:projectName/functionPoint', projectFunctionPoints.getOne);
+router.put('/api/auth/project/:projectName/functionPoint', projectFunctionPoints.update);
 
 module.exports = router;
 

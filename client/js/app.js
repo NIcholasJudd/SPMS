@@ -67,14 +67,19 @@ myApp.config(function($routeProvider, $httpProvider) {
           }
       }).when('/effort/functionPoints', {
         templateUrl: 'partials/effort/functionPoints.html',
-        controller: 'EffortCtrl',
+        controller: 'EffortFunctionPointCtrl',
         access: {
               requiredLogin: true,
               adminOnly: false
+          },
+          resolve : {
+              FunctionPointData : function(ProjectFactory, $window) {
+                  return ProjectFactory.getFunctionPointData($window.sessionStorage.projectName);
+              }
           }
       }).when('/effort/effortEstimation', {
         templateUrl: 'partials/effort/effort.estimation.html',
-        controller: 'EffortCtrl',
+        controller: 'EffortCocomoCtrl',
         access: {
               requiredLogin: true,
               adminOnly: false
@@ -113,6 +118,9 @@ myApp.config(function($routeProvider, $httpProvider) {
                       return ProjectFactory.getProjects();
                   else
                       return ProjectFactory.getPMProjects($window.sessionStorage.user);
+              },
+              FunctionPointData : function(ProjectFactory, $window) {
+                  return ProjectFactory.getFunctionPointData($window.sessionStorage.projectName);
               }
           }
       }).when('/dashboard/tmDashboard', {

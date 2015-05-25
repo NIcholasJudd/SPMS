@@ -59,7 +59,14 @@
 														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">4</span><h5>Tasks completed on time</h5></div>
 													</div>
 													<div class="col-md-3">
-														<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">7</span><h5>Some other statistic</h5></div>
+														<div ng-if="functionPointCalculated === false">
+															<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;"></span><h5>Please enter your function points
+															above so we can display function point count for you!</h5></div>
+														</div>
+														<div ng-if="functionPointCalculated === true">
+															<div class="col-md-12" style="text-align: center"><span style="font-size: 4em;">{{functionPoints}}</span><h5>
+																Person-months (function point count)</h5></div>
+														</div>
 													</div>
 													<div class="col-md-3" ng-controller="PERTCtrl">
 														<div ng-if="pert === -1" class="col-md-12" style="text-align: center">

@@ -37,6 +37,7 @@ db.tx(function(t) {
     queries.push(t.none("DROP SEQUENCE IF EXISTS myproject2_seq"));
     queries.push(t.none("DROP SEQUENCE IF EXISTS myproject3_seq"));
     queries.push(t.none("DROP SEQUENCE IF EXISTS projectflappybird_seq"));
+    queries.push(t.none("DROP TABLE IF EXISTS function_point"));
     queries.push(t.none("DROP TABLE IF EXISTS task_comment"));
     queries.push(t.none("DROP TABLE IF EXISTS task_role"));
     queries.push(t.none("DROP TABLE IF EXISTS link"));
@@ -122,6 +123,15 @@ db.tx(function(t) {
         ");"
     ));
 
+    queries.push(t.none("CREATE TABLE function_point(" +
+        "project_name varchar(100) REFERENCES project ON DELETE CASCADE UNIQUE NOT NULL, " +
+        "adjusted_function_point_count REAL, " +
+        "adjustment_factor REAL[], " +
+        "function_counts REAL[][], " +
+        "calculated BOOLEAN " +
+        ");"
+    ));
+
 // TEST SETUP DATA
 
 
@@ -143,6 +153,17 @@ db.tx(function(t) {
 
     queries.push(t.none("INSERT INTO project VALUES(" +
     "'My Project 1', 'Description of project', 500000, '2016-03-13', '2017-03-13', true, 'admin@admin')"));
+
+    queries.push(t.none("INSERT INTO function_point VALUES(" +
+    "'My Project 1', null, null, null, false)"));
+
+    /*queries.push(t.none("CREATE TABLE function_point(" +
+        "project_name varchar(100) REFERENCES project ON DELETE CASCADE UNIQUE NOT NULL, " +
+        "adjusted_function_point_count NUMBER, " +
+        "adjustment_factor NUMBER[], " +
+        "calculated BOOLEAN " +
+        ");"
+    ));*/
 
     queries.push(t.none("CREATE SEQUENCE myproject1_seq START 1"));
 
@@ -202,6 +223,9 @@ db.tx(function(t) {
 
     queries.push(t.none("CREATE SEQUENCE myproject2_seq START 1"));
 
+    queries.push(t.none("INSERT INTO function_point VALUES(" +
+    "'My Project 2', null, null, null, false)"));
+
     queries.push(t.none("INSERT INTO task VALUES(nextval('task_task_id_seq'), " +
     "nextval('myproject2_seq'), 'My Project 2', 'Task 1', 'Task 1 Description', '2015-06-06', '3 days', '2 days', " +
     "'4 days', '1 days', 0.4, 'on-the-go', 'critical', true)"));
@@ -232,6 +256,9 @@ db.tx(function(t) {
     "'My Project 3', 'Description of project 3', 1000000, '2015-04-01', '2015-05-01', true, 'scott@tm')"));
 
     queries.push(t.none("CREATE SEQUENCE myproject3_seq START 1"));
+
+    queries.push(t.none("INSERT INTO function_point VALUES(" +
+    "'My Project 3', null, null, null, false)"));
 
     queries.push(t.none("INSERT INTO task VALUES(nextval('task_task_id_seq'), " +
     "nextval('myproject3_seq'), 'My Project 3', 'Design', 'Design application', '2015-04-01', '10 days', '7 days', " +
@@ -276,6 +303,9 @@ db.tx(function(t) {
     "'Project Flappy Bird', 'Develop Flappy Bird application', 1000000, '2015-05-10', '2015-07-01', true, 'scott@tm')"));
 
     queries.push(t.none("CREATE SEQUENCE projectflappybird_seq START 1"));
+
+    queries.push(t.none("INSERT INTO function_point VALUES(" +
+    "'Project Flappy Bird', null, null, null, false)"));
 
     queries.push(t.none("INSERT INTO task VALUES(nextval('task_task_id_seq'), " +
     "nextval('projectflappybird_seq'), 'Project Flappy Bird', 'Recruit Staff', 'Recruit staff members', '2015-05-10', '10 days', '7 days', " +
