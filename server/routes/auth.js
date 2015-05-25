@@ -11,7 +11,7 @@ var jwt = require('jwt-simple'),
 var auth = {
 
     login: function(req, res) {
-        //console.log('email: ', req.body.email, ' password: ', req.body.password);
+        console.log('email: ', req.body.email, ' password: ', req.body.password);
         var username = req.body.email;// || '';
         var password = req.body.password;// || '';
         if (username == '' || password == '') {

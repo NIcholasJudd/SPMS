@@ -3,12 +3,9 @@
  */
 
 myApp.controller("ProjectDashboardCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'UserFactory', '$window',
-    'assignedProjects', 'FunctionPointData', 'CocomoScores',
-    function ($scope, $rootScope, ProjectFactory, UserFactory, $window, assignedProjects, FunctionPointData, CocomoScores) {
-        $scope.functionPointCalculated = FunctionPointData.data.calculated;
-        $scope.functionPoints = FunctionPointData.data.adjusted_function_point_count;
-        $scope.cocomoCalculated = CocomoScores.data.calculated;
-        $scope.cocomoScore = CocomoScores.data.person_months;
+    'assignedProjects',
+    function ($scope, $rootScope, ProjectFactory, UserFactory, $window, assignedProjects) {
+
         $scope.projectData = [];
         $scope.currentProject;
         $scope.taskData = {
@@ -40,6 +37,22 @@ myApp.controller("ProjectDashboardCtrl", ['$scope', '$rootScope', 'ProjectFactor
                 projectManager: projects.project_manager
             });
         });
+
+        function getFunctionPoints() {
+            ProjectFactory.getFunctionPointData($window.sessionStorage.projectName)
+                .then(function(res) {
+                    $scope.functionPointCalculated = res.data.calculated;
+                    $scope.functionPoints = res.data.adjusted_function_point_count;
+                });
+        }
+
+        function getCocomoPoints() {
+            ProjectFactory.getCocomoScores($window.sessionStorage.projectName)
+                .then(function(res) {
+                    $scope.cocomoCalculated = res.data.calculated;
+                    $scope.cocomoScore = res.data.person_months;
+                });
+        }
 
 
         function getTasks() {
@@ -86,6 +99,8 @@ myApp.controller("ProjectDashboardCtrl", ['$scope', '$rootScope', 'ProjectFactor
                     $scope.currentProject = $window.sessionStorage.projectName;
             }
             getTasks();
+            getFunctionPoints();
+            getCocomoPoints();
         }
 
         /*ProjectFactory.getPMProjects($window.sessionStorage.user).then(function(projects) {
@@ -146,8 +161,11 @@ myApp.controller("ProjectDashboardCtrl", ['$scope', '$rootScope', 'ProjectFactor
         $scope.setProject = function (index) {
             console.log('set Project');
             $window.sessionStorage.projectName = $scope.currentProject = $scope.projectData[index].projectName;
-            $rootScope.$broadcast('project-changed');
+            //$rootScope.$broadcast('project-changed');
             getTasks();
+            getFunctionPoints();
+            getCocomoPoints();
+            //refresh
             /*ProjectFactory.getTasks($window.sessionStorage.projectName).then(function (res) {
                 console.log('!!!');
                 $scope.status = {

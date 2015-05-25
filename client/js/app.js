@@ -123,12 +123,6 @@ myApp.config(function($routeProvider, $httpProvider) {
                       return ProjectFactory.getProjects();
                   else
                       return ProjectFactory.getPMProjects($window.sessionStorage.user);
-              },
-              FunctionPointData : function(ProjectFactory, $window) {
-                  return ProjectFactory.getFunctionPointData($window.sessionStorage.projectName);
-              },
-              CocomoScores : function(ProjectFactory, $window) {
-                  return ProjectFactory.getCocomoScores($window.sessionStorage.projectName);
               }
           }
       }).when('/dashboard/tmDashboard', {
