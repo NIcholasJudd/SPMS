@@ -2,88 +2,40 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Archive Project</h2>
+
+
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-danger" style="margin-top: 25px">
-                    <div class="panel-heading">Project Details</div>
-                        <div class="panel-body">
-                                <form ng-submit="archiveProject(projectData.projectName, archiveReason)">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="projName">Project Name: </label>
-                                            <input id="projName"
-                                                   ng-model="projectData.projectName"
-                                                   type="text"
-                                                   class="form-control"
-                                                   placeholder="Project Name"
-                                                   readonly="true"/>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="usernamePM">Project Manager: </label>
-                                            <input id="usernamePM"
-                                                   ng-model="projectData.projectManager"
-                                                   type="text"
-                                                   class="form-control"
-                                                   placeholder="Smith, John"
-                                                    readonly="true"/>
-                                        </div>
-                                    </div>
-                                    <div class="row mg-md">
-                                        <div class="col-md-6">
-                                            <label for="startDate">Start Date: </label>
-                                            <input id="startDate"
-                                                   ng-model="projectData.startDate"
-                                                   type="text"
-                                                   class="form-control"
-                                                    readonly="true"/>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="estimatedCompDate">Estimated Completion Date: </label>
-                                            <input id="estimatedCompDate"
-                                                   ng-model="projectData.endDate"
-                                                   type="text"
-                                                   class="form-control"
-                                                    readonly="true"/>
-                                        </div>
-                                    </div>
-                                    <div class="row mg-md">
-                                        <div class="col-md-12">
-                                            <label for="archiveReason">Reason for archive: </label>
-											<textarea id="archiveReason"
-                                                      ng-model="archiveReason"
-                                                      type="text"
-                                                      class="form-control"
-                                                      rows="3"
-                                                      placeholder="Archive Reason"/>
-                                        </div>
-                                    </div>
-                                    <div class="row mg-md">
-                                        <div class="col-md-4">
-                                            <div ng-if="projectData.active === true">
-                                                <button type="submit" class="btn btn-success" style="width:100%;">Archive
-                                                    Project
-                                                </button>
-                                            </div>
-                                            <div ng-if="projectData.active === false">
-                                                <button type="submit" class="btn btn-success" disabled="true" style="width:100%;">Archive
-                                                    Project
-                                                </button>
-                                            </div>
-
-
-                                        </div>
-                                        <div class="col-md-4">
-                                            <a href="#/dashboard/pmDashboard">
-                                                <button type="button" class="btn btn-success" style="width:100%;">Back
-                                                    to
-                                                    Dash board
-                                                </button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div class="panel-heading">Active Projects</div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Project Name</th>
+                                <th>Project Start Date</th>
+                                <th>Project End Date</th>
+                                <th>Archive Reason</th>
+                                <th>Archive</th>
+                            </tr>
+                            <!--<form ng-submit="archiveProject(project.project_name, archiveReason)">-->
+                            <tr ng-repeat="project in activeProjects">
+                                <td>{{project.project_name}}</td>
+                                <td>{{project.start_date  | date:'dd/MM/yyyy'}}</td>
+                                <td>{{project.estimated_end_date  | date:'dd/MM/yyyy'}}</td>
+                                <td><input id="archiveReason"
+                                              ng-model="archiveReason"
+                                              type="text"
+                                              class="form-control"
+                                              rows="3"
+                                              placeholder="Archive Reason"/></td>
+                                <td><button type="submit" class="btn" style="width:100%;"
+                                            ng-click="archiveProject(project.project_name, archiveReason)">Archive Project</button></td>
+                                <!--</form>-->
+                            </tr>
+                        </table>
                     </div>
+                </div>
+            </div>
+
 
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-danger" style="margin-top: 25px">
@@ -97,12 +49,12 @@
                                     <th>Archive Reason</th>
                                     <th>Restore</th>
                                 </tr>
-                                    <tr ng-repeat="project in archivedProjects">
+                                <tr ng-repeat="project in archivedProjects">
                                         <td>{{project.project_name}}</td>
-                                        <td>{{project.start_date}}</td>
-                                        <td>{{project.estimated_end_date}}</td>
+                                        <td>{{project.start_date | date:'dd/MM/yyyy'}}</td>
+                                        <td>{{project.estimated_end_date | date:'dd/MM/yyyy'}}</td>
                                         <td>{{project.archive_reason}}</td>
-                                        <td><input class="button" type="button" value="Restore" ng-click="restoreProject(project.project_name)" /></td>
+                                        <td><input class="btn btn-success" type="button" value="Restore" ng-click="restoreProject(project.project_name)" /></td>
                                     </tr>
                             </table>
                     </div>

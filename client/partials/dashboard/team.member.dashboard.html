@@ -59,7 +59,7 @@
 									<th>Task#</th>
 									<th>Task Name</th>
 									<th>Priority</th>
-									<th>Modify</th>
+									<th>Details</th>
 									<th>Comment</th>
 								</tr>
 								<tr ng-repeat='unassigned in tasks | filter: {status: "unassigned"} track by unassigned.taskId'>
@@ -69,7 +69,7 @@
 									<td>{{unassigned.taskName}}</td>
 									<td ng-class="priorityLevel(unassigned.priority)">{{unassigned.priority}}</td>
 
-									<td class="lborder"><a href="#/project/taskModify"><button class="taskButton" ng-click="setCurrentTask(unassigned.taskId)"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
+									<td class="lborder"><a href="#/project/taskDetails"><button class="taskButton" ng-click="setCurrentTask(unassigned.taskId)"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
 									<td class="lborder"><button class="taskButton" ng-click="openModal(unassigned.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
 								</tr>
 							</table>
@@ -87,7 +87,7 @@
 									<th>Task Name</th>
 									<th>Priority</th>
 									<th>Progress</th>
-									<th>Modify</th>
+									<th>Details</th>
 									<th>Comment</th>
 									<th>Finalise</th>
 								</tr>
@@ -97,7 +97,7 @@
 									<td>{{otg.taskName}}</td>
 									<td ng-class="priorityLevel(otg.priority)">{{otg.priority}}</td>
 									<td><progressbar max="1" value="otg.progress"></progressbar></td>
-									<td class="lborder"><a href="#/project/taskModify"><button class="taskButton" ng-click="setCurrentTask(otg.taskId)"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
+									<td class="lborder"><a href="#/project/taskDetails"><button class="taskButton" ng-click="setCurrentTask(otg.taskId)"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
 									<td class="lborder"><button class="taskButton" ng-click="openModal(otg.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
 									<td class="lborder finalise"><button class="taskButton" ng-click="markFinalised(otg.taskId)"><i class="glyphicon glyphicon-ok"></i></button></td>
 								</tr>

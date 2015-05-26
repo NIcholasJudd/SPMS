@@ -43,8 +43,8 @@ myApp.config(function($routeProvider, $httpProvider) {
               adminOnly : true
           },
           resolve: {
-              CurrentProject : function(ProjectFactory, $window) {
-                  return ProjectFactory.getProject($window.sessionStorage.projectName);
+              ActiveProjects : function(ProjectFactory) {
+                  return ProjectFactory.getProjects();
               },
               ArchivedProjects : function(ProjectFactory) {
                   return ProjectFactory.getArchivedProjects();
@@ -60,6 +60,13 @@ myApp.config(function($routeProvider, $httpProvider) {
       }).when('/project/taskModify', {
           templateUrl: 'partials/project/task.modify.html',
           controller: 'TaskModCtrl',
+          access: {
+              requiredLogin: true,
+              adminOnly : false
+          }
+      }).when('/project/taskDetails', {
+          templateUrl: 'partials/project/task.detail.html',
+          controller: 'TaskDetailCtrl',
           access: {
               requiredLogin: true,
               adminOnly : false

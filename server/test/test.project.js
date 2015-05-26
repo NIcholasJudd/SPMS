@@ -17,7 +17,7 @@ describe('Project', function() {
     var token = null;
     var adminUser = {
         email: 'admin@admin',
-        password: 'admin'
+        password: 'root'
     }
     var testProject = {
         projectName: 'Project1',
@@ -385,38 +385,7 @@ describe('Project', function() {
             })
     })
 
-    /*it('should add a link to the project without error', function (done) {
-        superagent
-            .post(server + '/api/auth/admin/project/' + testProject.projectName + '/link')
-            .set('X-Access-Token', token)
-            .set('X-Key', 'admin@admin')
-            .send({
-                source: testTasks[0].taskId,
-                target: testTasks[1].taskId,
-                type: testLinks[0].type
-            })
-            .end(function (err, res) {
-                expect(err).to.eql(null);
-                expect(res.status).to.eql(200);
-                //console.log("LINK", res);
-                done();
-            });
-    });*/
 
-    /*it('should retrieve a link associated with a project by source task id', function (done) {
-        //console.log('here: ', retrievedTask[0].taskId);
-        superagent
-            .get(server + '/api/auth/admin/project/' + testProject.projectName + '/link/' + testTasks[0].taskId)
-            .set('X-Access-Token', token)
-            .set('X-Key', 'admin@admin')
-            .set('Accept', 'application/json')
-            .end(function (err, res) {
-                expect(err).to.eql(null);
-                expect(res.status).to.eql(200);
-                //console.log(res.body);
-                done();
-            })
-    });*/
 
     it('should delete a link from project by link id without error', function (done) {
         superagent
@@ -446,7 +415,7 @@ describe('Project', function() {
             });
     });
 
-    it('should delete the other test task from project - change this to delete tasks when project deleted', function (done) {
+    it('should delete the other test task from project', function (done) {
         superagent
             .del(server + '/api/auth/project/' + testProject.projectName + '/task/' + retrievedTask[1].taskNumber)
             .set('X-Access-Token', token)
