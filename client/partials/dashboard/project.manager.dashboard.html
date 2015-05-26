@@ -2,6 +2,10 @@
 <div class="page-bg page-std">
 <div class="container">
     <div class="row">
+        <div ng-if="projectData.length === 0">
+            <p>You are not the project manager of any tasks.  Please click the Team Member dashboard above to
+            see any tasks assigned to you.</p>
+        </div>
         <div class="col-md-12">
 			<!--<div scrolling-tabs-wrapper>-->
 			<tabset class="custom-tabs" justified="true">
@@ -39,7 +43,7 @@
 										<div class="panel panel-danger">
 											<div class="panel-heading"><h4>{{project.projectName}} Tasks<i class="glyphicon glyphicon-paperclip"></i></h4></div>
 											<div class="panel-body" style="overflow: scroll">
-												<table  ng-controller="TaskDashCtrl" class="table table-hover taskTable table-responsive">
+												<table ng-controller="ProjectDashboardTaskCtrl" class="table table-hover taskTable table-responsive">
 													<tr>
 														<th>Task#</th>
 														<th>Task Name</th>
@@ -56,7 +60,7 @@
 														<td ng-class="priorityLevel(task.priority)">{{task.priority}}</td>
 														<td><progressbar max="1" value="task.progress"></progressbar></td>
 														<td><button class="taskButton" ng-click="openUserModal(task.taskId)"><i class="glyphicon glyphicon-user"></i></button></td>
-														<td class="lborder"><a href="#/project/taskModify"><button class="taskButton"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
+														<td class="lborder"><a href="#/project/taskModify"><button class="taskButton" ng-click="setCurrentTask(task.taskId)"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
 														<td class="lborder"><button class="taskButton" ng-click="openModal(task.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
 														<td class="lborder complete"><button class="taskButton" ng-click="markComplete(task.taskId)"><i class="glyphicon glyphicon-saved"></i></button></td>
 													</tr>

@@ -60,7 +60,7 @@ myApp.controller("TaskCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'TaskFa
             });
         });
 
-        $scope.$on('')
+        //$scope.$on('')
 
         UserFactory.getUserTasks($window.sessionStorage.user).then(function (results) {
             console.log('tasks: ', results);

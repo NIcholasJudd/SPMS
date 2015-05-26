@@ -68,14 +68,27 @@
      },
 
      updateStatus : function(req, res) {
-         db.one("update task SET status = $1 where task_id = $2 returning status",
-             [req.body.status, req.params.taskId])
-             .then(function(data) {
-                 return res.json(data);
-             }, function(err) {
-                 console.error(err);
-                 return res.status(500).send(err);
-             })
+         if (req.body.status === 'finalised' || req.body.status === 'complete') {
+             db.one("update task SET status = $1, progress_percentage = 1 where task_id = $2 returning status",
+                 [req.body.status, req.params.taskId])
+                 .then(function (data) {
+                     return res.json(data);
+                 }, function (err) {
+                     console.error(err);
+                     return res.status(500).send(err);
+                 })
+         }
+         else {
+             db.one("update task SET status = $1 where task_id = $2 returning status",
+                 [req.body.status, req.params.taskId])
+                 .then(function (data) {
+                     return res.json(data);
+                 }, function (err) {
+                     console.error(err);
+                     return res.status(500).send(err);
+                 })
+         }
+
      },
 
      update: function(req, res) {
@@ -83,9 +96,10 @@
          db.tx(function(t) {
              var queries = [];
              queries.push(t.query("UPDATE task SET task_name = $1, description = $2, start_date = $3, likely_duration = $4, " +
-             "optimistic_duration = $5, pessimistic_duration = $6, comfort_zone = $7, priority = $8 WHERE task_id = $9",
+             "optimistic_duration = $5, pessimistic_duration = $6, comfort_zone = $7, priority = $8, progress_percentage = $9 WHERE task_id = $10",
              [req.body.taskName, req.body.description, req.body.startDate, req.body.likelyDuration,
-             req.body.optimisticDuration, req.body.pessimisticDuration, req.body.comfortZone, req.body.priority, req.params.taskId]));
+             req.body.optimisticDuration, req.body.pessimisticDuration, req.body.comfortZone, req.body.priority,
+                 req.body.progressPercentage, req.params.taskId]));
              queries.push(t.query("DELETE FROM task_role WHERE task_id = $1", [req.params.taskId]));
              queries.push(t.query("DELETE FROM link WHERE target = $1", [req.params.taskId]));
              /* add users assigned to task */

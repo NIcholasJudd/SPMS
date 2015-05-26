@@ -122,16 +122,6 @@
                                                     value="{{activeUser.email}}"/>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="passwordUpdate">Password: </label>
-                                            <input  id="passwordUpdate"
-                                                    type="password"
-                                                    class="form-control"
-                                                    ng-model="activeUser.password"
-                                                    value="{{activeUser.password}}"/>
-                                        </div>
-                                    </div>
-                                    <div class="row m-top-md">
-                                        <div class="col-md-6">
                                             <label for="phoneUpdate">Phone: </label>
                                             <input  id="phoneUpdate"
                                                     type="text"
@@ -139,6 +129,8 @@
                                                     ng-model="activeUser.phone"
                                                     value="{{activeUser.phone}}"/>
                                         </div>
+                                    </div>
+                                    <div class="row m-top-md">
                                         <div class="col-md-6" ng-controller="UserCtrl">
                                             <label for="role">Roles: </label>
                                             <div class="dropdown">
@@ -169,8 +161,26 @@
                                         <div class="col-md-6">
                                             <button  id="updateBtn" type="submit" class="form-control btn btn-info" ng-click="update()">Update User</button>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div ng-if="activeUser.active === true" class="col-md-6">
                                             <button  id="archiveBtn" type="submit" class="form-control btn btn-danger" ng-click="archive()">Archive User</button>
+                                        </div>
+                                        <div ng-if="activeUser.active === false" class="col-md-6">
+                                            <button  id="restoreBtn" type="submit" class="form-control btn btn-danger" ng-click="archive()">Restore User</button>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row m-top-md">
+                                        <div class="col-md-6">
+                                            <label for="passwordUpdate">Update Password: </label>
+                                            <input  id="passwordUpdate"
+                                                    type="password"
+                                                    class="form-control"
+                                                    ng-model="newPassword"
+                                                    value="{{newPassword}}"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button  id="updateBtn" type="submit" class="form-control btn btn-info"
+                                                     ng-click="updatePassword(activeUser.email, newPassword)">Update Password</button>
                                         </div>
                                     </div>
                                 </div>

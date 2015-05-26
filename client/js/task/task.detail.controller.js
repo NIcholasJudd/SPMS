@@ -166,8 +166,6 @@ myApp.controller("TaskDetailCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
             });
         })
 
-
-
         function buildList(source){
             ProjectFactory.getTasks($window.sessionStorage.projectName).then(function (results) {
                 results.data.forEach(function (tasks) {
@@ -190,130 +188,20 @@ myApp.controller("TaskDetailCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
             return $window.sessionStorage.projectName;
         }
 
-        /*$scope.search = function () {
-            var nameBool = false;
-            var skillBool = false;
-            var roleBool = false;
-            var preformanceBool = false;
-            if (typeof $scope.search.Name == "undefined" || $scope.search.Name == "") {
-                nameBool = true;
-            }
-            if (typeof $scope.search.skill == "undefined" || $scope.search.skill == "") {
-                skillBool = true;
-            }
-            if (typeof $scope.search.role == "undefined" || $scope.search.role == "") {
-                roleBool = true;
-            }
-            if (typeof $scope.search.performanceIndex == "undefined" || $scope.search.performanceIndex == 0) {
-                preformanceBool = true;
-            }
-
-            for (var i = 0; i < $scope.teamMembersList.length; i++) {
-                console.log($scope.search.Name + " " + $scope.teamMembersList[i].name);
-                if ($scope.search.Name == $scope.teamMembersList[i].name || nameBool == true) {
-                    if ($scope.search.skill == $scope.teamMembersList[i].skill || skillBool == true) {
-                        if ($scope.search.role == $scope.teamMembersList[i].role || roleBool == true) {
-                            console.log($scope.search.performanceIndex);
-                            console.log($scope.teamMembersList[i].performanceIndex);
-                            if ($scope.search.performanceIndex <= $scope.teamMembersList[i].performanceIndex || preformanceBool == true) {
-                                console.log("preformance Check");
-                                $scope.searchTeamMembers.push({
-                                    name: $scope.teamMembersList[i].name,
-                                    email: $scope.teamMembersList[i].email
-                                })
-                            }
-                        }
-                    }
-                }
-            }
-            $scope.searchUser = {};
-        }*/
-
-        /*$scope.setTMS = function (index) {
-            $scope.selectedUser.name = $scope.searchTeamMembers[index].name;
-            $scope.selectedUser.email = $scope.searchTeamMembers[index].email;
-            $scope.selectedUser.indexValue = Number(index);
-        }
-        $scope.setTMA = function (index) {
-            $scope.selectedUser.name = $scope.assignedTeamMembers[index].name;
-            $scope.selectedUser.email = $scope.assignedTeamMembers[index].email;
-            $scope.selectedUser.indexValue = index;
-        }
-
-        $scope.addUserToTask = function () {
-            console.log($scope.selectedUser);
-            $scope.assignedTeamMembers.push(
-                {
-                    name: $scope.selectedUser.name,
-                    email: $scope.selectedUser.email
-                })
-            console.log($scope.assignedTeamMembers);
-            $scope.searchTeamMembers.splice($scope.selectedUser.indexValue, 1);
-            $scope.selectedUser = {};
-
-        }
-
-        $scope.removeUserFromTask = function (index) {
-            $scope.selectedUser.name = $scope.assignedTeamMembers[index].name;
-            $scope.selectedUser.email = $scope.assignedTeamMembers[index].email;
-            $scope.selectedUser.indexValue = index;
-            $scope.searchTeamMembers.push(
-                {
-                    name: $scope.selectedUser.name,
-                    email: $scope.selectedUser.email
-                })
-            $scope.assignedTeamMembers.splice($scope.selectedUser.indexValue, 1);
-            $scope.selectedUser = {};
-        }
-        $scope.setUser = function (index) {
-            console.log(searchEmail(index));
-            if (searchEmail(index) != -1) {
-                $scope.taskData.teamMembers.push({
-                    name: $scope.selectedUser[index].name,
-                    email: $scope.selectedUser[index].email
-                })
-                $scope.selectedUser.splice(index, 1);
-            }
-            console.log($scope.taskData.teamMembers);
-        }
-
-        function searchEmail(index) {
-            if ($scope.taskData.teamMembers.length == 0) {
-                return -1;
-            }
-            for (var i = 0; i < $scope.taskData.teamMembers.length; i++) {
-                if ($scope.selectedUser[index].email == $scope.taskData.teamMembers[i].email) {
-                    return 1;
-                }
-            }
-            return -1;
-        }*/
-
         $scope.updateProgress = function(taskId, progressPercentage) {
             if(!progressPercentage) {
                 alert("Progress percentage must be in range 0-100");
                 return;
             }
             else {
-                console.log(taskId, progressPercentage);
+                TaskFactory.updateProgress(taskId, progressPercentage / 100).then(function(res) {
+                    if(res)
+                        alert("Task " + taskId + " updated successfully");
+                    else
+                        alert("Task update failed");
+                })
             }
         }
-
-        $scope.submit = function () {
-            //calculate project duration
-            var date = new Date($scope.modifyTask.taskStartDate);
-            $scope.modifyTask.taskStartDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
-            console.log("Task Data: ", $scope.modifyTask);
-            console.log("Team: ", $scope.assignedTeamMembers);
-            console.log("dep: ", $scope.depList);
-            TaskFactory.updateTask($scope.modifyTask, $scope.assignedTeamMembers, $scope.depList)
-                .success(function (res) {
-                    console.log(res);
-                    alert('Task ' + res[3].task_id + ' successfully updated in database');
-                }).error(function (err, res) {
-                    alert("updated project failed: " + err);
-                })
-        };
     }
 ])
 ;

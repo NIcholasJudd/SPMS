@@ -11,7 +11,6 @@ var jwt = require('jwt-simple'),
 var auth = {
 
     login: function(req, res) {
-        console.log('email: ', req.body.email, ' password: ', req.body.password);
         var username = req.body.email;// || '';
         var password = req.body.password;// || '';
         if (username == '' || password == '') {
@@ -61,6 +60,7 @@ var auth = {
             })
             query.on('end', function() {
                 client.end();
+                if(!results[0]) callback(null, err);
                 bcrypt.compare(String(password), String(results[0].password), function(err, res) {
                     //if err or password doesn't match, throw error
                     if(err || res === false) callback(null,err);

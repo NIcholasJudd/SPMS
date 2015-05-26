@@ -33,6 +33,7 @@ myApp.factory('TaskFactory', function ($http) {
                 pessimisticDuration: task.taskPessimisticDuration.toString() + ' days',
                 comfortZone: task.taskComfortZone.toString() + ' days',
                 priority: task.priority.toLowerCase(),
+                progressPercentage: task.progress / 100,
                 parentId: task.parentId,
                 taskRoles: roles,
                 links: dependencies

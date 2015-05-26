@@ -24,32 +24,11 @@ var users = {
             })
     },
 
-    /*create: function(req, res) {
-        bcrypt.hash(req.body.password, 9, function(err, hash) {
-            if(err)
-                return res.status(500).send(err);
-            console.log(hash);
-            req.body.password = hash;
-            db.one("INSERT INTO employee VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) returning email", [req.body.email, req.body.firstName,
-                req.body.lastName, hash, req.body.phone, req.body.role, req.body.performanceIndex,
-                req.body.previousRoles, true])
-                .then(function(data) {
-                    return res.json(data);
-                }, function(err) {
-                    console.log(err);
-                    return res.status(500).send(err);
-                })
-        })
-
-    },*/
-
     create: function(req, res) {
         bcrypt.genSalt(10, function(err, salt) {
             bcrypt.hash(req.body.password, salt, function (err, hash) {
                 if (err)
                     return res.status(500).send(err);
-                console.log(hash);
-                req.body.password = hash;
                 db.one("INSERT INTO employee VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) returning email", [req.body.email, req.body.firstName,
                     req.body.lastName, hash, req.body.phone, req.body.role, req.body.performanceIndex,
                     req.body.previousRoles, true])
@@ -67,13 +46,13 @@ var users = {
     /* update, every field except for primary key must be updated */
 
     update: function(req, res) {
-        db.none("UPDATE employee SET first_name=($2), last_name=($3), password=($4), " +
-            "phone=($5), user_type=($6), performance_index=($7), previous_roles=($8) WHERE email=$1",
-            [req.body.email, req.body.firstName, req.body.lastName, req.body.password,
-                req.body.phone, req.body.role, req.body.performanceIndex, req.body.previousRoles])
-            .then(function(data) {
+        db.none("UPDATE employee SET first_name=($2), last_name=($3), " +
+            "phone=($4), user_type=($5), performance_index=($6), previous_roles=($7) WHERE email=$1",
+            [req.body.email, req.body.firstName, req.body.lastName, req.body.phone, req.body.role,
+                req.body.performanceIndex, req.body.previousRoles])
+            .then(function (data) {
                 return res.json(data);
-            }, function(err) {
+            }, function (err) {
                 console.error(err.stack);
                 return res.status(500).send(err);
             })
@@ -101,6 +80,22 @@ var users = {
                 console.log(err);
                 return res.status(500).send(err);
             });
+    },
+
+    updatePassword: function(req, res) {
+        bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.hash(req.body.password, salt, function (err, hash) {
+                if (err)
+                    return res.status(500).send(err);
+                db.one('update employee set password = ($2) where email = ($1) returning email', [req.params.email, hash])
+                    .then(function (data) {
+                        res.json(data);
+                    }, function (err) {
+                        console.log(err);
+                        return res.status(500).send(err);
+                    });
+            })
+        })
     }
 };
 

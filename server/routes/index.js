@@ -39,6 +39,7 @@ router.post('/api/auth/admin/user/', user.create);
 router.put('/api/auth/admin/user/:email', user.update);
 router.delete('/api/auth/admin/user/:email', user.delete);
 router.put('/api/auth/admin/user/:email/archive', user.archive);
+router.put('/api/auth/admin/user/:email/password', user.updatePassword);
 
 //routes for project CRUD
 router.get('/api/auth/projects', project.getAll);

@@ -1,7 +1,8 @@
 /**
- * Created by nicholasjudd on 22/05/15.
+ * Created by scottmackenzie on 26/05/15.
  */
-myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window', '$modal', '$route',
+
+myApp.controller("ProjectDashboardTaskCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'UserFactory', 'TaskFactory', '$window', '$modal', '$route',
     function ($scope, $rootScope, ProjectFactory, UserFactory, TaskFactory, $window, $modal, $route) {
 
         $scope.projectNames = [];
@@ -17,87 +18,79 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
         $scope.onTheGo = false;
         $scope.complete = false;
 
-        //if($window.sessionStorage.userRole === 'administrator') {
-            ProjectFactory.getProjects().then(function (projects) {
-                console.log("GET PROJECTS: ", projects.data);
-                projects.data.forEach(function (projects) {
-                    if ($window.sessionStorage.userRole == "administrator") {
-                        $scope.projectNames.push(projects.project_name);
-                        if ($scope.projectNames.length > 0) {
-                            if (!$window.sessionStorage.projectName || $window.sessionStorage.projectName == null ||
-                                $scope.projectNames.indexOf($window.sessionStorage.projectName) === -1) {
-                                $window.sessionStorage.projectName = $scope.currentProject = $scope.projectNames[0];
-                            } else
-                                $scope.currentProject = $window.sessionStorage.projectName;
-                        }
-                    } else {
-                        UserFactory.getUserTasks($window.sessionStorage.user).then(function (results) {
-                            results.data.forEach(function (userProjects) {
-                                if (userProjects.project_name == projects.project_name) {
-                                    if ($scope.projectNames.indexOf(projects.project_name) < 0) {
-                                        $scope.projectNames.push(userProjects.project_name);
-                                    }
-                                    if ($scope.projectNames.length > 0) {
-                                        console.log('Project names: ', $scope.projectNames);
-                                        if (!$window.sessionStorage.projectName || $window.sessionStorage.projectName != null) {
-                                            $window.sessionStorage.projectName = $scope.currentProject = $scope.projectNames[0];
-                                            $scope.retrieveTasks($window.sessionStorage.projectName);
-                                        }
-                                        else {
-                                            $scope.currentProject = $window.sessionStorage.projectName;
-                                            $scope.retrieveTasks($window.sessionStorage.projectName);
-                                        }
-                                        //console.log("before iport tasks");
-                                    }
-                                }
-                            })
-                        })/*.finally(function() {
-                            $scope.retrieveTasks($window.sessionStorage.projectName);
-                            console.log($window.sessionStorage.projectName);
-                        })*/
-                        //$rootScope.$broadcast('task-updated');
+        if($window.sessionStorage.userRole === 'administrator') {
+        ProjectFactory.getProjects().then(function (projects) {
+            console.log("GET PROJECTS: ", projects.data);
+            projects.data.forEach(function (projects) {
+                if ($window.sessionStorage.userRole == "administrator") {
+                    $scope.projectNames.push(projects.project_name);
+                    if ($scope.projectNames.length > 0) {
+                        if (!$window.sessionStorage.projectName || $window.sessionStorage.projectName == null ||
+                            $scope.projectNames.indexOf($window.sessionStorage.projectName) === -1) {
+                            $window.sessionStorage.projectName = $scope.currentProject = $scope.projectNames[0];
+                        } else
+                            $scope.currentProject = $window.sessionStorage.projectName;
                     }
-                })
-                console.log("WINDOW: ", $window.sessionStorage.projectName);
-                //$scope.retrieveTasks($window.sessionStorage.projectName);
-            });
-        /*} else {
-            ProjectFactory.getPMProjects().then(function (projects) {
-                console.log("GET PROJECTS: ", projects.data);
-                projects.data.forEach(function (projects) {
-                    if ($window.sessionStorage.userRole == "administrator") {
-                        $scope.projectNames.push(projects.project_name);
-                        if ($scope.projectNames.length > 0) {
-                            if (!$window.sessionStorage.projectName || $window.sessionStorage.projectName == null ||
-                                $scope.projectNames.indexOf($window.sessionStorage.projectName) === -1) {
-                                $window.sessionStorage.projectName = $scope.currentProject = $scope.projectNames[0];
-                            } else
-                                $scope.currentProject = $window.sessionStorage.projectName;
-                        }
-                    } else {
-                        UserFactory.getUserTasks($window.sessionStorage.user).then(function (results) {
-                            results.data.forEach(function (userProjects) {
-                                if (userProjects.project_name == projects.project_name) {
-                                    if ($scope.projectNames.indexOf(projects.project_name) < 0) {
-                                        $scope.projectNames.push(userProjects.project_name);
-                                    }
-                                    if ($scope.projectNames.length > 0) {
-                                        console.log('Project names: ', $scope.projectNames);
-                                        if (!$window.sessionStorage.projectName || $window.sessionStorage.projectName != null)
-                                            $window.sessionStorage.projectName = $scope.currentProject = $scope.projectNames[0];
-                                        else
-                                            $scope.currentProject = $window.sessionStorage.projectName;
-                                        //console.log("before iport tasks");
-                                    }
+                } else {
+                    UserFactory.getUserTasks($window.sessionStorage.user).then(function (results) {
+                        results.data.forEach(function (userProjects) {
+                            if (userProjects.project_name == projects.project_name) {
+                                if ($scope.projectNames.indexOf(projects.project_name) < 0) {
+                                    $scope.projectNames.push(userProjects.project_name);
                                 }
-                            })
+                                if ($scope.projectNames.length > 0) {
+                                    console.log('Project names: ', $scope.projectNames);
+                                    if (!$window.sessionStorage.projectName || $window.sessionStorage.projectName != null)
+                                        $window.sessionStorage.projectName = $scope.currentProject = $scope.projectNames[0];
+                                    else
+                                        $scope.currentProject = $window.sessionStorage.projectName;
+                                    //console.log("before iport tasks");
+                                }
+                            }
                         })
-                        //$rootScope.$broadcast('task-updated');
+                    })
+                    //$rootScope.$broadcast('task-updated');
+                }
+            })
+            $scope.retrieveTasks($window.sessionStorage.projectName);
+        });
+        } else {
+            ProjectFactory.getPMProjects().then(function (projects) {
+            console.log("GET PROJECTS: ", projects.data);
+            projects.data.forEach(function (projects) {
+            //    if ($window.sessionStorage.userRole == "administrator") {
+                $scope.projectNames.push(projects.project_name);
+                if ($scope.projectNames.length > 0) {
+                    if (!$window.sessionStorage.projectName || $window.sessionStorage.projectName == null ||
+                        $scope.projectNames.indexOf($window.sessionStorage.projectName) === -1) {
+                        $window.sessionStorage.projectName = $scope.currentProject = $scope.projectNames[0];
+                    } else
+                        $scope.currentProject = $window.sessionStorage.projectName;
+                    }
+                /*} else {
+                    UserFactory.getUserTasks($window.sessionStorage.user).then(function (results) {
+                    results.data.forEach(function (userProjects) {
+                    if (userProjects.project_name == projects.project_name) {
+                        if ($scope.projectNames.indexOf(projects.project_name) < 0) {
+                            $scope.projectNames.push(userProjects.project_name);
+                        }
+                        if ($scope.projectNames.length > 0) {
+                            console.log('Project names: ', $scope.projectNames);
+                            if (!$window.sessionStorage.projectName || $window.sessionStorage.projectName != null)
+                                $window.sessionStorage.projectName = $scope.currentProject = $scope.projectNames[0];
+                            else
+                                $scope.currentProject = $window.sessionStorage.projectName;
+                             //console.log("before iport tasks");
+                        }
                     }
                 })
-                $scope.retrieveTasks($window.sessionStorage.projectName);
-            });
-        }*/
+            })
+         //$rootScope.$broadcast('task-updated');
+            }*/
+         })
+         $scope.retrieveTasks($window.sessionStorage.projectName);
+         });
+         }
 
         $scope.retrieveTasks = function (proName) {
             console.log("IMPORT TAKSS");
@@ -110,7 +103,7 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
                 };
                 $scope.tasks = [];
 
-                if ($window.sessionStorage.userRole == "administrator") {
+                //if ($window.sessionStorage.userRole == "administrator") {
                     res.data.forEach(function (task) {
                         if (task.status == "on-the-go")
                             $scope.status.otg += Number(1);
@@ -129,7 +122,8 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
                             projectName: task.project_name
                         })
                     })
-                } else {
+                //}
+                 /*else {
                     console.log("HERE");
                     res.data.forEach(function (task) {
                         console.log("TASK: ", task);
@@ -159,7 +153,7 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
                         })
                     })
 
-                }
+                }*/
 
             })
         }
@@ -204,12 +198,12 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
             console.log("set current task", taskNumber);
             $window.sessionStorage.taskId = taskNumber;
             /*TaskFactory.getCurrentTask($window.sessionStorage.projectName, taskNumber).then(function (results) {
-                results.data.forEach(function (tasks) {
-                    console.log("SET CURRENT TAKS: ", tasks);
-                    $window.sessionStorage.taskId = tasks.task_id;
-                    $window.sessionStorage.taskNumber = tasks.task_number;
-                })
-            })*/
+             results.data.forEach(function (tasks) {
+             console.log("SET CURRENT TAKS: ", tasks);
+             $window.sessionStorage.taskId = tasks.task_id;
+             $window.sessionStorage.taskNumber = tasks.task_number;
+             })
+             })*/
         }
 
 
@@ -306,6 +300,6 @@ myApp.controller("TaskDashCtrl", ['$scope', '$rootScope', 'ProjectFactory', 'Use
             )
         };
 
-}
+    }
 ])
 ;

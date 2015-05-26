@@ -22,6 +22,7 @@ myApp.controller("TypeaheadCtrl", ['$scope','UserFactory', function ($scope, Use
             });
         })
     })
+    $scope.newPassword = "";
     $scope.updateForm = false;
     $scope.activeUser = {};
     $scope.findUser = function(name){
@@ -66,6 +67,22 @@ myApp.controller("TypeaheadCtrl", ['$scope','UserFactory', function ($scope, Use
                         alert('restore failed');
                 });
         };
+
+        $scope.updatePassword = function(email, password) {
+            if(password === "") {
+                console.log("cannot update with empty password");
+                return;
+            } else {
+                console.log(email, password);
+                UserFactory.updatePassword(email, password)
+                    .success(function(err, res) {
+                        alert("Password updated");
+                    })
+                    .error(function(err, res) {
+                        alert("Password update failed: ", err);
+                    })
+            }
+        }
     };
 
 }]);

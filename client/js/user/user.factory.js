@@ -28,7 +28,6 @@ myApp.factory('UserFactory', function($http) {
                 email: user.email,
                 firstName : user.firstName,
                 lastName : user.lastName,
-                password: user.password,
                 phone : user.phone,
                 role : user.role,
                 performanceIndex : user.performanceIndex,
@@ -36,6 +35,13 @@ myApp.factory('UserFactory', function($http) {
 
             })
         },
+
+        updatePassword : function(email, password) {
+            return $http.put('http://localhost:3000/api/auth/admin/user/' + email + '/password', {
+                password: password
+            })
+        },
+
         archiveUser: function(email, active) {
             return $http.put('http://localhost:3000/api/auth/admin/user/' + email + '/archive', {
                 active : active

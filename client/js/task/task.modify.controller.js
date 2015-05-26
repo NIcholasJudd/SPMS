@@ -25,11 +25,6 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
             $scope.dependencies = [];
         }
 
-        /* TEST OF GET TASK ROLES, HARD CODED TO GET TASKS FOR task_id 9 */
-        /*TaskFactory.getUserRoles(9).then(function(result) {
-         console.log('task roles for task_id 9: ', result.data);
-         })*/
-
         $scope.setPriority = function (item) {
             $scope.modifyTask.priority = item;
         }
@@ -94,7 +89,7 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
                 $scope.modifyTask.taskOptimisticDuration = task.data.optimistic_duration.days;
                 $scope.modifyTask.taskPessimisticDuration = task.data.pessimistic_duration.days;
                 $scope.modifyTask.taskComfortZone = task.data.comfort_zone.days;
-                $scope.modifyTask.progress = task.data.progress_percentage;
+                $scope.modifyTask.progress = task.data.progress_percentage * 100;
                 $scope.modifyTask.status = task.data.status;
                 $scope.modifyTask.dependencies = [];
                 $scope.modifyTask.priority = task.data.priority;
@@ -288,6 +283,7 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
         $scope.submit = function () {
             //calculate project duration
             var date = new Date($scope.modifyTask.taskStartDate);
+            //$scope.modifyTask.progress /= 100;
             $scope.modifyTask.taskStartDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
             console.log("Task Data: ", $scope.modifyTask);
             console.log("Team: ", $scope.assignedTeamMembers);
