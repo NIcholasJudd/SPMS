@@ -67,7 +67,7 @@ db.tx(function(t) {
         "budget real NOT NULL, " +
         "start_date date NOT NULL, " +
         "estimated_end_date date NOT NULL, " +
-        "active boolean, " +
+        "active boolean NOT NULL, " +
         "project_manager varchar(100) REFERENCES employee(email)," +
         "archive_reason text NULL " +
         ")"

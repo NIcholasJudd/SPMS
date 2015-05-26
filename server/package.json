@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon app.js --ignore test/*",
-    "test": "node_modules/.bin/mocha REPORTER=nyan"
+    "test": "node_modules/.bin/mocha"
   },
   "dependencies": {
     "bcrypt": "^0.8.3",
