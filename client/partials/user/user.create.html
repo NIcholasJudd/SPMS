@@ -23,7 +23,8 @@
                                         type="text"
                                         class="form-control"
                                         ng-model="user.lastName"
-                                        placeholder="Last Name"/>
+                                        placeholder="Last Name"
+                                        />
                             </div>
                         </div>
                         <div class="row">
@@ -148,11 +149,11 @@
                                     <div class="row m-top-md">
                                         <div class="col-md-10 col-md-offset-1">
                                             <label for="phoneUpdate">User Performance:</label>
-                                            <rating ng-model="activeUser.performance" max="10"></rating>
+                                            <rating ng-model="activeUser.performanceIndex" max="10"></rating>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-10 col-md-offset-1">
-                                                <pre>Performance: {{activeUser.performance}}</pre>
+                                                <pre>Performance: {{activeUser.performanceIndex}}</pre>
                                             </div>
                                         </div>
                                     </div>

@@ -1,42 +1,3 @@
-<!--<div class="container">
-   <div class="row-fluid">
-       <div class="col-md-10 col-md-offset-1">
-           <h1>Effort Estimation</h1>
-           <div class="bg-orange">
-               <form ng-submit="submitFunctionPoints()" ng-controller="EffortCtrl">
-                   <div class = "row">
-                       <h1>Function Points</h1>
-                       <div class = "col-md-12 text-center" ng-model = "functionPoints" ng-repeat="fp in functionPoints">
-                           <h3>{{fp.title}}</h3>
-                               <div class="col-md-4">
-                               count:<input type = "number" ng-model="fp.count"/>
-                           </div>
-                           <div class="col-md-8">
-                               <input type="radio" ng-model="fp.wf" value="{{fp.low}}">Low Complexity</input>
-                               <input type="radio" ng-model="fp.wf" value="{{fp.med}}">Medium Complexity</input>
-                               <input type="radio" ng-model="fp.wf" value="{{fp.high}}">High Complexity</input>
-                           </div>
-                           </div>
-                       </div>
-                       <div class = "row">
-                           <h1>Determine Value Adjustment Factor</h1>
-                           <h4>Rate Each Factor: (0 - No Influence, 1 - Incidental, 2 - Moderate, 3 - Average, 4 - Significant, 5 - Essential)</h4>
-                           <div class ="col-md-12 text-left">
-                               <ol>
-                                   <li ng-model = "adjustmentFactor" ng-repeat="afp in adjustmentFactor">
-                                       <h4>{{afp.title}}</h4>
-                                       <slider ng-model="afp.value" floor="0" ceiling="5" step="1"></slider>
-                                   </li>
-                               </ol>
-                           </div>
-                       </div>
-                       <button type="submit" class="btn btn-default" style="width:100%;">Create Task</button>
-                   </form>
-               </div>
-           </div>
-       </div>
-   </div> -->
-
 <div class="container">
     <div class="row m-top-md">
         <h2>Function Point Estimation</h2>
@@ -92,7 +53,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <button type="submit" class="btn  btn-lg btn-success" style="width:100%;">Calculate Function Point
+                    <button type="submit" class="btn  btn-lg btn-success" style="width:100%;">Calculate And Save Function Point
                         Estimation
                     </button>
                 </div>

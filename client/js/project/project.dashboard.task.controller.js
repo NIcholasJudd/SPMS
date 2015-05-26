@@ -23,14 +23,15 @@ myApp.controller("ProjectDashboardTaskCtrl", ['$scope', '$rootScope', 'ProjectFa
             console.log("GET PROJECTS: ", projects.data);
             projects.data.forEach(function (projects) {
                 if ($window.sessionStorage.userRole == "administrator") {
+                    console.log($window.sessionStorage.projectName);
                     $scope.projectNames.push(projects.project_name);
                     if ($scope.projectNames.length > 0) {
-                        if (!$window.sessionStorage.projectName || $window.sessionStorage.projectName == null ||
-                            $scope.projectNames.indexOf($window.sessionStorage.projectName) === -1) {
+                        if (!$window.sessionStorage.projectName || $window.sessionStorage.projectName == null) {
                             $window.sessionStorage.projectName = $scope.currentProject = $scope.projectNames[0];
                         } else
                             $scope.currentProject = $window.sessionStorage.projectName;
                     }
+                    console.log($window.sessionStorage.projectName);
                 } else {
                     UserFactory.getUserTasks($window.sessionStorage.user).then(function (results) {
                         results.data.forEach(function (userProjects) {
@@ -197,13 +198,6 @@ myApp.controller("ProjectDashboardTaskCtrl", ['$scope', '$rootScope', 'ProjectFa
         $scope.setCurrentTask = function (taskNumber) {
             console.log("set current task", taskNumber);
             $window.sessionStorage.taskId = taskNumber;
-            /*TaskFactory.getCurrentTask($window.sessionStorage.projectName, taskNumber).then(function (results) {
-             results.data.forEach(function (tasks) {
-             console.log("SET CURRENT TAKS: ", tasks);
-             $window.sessionStorage.taskId = tasks.task_id;
-             $window.sessionStorage.taskNumber = tasks.task_number;
-             })
-             })*/
         }
 
 

@@ -46,6 +46,7 @@ var users = {
     /* update, every field except for primary key must be updated */
 
     update: function(req, res) {
+        console.log(req.body);
         db.none("UPDATE employee SET first_name=($2), last_name=($3), " +
             "phone=($4), user_type=($5), performance_index=($6), previous_roles=($7) WHERE email=$1",
             [req.body.email, req.body.firstName, req.body.lastName, req.body.phone, req.body.role,

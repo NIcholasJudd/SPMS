@@ -26,6 +26,7 @@ myApp.controller("TaskModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', 'Tas
         }
 
         $scope.setPriority = function (item) {
+            console.log(item);
             $scope.modifyTask.priority = item;
         }
         $scope.setDependencies = function (item) {

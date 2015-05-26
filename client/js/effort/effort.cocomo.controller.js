@@ -43,7 +43,7 @@ myApp.controller("EffortCocomoCtrl", ['$scope', '$window', 'ProjectFactory', 'Co
             pm = pm * (Number($scope.RCPX.value)) * (Number($scope.RUSE.value)) * (Number($scope.PDIF.value)) * (Number($scope.PERS.value)) * (Number($scope.PREX.value)) * (Number($scope.FCIL.value)) * (Number($scope.SCED.value));
             pm = pm / (Number($scope.staffSize.value));
             pm = pm.toPrecision(4);
-            window.alert(pm + " person months");
+            window.alert(pm + " person months.  This answer has saved to the project manager dashboard");
             var cocomoScores = [];
             cocomoScores.push(Number($scope.systemSize.value));
             cocomoScores.push(Number($scope.staffSize.value));

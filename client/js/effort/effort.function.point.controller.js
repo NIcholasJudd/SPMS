@@ -151,7 +151,7 @@ myApp.controller("EffortFunctionPointCtrl", ['$scope', '$window', 'FunctionPoint
                 functionPointCount += (Number($scope.functionPoints[i].count3) * Number($scope.functionPoints[i].high));
             }
             var adjustedFP = Number(functionPointCount) * (0.65 + 0.01 * Number(valueAdjustmentFactor));
-            window.alert(Number(adjustedFP));
+            window.alert('Function Point Count = ' + Number(adjustedFP) + '.  This score has saved to your home dashboard');
             var valueArray = [], functionCounts = [];
             $scope.adjustmentFactor.forEach(function(af) {
                 valueArray.push(af.value);

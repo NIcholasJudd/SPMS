@@ -18,7 +18,6 @@ myApp.controller("TaskDetailCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
         $scope.linksList = [];
         $scope.taskData = [];
         $scope.progress;
-        //$scope.dependencies = [];
         $scope.searchTeamMembers = [];
         $scope.teamMembersList = [];
         $scope.selectedUser={};

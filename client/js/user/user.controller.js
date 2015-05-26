@@ -3,25 +3,7 @@
  */
 myApp.controller("UserCtrl", ['$scope', 'UserFactory',
     function($scope, UserFactory) {
-        //$scope.users = [];
-// Access the factory and get the latest user list
-        /*UserFactory.getUsers().then(function(user) {
-            $scope.users = user.data;
-        });*/
-        /*$scope.user = {
-            email : 'test@test',
-            firstName : 'Terry',
-            lastName : 'Sterling',
-            password : 'password',
-            phone : '0299999999',
-            role : 'Administrator',
-            performanceIndex : 0,
-            previousRoles : ['Developer', 'Tester']
-        };*/
 
-        /*if you're testing user create and can't be fucked filling out the form, replace the $scope.user below
-          with the one above (you'll still need to pick the role from dropdown menu)
-         */
         $scope.user = {
             email : "",
             firstName : "",
@@ -58,15 +40,39 @@ myApp.controller("UserCtrl", ['$scope', 'UserFactory',
             console.log($scope.user);
         }
         $scope.saveUser = function() {
+            var msg = "Form error: ";
+            var ok = true;
+            if(!$scope.user.firstName) {
+                ok = false;
+                msg += "first name missing\n";
+            }
+            if(!$scope.user.lastName) {
+                ok = false;
+                msg += "last name missing\n";
+            }
+            if(!$scope.user.email) {
+                ok = false;
+                msg += "email missing\n";
+            }
+            if(!$scope.user.password) {
+                ok = false;
+                msg += "password missing\n";
+            }
+            if(!$scope.user.role) {
+                ok = false;
+                msg += "role missing\n";
+            }
+            if(ok === false) {
+                alert(msg);
+                return;
+            }
+            console.log("USER: ", $scope.user);
             UserFactory.createUser($scope.user).success(function(err, res) {
                 alert($scope.user.email + ' successfully saved in database');
             }).error(function(err, res) {
-                var err_msg = "save user failed: ";
-                if(err.code == "23505")
-                    err_msg += "that user already exists";
-                else
-                    err_msg += err.detail;
-                alert(err_msg);
+                var msg = "Create user failed: " + err;
+                console.log(err);
+                alert(msg);
             })
         }
 

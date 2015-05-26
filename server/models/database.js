@@ -9,10 +9,6 @@ var pgpLib = require('pg-promise');
 var bcrypt = require('bcrypt');
 
 var options = {
-    /*connect : function(client) {
-        var cp = client.connectionParameters;
-        console.log("Connected to database '" + cp.database + "'");
-    },*/
     error : function(err, e) {
         console.log("Error: " + err);
         if (e.query) {
@@ -21,22 +17,8 @@ var options = {
                 console.log("Parameters: " + e.params);
             }
         }
-    }/*,
-    disconnect : function(client) {
-        var cp = client.connectionParameters;
-        console.log("Disconnecting from database '" + cp.database + "'");
-    }*/
+    }
 }
-
-/*var globalhash = "";
-bcrypt.genSalt(10, function(err, salt) {
-    bcrypt.hash('admin', salt, function (err, hash) {
-        if (err)
-            return;
-        console.log(hash);
-        globalhash = hash;
-    })
-})*/
 
 var pgp = pgpLib(options);
 
@@ -44,10 +26,7 @@ var db = pgp(connectionString);
 
 var rootPwd = 'root';
 
-//var bcrypt = require('bcrypt');
-//bcrypt.genSalt(10, function(err, salt) {
 bcrypt.hash(rootPwd, 10, function(err, hash) {
-        // Store hash in your password DB.
 
 db.tx(function(t) {
     var queries = [];
@@ -77,7 +56,10 @@ db.tx(function(t) {
     "active boolean " +
     ")"));
 
-    queries.push(t.none("CREATE TABLE skill(skill_name varchar(100) NOT NULL, email varchar(100) references employee)"));
+    queries.push(t.none("CREATE TABLE skill(" +
+    "skill_name varchar(100) NOT NULL, " +
+    "email varchar(100) references employee" +
+    ")"));
 
     queries.push(t.none("CREATE TABLE project(" +
         "project_name varchar(100) PRIMARY KEY, " +
@@ -439,14 +421,6 @@ db.tx(function(t) {
     "'analyst', true)"));
 
 
-    /*queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'My Project 3', " +
-    "(SELECT task_id from task where project_name = 'My Project 3' AND task_name = 'Design'), " +
-    "(SELECT task_id from task where project_name = 'My Project 3' AND task_name = 'Develop'), 'finish to start')"));
-
-    queries.push(t.none("INSERT INTO link VALUES(nextval('task_task_id_seq'), 'My Project 3', " +
-    "(SELECT task_id from task where project_name = 'My Project 3' AND task_name = 'Develop'), " +
-    "(SELECT task_id from task where project_name = 'My Project 3' AND task_name = 'Test'), 'finish to start')"));*/
-
     return promise.all([queries]);
 
 }).then(function(data) {
@@ -456,6 +430,5 @@ db.tx(function(t) {
 });
 
     });
-//});
 
 module.exports = db;

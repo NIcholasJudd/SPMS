@@ -15,9 +15,9 @@ myApp.controller("TypeaheadCtrl", ['$scope','UserFactory', function ($scope, Use
                 lastName: user.last_name,
                 email: user.email,
                 phone: user.phone,
-                performance: user.performance_index * 10 ,
+                performanceIndex: user.performance_index * 10 ,
                 role: user.user_type,
-                password: user.password,
+                previousRoles: user.previous_roles,
                 active: user.active
             });
         })

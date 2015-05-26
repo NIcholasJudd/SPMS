@@ -21,7 +21,7 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactor
                 //fire request to login endpoint via factory
                 UserAuthFactory.login(username, password).success(function(data) {
                     //set session variables
-                    console.log("DATA USER: ", data.user);
+                    //console.log("DATA USER: ", data.user);
                     AuthenticationFactory.isLogged = true;
                     AuthenticationFactory.user = data.user.email;
                     AuthenticationFactory.userRole = data.user.user_type;
@@ -32,7 +32,7 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactor
                     //redirect user to home page
                     $location.path("/");
                 }).error(function(status) {
-                    alert('Oops something went wrong!');
+                    alert('Please check your email and password, and try again');
                 });
             } else {
                 alert('Invalid credentials');
