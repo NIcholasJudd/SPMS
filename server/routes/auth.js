@@ -55,34 +55,22 @@ var auth = {
             if(err) {
                 return console.error('error fetching client from pool: ', err);
             }
-            //console.log('deets passed to query: ', username, password);
             var query = client.query("SELECT * FROM employee WHERE email = $1", [username]);
-            //var query = client.query("SELECT * FROM employee WHERE email = $1 AND password = $2", [username, password]);
             query.on('row', function(row) {
-                console.log('db retrieval', row);
-                /*bcrypt.compare(password, row.password, function(err, res) {
-                    console.log('err: ', err, ' res: ', res);
-                    if(err) return err;
-                    console.log('here');*/
-                    results.push(row);
-                    //console.log(results);
-                //})
+                results.push(row);
             })
             query.on('end', function() {
                 client.end();
-                console.log('results: ', results);
-                callback(null, results[0]);
+                bcrypt.compare(String(password), String(results[0].password), function(err, res) {
+                    //if err or password doesn't match, throw error
+                    if(err || res === false) callback(null,err);
+                    else {
+                        callback(null, results[0]);
+                    }
+
+                })
+
             })
-            /*client.query("SELECT * FROM test_user WHERE username = $1 AND password = $2", [username, password], function(err, result) {
-                done();
-                if(err) {
-                    client.end();
-                    return console.error('error running query: ', err);
-                }
-                client.end();
-                console.log('result of validate function: ', result.rows[0]);
-                callback(null, result.rows[0]);
-            });*/
         })
     },
 
@@ -100,16 +88,6 @@ var auth = {
                 client.end();
                 callback(null, results[0]);
             })
-            /*client.query("SELECT * FROM test_user WHERE username = $1", [username], function(err, result) {
-                done();
-                if(err) {
-                    client.end();
-                    return console.error('error running query: ', err);
-                }
-                client.end();
-                console.log('result of validateUser function: ', result.rows[0]);
-                callback(null, result.rows[0]);
-            });*/
         })
     }
 }

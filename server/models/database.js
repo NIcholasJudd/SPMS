@@ -6,6 +6,7 @@ var path = require('path');
 var connectionString = require(path.join(__dirname, '../', '../', 'config'));
 var promise = require('promise');
 var pgpLib = require('pg-promise');
+var bcrypt = require('bcrypt');
 
 var options = {
     /*connect : function(client) {
@@ -27,9 +28,26 @@ var options = {
     }*/
 }
 
+/*var globalhash = "";
+bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash('admin', salt, function (err, hash) {
+        if (err)
+            return;
+        console.log(hash);
+        globalhash = hash;
+    })
+})*/
+
 var pgp = pgpLib(options);
 
 var db = pgp(connectionString);
+
+var rootPwd = 'root';
+
+//var bcrypt = require('bcrypt');
+//bcrypt.genSalt(10, function(err, salt) {
+bcrypt.hash(rootPwd, 10, function(err, hash) {
+        // Store hash in your password DB.
 
 db.tx(function(t) {
     var queries = [];
@@ -51,7 +69,7 @@ db.tx(function(t) {
     "email varchar(100) PRIMARY KEY," +
     "first_name varchar(100) NOT NULL," +
     "last_name varchar(100) NOT NULL," +
-    "password varchar(100) NOT NULL," +
+    "password varchar(200) NOT NULL," +
     "phone varchar(20)," +
     "user_type varchar(20) CHECK (user_type = 'administrator' OR user_type = 'team member') NOT NULL," +
     "performance_index real DEFAULT 0, " +
@@ -146,15 +164,15 @@ db.tx(function(t) {
 
 // The O.G. Admin will always exist, as an initial entry point into the application
 
-    queries.push(t.none("INSERT INTO employee VALUES('admin@admin','Adam', 'Minty', '$2a$09$weewOzJX3vt0gTuOLTLsM.FW20WLz9BuyHXM/Bt9qGzMAdOx2Jav.', '0123456789', 'administrator', 0, ARRAY['tester', 'developer'], true)"));
+    queries.push(t.none("INSERT INTO employee VALUES('admin@admin','Adam', 'Minty', $1, '0123456789', 'administrator', 0, ARRAY['tester', 'developer'], true)", [hash]));
 
 
     // test team members
 
-    queries.push(t.none("INSERT INTO employee VALUES('scott@tm','Scott', 'Mackenzie', '$2a$09$Kb5UjG26n.UbQ2JBRzGVeOc3roitpOEUsf89.mXxrJg0YZFEoPK7G', '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'operations'], true)"));
-    queries.push(t.none("INSERT INTO employee VALUES('paul@tm','Paul', 'Beavis', '$2a$09$Kb5UjG26n.UbQ2JBRzGVeOc3roitpOEUsf89.mXxrJg0YZFEoPK7G', '0123456789', 'team member', 0.5, ARRAY['developer', 'designer'], true)"));
-    queries.push(t.none("INSERT INTO employee VALUES('nick@tm','Nick', 'Judd', '$2a$09$Kb5UjG26n.UbQ2JBRzGVeOc3roitpOEUsf89.mXxrJg0YZFEoPK7G', '0123456789', 'team member', 0.5, ARRAY['designer', 'tester', 'analyst'], true)"));
-    queries.push(t.none("INSERT INTO employee VALUES('jim@tm','Jim', 'Gollop', '$2a$09$Kb5UjG26n.UbQ2JBRzGVeOc3roitpOEUsf89.mXxrJg0YZFEoPK7G', '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'analyst' ], true)"));
+    queries.push(t.none("INSERT INTO employee VALUES('scott@tm','Scott', 'Mackenzie', $1, '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'operations'], true)", hash));
+    queries.push(t.none("INSERT INTO employee VALUES('paul@tm','Paul', 'Beavis', $1, '0123456789', 'team member', 0.5, ARRAY['developer', 'designer'], true)", hash));
+    queries.push(t.none("INSERT INTO employee VALUES('nick@tm','Nick', 'Judd', $1, '0123456789', 'team member', 0.5, ARRAY['designer', 'tester', 'analyst'], true)", hash));
+    queries.push(t.none("INSERT INTO employee VALUES('jim@tm','Jim', 'Gollop', $1, '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'analyst' ], true)", hash));
 
 
 
@@ -430,10 +448,14 @@ db.tx(function(t) {
     "(SELECT task_id from task where project_name = 'My Project 3' AND task_name = 'Test'), 'finish to start')"));*/
 
     return promise.all([queries]);
+
 }).then(function(data) {
     console.log("Tables and initial data successfully loaded into database");
 }, function(reason) {
     console.log(reason);//error reason
 });
+
+    });
+//});
 
 module.exports = db;
