@@ -129,7 +129,7 @@ db.tx(function(t) {
         "adjusted_function_point_count REAL, " +
         "adjustment_factor REAL[], " +
         "function_counts REAL[][], " +
-        "calculated BOOLEAN " +
+        "calculated BOOLEAN NOT NULL " +
         ");"
     ));
 
@@ -137,7 +137,7 @@ db.tx(function(t) {
         "project_name varchar(100) REFERENCES project ON DELETE CASCADE UNIQUE NOT NULL, " +
         "cocomo_scores REAL[], " +
         "person_months REAL, " +
-        "calculated BOOLEAN " +
+        "calculated BOOLEAN NOT NULL " +
         ");"
     ));
 
