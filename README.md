@@ -1,5 +1,5 @@
 Download and set up Postgresql
-
+TESTING FOR REPO NAME CHANGE
  - Download and install postgres.app: http://postgresapp.com/
  - add psql (command line tool) to your path: http://postgresapp.com/documentation/cli-tools.html
  - Once installed and running, it should open up a window that has a 'open psql' button, which will open up psql in terminal.  however, this will connect to a default database, probably your mac's username.  We don't want that.  type '\q' to exit, and then type 'createdb test' to create a new database called test.  if createdb is 'not found', google it.  You should now be able to connect to a test database by typing 'psql test' in command line.  Keep Postgresql and that psql process open/running.
