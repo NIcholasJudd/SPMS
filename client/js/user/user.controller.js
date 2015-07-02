@@ -105,8 +105,60 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
             $scope.user.role = role.name.toLowerCase();
         };
 
+        $('#pass').keyup(function(e) {
+            var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+            var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+            var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+            if (false == enoughRegex.test($(this).val())) {
+                $('#passstrength').html('More Characters');
+            } else if (strongRegex.test($(this).val())) {
+                $('#passstrength').className = 'ok';
+                $('#passstrength').html('Strong!');
+            } else if (mediumRegex.test($(this).val())) {
+                $('#passstrength').className = 'alert';
+                $('#passstrength').html('Medium!');
+            } else {
+                $('#passstrength').className = 'error';
+                $('#passstrength').html('Weak!');
+            }
+            return true;
+        });
+
         $scope.saveUser = function() {
-            console.log($scope.user);
+            var msg = "Form error: ";
+            var ok = true;
+            if(!$scope.user.firstName) {
+                ok = false;
+                msg += "first name missing\n";
+            }
+            if(!$scope.user.lastName) {
+                ok = false;
+                msg += "last name missing\n";
+            }
+            if(!$scope.user.email) {
+                ok = false;
+                msg += "email missing\n";
+            }
+            if(!$scope.user.password) {
+                ok = false;
+                msg += "password missing\n";
+            }
+            if(!$scope.user.role) {
+                ok = false;
+                msg += "role missing\n";
+            }
+            if(ok === false) {
+                alert(msg);
+                return;
+            }
+            console.log("USER: ", $scope.user);
+            UserFactory.createUser($scope.user).success(function(err, res) {
+                alert($scope.user.email + ' successfully saved in database');
+            }).error(function(err, res) {
+                var msg = "Create user failed: " + err;
+                console.log(err);
+                alert(msg);
+            })
         }
     }
 ]);
