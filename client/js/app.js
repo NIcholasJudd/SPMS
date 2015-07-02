@@ -31,6 +31,14 @@ myApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
                   templateUrl: "views/dashboards/projectManager/container.html"
               }
           }
+      })
+      .state('app.userCreate', {
+          url: "/user/create",
+          views: {
+              'container@' : {
+                  templateUrl: "views/user/create.html"
+              }
+          }
       });
 
   /*$routeProvider
