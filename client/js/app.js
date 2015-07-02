@@ -8,29 +8,29 @@ myApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
   $stateProvider
       .state('app', {
-          url: "/",
+          url: "",
+          abstract: true,
           views: {
               'header': {
                   templateUrl: '/views/header.html'
-              }/*,
-              'content': {
-                  templateUrl: '/views/home.html'
-              }*/
+              }
           }
       })
-      .state('/home', {
-          url: "/home",
-          templateUrl: "views/home.html"
+      .state('app.home', {
+          url: "/",
+          views: {
+              'container@' : {
+                  templateUrl: "views/home.html"
+              }
+          }
       })
       .state('app.pmDashboard', {
-          url: "pm-dashboard",
-          templateUrl: "views/pm-dashboard.html"
-          /*views: {
-              'content@app' : {
+          url: "/pm-dashboard",
+          views: {
+              'container@' : {
                   templateUrl: "views/pm-dashboard.html"
               }
-          }*/
-
+          }
       });
 
   /*$routeProvider
