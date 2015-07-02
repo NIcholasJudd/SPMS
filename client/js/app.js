@@ -12,7 +12,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
           abstract: true,
           views: {
               'header': {
-                  templateUrl: '/views/header.html'
+                  templateUrl: '/views/header.html',
+                  controller: 'HeaderCtrl'
               }
           }
       })
