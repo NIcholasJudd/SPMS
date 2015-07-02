@@ -39,7 +39,7 @@ module.exports = function(req, res, next) {
                 if(error) return console.error(error);
                 if (dbUser) {
                     //check role against access level
-                    if ((req.url.indexOf('admin') >= 0 && dbUser.user_type == 'administrator') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/auth/') >= 0)) {
+                    if ((req.url.indexOf('admin') >= 0 && dbUser.userType == 'administrator') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/auth/') >= 0)) {
                         next(); // To move to next middleware
                     } else {
                         res.status(403);

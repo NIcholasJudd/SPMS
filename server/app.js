@@ -7,6 +7,7 @@ var bcrypt = require('bcrypt');
 
 var app = express();
 
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
@@ -29,6 +30,8 @@ app.all('/*', function(req, res, next) {
 // are sure that authentication is not needed
 app.all('/api/auth/*', [require('./middleware/validateRequest')]);
 
+
+
 app.use('/', require('./routes'));
 
 // If no route is matched by now, it must be a 404
@@ -37,6 +40,8 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
+
 
 // Start the server
 app.set('port', process.env.PORT || 3000);

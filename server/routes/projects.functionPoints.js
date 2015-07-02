@@ -8,7 +8,7 @@ var promise = require('promise'),
 var projectFunctionPoints = {
 
     getOne: function(req, res) {
-        db.one("SELECT * FROM function_point WHERE project_name = $1",
+        db.one('SELECT * FROM functionpoint WHERE "projectName" = $1',
             [req.params.projectName])
             .then(function(data) {
                 return res.json(data);
@@ -19,8 +19,8 @@ var projectFunctionPoints = {
     },
 
     update : function(req, res) {
-    db.query("UPDATE function_point SET adjusted_function_point_count = $1, adjustment_factor = $2, calculated = $3, function_counts = $4 " +
-        "WHERE project_name = $5",
+    db.query('UPDATE functionpoint SET "adjustedFunctionPointCount" = $1, "adjustmentFactor" = $2, calculated = $3, "functionCounts" = $4 ' +
+        'WHERE "projectName" = $5',
         [req.body.adjustedFP, req.body.valueArray, req.body.calculated, req.body.functionCounts, req.params.projectName])
         .then(function(data) {
             return res.json(data);
