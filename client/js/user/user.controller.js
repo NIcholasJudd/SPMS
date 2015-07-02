@@ -84,3 +84,29 @@ myApp.controller("UserCtrl", ['$scope', 'UserFactory',
 
     }
 ]);
+myApp.controller("userCreate", ['$scope', 'UserFactory',
+    function($scope, UserFactory) {
+        $scope.roles = [{name: 'Administrator'}, {name: 'Team Member'}];
+        $scope.user = {
+            email : "",
+            firstName : "",
+            lastName : "",
+            password : "",
+            phone : "",
+            role : "",
+            performanceIndex : 0,
+            previousRoles : ['Developer', 'Tester']
+        };
+
+        $scope.selectedRole = {name: 'Available Roles:'};
+
+        $scope.setRole= function(role){
+            $scope.selectedRole = role;
+            $scope.user.role = role.name.toLowerCase();
+        };
+
+        $scope.saveUser = function() {
+            console.log($scope.user);
+        }
+    }
+]);
