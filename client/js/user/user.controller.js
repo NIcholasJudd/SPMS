@@ -84,6 +84,8 @@ myApp.controller("UserCtrl", ['$scope', 'UserFactory',
 
     }
 ]);
+
+//Created by Nicholas Judd 2/7/15
 myApp.controller("userCreate", ['$scope', 'UserFactory',
     function($scope, UserFactory) {
         $scope.roles = [
@@ -115,6 +117,7 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
         };
 
         $scope.selectedRole = {name: 'Available Roles:'};
+
 
         $scope.setRole= function(role){
             console.log("TEST");
