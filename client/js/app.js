@@ -28,7 +28,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
           url: "/pm-dashboard",
           views: {
               'container@' : {
-                  templateUrl: "views/pm-dashboard.html"
+                  templateUrl: "views/dashboards/projectManager/container.html"
               }
           }
       });
