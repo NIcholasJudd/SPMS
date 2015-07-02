@@ -10,8 +10,9 @@
     <link rel="stylesheet" type="text/css" href="libs/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/app.css">
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
-    <script type="text/javascript" src="libs/angular/angular.min.js"></script>
+    <script type="text/javascript" src="libs/angular/angular.js"></script>
     <script type="text/javascript" src="libs/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-ui-router/build/angular-ui-router.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
     <script type="text/javascript" src="js/auth/auth.factory.js"></script>
@@ -52,9 +53,16 @@
     <script type="text/javascript" src="libs/jointjs/joint.js"></script>
     <script src="libs/angular-modal-service/dst/angular-modal-service.min.js"></script>
 </head>
-<body>
-<div ng-include="'partials/header.html'"></div>
+<body ng-app="ngclient">
+
+    <div ui-view="header"></div>
+
+    <div class="container">
+        <div ui-view></div>
+    </div>
+<!--<div ng-include="'partials/header.html'"></div>
 <div class="container" ng-view></div>
 <!-- <div ng-include="'partials/footer.html'"></div> -->
+
 </body>
 </html>

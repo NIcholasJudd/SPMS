@@ -1,9 +1,39 @@
-var myApp = angular.module('ngclient', ['ngRoute', 'ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead', 'ui.bootstrap.tabs', 'mj.scrollingTabs', 'angularModalService']);
+var myApp = angular.module('ngclient', ['ui.router', 'ui.bootstrap'/*, 'ui.slider', 'ui.bootstrap.typeahead', 'ui.bootstrap.tabs', 'mj.scrollingTabs', 'angularModalService'*/]);
 
-myApp.config(function($routeProvider, $httpProvider) {
+myApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
   //add Token Interceptor
-  $httpProvider.interceptors.push('TokenInterceptor');
-  $routeProvider
+  //$httpProvider.interceptors.push('TokenInterceptor');
+
+  $urlRouterProvider.otherwise('/');
+
+  $stateProvider
+      .state('app', {
+          url: "/",
+          views: {
+              'header': {
+                  templateUrl: '/views/header.html'
+              }/*,
+              'content': {
+                  templateUrl: '/views/home.html'
+              }*/
+          }
+      })
+      .state('/home', {
+          url: "/home",
+          templateUrl: "views/home.html"
+      })
+      .state('app.pmDashboard', {
+          url: "pm-dashboard",
+          templateUrl: "views/pm-dashboard.html"
+          /*views: {
+              'content@app' : {
+                  templateUrl: "views/pm-dashboard.html"
+              }
+          }*/
+
+      });
+
+  /*$routeProvider
       .when('/login', {
         templateUrl: 'partials/login.html',
         controller: 'LoginCtrl',
@@ -151,9 +181,9 @@ myApp.config(function($routeProvider, $httpProvider) {
           templateUrl: 'partials/error.html'
       }).otherwise({
         redirectTo: '/login'
-      });
+      });*/
 });
-myApp.run(function($rootScope, $window, $location, AuthenticationFactory) {
+/*myApp.run(function($rootScope, $window, $location, AuthenticationFactory) {
 // when the page refreshes, check if the user is already logged in
   AuthenticationFactory.check();
   $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
@@ -162,7 +192,7 @@ myApp.run(function($rootScope, $window, $location, AuthenticationFactory) {
     } else {
         /* if user doesn't have admin and tries to access admin page, direct to error message page*/
         //this line below fixed the 'not authorised on refresh' error... <-- might need to check for vulnerabilities caused by it
-        if (!AuthenticationFactory.userRole) AuthenticationFactory.userRole = $window.sessionStorage.userRole;
+        /*if (!AuthenticationFactory.userRole) AuthenticationFactory.userRole = $window.sessionStorage.userRole;
         if (!AuthenticationFactory.user) AuthenticationFactory.user = $window.sessionStorage.user;
         if((nextRoute.access && nextRoute.access.adminOnly) && AuthenticationFactory.userRole != 'administrator') {
             $location.path("/error").replace();
@@ -182,4 +212,4 @@ myApp.run(function($rootScope, $window, $location, AuthenticationFactory) {
       $location.path('/');
     }
   });
-});
+});*/
