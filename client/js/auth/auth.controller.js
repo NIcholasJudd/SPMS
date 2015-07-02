@@ -24,11 +24,11 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactor
                     //console.log("DATA USER: ", data.user);
                     AuthenticationFactory.isLogged = true;
                     AuthenticationFactory.user = data.user.email;
-                    AuthenticationFactory.userRole = data.user.user_type;
+                    AuthenticationFactory.userRole = data.user.userType;
                     $window.sessionStorage.token = data.token;
                     $window.sessionStorage.user = data.user.email; // to fetch the user details on refresh
-                    $window.sessionStorage.firstName = data.user.first_name;
-                    $window.sessionStorage.userRole = data.user.user_type; // to fetch the user details on refresh
+                    $window.sessionStorage.firstName = data.user.firstName;
+                    $window.sessionStorage.userRole = data.user.userType; // to fetch the user details on refresh
                     //redirect user to home page
                     $location.path("/");
                 }).error(function(status) {

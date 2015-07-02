@@ -8,7 +8,7 @@ var promise = require('promise'),
 
 var projectLink = {
     getAll: function(req, res) {
-        db.query("SELECT * FROM link WHERE project_name = $1", [req.params.projectName])
+        db.query('SELECT * FROM link WHERE projectName = $1', [req.params.projectName])
             .then(function (data) {
                 return res.json(data);
             }, function (err) {

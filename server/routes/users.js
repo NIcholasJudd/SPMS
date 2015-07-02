@@ -47,8 +47,8 @@ var users = {
 
     update: function(req, res) {
         console.log(req.body);
-        db.none("UPDATE employee SET first_name=($2), last_name=($3), " +
-            "phone=($4), user_type=($5), performance_index=($6), previous_roles=($7) WHERE email=$1",
+        db.none('UPDATE employee SET "firstName"=($2), "lastName"=($3), ' +
+            'phone=($4), "userType"=($5), "performanceIndex"=($6), "previousRoles"=($7) WHERE email=$1',
             [req.body.email, req.body.firstName, req.body.lastName, req.body.phone, req.body.role,
                 req.body.performanceIndex, req.body.previousRoles])
             .then(function (data) {
@@ -61,7 +61,7 @@ var users = {
 
     delete: function(req, res) {
         db.tx(function(t) {
-            var q1 = t.query("DELETE FROM task_role WHERE email = $1", [req.body.email]);
+            var q1 = t.query("DELETE FROM taskrole WHERE email = $1", [req.body.email]);
             var q2 = t.query("DELETE FROM skill WHERE email = $1", [req.body.email]);
             var q3 = t.one("DELETE FROM employee WHERE email = $1 returning email", [req.body.email]);
             return promise.all([q1, q2, q3]);
