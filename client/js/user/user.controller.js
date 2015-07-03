@@ -24,7 +24,8 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
             email: "",
             firstName: "",
             lastName: "",
-            password: "",
+            password1: "",
+            password2: "",
             phone: "",
             role: "",
             performanceIndex: 0,
@@ -42,30 +43,47 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
         };
 
         $scope.submitUser = function () {
-            var msg = "Form error: ";
-            var ok = true;
+
+            $scope.errorMessage = [];
+            $scope.error = false;
+            if ($scope.user.password1 != $scope.user.password2){
+                $scope.error = true;
+                $scope.errorMessage.push({
+                    msg: "Passwords do not match!\n"
+                });
+            }
             if (!$scope.user.firstName) {
-                ok = false;
-                msg += "first name missing\n";
+                $scope.error = true;
+                $scope.errorMessage.push({
+                    msg: "first name missing\n"
+                });
             }
             if (!$scope.user.lastName) {
-                ok = false;
-                msg += "last name missing\n";
+                $scope.error = true;
+                $scope.errorMessage.push({
+                    msg:  "last name missing\n"
+                });
             }
             if (!$scope.user.email) {
-                ok = false;
-                msg += "email missing\n";
+                $scope.error = true;
+                $scope.errorMessage.push({
+                    msg: "email missing\n"
+                });
             }
-            if (!$scope.user.password) {
-                ok = false;
-                msg += "password missing\n";
+            if (!$scope.user.password1) {
+                $scope.error = true;
+                $scope.errorMessage.push({
+                    msg: "password missing\n"
+                });
             }
             if (!$scope.user.role) {
-                ok = false;
-                msg += "role missing\n";
+                $scope.error = true;
+                $scope.errorMessage.push({
+                    msg: "role missing\n"
+                });
             }
-            if (ok === false) {
-                alert(msg);
+            if ($scope.error === true) {
+                console.log($scope.errorMessage);
                 return;
             }
             console.log("USER: ", $scope.user);

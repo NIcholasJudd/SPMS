@@ -65,7 +65,7 @@
                                        name="pass"
                                        type="password"
                                        class="form-control"
-                                       ng-model="user.password"
+                                       ng-model="user.password1"
                                        placeholder="Password"/>
                                 <span id="passstrength"></span>
                             </form>
@@ -75,6 +75,7 @@
                                        name="pass"
                                        type="password"
                                        class="form-control"
+                                       ng-model="user.password2"
                                        placeholder="Password"/>
 
                                 <p id="validate-status"></p>
@@ -94,8 +95,10 @@
                 </div>
                 <div class="row-fluid">
                     <div class="col-md-12">
-                        <br>
-                        <button type="submit" class="form-control btn btn-success" ng-click="saveUser()">Create User
+                        <div class="form-group" ng-show="error" ng-repeat="msg in errorMessage">
+                            <div class="alert alert-danger" role="alert">{{msg.msg}}</div>
+                        </div>
+                        <button type="submit" class="form-control btn btn-success" ng-click="submitUser()">Create User
                         </button>
                     </div>
                 </div>
