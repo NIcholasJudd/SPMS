@@ -132,7 +132,9 @@
                                                     value="{{activeUser.phone}}"/>
                                         </div>
                                     </div>
-                                    <div class="row m-top-md">
+
+
+                                    <div class="row-fluid">
                                         <div class="col-md-6" ng-controller="UserCtrl">
                                             <label for="role">Roles: </label>
                                             <div class="dropdown">
@@ -146,11 +148,9 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row m-top-md">
-                                        <div class="col-md-10 col-md-offset-1">
-                                            <label for="phoneUpdate">User Performance:</label>
-                                            <rating ng-model="activeUser.performanceIndex" max="10"></rating>
+                                        <div class="col-md-6">
+                                            <label for="preformanceIndex">User Performance:</label>
+                                            <rating id="preformanceIndex" ng-model="activeUser.performanceIndex" max="10"></rating>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-10 col-md-offset-1">
