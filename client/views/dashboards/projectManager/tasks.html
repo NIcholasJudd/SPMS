@@ -1,0 +1,28 @@
+<!-- TASKS PANEL-->
+<div class="panel panel-danger">
+    <div class="panel-heading"><h4>{{$parent.currentProject.projectName}} Tasks<i class="glyphicon glyphicon-paperclip"></i></h4></div>
+    <div class="panel-body" style="overflow: scroll">
+        <table  class="table table-hover taskTable table-responsive">
+            <tr>
+                <th>Task#</th>
+                <th>Task Name</th>
+                <th>Priority</th>
+                <th>Progress</th>
+                <th>Assigned To</th>
+                <th>Modify</th>
+                <th>Comments</th>
+                <th>Completed</th>
+            </tr>
+            <tr ng-repeat='task in tasks track by task.taskId'>
+                <td>{{task.taskNumber}}</td>
+                <td>{{task.taskName}}</td>
+                <td ng-class="priorityLevel(task.priority)">{{task.priority}}</td>
+                <td><progressbar max="1" value="task.progressPercentage"></progressbar></td>
+                <td><button class="taskButton" ng-click="openUserModal(task.taskId)"><i class="glyphicon glyphicon-user"></i></button></td>
+                <td class="lborder"><a href="#/project/taskModify"><button class="taskButton" ng-click="setCurrentTask(task.taskId)"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
+                <td class="lborder"><button class="taskButton" ng-click="openModal(task.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
+                <td class="lborder complete"><button class="taskButton" ng-click="markComplete(task.taskId)"><i class="glyphicon glyphicon-saved"></i></button></td>
+            </tr>
+        </table>
+    </div>
+</div>

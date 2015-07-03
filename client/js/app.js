@@ -5,7 +5,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
     $httpProvider.interceptors.push('TokenInterceptor');
 
     // use the HTML5 History API
-    //$locationProvider.html5Mode(true).hashPrefix('!');
+    //$locationProvider.html5Mode(true);
 
     $urlRouterProvider.otherwise('/');
 
@@ -38,7 +38,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 }
             }
         })
-        .state('app.dashboard', {
+        /*.state('app.dashboard', {
             url: "/dashboard",
             abstract: true,
             views: {
@@ -46,17 +46,16 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     template: "<ui-view/>"// Note: abstract still needs a ui-view for its children to populate.
                 }
             }
-        })
-        .state('app.dashboard.projectManager', {
-            url: "/project-manager",
+        })*/
+        .state('app.pmDashboard', {
+            abstract : true,
+            url: "/dashboard/project-manager",
             views: {
                 'container@': {
                     templateUrl: "views/dashboards/projectManager/container.html",
                     controller: "PMContainerCtrl"
-                },
-                'projecttracking@app.dashboard.projectManager': {
-                    templateUrl: "views/dashboards/projectManager/project-tracking.html"
-                }/*,
+                }
+                /*,
                  'tasks@app.dashboard.projectManager' : {
                  templateUrl: "views/dashboards/projectManager/tasks.html"
                  },
@@ -66,6 +65,19 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                  'projectprogression@app.dashboard.projectManager' : {
                  templateUrl: "views/dashboards/projectManager/project-progression.html"
                  }*/
+            }
+        })
+        .state('app.pmDashboard.panels', {
+            url: "",
+            views: {
+                'projecttracking@app.pmDashboard' : {
+                    templateUrl: "views/dashboards/projectManager/project-tracking.html",
+                    controller: "PMProjectTrackingCtrl"
+                },
+                'tasks@app.pmDashboard' : {
+                    templateUrl: "views/dashboards/projectManager/tasks.html",
+                    controller: "PMTasksCtrl"
+                }
             }
         })
         .state('app.userCreate', {

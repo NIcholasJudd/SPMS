@@ -133,14 +133,14 @@ myApp.controller("userModify", ['$scope','UserFactory',
         UserFactory.getUsers().then(function (results) {
             results.data.forEach(function (user) {
                 $scope.user.push({
-                    name: user.first_name + ' ' + user.last_name,
-                    firstName: user.first_name,
-                    lastName: user.last_name,
+                    name: user.firstName + ' ' + user.lastName,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
                     email: user.email,
                     phone: user.phone,
-                    performanceIndex: user.performance_index * 10,
-                    role: user.user_type,
-                    previousRoles: user.previous_roles,
+                    performanceIndex: user.performanceIndex * 10,
+                    role: user.userType,
+                    previousRoles: user.previousRoles,
                     active: user.active
                 });
             })

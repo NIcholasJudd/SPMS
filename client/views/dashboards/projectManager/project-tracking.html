@@ -1,3 +1,23 @@
-<div>
-    project tracking
+<!-- PROJECT TRACKING PANEL.
+
+    To-do:
+     - The links need to be refactored
+     - refactor displayTasks() function
+     -->
+
+<div class="panel panel-danger">
+    <div class="panel-heading"><h4>Project Tracking<i class="glyphicon glyphicon-picture"></i></h4></div>
+    <div class="panel-body">
+        <div class="row row-center">
+            <div class="col-md-12">
+                <ul class="nav nav-pills nav-justified">
+                    <li class="custom-pill" role="presentation"><a ng-click="displayTasks()"><span class="glyphicon glyphicon-paperclip"></span><h6>Tasks</h6></a></li>
+                    <li class="custom-pill" role="presentation"><a ng-href="#/../project/ganttChart"><span class="glyphicon glyphicon-random"></span><h6>Gantt Chart</h6></a></li>
+                    <li class="custom-pill" role="presentation"><a ng-href="#/../effort/functionPoints"><span class="glyphicon glyphicon-tasks"></span><h6>Effort Estimation</h6></a></li>
+                    <li class="custom-pill" role="presentation"><a ng-href="#/../effort/effortEstimation"><span class="glyphicon glyphicon-leaf"></span><h6>Cocomo II</h6></a></li>
+                    <li class="custom-pill" role="presentation"><a ng-href="#/../project/apn"><span class="glyphicon glyphicon-transfer"></span><h6>APN & Critical Chain</h6></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

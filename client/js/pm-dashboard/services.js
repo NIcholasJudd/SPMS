@@ -4,7 +4,7 @@
 
 myApp.factory('PMDashboard', function($http, $q) {
     var service = {};
-    var currentProject = '';
+    var currentProject = {};
     var projects = [];
 
     service.getProjects = function() {
@@ -12,11 +12,13 @@ myApp.factory('PMDashboard', function($http, $q) {
         $http.get('http://localhost:3000/api/auth/projects')
             .success(function(data) {
                 projects = data;
+                if(projects.length > 0)
+                    currentProject = projects[0];
                 deferred.resolve(projects);
             })
             .error(function() {
                 console.log("Error receiving projects from the database");
-                deferred.reject("There was an error.");
+                deferred.reject("getProjects error");
             });
         return deferred.promise;
     }
@@ -27,6 +29,19 @@ myApp.factory('PMDashboard', function($http, $q) {
 
     service.getCurrentProject = function() {
         return currentProject;
+    }
+
+    service.getCurrentTasks = function() {
+        var deferred = $q.defer();
+        $http.get('http://localhost:3000/api/auth/project/' + currentProject.projectName + '/tasks/')
+            .success(function(tasks) {
+                deferred.resolve(tasks);
+            })
+            .error(function() {
+                console.log("Error receiving tasks from the database");
+                deferred.reject("getCurrentTasks error");
+            })
+        return deferred.promise;
     }
 
     return service;

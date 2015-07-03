@@ -8,7 +8,7 @@ var promise = require('promise'),
 var projectTask = {
 
     getAll: function(req, res) {
-        db.query("SELECT * FROM task WHERE project_name = $1 AND active = true", [req.params.projectName])
+        db.query('SELECT * FROM task WHERE "projectName" = $1 AND active = true', [req.params.projectName])
             .then(function (data) {
                 return res.json(data);
             }, function (err) {
@@ -18,7 +18,7 @@ var projectTask = {
     },
 
     getOne: function(req, res) {
-        db.query("SELECT * FROM task WHERE project_name = $1 AND task_number = $2",
+        db.query('SELECT * FROM task WHERE "projectName" = $1 AND "taskNumber" = $2',
             [req.params.projectName, req.params.taskNumber])
             .then(function(data) {
                 return res.json(data);
