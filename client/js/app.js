@@ -17,7 +17,6 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     controller: "LoginCtrl"
                 }
             }
-
         })
         .state('app', {
             url: "",

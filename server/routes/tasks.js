@@ -55,6 +55,28 @@
              })
      },
 
+     /*getAll: function(req, res) {
+         db.query('SELECT "taskId", "taskName" FROM task',
+             [req.params.taskId])
+             .then(function(data) {
+                 return res.json(data);
+             }, function(err) {
+                 console.error(err);
+                 return res.status(500).send(err);
+             })
+     },*/
+
+     getTaskDependencies: function(req, res) {
+         //db.query('SELECT "taskId", "taskName" FROM task WHERE "taskId" IN (SELECT source FROM link WHERE target = $1)', [req.params.taskId])
+         db.query('SELECT source FROM link WHERE target = $1', [req.params.taskId])
+             .then(function (data) {
+                 return res.json(data);
+             }, function (err) {
+                 console.error(err);
+                 return res.status(500).send(err);
+             })
+     },
+
      updateProgress : function(req, res) {
          console.log("HERE");
          db.one("update task SET progress_percentage = $1 where task_id = $2 returning progress_percentage",

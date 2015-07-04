@@ -177,20 +177,20 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
          "'3 days', 0.4, 'on-the-go', 'critical', true)"));*/
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), nextval('myproject1seq'), 'My Project 1', " +
-        "'Task 1', 'Task 1 Description', '2016-04-04', '2 days', '1 days', '3 days', '1 days', 0.4, 'on-the-go', 'critical', true)"));
+        "'Task 1', 'Task 1 Description', '2016-04-04', '2 days', '1 days', '3 days', '1 days', 40, 'on-the-go', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), nextval('myproject1seq'), 'My Project 1', " +
-        "'Task 2', 'Task 2 Description', '2016-04-7', '3 days', '4 days', '6 days', '2 days', 0.7, 'on-the-go', 'critical', true)"));
+        "'Task 2', 'Task 2 Description', '2016-04-7', '3 days', '4 days', '6 days', '2 days', 70, 'on-the-go', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), nextval('myproject1seq'), 'My Project 1', " +
-        "'Task 3', 'Task 3 Description', '2016-04-10', '4 days', '4 days', '6 days', '2 days', 0.7, 'on-the-go', 'critical', true)"));
+        "'Task 3', 'Task 3 Description', '2016-04-10', '4 days', '4 days', '6 days', '2 days', 70, 'on-the-go', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), nextval('myproject1seq'), 'My Project 1', " +
-        "'Task 4', 'Task 4 Description', '2016-04-15', '3 days', '2 days', '6 days', '3 days', 0.7, 'unassigned', 'critical', true)"));
+        "'Task 4', 'Task 4 Description', '2016-04-15', '3 days', '2 days', '6 days', '3 days', 70, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), nextval('myproject1seq'), 'My Project 1', " +
         "'Task 5', 'Task 5 Description', '2016-04-08', '4 days', '1 days', " +
-        "'6 days', '4 days', 0.7, 'unassigned', 'critical', true)"));
+        "'6 days', '4 days', 70, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO taskrole VALUES('admin@admin'," +
         "(SELECT \"taskId\" from task where \"projectName\" = 'My Project 1' AND \"taskName\" = 'Task 1'), " +
@@ -235,15 +235,15 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('myproject2seq'), 'My Project 2', 'Task 1', 'Task 1 Description', '2015-06-06', '3 days', '2 days', " +
-        "'4 days', '1 days', 0.4, 'on-the-go', 'critical', true)"));
+        "'4 days', '1 days', 40, 'on-the-go', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('myproject2seq'), 'My Project 2', 'Task 2', 'Task 2 Description', '2015-06-10', '3 days', '2 days', " +
-        "'4 days', '1 days', 0.4, 'unassigned', 'critical', true)"));
+        "'4 days', '1 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('myproject2seq'), 'My Project 2', 'Task 3', 'Task 3 Description', '2015-06-14', '3 days', '2 days', " +
-        "'4 days', '1 days', 0.4, 'unassigned', 'critical', true)"));
+        "'4 days', '1 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO taskrole VALUES('paul@tm'," +
         "(SELECT \"taskId\" from task where \"projectName\" = 'My Project 2' AND \"taskName\" = 'Task 1'), " +
@@ -272,15 +272,15 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('myproject3seq'), 'My Project 3', 'Design', 'Design application', '2015-04-01', '10 days', '7 days', " +
-        "'18 days', '4 days', 0.4, 'on-the-go', 'critical', true)"));
+        "'18 days', '4 days', 40, 'on-the-go', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('myproject3seq'), 'My Project 3', 'Develop', 'Develop application', '2015-04-11', '8 days', '5 days', " +
-        "'10 days', '3 days', 0.4, 'unassigned', 'critical', true)"));
+        "'10 days', '3 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('myproject3seq'), 'My Project 3', 'Test', 'Task 3 Description', '2015-04-19', '10 days', '8 days', " +
-        "'13 days', '4 days', 0.4, 'unassigned', 'critical', true)"));
+        "'13 days', '4 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO taskrole VALUES('paul@tm'," +
         "(SELECT \"taskId\" from task where \"projectName\" = 'My Project 3' AND \"taskName\" = 'Design'), " +
@@ -322,15 +322,15 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('projectflappybirdseq'), 'Project Flappy Bird', 'Recruit Staff', 'Recruit staff members', '2015-05-10', '10 days', '7 days', " +
-        "'18 days', '4 days', 0.4, 'on-the-go', 'critical', true)"));
+        "'18 days', '4 days', 40, 'on-the-go', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('projectflappybirdseq'), 'Project Flappy Bird', 'Design UI', 'Design User Interface', '2015-05-20', '5 days', '3 days', " +
-        "'9 days', '3 days', 0.4, 'on-the-go', 'critical', true)"));
+        "'9 days', '3 days', 40, 'on-the-go', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('projectflappybirdseq'), 'Project Flappy Bird', 'Develop UI', 'Develop User Interface', '2015-05-25', '3 days', '2 days', " +
-        "'6 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
+        "'6 days', '2 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO link VALUES(nextval('\"link_linkId_seq\"'), 'Project Flappy Bird', " +
         "(SELECT \"taskId\" from task where \"projectName\" = 'Project Flappy Bird' AND \"taskName\" = 'Recruit Staff'), " +
@@ -342,15 +342,15 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('projectflappybirdseq'), 'Project Flappy Bird', 'Design Game', 'Design Game Functionality', '2015-05-20', '7 days', '3 days', " +
-        "'14 days', '3 days', 0.4, 'unassigned', 'critical', true)"));
+        "'14 days', '3 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('projectflappybirdseq'), 'Project Flappy Bird', 'Develop Game', 'Develop Game Functionality', '2015-05-27', '5 days', '2 days', " +
-        "'6 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
+        "'6 days', '2 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('projectflappybirdseq'), 'Project Flappy Bird', 'Functionality Unit Testing', 'Unit testing of game functionality', '2015-06-01', '7 days', '5 days', " +
-        "'10 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
+        "'10 days', '2 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO link VALUES(nextval('\"link_linkId_seq\"'), 'Project Flappy Bird', " +
         "(SELECT \"taskId\" from task where \"projectName\" = 'Project Flappy Bird' AND \"taskName\" = 'Recruit Staff'), " +
@@ -366,7 +366,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('projectflappybirdseq'), 'Project Flappy Bird', 'Integrate Application', 'Integrate application', '2015-06-08', '7 days', '5 days', " +
-        "'10 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
+        "'10 days', '2 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO link VALUES(nextval('\"link_linkId_seq\"'), 'Project Flappy Bird', " +
         "(SELECT \"taskId\" from task where \"projectName\" = 'Project Flappy Bird' AND \"taskName\" = 'Functionality Unit Testing'), " +
@@ -378,7 +378,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('projectflappybirdseq'), 'Project Flappy Bird', 'End to end testing', 'e2e testing', '2015-06-15', '7 days', '5 days', " +
-        "'10 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
+        "'10 days', '2 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO link VALUES(nextval('\"link_linkId_seq\"'), 'Project Flappy Bird', " +
         "(SELECT \"taskId\" from task where \"projectName\" = 'Project Flappy Bird' AND \"taskName\" = 'Integrate Application'), " +
@@ -386,7 +386,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('projectflappybirdseq'), 'Project Flappy Bird', 'Beta testing', 'Beta testing', '2015-06-22', '3 days', '2 days', " +
-        "'5 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
+        "'5 days', '2 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO link VALUES(nextval('\"link_linkId_seq\"'), 'Project Flappy Bird', " +
         "(SELECT \"taskId\" from task where \"projectName\" = 'Project Flappy Bird' AND \"taskName\" = 'End to end testing'), " +
@@ -394,7 +394,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('projectflappybirdseq'), 'Project Flappy Bird', 'Documentation', 'Document application', '2015-06-18', '3 days', '2 days', " +
-        "'5 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
+        "'5 days', '2 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO link VALUES(nextval('\"link_linkId_seq\"'), 'Project Flappy Bird', " +
         "(SELECT \"taskId\" from task where \"projectName\" = 'Project Flappy Bird' AND \"taskName\" = 'Develop Game'), " +
@@ -406,7 +406,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), " +
         "nextval('projectflappybirdseq'), 'Project Flappy Bird', 'Deploy', 'Deploy application', '2015-06-25', '3 days', '2 days', " +
-        "'5 days', '2 days', 0.4, 'unassigned', 'critical', true)"));
+        "'5 days', '2 days', 40, 'unassigned', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO link VALUES(nextval('\"link_linkId_seq\"'), 'Project Flappy Bird', " +
         "(SELECT \"taskId\" from task where \"projectName\" = 'Project Flappy Bird' AND \"taskName\" = 'Beta testing'), " +

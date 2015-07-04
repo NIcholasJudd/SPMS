@@ -18,5 +18,31 @@ myApp.factory('TaskFactory', function($http, $q, baseUrl) {
         return deferred.promise;
     }
 
+    service.getProjectTasks = function(projectName) {
+        var deferred = $q.defer();
+        $http.get(baseUrl + '/api/auth/project/' + projectName + "/tasks", {params: {"fields[]" : ["taskName", "taskId"]} })
+            .success(function(tasks) {
+                deferred.resolve(tasks);
+            })
+            .error(function() {
+                console.log("Error receiving task from the database");
+                deferred.reject("getTask error");
+            });
+        return deferred.promise;
+    }
+
+    service.getDependencies = function(taskId) {
+        var deferred = $q.defer();
+        $http.get(baseUrl + '/api/auth/link/' + taskId)
+            .success(function(dependencies) {
+                deferred.resolve(dependencies);
+            })
+            .error(function() {
+                console.log("Error receiving dependencies from the database");
+                deferred.reject("getDependencies error");
+            });
+        return deferred.promise;
+    }
+
     return service;
 })
