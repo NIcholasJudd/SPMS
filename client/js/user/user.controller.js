@@ -102,7 +102,7 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
     }
 ]);
 
-myApp.controller("passwordCheck", [ '$scope',
+myApp.controller("passwordCheck", [ '$scope', 'testStrength',
     function($scope){
         $scope.passwordStrength = function(pass){
             console.log("TEST PASSWORD " + pass);
