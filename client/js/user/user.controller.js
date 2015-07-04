@@ -7,7 +7,7 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
         $scope.roles = [
             {name: 'Administrator'},
             {name: 'Team Member'}];
-
+        $scope.passwordCheck = {password: ''};
         $scope.skills = [
             {title: 'C++'},
             {title: 'Java'},
@@ -24,12 +24,10 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
             email: "",
             firstName: "",
             lastName: "",
-            password1: "",
-            password2: "",
+            password: "",
             phone: "",
             role: "",
             performanceIndex: 0,
-            skills: [],
             previousRoles: ['Developer', 'Tester']
         };
 
@@ -45,8 +43,9 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
         $scope.submitUser = function () {
 
             $scope.errorMessage = [];
+            console.log($scope.passwordCheck.password);
             $scope.error = false;
-            if ($scope.user.password1 != $scope.user.password2){
+            if ($scope.user.password != $scope.passwordCheck.password){
                 $scope.error = true;
                 $scope.errorMessage.push({
                     msg: "Passwords do not match!\n"
@@ -70,7 +69,7 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
                     msg: "email missing\n"
                 });
             }
-            if (!$scope.user.password1) {
+            if (!$scope.user.password) {
                 $scope.error = true;
                 $scope.errorMessage.push({
                     msg: "password missing\n"
@@ -103,9 +102,15 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
     }
 ]);
 
-myApp.controller("passwordCheck", [
+myApp.controller("passwordCheck", [ '$scope',
+    function($scope){
+        $scope.passwordStrength = function(pass){
+            console.log("TEST PASSWORD " + pass);
+        };
+    }
+]);
     //check password strength
-    function () {
+    /*function () {
         $('#pass').keyup(function (e) {
             var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
             var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
@@ -124,8 +129,11 @@ myApp.controller("passwordCheck", [
             }
             validate();
             return true;
-        });
-        $(document).ready(function () {
+        });*/
+
+
+
+       /* $(document).ready(function () {
             $("#pass2").keyup(validate);
         });
         //checks passwords are the same
@@ -140,7 +148,7 @@ myApp.controller("passwordCheck", [
             }
         }
     }
-]);
+]);*/
 
 //Modify Users Controllers
 myApp.controller("userModify", ['$scope','UserFactory',

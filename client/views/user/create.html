@@ -65,9 +65,9 @@
                                        name="pass"
                                        type="password"
                                        class="form-control"
-                                       ng-model="user.password1"
+                                       ng-model="user.password"
                                        placeholder="Password"/>
-                                <span id="passstrength"></span>
+                                <span id="passwordStrength(user.password)"></span>
                             </form>
                             <div class="row-fluid">
                                 <label for="pass2">Re-Enter Password:</label>
@@ -75,7 +75,7 @@
                                        name="pass"
                                        type="password"
                                        class="form-control"
-                                       ng-model="user.password2"
+                                       ng-model="passwordCheck.password"
                                        placeholder="Password"/>
 
                                 <p id="validate-status"></p>
@@ -87,7 +87,6 @@
                         <select class="form-control"
                                 id="userSkill"
                                 size="8"
-                                ng-model="user.skills"
                                 ng-options="skills.title for skills in skills track by skills.title"
                                 multiple>
                         </select>
