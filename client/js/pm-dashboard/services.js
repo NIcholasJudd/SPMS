@@ -2,14 +2,14 @@
  * Created by scottmackenzie on 2/07/2015.
  */
 
-myApp.factory('PMDashboard', function($http, $q) {
+myApp.factory('PMDashboard', function($http, $q, baseUrl) {
     var service = {};
     var currentProject = {};
     var projects = [];
 
     service.getProjects = function() {
         var deferred = $q.defer();
-        $http.get('http://localhost:3000/api/auth/projects')
+        $http.get(baseUrl + '/api/auth/projects')
             .success(function(data) {
                 projects = data;
                 if(projects.length > 0)
@@ -33,7 +33,7 @@ myApp.factory('PMDashboard', function($http, $q) {
 
     service.getCurrentTasks = function() {
         var deferred = $q.defer();
-        $http.get('http://localhost:3000/api/auth/project/' + currentProject.projectName + '/tasks/')
+        $http.get(baseUrl + '/api/auth/project/' + currentProject.projectName + '/tasks/')
             .success(function(tasks) {
                 deferred.resolve(tasks);
             })

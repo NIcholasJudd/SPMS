@@ -1,9 +1,8 @@
-var myApp = angular.module('ngclient', ['ui.router', 'ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead', 'ui.bootstrap.tabs', 'mj.scrollingTabs', 'angularModalService']);
+var myApp = angular.module('ngclient', ['ui.router', 'myApp.config', 'ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead', 'ui.bootstrap.tabs', 'mj.scrollingTabs', 'angularModalService']);
 
 myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     //add Token Interceptor
     $httpProvider.interceptors.push('TokenInterceptor');
-
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);
 
@@ -98,7 +97,16 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     templateUrl: "views/user/modifyForm.html"
                 }
             }
-            });
+        })
+        .state('app.taskModify', {
+            url: "/task/modify/:taskId",
+            views: {
+                'container@' : {
+                    templateUrl: "views/task/modify.html",
+                    controller: "TaskModifyCtrl"
+                }
+            }
+        });
 
     /*$routeProvider
      .when('/login', {

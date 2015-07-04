@@ -28,8 +28,8 @@ myApp.controller("PMProjectTrackingCtrl", ['$scope', 'PMDashboard',
     }]
 );
 
-myApp.controller("PMTasksCtrl", ['$scope', 'PMDashboard',
-    function($scope, PMDashboard) {
+myApp.controller("PMTasksCtrl", ['$scope', '$stateParams', 'PMDashboard',
+    function($scope, $stateParams, PMDashboard) {
 
         $scope.tasks = [];
 
@@ -38,14 +38,5 @@ myApp.controller("PMTasksCtrl", ['$scope', 'PMDashboard',
                 $scope.tasks = tasks;
             })
 
-        //get current project details when project switch
-        /*$scope.$on('project-changed', function() {
-            $scope.currentProject = PMDashboard.getCurrentProject();
-            PMDashboard.getCurrentTasks()
-                .then(function(tasks, err) {
-                    console.log(err);
-                    $scope.tasks = tasks;
-                })
-        })*/
     }]
 );

@@ -1,9 +1,11 @@
 var gulp = require('gulp'),
-  connect = require('gulp-connect');
+  connect = require('gulp-connect'),
+  gulpNgConfig = require('gulp-ng-config');
+
 
 var paths = {
   app: './',
-  src: ['./*.html', './partials/*.html', './css/*.css', './js/*.js']
+  src: ['./*.html', './views/*.html', './css/*.css', './js/*.js']
 };
 
 gulp.task('connect', function() {
@@ -23,4 +25,12 @@ gulp.task('watch', function() {
   gulp.watch([paths.src], ['html']);
 });
 
-gulp.task('default', ['connect', 'watch']);
+gulp.task('configuration', function() {
+    gulp.src('configFile.json')
+        .pipe(gulpNgConfig('myApp.config'))
+        .pipe(gulp.dest('.'))
+});
+
+gulp.task('default', ['connect', 'watch', 'configuration']);
+
+

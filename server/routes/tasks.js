@@ -23,7 +23,7 @@
      },
 
      getOne: function(req, res) {
-         db.one("select * from task where task_id = $1",
+         db.one('select * from task where "taskId" = $1',
              [req.params.taskId])
              .then(function(data) {
                  return res.json(data);

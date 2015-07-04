@@ -25,6 +25,7 @@ var users = {
     },
 
     create: function(req, res) {
+        console.log(req.body);
         bcrypt.genSalt(10, function(err, salt) {
             bcrypt.hash(req.body.password, salt, function (err, hash) {
                 if (err)
@@ -35,7 +36,6 @@ var users = {
                     .then(function (data) {
                         return res.json(data);
                     }, function (err) {
-                        console.log(err);
                         return res.status(500).send(err);
                     })
             })
