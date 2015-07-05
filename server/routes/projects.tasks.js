@@ -3,12 +3,28 @@
  */
 
 var promise = require('promise'),
-    db = require('../models/database');
+    db = require('../models/database'),
+    filterString = require('../modules/filterString');
 
 var projectTask = {
 
     getAll: function(req, res) {
-        db.query('SELECT * FROM task WHERE "projectName" = $1 AND active = true', [req.params.projectName])
+        console.log(req.query.fields);
+        var filter = filterString.create(req);
+        db.query('SELECT ' + filter + ' FROM task WHERE "projectName" = $1 AND active = true', [req.params.projectName])
+            .then(function (data) {
+                //If fields provided in query, only return selected fields
+                //data = myFilter.runFilter(req, data);
+
+                return res.json(data);
+            }, function (err) {
+                console.error(err);
+                return res.status(500).send(err);
+            })
+    },
+
+    getTaskNamesAndNumbers : function(req, res) {
+        db.query('SELECT "taskId", "taskName" FROM task WHERE "projectName" = $1 AND active = true', [req.params.projectName])
             .then(function (data) {
                 return res.json(data);
             }, function (err) {

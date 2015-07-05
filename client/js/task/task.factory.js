@@ -1,7 +1,7 @@
 /**
  * Created by nicholasjudd on 17/05/15.
  */
-myApp.factory('TaskFactory', function ($http) {
+myApp.factory('TaskFactoryOld', function ($http) {
     var currentTask = {};
     return {
 

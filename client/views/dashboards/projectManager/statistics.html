@@ -1,0 +1,54 @@
+<div class="panel panel-danger">
+    <div class="panel-heading"><h4>Project Statistics<i class="glyphicon glyphicon-stats"></i></h4></div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;" ng-bind="status.unassigned"></span><h5>Unassigned tasks</h5></div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"ng-bind="status.otg"></span><h5>Tasks in progress</h5></div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"ng-bind="status.finalised"></span><h5>Tasks pending completion</h5></div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"ng-bind="status.complete"></span><h5>Completed tasks</h5></div>
+            </div>
+        </div>
+        <hr/>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">1</span><h5>Tasks overdue</h5></div>
+            </div>
+            <div class="col-md-3">
+                <div ng-if="cocomoCalculated === false">
+                    <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"></span><h5>Please enter your COCOMO estimations
+                        above so we can display COCOMO score for you!</h5></div>
+                </div>
+                <div ng-if="cocomoCalculated === true">
+                    <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">{{cocomoScore}}</span><h5>
+                        Person-months (Cocomo Score)</h5></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div ng-if="functionPointCalculated === false">
+                    <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"></span><h5>Please enter your function points
+                        above so we can display function point count for you!</h5></div>
+                </div>
+                <div ng-if="functionPointCalculated === true">
+                    <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">{{functionPoints}}</span><h5>
+                        Adjusted Function Point Count</h5></div>
+                </div>
+            </div>
+            <div class="col-md-3" ><!--ng-controller="PERTCtrl"-->
+                <div ng-if="pert === -1" class="col-md-12" style="text-align: center">
+                    <span style="font-size: 4em;"></span>
+                    <h5>Please add some tasks so that we can generate a PERT analysis for you!</h5>
+                </div>
+                <div ng-if="pert !== -1" class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">{{pert}}%</span><h5>Chance of not finishing project on time (PERT analysis)</h5></div>
+            </div>
+        </div>
+
+    </div>
+</div>

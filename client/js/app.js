@@ -17,7 +17,6 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     controller: "LoginCtrl"
                 }
             }
-
         })
         .state('app', {
             url: "",
@@ -55,9 +54,6 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     controller: "PMContainerCtrl"
                 }
                 /*,
-                 'tasks@app.dashboard.projectManager' : {
-                 templateUrl: "views/dashboards/projectManager/tasks.html"
-                 },
                  'projectstatistics@app.dashboard.projectManager' : {
                  templateUrl: "views/dashboards/projectManager/project-statistics.html"
                  },
@@ -76,6 +72,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 'tasks@app.pmDashboard' : {
                     templateUrl: "views/dashboards/projectManager/tasks.html",
                     controller: "PMTasksCtrl"
+                },
+                'statistics@app.pmDashboard' : {
+                    templateUrl: "views/dashboards/projectManager/statistics.html",
+                    controller: "PMStatisticsCtrl"
                 }
             }
         })

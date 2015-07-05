@@ -1,11 +1,13 @@
 var promise = require('promise'),
-    db = require('../models/database');
+    db = require('../models/database'),
+    filterString = require('../modules/filterString');
 
 
 var projects = {
 
     getAll: function(req, res) {
-        db.query("SELECT * FROM project where active = true")
+        var filter = filterString.create(req);
+        db.query('SELECT ' + filter + ' FROM project WHERE active = true')
             .then(function (data) {
                 return res.json(data);
             }, function (err) {
@@ -15,7 +17,7 @@ var projects = {
     },
 
     getOne: function(req, res) {
-        db.one("SELECT * FROM project WHERE project_name = $1", [req.params.projectName])
+        db.one('SELECT * FROM project WHERE "projectName" = $1', [req.params.projectName])
             .then(function(data) {
                 return res.json(data);
             }, function(err) {

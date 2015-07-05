@@ -52,7 +52,10 @@ router.put('/api/auth/admin/project/:projectName/archive', project.archive);
 
 // routes for tasks involved with a particular project
 router.get('/api/auth/project/:projectName/tasks', projectTask.getAll);
+router.get('/api/auth/project/:projectName/taskNamesAndNumbers', projectTask.getTaskNamesAndNumbers);
 router.get('/api/auth/project/:projectName/task/:taskNumber', projectTask.getOne);
+//get all dependencies
+router.get('/api/auth/link/:taskId', task.getTaskDependencies);
 router.post('/api/auth/project/:projectName/task', projectTask.create);
 //router.put('/api/auth/admin/project/:projectName/task/:taskId', projectTask.update);
 router.delete('/api/auth/project/:projectName/task/:taskNumber', projectTask.delete);
@@ -63,6 +66,8 @@ router.get('/api/auth/project/:projectName/link/:taskId', projectLink.getOne);
 router.post('/api/auth/project/:projectName/link', projectLink.create);
 //router.put('/api/auth/admin/project/:projectName/task/:taskId', projectTask.update);
 router.delete('/api/auth/project/:projectName/link/:taskId', projectLink.delete);
+
+
 
 // get all tasks assigned to a user
 router.get('/api/auth/user/:email/tasks', userTask.getAll);
