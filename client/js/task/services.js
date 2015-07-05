@@ -20,7 +20,7 @@ myApp.factory('TaskFactory', function($http, $q, baseUrl) {
 
     service.getProjectTasks = function(projectName) {
         var deferred = $q.defer();
-        $http.get(baseUrl + '/api/auth/project/' + projectName + "/tasks", {params: {"fields[]" : ["taskName", "taskId"]} })
+        $http.get(baseUrl + '/api/auth/project/' + projectName + "/tasks", {params: {"fields[]" : ['"taskName"', '"taskId"']} })
             .success(function(tasks) {
                 deferred.resolve(tasks);
             })
@@ -40,6 +40,19 @@ myApp.factory('TaskFactory', function($http, $q, baseUrl) {
             .error(function() {
                 console.log("Error receiving dependencies from the database");
                 deferred.reject("getDependencies error");
+            });
+        return deferred.promise;
+    }
+
+    service.getUserRoles = function(taskId) {
+        var deferred = $q.defer();
+        $http.get(baseUrl + '/api/auth/task/' + taskId + '/userRoles', {params: {"fields[]" : ['"firstName"', '"lastName", "roleName"']} })
+            .success(function(dependencies) {
+                deferred.resolve(dependencies);
+            })
+            .error(function() {
+                console.log("Error receiving user roles from the database");
+                deferred.reject("getUsers error");
             });
         return deferred.promise;
     }

@@ -9,12 +9,12 @@ myApp.controller("TaskModifyCtrl", ['$scope', '$stateParams', 'TaskFactory',
             $scope.projectTasks = [];
             $scope.dependentTasks = [];
             $scope.nonDependentTasks = [];
+            $scope.assignedTeamMembers = [];
 
             //Initial setup of the Modify task page.  Retrieve task to be modified, the rest of the tasks belonging
             //to that project, and the dependencies of that modifiable task
             TaskFactory.getTask($stateParams.taskId)
                 .then(function(task) {
-                    console.log(task);
                     $scope.task = task;
                     return TaskFactory.getProjectTasks($scope.task.projectName);
 
@@ -34,6 +34,14 @@ myApp.controller("TaskModifyCtrl", ['$scope', '$stateParams', 'TaskFactory',
                     });
                 });
 
+            //populate existing user roles
+            TaskFactory.getUserRoles($stateParams.taskId)
+                .then(function(users) {
+                    users.forEach(function(user) {
+                        user["name"] = user.firstName + ' ' + user.lastName;
+                    })
+                    $scope.assignedTeamMembers = users;
+                });
 
             //returns true if the $scope.task is dependent on the argument task
             var isDependent = function(dependencies, task) {
@@ -61,6 +69,8 @@ myApp.controller("TaskModifyCtrl", ['$scope', '$stateParams', 'TaskFactory',
                 //move task to dependentTasks array
                 $scope.dependentTasks.push(newTask[0]);
             }
+
+
 
         }]
 );

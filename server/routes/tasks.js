@@ -3,7 +3,8 @@
  */
 
  var promise = require('promise'),
-     db = require('../models/database');
+     db = require('../models/database'),
+     filterString = require('../modules/filterString');
 
  var task = {
 
@@ -34,7 +35,8 @@
      },
 
      getUsers: function(req, res) {
-         db.query("select * from employee where email IN (select email from task_role where task_id = $1) AND active = true",
+         var filter = filterString.create(req);
+         db.query('SELECT ' + filter + ' FROM employee WHERE email IN (SELECT email FROM taskrole WHERE "taskId" = $1) AND active = true',
              [req.params.taskId])
              .then(function(data) {
                  return res.json(data);
@@ -45,7 +47,8 @@
      },
 
      getUserRoles: function(req, res) {
-         db.query("select * from employee JOIN task_role ON task_role.email = employee.email where task_role.task_id = $1 AND employee.active = true",
+         var filter = filterString.create(req);
+         db.query('SELECT ' + filter + ' FROM employee JOIN taskrole ON taskrole.email = employee.email WHERE "taskId" = $1 AND employee.active = true',
              [req.params.taskId])
              .then(function(data) {
                  return res.json(data);

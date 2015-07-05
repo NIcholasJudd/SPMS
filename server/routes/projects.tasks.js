@@ -3,27 +3,19 @@
  */
 
 var promise = require('promise'),
-    db = require('../models/database');
-
-/* This function filters an object by the array of keys given in the field variable */
-var filterByFields = function(fields, object) {
-    var filteredObject = {};
-    fields.forEach(function(field) {
-        filteredObject[field] = object[field];
-    })
-    return filteredObject;
-}
+    db = require('../models/database'),
+    filterString = require('../modules/filterString');
 
 var projectTask = {
 
     getAll: function(req, res) {
         console.log(req.query.fields);
-        db.query('SELECT * FROM task WHERE "projectName" = $1 AND active = true', [req.params.projectName])
+        var filter = filterString.create(req);
+        db.query('SELECT ' + filter + ' FROM task WHERE "projectName" = $1 AND active = true', [req.params.projectName])
             .then(function (data) {
                 //If fields provided in query, only return selected fields
-                if(req.query && req.query.fields && req.query.fields.length > 0) {
-                    data = data.map(function(task) { return filterByFields(req.query.fields, task) });
-                }
+                //data = myFilter.runFilter(req, data);
+
                 return res.json(data);
             }, function (err) {
                 console.error(err);
