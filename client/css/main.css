@@ -226,7 +226,7 @@ input[type="radio"]{
 .statistic-box .statistic-icon-background{
     position: absolute;
     font-size: 120px;
-    right: 0px;
+    right: 0;
     bottom: -40px;
     opacity: 0.2;
 }
@@ -342,4 +342,12 @@ input[type="radio"]{
     width: 100%;
 }
 
+.dropdown-menu {
+    width: 100%;
+    text-align: center;
+}
+
+.btn{
+    width: 100%;
+}
 

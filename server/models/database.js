@@ -52,7 +52,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         'phone varchar(20),' +
         '"userType" varchar(20) CHECK ("userType" = \'administrator\' OR "userType" = \'team member\') NOT NULL,' +
         '"performanceIndex" real DEFAULT 0, ' +
-        '"previousRoles" varchar(100)[], ' +
+        '"skills" varchar(100)[], ' +
         'active boolean ' +
         ')'));
 

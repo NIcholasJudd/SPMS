@@ -19,7 +19,7 @@ myApp.factory('UserFactory', function($http) {
                 phone : user.phone,
                 role : user.role,
                 performanceIndex : user.performanceIndex,
-                previousRoles : user.previousRoles
+                skills : user.skills
             })
         },
 
@@ -31,7 +31,7 @@ myApp.factory('UserFactory', function($http) {
                 phone : user.phone,
                 role : user.role,
                 performanceIndex : user.performanceIndex,
-                previousRoles : user.previousRoles
+                skills : user.skills
 
             })
         },

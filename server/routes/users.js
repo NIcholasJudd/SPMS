@@ -32,7 +32,7 @@ var users = {
                     return res.status(500).send(err);
                 db.one("INSERT INTO employee VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) returning email", [req.body.email, req.body.firstName,
                     req.body.lastName, hash, req.body.phone, req.body.role, req.body.performanceIndex,
-                    req.body.previousRoles, true])
+                    req.body.skills, true])
                     .then(function (data) {
                         return res.json(data);
                     }, function (err) {
@@ -50,7 +50,7 @@ var users = {
         db.none('UPDATE employee SET "firstName"=($2), "lastName"=($3), ' +
             'phone=($4), "userType"=($5), "performanceIndex"=($6), "previousRoles"=($7) WHERE email=$1',
             [req.body.email, req.body.firstName, req.body.lastName, req.body.phone, req.body.role,
-                req.body.performanceIndex, req.body.previousRoles])
+                req.body.performanceIndex, req.body.skills])
             .then(function (data) {
                 return res.json(data);
             }, function (err) {

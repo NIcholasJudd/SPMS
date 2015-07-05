@@ -8,18 +8,8 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
             {name: 'Administrator'},
             {name: 'Team Member'}];
         $scope.passwordCheck = {password: ''};
-        $scope.skills = [
-            {title: 'C++'},
-            {title: 'Java'},
-            {title: 'MySQL'},
-            {title: 'HTML'},
-            {title: 'JavaScript'},
-            {title: 'AngularJS'},
-            {title: 'C'},
-            {title: 'Python'},
-            {title: 'C#'},
-            {title: 'Objective C'}
-        ];
+        $scope.skills = [ 'C++','Java','MySQL','HTML','JavaScript','AngularJS','C','Python','C#','Objective C'];
+        $scope.selectedSkills =[];
         $scope.user = {
             email: "",
             firstName: "",
@@ -28,11 +18,14 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
             phone: "",
             role: "",
             performanceIndex: 0,
-            previousRoles: ['Developer', 'Tester']
+            skills: []
         };
 
         $scope.selectedRole = {name: 'Available Roles:'};
 
+        $scope.updateSkills = function(info) {
+            $scope.user.skills = info;
+        }
 
         $scope.setRole = function (role) {
             console.log("TEST");
