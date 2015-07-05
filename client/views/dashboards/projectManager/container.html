@@ -13,8 +13,8 @@
                          heading="{{project}}"
                          active="tab.active" ng-click="switchProject($index)">
                         <!-- the ng-if below prevents every tab being reloaded on tab change -->
-                        <div class="project-container" ng-if="project === currentProject.projectName">
-                            <h2>{{project.projectName}}</h2>
+                        <div class="project-container" ng-if="project == currentProject.projectName">
+                            <h2>{{project}}</h2>
                             <div class="row m-top-md">
                                 <div class="col-md-8">
                                     <div class="row">

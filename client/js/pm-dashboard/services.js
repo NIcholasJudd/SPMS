@@ -8,7 +8,7 @@
  * With each change of tab, the project details and tasks are retrieved from the database
  */
 
-myApp.factory('PMDashboard', function($http, $q, $rootScope, baseUrl) {
+/*myApp.factory('PMDashboard', function($http, $q, $rootScope, baseUrl) {
     var service = {};
     var projectList = [];
     var currentProjectIndex = 0;
@@ -39,6 +39,7 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, baseUrl) {
         $http.get(baseUrl + '/api/auth/project/' + projectName)
             .success(function(data) {
                 currentProject = data;
+                console.log(currentProject);
                 deferred.resolve(currentProject);
             })
             .error(function() {
@@ -54,6 +55,7 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, baseUrl) {
         $http.get(baseUrl + '/api/auth/project/' + projectName + '/tasks/')
             .success(function(tasks) {
                 projectTasks = tasks;
+                console.log(projectTasks);
                 deferred.resolve(tasks);
             })
             .error(function() {
@@ -65,9 +67,13 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, baseUrl) {
 
     service.setCurrentProject = function(index) {
         currentProjectIndex = index;
-        service.getProjectFromServer(projectList[index]);
-        service.getProjectTasksFromServer(projectList[index])
-            .then(function(){ $rootScope.$broadcast('switch project'); } );
+        $q.all([
+            service.getProjectFromServer(projectList[currentProjectIndex]),
+            service.getProjectTasksFromServer(projectList[currentProjectIndex])
+        ]).then(function() {
+                $rootScope.$broadcast('switch project');
+                //$rootScope.$emit('switch project');
+            } );
 
     };
 
@@ -88,18 +94,24 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, baseUrl) {
     service.getProjectListFromServer()
         .then(function() {
             if(projectList.length > 0) {
-                service.getProjectFromServer(projectList[currentProjectIndex]);
-                service.getProjectTasksFromServer(projectList[currentProjectIndex])
-                    .then(function(){ $rootScope.$broadcast('switch project'); } );
+                $q.all([
+                    service.getProjectFromServer(projectList[currentProjectIndex]),
+                    service.getProjectTasksFromServer(projectList[currentProjectIndex])
+                    ]).then(function() {
+                            $rootScope.$broadcast('switch project');
+
+                        //$rootScope.$emit('switch project');
+                        //$rootScope.$broadcast('switch project2');
+                    } );
             }
         });
 
     return service;
-});
+});*/
 
 
 //watch version of PMDashboard Factory
-/*myApp.factory('PMDashboard', function($http, $q, $rootScope, baseUrl) {
+myApp.factory('PMDashboard', function($http, $q, $rootScope, baseUrl) {
     var service = {};
     var projectList = [];
     var currentProjectIndex = 0;
@@ -183,4 +195,4 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, baseUrl) {
         });
 
     return service;
-});*/
+});
