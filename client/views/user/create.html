@@ -77,9 +77,9 @@
                                        type="password"
                                        class="form-control"
                                        ng-model="passwordCheck.password"
-                                       placeholder="Password"/>
-
-                                <p id="validate-status"></p>
+                                       placeholder="Password"
+                                        ng-keyup="passwordCompare(user.password, passwordCheck.password)"/>
+                                <span>{{compare.match}}</span>
                             </div>
                         </div>
                     </div>

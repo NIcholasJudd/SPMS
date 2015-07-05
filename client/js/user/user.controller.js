@@ -106,6 +106,7 @@ myApp.controller("passwordCheck", [ '$scope',
     function ($scope) {
         //check password strength
         $scope.password = {};
+        $scope.compare = {};
         $scope.passwordStrength = function (pass) {
             //console.log(pass);
             $scope.specialChars = "!@#$%^&*()+=-[]\';,./{}|:<>?~_1234567890";
@@ -118,33 +119,33 @@ myApp.controller("passwordCheck", [ '$scope',
             for (var i = 0; i < pass.length; i++) {
                 if ($scope.specialChars.indexOf(pass.charAt(i)) != -1) {
                     $scope.specCount++;
-                    //console.log("Your string has special characters. : " + $scope.specCount);
                 }
                 if ($scope.upperCase.indexOf(pass.charAt(i)) != -1) {
                     $scope.upperCount++;
-                    //console.log("Your string has upper case characters. : " + $scope.upperCount);
                 }
                 if ($scope.lowerCase.indexOf(pass.charAt(i)) != -1) {
                     $scope.lowerCount++;
-                    //console.log("Your string has lower case characters. : " + $scope.lowerCount);
-                }
-                var lengthCount = $scope.specCount + $scope.upperCount + $scope.lowerCount;
-                if (lengthCount < 4){
-                    console.log("Invalid Password");
-                    $scope.password.Strength = "Invalid Password";
-                }else if (lengthCount >= 4 && $scope.lowerCount > 0 && $scope.specCount == 0 && $scope.upperCount == 0){
-                    console.log("Weak Password");
-                    $scope.password.Strength = "Weak Password";
-                } else if(lengthCount >=8 && $scope.specCount > 2 &&  $scope.upperCount > 2 && $scope.lowerCount > 2){
-                    console.log("Strong Password");
-                    $scope.password.Strength = "Strong Password";
-                } else if(lengthCount >= 4 && $scope.specCount > 0 && $scope.upperCount > 0 && $scope.lowerCount > 0){
-                    console.log("Medium Strength Password");
-                    $scope.password.Strength = "Medium Strength Password";
                 }
             }
+                var lengthCount = $scope.specCount + $scope.upperCount + $scope.lowerCount;
+                if (lengthCount < 4){
+                    $scope.password.Strength = "Invalid Password";
+                }else if (lengthCount >= 4 && $scope.lowerCount > 0 && $scope.specCount == 0 && $scope.upperCount == 0){
+                    $scope.password.Strength = "Weak Password";
+                } else if(lengthCount >=8 && $scope.specCount > 2 &&  $scope.upperCount > 2 && $scope.lowerCount > 2){
+                    $scope.password.Strength = "Strong Password";
+                } else if(lengthCount >= 4 && $scope.specCount > 0 && $scope.upperCount > 0 && $scope.lowerCount > 0){
+                    $scope.password.Strength = "Medium Strength Password";
+                }
             return true;
         };
+        $scope.passwordCompare = function(pass1, pass2) {
+            if (pass1 == pass2){
+                $scope.compare.match = "Valid Password";
+            } else {
+                $scope.compare.match = "Passwords don't Match";
+            }
+        }
     }]);
 
 //Modify Users Controllers
