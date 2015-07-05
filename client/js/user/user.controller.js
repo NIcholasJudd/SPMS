@@ -102,53 +102,50 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
     }
 ]);
 
-myApp.controller("passwordCheck", [ '$scope', 'testStrength',
-    function($scope){
-        $scope.passwordStrength = function(pass){
-            console.log("TEST PASSWORD " + pass);
-        };
-    }
-]);
-    //check password strength
-    /*function () {
-        $('#pass').keyup(function (e) {
-            var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
-            var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
-            var enoughRegex = new RegExp("(?=.{3,}).*", "g");
-            if (false == enoughRegex.test($(this).val())) {
-                $('#passstrength').html('More Characters');
-            } else if (strongRegex.test($(this).val())) {
-                $('#passstrength').className = 'ok';
-                $('#passstrength').html('Strong!');
-            } else if (mediumRegex.test($(this).val())) {
-                $('#passstrength').className = 'alert';
-                $('#passstrength').html('Medium!');
-            } else {
-                $('#passstrength').className = 'error';
-                $('#passstrength').html('Weak!');
+myApp.controller("passwordCheck", [ '$scope',
+    function ($scope) {
+        //check password strength
+        $scope.password = {};
+        $scope.passwordStrength = function (pass) {
+            //console.log(pass);
+            $scope.specialChars = "!@#$%^&*()+=-[]\';,./{}|:<>?~_1234567890";
+            $scope.upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            $scope.lowerCase = "abcdefghijklmnopqrstuvwxyz";
+            //console.log(pass.length);
+            $scope.specCount = 0;
+            $scope.upperCount = 0;
+            $scope.lowerCount =0;
+            for (var i = 0; i < pass.length; i++) {
+                if ($scope.specialChars.indexOf(pass.charAt(i)) != -1) {
+                    $scope.specCount++;
+                    //console.log("Your string has special characters. : " + $scope.specCount);
+                }
+                if ($scope.upperCase.indexOf(pass.charAt(i)) != -1) {
+                    $scope.upperCount++;
+                    //console.log("Your string has upper case characters. : " + $scope.upperCount);
+                }
+                if ($scope.lowerCase.indexOf(pass.charAt(i)) != -1) {
+                    $scope.lowerCount++;
+                    //console.log("Your string has lower case characters. : " + $scope.lowerCount);
+                }
+                var lengthCount = $scope.specCount + $scope.upperCount + $scope.lowerCount;
+                if (lengthCount < 4){
+                    console.log("Invalid Password");
+                    $scope.password.Strength = "Invalid Password";
+                }else if (lengthCount >= 4 && $scope.lowerCount > 0 && $scope.specCount == 0 && $scope.upperCount == 0){
+                    console.log("Weak Password");
+                    $scope.password.Strength = "Weak Password";
+                } else if(lengthCount >=8 && $scope.specCount > 2 &&  $scope.upperCount > 2 && $scope.lowerCount > 2){
+                    console.log("Strong Password");
+                    $scope.password.Strength = "Strong Password";
+                } else if(lengthCount >= 4 && $scope.specCount > 0 && $scope.upperCount > 0 && $scope.lowerCount > 0){
+                    console.log("Medium Strength Password");
+                    $scope.password.Strength = "Medium Strength Password";
+                }
             }
-            validate();
             return true;
-        });*/
-
-
-
-       /* $(document).ready(function () {
-            $("#pass2").keyup(validate);
-        });
-        //checks passwords are the same
-        function validate() {
-            var password1 = $("#pass").val();
-            var password2 = $("#pass2").val();
-            if (password1 == password2) {
-                $("#validate-status").text("valid");
-            }
-            else {
-                $("#validate-status").text("invalid");
-            }
-        }
-    }
-]);*/
+        };
+    }]);
 
 //Modify Users Controllers
 myApp.controller("userModify", ['$scope','UserFactory',

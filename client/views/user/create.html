@@ -66,8 +66,9 @@
                                        type="password"
                                        class="form-control"
                                        ng-model="user.password"
-                                       placeholder="Password"/>
-                                <span id="passwordStrength(user.password)"></span>
+                                       placeholder="Password"
+                                        ng-keyup="passwordStrength(user.password)"/>
+                                <span>{{password.Strength}}</span>
                             </form>
                             <div class="row-fluid">
                                 <label for="pass2">Re-Enter Password:</label>
