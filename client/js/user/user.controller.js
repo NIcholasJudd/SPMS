@@ -7,6 +7,8 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
         $scope.roles = [
             {name: 'Administrator'},
             {name: 'Team Member'}];
+        $scope.customStyle = {}
+        $scope.customStyle.fontStyle = {"color":"orange"};
         $scope.passwordCheck = {password: ''};
         $scope.skills = [ 'C++','Java','MySQL','HTML','JavaScript','AngularJS','C','Python','C#','Objective C'];
         $scope.selectedSkills =[];
@@ -34,48 +36,35 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
         };
 
         $scope.submitUser = function () {
-
-            $scope.errorMessage = [];
-            console.log($scope.passwordCheck.password);
-            $scope.error = false;
-            if ($scope.user.password != $scope.passwordCheck.password){
+            $scope.errorMessage = {};
+            if ($scope.user.password != $scope.passwordCheck.password) {
                 $scope.error = true;
-                $scope.errorMessage.push({
-                    msg: "Passwords do not match!\n"
-                });
+                $scope.errorMessage.passwordCompare = "Passwords do not match!\n";
             }
             if (!$scope.user.firstName) {
-                $scope.error = true;
-                $scope.errorMessage.push({
-                    msg: "first name missing\n"
-                });
+                $scope.errorMessage.fName = "first name missing\n";
             }
             if (!$scope.user.lastName) {
                 $scope.error = true;
-                $scope.errorMessage.push({
-                    msg:  "last name missing\n"
-                });
+                $scope.errorMessage.lName = "last name missing\n";
+            }
+            if (!$scope.user.phone){
+                $scope.error = true;
+                $scope.errorMessage.phoneNumber = "Phone number missing\n";
             }
             if (!$scope.user.email) {
                 $scope.error = true;
-                $scope.errorMessage.push({
-                    msg: "email missing\n"
-                });
+                $scope.errorMessage.email = "email missing\n";
             }
             if (!$scope.user.password) {
                 $scope.error = true;
-                $scope.errorMessage.push({
-                    msg: "password missing\n"
-                });
+                $scope.errorMessage.password = "password missing\n";
             }
             if (!$scope.user.role) {
                 $scope.error = true;
-                $scope.errorMessage.push({
-                    msg: "role missing\n"
-                });
+                $scope.errorMessage.roles = "role missing\n";
             }
             if ($scope.error === true) {
-                console.log($scope.errorMessage);
                 return;
             }
             console.log("USER: ", $scope.user);
@@ -97,10 +86,11 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
 
 myApp.controller("passwordCheck", [ '$scope',
     function ($scope) {
+        $scope.customStyle = {};
         //check password strength
         $scope.password = {};
         $scope.compare = {};
-        $scope.passwordStrength = function (pass) {
+        $scope.passwordStrength = function (pass, pass2) {
             //console.log(pass);
             $scope.specialChars = "!@#$%^&*()+=-[]\';,./{}|:<>?~_1234567890";
             $scope.upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -120,24 +110,31 @@ myApp.controller("passwordCheck", [ '$scope',
                     $scope.lowerCount++;
                 }
             }
-                var lengthCount = $scope.specCount + $scope.upperCount + $scope.lowerCount;
-                if (lengthCount < 4){
-                    $scope.password.Strength = "Invalid Password";
-                }else if (lengthCount >= 4 && $scope.lowerCount > 0 && $scope.specCount == 0 && $scope.upperCount == 0){
-                    $scope.password.Strength = "Weak Password";
-                } else if(lengthCount >=8 && $scope.specCount > 2 &&  $scope.upperCount > 2 && $scope.lowerCount > 2){
-                    $scope.password.Strength = "Strong Password";
-                } else if(lengthCount >= 4 && $scope.specCount > 0 && $scope.upperCount > 0 && $scope.lowerCount > 0){
-                    $scope.password.Strength = "Medium Strength Password";
-                }
+            var lengthCount = $scope.specCount + $scope.upperCount + $scope.lowerCount;
+            if (lengthCount < 4){
+                $scope.customStyle.strengthStyle = {"color":"red"};
+                $scope.password.Strength = "Invalid Password";
+            }else if (lengthCount >= 4 && $scope.lowerCount > 0 && $scope.specCount == 0 && $scope.upperCount == 0){
+                $scope.customStyle.strengthStyle = {"color":"orange"};
+                $scope.password.Strength = "Weak Password";
+            } else if(lengthCount >=8 && $scope.specCount > 2 &&  $scope.upperCount > 2 && $scope.lowerCount > 2){
+                $scope.customStyle.strengthStyle = {"color":"green"};
+                $scope.password.Strength = "Strong Password";
+            } else if(lengthCount >= 4 && $scope.specCount > 0 && $scope.upperCount > 0 && $scope.lowerCount > 0){
+                $scope.customStyle.strengthStyle = {"color":"blue"};
+                $scope.password.Strength = "Medium Strength Password";
+            }
             return true;
         };
         $scope.passwordCompare = function(pass1, pass2) {
             if (pass1 == pass2){
+                $scope.customStyle.compareStyle = {"color":"green"};
                 $scope.compare.match = "Valid Password";
             } else {
+                $scope.customStyle.compareStyle = {"color":"red"};
                 $scope.compare.match = "Passwords don't Match";
             }
+            return;
         }
     }]);
 

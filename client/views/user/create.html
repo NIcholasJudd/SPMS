@@ -9,7 +9,7 @@
             <div class="form-group">
                 <div class="row-fluid">
                     <div class="col-md-6">
-                        <label for="firstName">First Name:</label>
+                        <label for="firstName">First Name: <span ng-style="customStyle.fontStyle">{{errorMessage.fName}}</span></label>
                         <input id="firstName"
                                type="text"
                                class="form-control"
@@ -17,7 +17,7 @@
                                placeholder="First Name"/>
                     </div>
                     <div class="col-md-6">
-                        <label for="lastName">Last Name:</label>
+                        <label for="lastName">Last Name: <span ng-style="customStyle.fontStyle">{{errorMessage.lName}}</span></label>
                         <input id="lastName"
                                type="text"
                                class="form-control"
@@ -27,7 +27,7 @@
                 </div>
                 <div class="row-fluid">
                     <div class="col-md-6">
-                        <label for="email">Email:</label>
+                        <label for="email">Email: <span ng-style="customStyle.fontStyle">{{errorMessage.email}}</span></label>
                         <input id="email"
                                type="email"
                                class="form-control"
@@ -35,7 +35,7 @@
                                placeholder="sample@sample"/>
                     </div>
                     <div class="col-md-6">
-                        <label for="phoneNumber">Phone Number:</label>
+                        <label for="phoneNumber">Phone Number: <span ng-style="customStyle.fontStyle">{{errorMessage.phoneNumber}}</span></label>
                         <input id="phoneNumber"
                                type="number"
                                class="form-control"
@@ -45,7 +45,7 @@
                 </div>
                 <div class="row-fluid">
                     <div class="col-md-12">
-                        <label for="createUserRole">Roles: </label>
+                        <label for="createUserRole">Roles:  <span ng-style="customStyle.fontStyle">{{errorMessage.roles}}</span></label>
 
                         <div id="createUserRole" class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="role"
@@ -60,15 +60,15 @@
                         </div>
                         <div class="row-fluid" ng-controller="passwordCheck">
                             <form name="password_strength" method="POST" id="pass_form">
-                                <label for="pass">Password:</label>
+                                <label for="pass">Password: <span ng-style="customStyle.fontStyle">{{errorMessage.password}}</span></label>
                                 <input id="pass"
                                        name="pass"
                                        type="password"
                                        class="form-control"
                                        ng-model="user.password"
                                        placeholder="Password"
-                                        ng-keyup="passwordStrength(user.password)"/>
-                                <span>{{password.Strength}}</span>
+                                       ng-keyup="passwordStrength(user.password, passwordCheck.password)"/>
+                                <span ng-style="customStyle.strengthStyle">{{password.Strength}}</span>
                             </form>
                             <div class="row-fluid">
                                 <label for="pass2">Re-Enter Password:</label>
@@ -78,12 +78,12 @@
                                        class="form-control"
                                        ng-model="passwordCheck.password"
                                        placeholder="Password"
-                                        ng-keyup="passwordCompare(user.password, passwordCheck.password)"/>
-                                <span>{{compare.match}}</span>
+                                       ng-keyup="passwordCompare(user.password, passwordCheck.password)"/>
+                                <span ng-style="customStyle.compareStyle">{{compare.match}}</span>
                             </div>
                         </div>
                     </div>
-                    </div>
+                </div>
                 <div class="row-fluid">
                     <div class="col-md-6">
                         <label for="userSkill">Skills:</label>
@@ -110,9 +110,6 @@
                 </div>
                 <div class="row-fluid">
                     <div class="col-md-12">
-                        <div class="form-group" ng-show="error" ng-repeat="msg in errorMessage">
-                            <div class="alert alert-danger" role="alert">{{msg.msg}}</div>
-                        </div>
                         <br>
                         <button type="submit" class="form-control btn btn-success" ng-click="submitUser()">Create User
                         </button>
