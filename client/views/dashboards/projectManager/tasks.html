@@ -21,7 +21,7 @@
                 <td><button class="taskButton" ng-click="openUserModal(task.taskId)"><i class="glyphicon glyphicon-user"></i></button></td>
                 <td class="lborder"><a ui-sref="app.taskModify({taskId : task.taskId})"><button class="taskButton"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
                 <td class="lborder"><button class="taskButton" ng-click="openModal(task.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
-                <td class="lborder complete"><button class="taskButton" ng-click="markComplete(task.taskId)"><i class="glyphicon glyphicon-saved"></i></button></td>
+                <td class="lborder complete"><button class="taskButton" ng-click="markComplete($index)"><i class="glyphicon glyphicon-saved"></i></button></td>
             </tr>
         </table>
     </div>

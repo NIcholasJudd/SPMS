@@ -6,7 +6,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/login');
 
     $stateProvider
         .state('login', {
@@ -36,15 +36,6 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 }
             }
         })
-        /*.state('app.dashboard', {
-            url: "/dashboard",
-            abstract: true,
-            views: {
-                'container@': {
-                    template: "<ui-view/>"// Note: abstract still needs a ui-view for its children to populate.
-                }
-            }
-        })*/
         .state('app.pmDashboard', {
             abstract : true,
             url: "/dashboard/project-manager",
@@ -54,9 +45,6 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     controller: "PMContainerCtrl"
                 }
                 /*,
-                 'projectstatistics@app.dashboard.projectManager' : {
-                 templateUrl: "views/dashboards/projectManager/project-statistics.html"
-                 },
                  'projectprogression@app.dashboard.projectManager' : {
                  templateUrl: "views/dashboards/projectManager/project-progression.html"
                  }*/
@@ -104,6 +92,42 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 'container@' : {
                     templateUrl: "views/task/modify.html",
                     controller: "TaskModifyCtrl"
+                }
+            }
+        })
+        .state('app.ganttChart', {
+            url: "/ganttChart/:projectName",
+            views: {
+                'container@' : {
+                    templateUrl: "/views/ganttChart/ganttChart.html",
+                    controller: "GanttChartCtrl"
+                }
+            }
+        })
+        .state('app.cocomo2', {
+            url: "/cocomo2/:projectName",
+            views: {
+                'container@' : {
+                    templateUrl: "/views/cocomo2/cocomo2.html",
+                    controller: "Cocomo2Ctrl"
+                }
+            }
+        })
+        .state('app.effortEstimation', {
+            url: "/effort-estimation/:projectName",
+            views: {
+                'container@' : {
+                    templateUrl: "/views/effortEstimation/effortEstimation.html",
+                    controller: "EffortEstimationCtrl"
+                }
+            }
+        })
+        .state('app.apn', {
+            url: "/apn/:projectName",
+            views: {
+                'container@' : {
+                    templateUrl: "/views/apn/apn.html",
+                    controller: "ApnCtrl"
                 }
             }
         });

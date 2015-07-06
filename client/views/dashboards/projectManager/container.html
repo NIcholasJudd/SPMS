@@ -7,6 +7,7 @@
                     see any tasks assigned to you.</p>
             </div>
             <div class="col-md-12">
+                <p>{{data}}</p>
                 <!--<div scrolling-tabs-wrapper>-->
                 <tabset class="custom-tabs" justified="true">
                     <tab ng-repeat="project in projectList"
@@ -24,7 +25,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row" ><!--ng-show="seeTasks"-->
+                                    <div class="row" ng-show="seeTasks">
                                         <div class="col-md-12">
                                             <!-- Tasks Panel -->
                                             <div ui-view="tasks"></div>
