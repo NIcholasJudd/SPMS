@@ -1,4 +1,4 @@
-<div class="col-md-8 col-md-offset-2" ng-controller="userCreate">
+<div class="col-md-8 col-md-offset-2">
     <h2>Company Name</h2>
 
     <div class="panel panel-danger">
@@ -9,7 +9,8 @@
             <div class="form-group">
                 <div class="row-fluid">
                     <div class="col-md-6">
-                        <label for="firstName">First Name: <span ng-style="customStyle.fontStyle">{{errorMessage.fName}}</span></label>
+                        <label for="firstName">First Name: <span ng-style="customStyle.fontStyle">{{errorMessage.fName}}</span>
+                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
                         <input id="firstName"
                                type="text"
                                class="form-control"
@@ -17,7 +18,8 @@
                                placeholder="First Name"/>
                     </div>
                     <div class="col-md-6">
-                        <label for="lastName">Last Name: <span ng-style="customStyle.fontStyle">{{errorMessage.lName}}</span></label>
+                        <label for="lastName">Last Name: <span ng-style="customStyle.fontStyle">{{errorMessage.lName}}</span>
+                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
                         <input id="lastName"
                                type="text"
                                class="form-control"
@@ -27,7 +29,8 @@
                 </div>
                 <div class="row-fluid">
                     <div class="col-md-6">
-                        <label for="email">Email: <span ng-style="customStyle.fontStyle">{{errorMessage.email}}</span></label>
+                        <label for="email">Email: <span ng-style="customStyle.fontStyle">{{errorMessage.email}}</span>
+                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
                         <input id="email"
                                type="email"
                                class="form-control"
@@ -35,9 +38,10 @@
                                placeholder="sample@sample"/>
                     </div>
                     <div class="col-md-6">
-                        <label for="phoneNumber">Phone Number: <span ng-style="customStyle.fontStyle">{{errorMessage.phoneNumber}}</span></label>
+                        <label for="phoneNumber">Phone Number: <span ng-style="customStyle.fontStyle">{{errorMessage.phoneNumber}}</span>
+                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
                         <input id="phoneNumber"
-                               type="number"
+                               type="text"
                                class="form-control"
                                ng-model="user.phone"
                                placeholder="9525-1234"/>
@@ -45,7 +49,8 @@
                 </div>
                 <div class="row-fluid">
                     <div class="col-md-12">
-                        <label for="createUserRole">Roles:  <span ng-style="customStyle.fontStyle">{{errorMessage.roles}}</span></label>
+                        <label for="createUserRole">Roles:  <span ng-style="customStyle.fontStyle">{{errorMessage.roles}}</span>
+                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
 
                         <div id="createUserRole" class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="role"
@@ -60,7 +65,8 @@
                         </div>
                         <div class="row-fluid" ng-controller="passwordCheck">
                             <form name="password_strength" method="POST" id="pass_form">
-                                <label for="pass">Password: <span ng-style="customStyle.fontStyle">{{errorMessage.password}}</span></label>
+                                <label for="pass">Password: <span ng-style="customStyle.fontStyle">{{errorMessage.password}}</span>
+                                    <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
                                 <input id="pass"
                                        name="pass"
                                        type="password"
@@ -71,7 +77,8 @@
                                 <span ng-style="customStyle.strengthStyle">{{password.Strength}}</span>
                             </form>
                             <div class="row-fluid">
-                                <label for="pass2">Re-Enter Password:</label>
+                                <label for="pass2">Re-Enter Password:
+                                    <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
                                 <input id="pass2"
                                        name="pass"
                                        type="password"
@@ -86,7 +93,9 @@
                 </div>
                 <div class="row-fluid">
                     <div class="col-md-6">
-                        <label for="userSkill">Skills:</label>
+                        <label for="userSkill">Skills:
+                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span>
+                        </label>
                         <select class="form-control"
                                 id="userSkill"
                                 size="8"
@@ -97,14 +106,15 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label for="selectedSkills">Skills:</label>
+                        <label for="selectedSkills">Selected Skills:
+                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
                         <select class="form-control"
                                 id="selectedSkills"
                                 size="8"
                                 ng-model="selectedSkills"
-                                multiple
-                                readonly>
-                            <option ng-repeat="selectedSkills in selectedSkills">{{selectedSkills}}</option>
+                                ng-change="removeSkills(selectedSkills)"
+                                multiple>
+                            <option ng-repeat="skill in user.skills">{{skill}}</option>
                         </select>
                     </div>
                 </div>

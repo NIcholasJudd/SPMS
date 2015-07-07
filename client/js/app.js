@@ -71,7 +71,8 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/user/create",
             views: {
                 'container@': {
-                    templateUrl: "views/user/create.html"
+                    templateUrl: "views/user/create.html",
+                    controller: "userCreate"
                 }
             }
         })

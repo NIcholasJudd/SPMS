@@ -579,7 +579,7 @@ myApp.controller("APNCtrl", ['$scope', '$q', '$window', 'ProjectFactory',
                     }
                 }
                 console.log("REKT: Function getEf() has failed");
-                return;//AbortJavaScript();
+                //AbortJavaScript();
             }
 
             function getLs(tree, l, endNode) {

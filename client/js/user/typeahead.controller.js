@@ -29,8 +29,8 @@ myApp.controller("TypeaheadCtrl", ['$scope','UserFactory', function ($scope, Use
         for(var i=0; i< $scope.user.length; i++){
             if(name == $scope.user[i].name){
                 $scope.activeUser = $scope.user[i];
-            };
-        };
+            }
+        }
         $scope.updateForm = true;
 
         $scope.update = function(){
@@ -71,7 +71,7 @@ myApp.controller("TypeaheadCtrl", ['$scope','UserFactory', function ($scope, Use
         $scope.updatePassword = function(email, password) {
             if(password === "") {
                 console.log("cannot update with empty password");
-                return;
+
             } else {
                 console.log(email, password);
                 UserFactory.updatePassword(email, password)

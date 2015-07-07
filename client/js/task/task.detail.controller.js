@@ -190,7 +190,7 @@ myApp.controller("TaskDetailCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
         $scope.updateProgress = function(taskId, progressPercentage) {
             if(!progressPercentage) {
                 alert("Progress percentage must be in range 0-100");
-                return;
+
             }
             else {
                 TaskFactory.updateProgress(taskId, progressPercentage / 100).then(function(res) {

@@ -26,17 +26,35 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
         $scope.selectedRole = {name: 'Available Roles:'};
 
         $scope.updateSkills = function(info) {
-            $scope.user.skills = info;
+            for (var i = 0; i < $scope.skills.length; i++){
+                for (var x = 0; x < info.length; x++) {
+                    if ($scope.skills[i] == info[x]) {
+                        $scope.skills.splice(i,1);
+                        $scope.user.skills.push(info[x]);
+                    }
+                }
+            }
+        };
+        $scope.removeSkills = function(info) {
+            for (var i = 0; i < $scope.user.skills.length; i++){
+                for (var x = 0; x < info.length; x++) {
+                    if ($scope.user.skills[i] == info[x]) {
+                        $scope.user.skills.splice(i,1);
+                        $scope.skills.push(info[x]);
+                    }
+                }
+            }
         }
 
         $scope.setRole = function (role) {
-            console.log("TEST");
             $scope.selectedRole = role;
             $scope.user.role = role.name.toLowerCase();
         };
 
         $scope.submitUser = function () {
             $scope.errorMessage = {};
+            $scope.error = false;
+            console.log($scope.user.skills);
             if ($scope.user.password != $scope.passwordCheck.password) {
                 $scope.error = true;
                 $scope.errorMessage.passwordCompare = "Passwords do not match!\n";
@@ -55,6 +73,10 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
             if (!$scope.user.email) {
                 $scope.error = true;
                 $scope.errorMessage.email = "email missing\n";
+            }
+            if($scope.user.password.length < 4){
+                $scope.error = true;
+                $scope.errorMessage.password = "password is invalid\n";
             }
             if (!$scope.user.password) {
                 $scope.error = true;
@@ -76,22 +98,20 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
                 alert(msg);
             })
         }
-
-        $scope.saveUser = function () {
-            $scope.user.skills = $('#userSkill').val();
-            console.log($scope.user);
-        }
     }
 ]);
 
 myApp.controller("passwordCheck", [ '$scope',
     function ($scope) {
         $scope.customStyle = {};
+
+        $scope.customStyle.fontStyle = {"color":"orange"};
         //check password strength
         $scope.password = {};
         $scope.compare = {};
         $scope.passwordStrength = function (pass, pass2) {
             //console.log(pass);
+            $scope.passwordCompare(pass, pass2);
             $scope.specialChars = "!@#$%^&*()+=-[]\';,./{}|:<>?~_1234567890";
             $scope.upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             $scope.lowerCase = "abcdefghijklmnopqrstuvwxyz";
@@ -134,7 +154,6 @@ myApp.controller("passwordCheck", [ '$scope',
                 $scope.customStyle.compareStyle = {"color":"red"};
                 $scope.compare.match = "Passwords don't Match";
             }
-            return;
         }
     }]);
 
@@ -187,8 +206,8 @@ myApp.controller("userModify", ['$scope','UserFactory',
                 if (name == $scope.user[i].name) {
                     $scope.activeUser = $scope.user[i];
                     $scope.selectedRole = {name:$scope.activeUser.role}
-                };
-            };
+                }
+            }
             console.log($scope.activeUser);
             $scope.updateForm = true;
         };
