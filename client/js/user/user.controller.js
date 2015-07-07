@@ -189,11 +189,6 @@ myApp.controller("userModify", ['$scope','UserFactory',
                     skills: user.skills,
                     active: user.active
                 });
-                for (var i = 0; i < $scope.skills.length; i++){
-                    if (user.skills == $scope.skills[i]){
-                        $scope.skills.splice(i,1);
-                    }
-                }
             })
         })
         $scope.skills = [ 'C++','Java','MySQL','HTML','JavaScript','AngularJS','C','Python','C#','Objective C'];
@@ -238,6 +233,17 @@ myApp.controller("userModify", ['$scope','UserFactory',
                     $scope.selectedRole = {name:$scope.activeUser.role}
                 }
             }
+            for (var i = 0; i < $scope.activeUser.skills.length; i++){
+                console.log("TEST!");
+                for (var x = 0; x < $scope.skills.length; x ++){
+                    if ($scope.activeUser.skills[i] == $scope.skills[x]){
+                        $scope.skills.splice(x,1);
+                        console.log($scope.activeUser.skills[i]);
+                        console.log($scope.skills[i]);
+                    }
+                }
+            }
+            console.log($scope.skills);
             console.log($scope.activeUser);
             $scope.updateForm = true;
         };
