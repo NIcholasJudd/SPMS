@@ -7,7 +7,8 @@
                        ng-model="selectedNames"
                        typeahead="name.name for name in user | filter:$viewValue | limitTo:8"
                        class="form-control"
-                       placeholder="Employee Name"/>
+                       placeholder="Employee Name"
+                        ng-keydown="$event.which === 13 && findUser(selectedNames)"/>
                 </input>
                 <span class="input-group-btn">
                     <button class="btn btn-default" ng-click="findUser(selectedNames)">

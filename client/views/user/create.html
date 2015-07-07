@@ -6,7 +6,7 @@
             Add Employee
         </div>
         <div class="panel panel-body">
-            <div class="form-group">
+            <div class="form-group" ng-keypress="$event.which === 13 && submitUser()">
                 <div class="row-fluid">
                     <div class="col-md-6">
                         <label for="firstName">First Name: <span ng-style="customStyle.fontStyle">{{errorMessage.fName}}</span>
@@ -19,7 +19,8 @@
                                type="text"
                                class="form-control"
                                ng-model="user.firstName"
-                               placeholder="First Name"/>
+                               placeholder="First Name"
+                                autofocus/>
                     </div>
                     <div class="col-md-6">
                         <label for="lastName">Last Name: <span ng-style="customStyle.fontStyle">{{errorMessage.lName}}</span>

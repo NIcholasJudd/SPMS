@@ -39,23 +39,21 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
         };
         $scope.updateSkills = function(info) {
             for (var i = 0; i < $scope.skills.length; i++){
-                for (var x = 0; x < info.length; x++) {
-                    if ($scope.skills[i] == info[x]) {
+                    if ($scope.skills[i] == info[0]) {
                         $scope.skills.splice(i,1);
-                        $scope.user.skills.push(info[x]);
+                        $scope.user.skills.push(info[0]);
+                        angular.copy($scope.skills,$scope.selectedSkills);
                     }
-                }
             }
         };
         $scope.removeSkills = function(info) {
             for (var i = 0; i < $scope.user.skills.length; i++){
-                for (var x = 0; x < info.length; x++) {
-                    if ($scope.user.skills[i] == info[x]) {
+                    if ($scope.user.skills[i] == info[0]) {
                         $scope.user.skills.splice(i,1);
-                        $scope.skills.push(info[x]);
+                        $scope.skills.push(info[0]);
+                        angular.copy($scope.skills,$scope.selectedSkills)
                     }
                 }
-            }
         }
 
         $scope.setRole = function (role) {
@@ -171,6 +169,7 @@ myApp.controller("userModify", ['$scope','UserFactory',
         $scope.user = [];
         $scope.selectedNames = undefined;
         $scope.activeUser = {};
+        $scope.selectedSkills =[];
         UserFactory.getUsers().then(function (results) {
             results.data.forEach(function (user) {
                 $scope.user.push({
@@ -181,23 +180,12 @@ myApp.controller("userModify", ['$scope','UserFactory',
                     phone: user.phone,
                     performanceIndex: user.performanceIndex * 10,
                     role: user.userType,
-                    previousRoles: user.previousRoles,
+                    skills: user.skills,
                     active: user.active
                 });
             })
         })
-        $scope.skills = [
-            {title: 'C++'},
-            {title: 'Java'},
-            {title: 'MySQL'},
-            {title: 'HTML'},
-            {title: 'JavaScript'},
-            {title: 'AngularJS'},
-            {title: 'C'},
-            {title: 'Python'},
-            {title: 'C#'},
-            {title: 'Objective C'}
-        ];
+        $scope.skills = [ 'C++','Java','MySQL','HTML','JavaScript','AngularJS','C','Python','C#','Objective C'];
         $scope.roles = [
             {name: 'Administrator'},
             {name: 'Team Member'}];
@@ -207,7 +195,22 @@ myApp.controller("userModify", ['$scope','UserFactory',
             $scope.selectedRole = role;
             $scope.activeUser.role = role.name.toLowerCase();
         };
-
+        $scope.updateSkills = function(info) {
+            for (var i = 0; i < $scope.skills.length; i++){
+                if ($scope.skills[i] == info[0]) {
+                    $scope.skills.splice(i,1);
+                    $scope.activeUser.skills.push(info[0]);
+                }
+            }
+        };
+        $scope.removeSkills = function(info) {
+            for (var i = 0; i < $scope.activeUser.skills.length; i++){
+                if ($scope.activeUser.skills[i] == info[0]) {
+                    $scope.activeUser.skills.splice(i,1);
+                    $scope.skills.push(info[0]);
+                }
+            }
+        }
         $scope.updateForm = false;
         $scope.findUser = function (name) {
             for (var i = 0; i < $scope.user.length; i++) {
@@ -218,5 +221,20 @@ myApp.controller("userModify", ['$scope','UserFactory',
             }
             console.log($scope.activeUser);
             $scope.updateForm = true;
+        };
+        $scope.tooltip = {password: "Weak: 4 or more Characters\n" +
+        "Medium: 4 or more characters \n" +
+        "At least 1 lower case, upper case and special character\n" +
+        "Strong: 8 or more characters\n" +
+        "more than 2 lower case, upper case and special characters.",
+            password2: "re-enter password",
+            firstName: "The users first Name",
+            lastName: "The users Sir name",
+            email: "email address *****@companyname ",
+            phoneNumber: "The users phone number",
+            roles: "Administrator has full access. Team Member has to be assigned tasks",
+            skills: "Select Skills that the user has",
+            selectedSkills: "Select Skills to remove from user",
+            preformance: "Select a number of stars to indicate employees preformance"
         };
     }]);
