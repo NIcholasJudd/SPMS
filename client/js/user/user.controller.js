@@ -10,7 +10,7 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
         $scope.customStyle = {}
         $scope.customStyle.fontStyle = {"color":"orange"};
         $scope.passwordCheck = {password: ''};
-        $scope.skills = [ 'C++','Java','MySQL','HTML','JavaScript','AngularJS','C','Python','C#','Objective C'];
+        $scope.skills = [ 'C++','Java','MySQL','HTML','JavaScript','AngularJS','C ','Python','C#','Objective C'];
         $scope.selectedSkills =[];
         $scope.user = {
             email: "",
@@ -39,22 +39,28 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
         };
         $scope.updateSkills = function(info) {
             for (var i = 0; i < $scope.skills.length; i++){
-                    if ($scope.skills[i] == info[0]) {
+                for(var j = 0; j < info.length; j++) {
+                    if ($scope.skills[i] == info[j]) {
                         $scope.skills.splice(i,1);
-                        $scope.user.skills.push(info[0]);
-                        angular.copy($scope.skills,$scope.selectedSkills);
+                        i--;
+                        $scope.user.skills.push(info[j]);
                     }
+                }
             }
+            $scope.selectedSkills = $scope.skills[0];
         };
         $scope.removeSkills = function(info) {
             for (var i = 0; i < $scope.user.skills.length; i++){
-                    if ($scope.user.skills[i] == info[0]) {
+                for(var j = 0; j < info.length; j++) {
+                    if ($scope.user.skills[i] == info[j]) {
                         $scope.user.skills.splice(i,1);
-                        $scope.skills.push(info[0]);
-                        angular.copy($scope.skills,$scope.selectedSkills)
+                        i--;
+                        $scope.skills.push(info[j]);
                     }
                 }
-        }
+            }
+            $scope.selectedSkills = $scope.user.skills[0];
+        };
 
         $scope.setRole = function (role) {
             $scope.selectedRole = role;
@@ -183,6 +189,11 @@ myApp.controller("userModify", ['$scope','UserFactory',
                     skills: user.skills,
                     active: user.active
                 });
+                for (var i = 0; i < $scope.skills.length; i++){
+                    if (user.skills == $scope.skills[i]){
+                        $scope.skills.splice(i,1);
+                    }
+                }
             })
         })
         $scope.skills = [ 'C++','Java','MySQL','HTML','JavaScript','AngularJS','C','Python','C#','Objective C'];
@@ -197,20 +208,28 @@ myApp.controller("userModify", ['$scope','UserFactory',
         };
         $scope.updateSkills = function(info) {
             for (var i = 0; i < $scope.skills.length; i++){
-                if ($scope.skills[i] == info[0]) {
-                    $scope.skills.splice(i,1);
-                    $scope.activeUser.skills.push(info[0]);
+                for(var j = 0; j < info.length; j++) {
+                    if ($scope.skills[i] == info[j]) {
+                        $scope.skills.splice(i,1);
+                        i--;
+                        $scope.activeUser.skills.push(info[j]);
+                    }
                 }
             }
+            $scope.selectedSkills = $scope.skills[0];
         };
         $scope.removeSkills = function(info) {
             for (var i = 0; i < $scope.activeUser.skills.length; i++){
-                if ($scope.activeUser.skills[i] == info[0]) {
-                    $scope.activeUser.skills.splice(i,1);
-                    $scope.skills.push(info[0]);
+                for(var j = 0; j < info.length; j++) {
+                    if ($scope.activeUser.skills[i] == info[j]) {
+                        $scope.activeUser.skills.splice(i,1);
+                        i--;
+                        $scope.skills.push(info[j]);
+                    }
                 }
             }
-        }
+            $scope.selectedSkills = $scope.activeUser.skills[0];
+        };
         $scope.updateForm = false;
         $scope.findUser = function (name) {
             for (var i = 0; i < $scope.user.length; i++) {
@@ -237,4 +256,51 @@ myApp.controller("userModify", ['$scope','UserFactory',
             selectedSkills: "Select Skills to remove from user",
             preformance: "Select a number of stars to indicate employees preformance"
         };
+
+        $scope.submitUser = function () {
+            $scope.errorMessage = {};
+            $scope.error = false;
+            if ($scope.user.password != $scope.passwordCheck.password) {
+                $scope.error = true;
+                $scope.errorMessage.passwordCompare = "Passwords do not match!\n";
+            }
+            if (!$scope.user.firstName) {
+                $scope.errorMessage.fName = "first name missing\n";
+            }
+            if (!$scope.user.lastName) {
+                $scope.error = true;
+                $scope.errorMessage.lName = "last name missing\n";
+            }
+            if (!$scope.user.phone){
+                $scope.error = true;
+                $scope.errorMessage.phoneNumber = "Phone number missing\n";
+            }
+            if (!$scope.user.email) {
+                $scope.error = true;
+                $scope.errorMessage.email = "email missing\n";
+            }
+            if($scope.user.password.length < 4){
+                $scope.error = true;
+                $scope.errorMessage.password = "password is invalid\n";
+            }
+            if (!$scope.user.password) {
+                $scope.error = true;
+                $scope.errorMessage.password = "password missing\n";
+            }
+            if (!$scope.user.role) {
+                $scope.error = true;
+                $scope.errorMessage.roles = "role missing\n";
+            }
+            if ($scope.error === true) {
+                return;
+            }
+            console.log("USER: ", $scope.user);
+            UserFactory.updateUser($scope.user).success(function (err, res) {
+                alert($scope.user.email + ' successfully saved in database');
+            }).error(function (err, res) {
+                var msg = "Create user failed: " + err;
+                console.log(err);
+                alert(msg);
+            })
+        }
     }]);

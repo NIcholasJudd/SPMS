@@ -80,7 +80,8 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/user/modify",
             views: {
                 'container@': {
-                    templateUrl: "views/user/modify.html"
+                    templateUrl: "views/user/modify.html",
+                    controller:"userModify"
                 },
                 'modifyForm@app.userModify': {
                     templateUrl: "views/user/modifyForm.html"
