@@ -22,9 +22,21 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
             performanceIndex: 0,
             skills: []
         };
-
         $scope.selectedRole = {name: 'Available Roles:'};
-
+        $scope.tooltip = {password: "Weak: 4 or more Characters\n" +
+            "Medium: 4 or more characters \n" +
+            "At least 1 lower case, upper case and special character\n" +
+            "Strong: 8 or more characters\n" +
+            "more than 2 lower case, upper case and special characters.",
+            password2: "re-enter password",
+            firstName: "The users first Name",
+            lastName: "The users Sir name",
+            email: "email address *****@companyname ",
+            phoneNumber: "The users phone number",
+            roles: "Administrator has full access. Team Member has to be assigned tasks",
+            skills: "Select Skills that the user has",
+            selectedSkills: "Select Skills to remove from user"
+        };
         $scope.updateSkills = function(info) {
             for (var i = 0; i < $scope.skills.length; i++){
                 for (var x = 0; x < info.length; x++) {
@@ -54,7 +66,6 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
         $scope.submitUser = function () {
             $scope.errorMessage = {};
             $scope.error = false;
-            console.log($scope.user.skills);
             if ($scope.user.password != $scope.passwordCheck.password) {
                 $scope.error = true;
                 $scope.errorMessage.passwordCompare = "Passwords do not match!\n";
@@ -104,21 +115,18 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
 myApp.controller("passwordCheck", [ '$scope',
     function ($scope) {
         $scope.customStyle = {};
-
         $scope.customStyle.fontStyle = {"color":"orange"};
         //check password strength
         $scope.password = {};
         $scope.compare = {};
         $scope.passwordStrength = function (pass, pass2) {
-            //console.log(pass);
             $scope.passwordCompare(pass, pass2);
             $scope.specialChars = "!@#$%^&*()+=-[]\';,./{}|:<>?~_1234567890";
             $scope.upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             $scope.lowerCase = "abcdefghijklmnopqrstuvwxyz";
-            //console.log(pass.length);
             $scope.specCount = 0;
             $scope.upperCount = 0;
-            $scope.lowerCount =0;
+            $scope.lowerCount = 0;
             for (var i = 0; i < pass.length; i++) {
                 if ($scope.specialChars.indexOf(pass.charAt(i)) != -1) {
                     $scope.specCount++;

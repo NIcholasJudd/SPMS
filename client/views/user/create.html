@@ -10,7 +10,11 @@
                 <div class="row-fluid">
                     <div class="col-md-6">
                         <label for="firstName">First Name: <span ng-style="customStyle.fontStyle">{{errorMessage.fName}}</span>
-                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
+                            <span class="glyphicon glyphicon-info-sign"
+                                  title="TESY"
+                                  aria-hidden="true"
+                                  popover="{{tooltip.firstName}}"
+                                  popover-trigger="mouseenter"></span></label>
                         <input id="firstName"
                                type="text"
                                class="form-control"
@@ -19,7 +23,11 @@
                     </div>
                     <div class="col-md-6">
                         <label for="lastName">Last Name: <span ng-style="customStyle.fontStyle">{{errorMessage.lName}}</span>
-                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
+                            <span class="glyphicon glyphicon-info-sign"
+                                  title="TESY"
+                                  aria-hidden="true"
+                                  popover="{{tooltip.lastName}}"
+                                  popover-trigger="mouseenter"></span></label>
                         <input id="lastName"
                                type="text"
                                class="form-control"
@@ -30,7 +38,11 @@
                 <div class="row-fluid">
                     <div class="col-md-6">
                         <label for="email">Email: <span ng-style="customStyle.fontStyle">{{errorMessage.email}}</span>
-                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
+                            <span class="glyphicon glyphicon-info-sign"
+                                  title="TESY"
+                                  aria-hidden="true"
+                                  popover="{{tooltip.email}}"
+                                  popover-trigger="mouseenter"></span></label>
                         <input id="email"
                                type="email"
                                class="form-control"
@@ -39,7 +51,11 @@
                     </div>
                     <div class="col-md-6">
                         <label for="phoneNumber">Phone Number: <span ng-style="customStyle.fontStyle">{{errorMessage.phoneNumber}}</span>
-                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
+                            <span class="glyphicon glyphicon-info-sign"
+                                  title="TESY"
+                                  aria-hidden="true"
+                                  popover="{{tooltip.phoneNumber}}"
+                                  popover-trigger="mouseenter"></span></label>
                         <input id="phoneNumber"
                                type="text"
                                class="form-control"
@@ -50,7 +66,11 @@
                 <div class="row-fluid">
                     <div class="col-md-12">
                         <label for="createUserRole">Roles:  <span ng-style="customStyle.fontStyle">{{errorMessage.roles}}</span>
-                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
+                            <span class="glyphicon glyphicon-info-sign"
+                                  title="TESY"
+                                  aria-hidden="true"
+                                  popover="{{tooltip.roles}}"
+                                  popover-trigger="mouseenter"></span></label>
 
                         <div id="createUserRole" class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="role"
@@ -66,7 +86,11 @@
                         <div class="row-fluid" ng-controller="passwordCheck">
                             <form name="password_strength" method="POST" id="pass_form">
                                 <label for="pass">Password: <span ng-style="customStyle.fontStyle">{{errorMessage.password}}</span>
-                                    <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
+                                    <span class="glyphicon glyphicon-info-sign"
+                                          title="TESY"
+                                          aria-hidden="true"
+                                            popover="{{tooltip.password}}"
+                                            popover-trigger="mouseenter"></span></label>
                                 <input id="pass"
                                        name="pass"
                                        type="password"
@@ -78,7 +102,11 @@
                             </form>
                             <div class="row-fluid">
                                 <label for="pass2">Re-Enter Password:
-                                    <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
+                                    <span class="glyphicon glyphicon-info-sign"
+                                          title="TESY"
+                                          aria-hidden="true"
+                                          popover="{{tooltip.password2}}"
+                                          popover-trigger="mouseenter"></span></label>
                                 <input id="pass2"
                                        name="pass"
                                        type="password"
@@ -94,7 +122,11 @@
                 <div class="row-fluid">
                     <div class="col-md-6">
                         <label for="userSkill">Skills:
-                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-info-sign"
+                                  title="TESY"
+                                  aria-hidden="true"
+                                  popover="{{tooltip.skills}}"
+                                  popover-trigger="mouseenter"></span>
                         </label>
                         <select class="form-control"
                                 id="userSkill"
@@ -107,7 +139,13 @@
                     </div>
                     <div class="col-md-6">
                         <label for="selectedSkills">Selected Skills:
-                            <span class="glyphicon glyphicon-info-sign" title="TESY" aria-hidden="true"></span></label>
+                            <span class="glyphicon glyphicon-info-sign"
+                                  title="TESY"
+                                  aria-hidden="true"
+                                  popover="{{tooltip.selectedSkills}}"
+                                  popover-trigger="mouseenter">
+                            </span>
+                        </label>
                         <select class="form-control"
                                 id="selectedSkills"
                                 size="8"
