@@ -1,11 +1,14 @@
 var promise = require('promise'),
     db = require('../models/database'),
-    bcrypt = require('bcrypt');
+    bcrypt = require('bcrypt'),
+    filterString = require('../modules/filterString');
 
 var users = {
 
   getAll: function(req, res) {
-      db.query("SELECT * FROM employee")
+
+      var filter = filterString.create(req);
+      db.query('SELECT ' + filter + ' FROM employee')
           .then(function (data) {
               return res.json(data);
           }, function (err) {

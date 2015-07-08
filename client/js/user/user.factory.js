@@ -19,7 +19,7 @@ myApp.factory('UserFactory', function($http) {
                 phone : user.phone,
                 role : user.role,
                 performanceIndex : user.performanceIndex,
-                skills : user.skills
+                previousRoles : user.previousRoles
             })
         },
 
@@ -31,7 +31,7 @@ myApp.factory('UserFactory', function($http) {
                 phone : user.phone,
                 role : user.role,
                 performanceIndex : user.performanceIndex,
-                skills : user.skills
+                previousRoles : user.previousRoles
 
             })
         },
@@ -51,3 +51,26 @@ myApp.factory('UserFactory', function($http) {
     }
 });
 
+myApp.factory('userFactoryTest', function($http, $q, $rootScope, $window, baseUrl) {
+   var service = {};
+    var user=[];
+    service.getUserNames = function () {
+        var deferred = $q.defer();
+        $http.get(baseUrl + '/api/auth/users', {params : { "fields" : ['"firstName"', '"lastName"', '"email"']}})
+            .success(function(data) {
+                data.forEach(function(data) {
+                    user.push({
+                        name: data.firstName + " " + data.lastName,
+                        email: data.email
+                });
+                })
+                deferred.resolve(user);
+            })
+                .error(function() {
+                    console.log("Error receiving projectList from the database");
+                    deferred.reject("getProjectList error");
+                });
+        return deferred.promise;
+    };
+    return service;
+});

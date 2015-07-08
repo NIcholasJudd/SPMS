@@ -115,6 +115,15 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 }
             }
         })
+        .state('app.createProject', {
+            url: "/project/create",
+            views: {
+                'container@': {
+                    templateUrl: "views/project/create.html",
+                    controller: "projectCreate"
+                }
+            }
+        })
         .state('app.taskModify', {
             url: "/task/modify/:taskId",
             views: {
