@@ -65,3 +65,19 @@ myApp.controller("PMStatisticsCtrl", ['$scope', 'PMDashboard',
         })
     }]
 );
+
+myApp.controller("PMProgressCtrl", ['$scope', 'PMDashboard',
+    function($scope, PMDashboard) {
+        $scope.project = PMDashboard.getCurrentProject();
+        $scope.startDate = new Date($scope.project.startDate).toDateString();
+        $scope.endDate = new Date($scope.project.estimatedEndDate).toDateString();
+        $scope.progress = calculateDateProgress($scope.startDate, $scope.endDate);
+
+        function calculateDateProgress(startDate, endDate) {
+            var max = new Date(endDate) - new Date(startDate);
+            var curr = new Date() - new Date(startDate);
+            var total = ((100 / max) * curr);
+            return total;
+        }
+    }]
+);

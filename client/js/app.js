@@ -64,6 +64,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 'statistics@app.pmDashboard' : {
                     templateUrl: "views/dashboards/projectManager/statistics.html",
                     controller: "PMStatisticsCtrl"
+                },
+                'progress@app.pmDashboard' : {
+                    templateUrl: "views/dashboards/projectManager/progress.html",
+                    controller: "PMProgressCtrl"
                 }
             }
         })
