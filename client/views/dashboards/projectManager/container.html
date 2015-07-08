@@ -41,26 +41,12 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="col-md-12">
-                                        <div ui-view="progress"></div>
                                         <!-- PROJECT PROGRESSION-->
-                                        <!--<div class="panel panel-warning">
-                                            <div class="panel-heading"><h4>Project Progression<i class="glyphicon glyphicon-time"></i></h4></div>
-                                            <div class="panel-body">
-                                                <div class="col-md-12 text-center"><h3>{{startDate($index)}}</h3><span>Project start date</span></div>
-                                                <div class="col-md-12 text-center"><h3>{{endDate($index)}}</h3><span>Estimated completed date</span></div>
-                                                <div class="col-md-12 m-top-md"><progressbar
-                                                        value="project.progress" max="100" type=""></progressbar></div>
-                                            </div>
-                                        </div>-->
+                                        <div ui-view="progress"></div>
                                     </div>
                                     <div class="col-md-12">
-                                        <!-- COST MANAGEMENT
-                                        <div class="panel panel-warning">
-                                            <div class="panel-heading"><h4>Cost Management<i class="glyphicon glyphicon-usd"></i></h4></div>
-                                            <div class="panel-body">
-                                                <div class="col-md-12 text-center"><h2>${{project.budget}}</h2><span>Budget</span></div>
-                                            </div>
-                                        </div>-->
+                                        <!-- COST MANAGEMENT-->
+                                        <div ui-view="costManagement"></div>
                                     </div>
                                 </div>
                                 <!-- possibly the sidebar? -->
