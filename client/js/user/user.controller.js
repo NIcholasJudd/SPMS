@@ -9,7 +9,7 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
             {name: 'Team Member'}];
         $scope.customStyle = {}
         $scope.customStyle.fontStyle = {"color":"orange"};
-        $scope.passwordCheck = {password: ''};
+        $scope.passwordCheck;
         $scope.skills = [ 'C++','Java','MySQL','HTML','JavaScript','AngularJS','C ','Python','C#','Objective C'];
         $scope.selectedSkills =[];
         $scope.user = {
@@ -23,19 +23,15 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
             skills: []
         };
         $scope.selectedRole = {name: 'Available Roles:'};
-        $scope.tooltip = {password: "Weak: 4 or more Characters\n" +
-            "Medium: 4 or more characters \n" +
-            "At least 1 lower case, upper case and special character\n" +
-            "Strong: 8 or more characters\n" +
-            "more than 2 lower case, upper case and special characters.",
-            password2: "re-enter password",
-            firstName: "The users first Name",
-            lastName: "The users Sir name",
-            email: "email address *****@companyname ",
-            phoneNumber: "The users phone number",
-            roles: "Administrator has full access. Team Member has to be assigned tasks",
-            skills: "Select Skills that the user has",
-            selectedSkills: "Select Skills to remove from user"
+        $scope.tooltip = {password: "Enter Password",
+            password2: "Enter Password",
+            firstName: "The Users First Name",
+            lastName: "The Users Last Name",
+            email: "Email Address *****@companyname ",
+            phoneNumber: "The Users Phone Number",
+            roles: "Select Users Role",
+            skills: "Select Skills that the User has",
+            selectedSkills: "Select Skills to remove from User"
         };
         $scope.updateSkills = function(info) {
             for (var i = 0; i < $scope.skills.length; i++){
@@ -124,6 +120,7 @@ myApp.controller("passwordCheck", [ '$scope',
         $scope.password = {};
         $scope.compare = {};
         $scope.passwordStrength = function (pass, pass2) {
+            console.log(pass2);
             $scope.passwordCompare(pass, pass2);
             $scope.specialChars = "!@#$%^&*()+=-[]\';,./{}|:<>?~_1234567890";
             $scope.upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -135,7 +132,8 @@ myApp.controller("passwordCheck", [ '$scope',
                 if ($scope.specialChars.indexOf(pass.charAt(i)) != -1) {
                     $scope.specCount++;
                 }
-                if ($scope.upperCase.indexOf(pass.charAt(i)) != -1) {
+
+                if (pass[i] == pass[i].toUpperCase()){
                     $scope.upperCount++;
                 }
                 if ($scope.lowerCase.indexOf(pass.charAt(i)) != -1) {
@@ -149,17 +147,18 @@ myApp.controller("passwordCheck", [ '$scope',
             }else if (lengthCount >= 4 && $scope.lowerCount > 0 && $scope.specCount == 0 && $scope.upperCount == 0){
                 $scope.customStyle.strengthStyle = {"color":"orange"};
                 $scope.password.Strength = "Weak Password";
-            } else if(lengthCount >=8 && $scope.specCount > 2 &&  $scope.upperCount > 2 && $scope.lowerCount > 2){
+            } else if(lengthCount >=8 && $scope.specCount >= 1 &&  $scope.upperCount >= 2 && $scope.lowerCount >= 2){
                 $scope.customStyle.strengthStyle = {"color":"green"};
                 $scope.password.Strength = "Strong Password";
-            } else if(lengthCount >= 4 && $scope.specCount > 0 && $scope.upperCount > 0 && $scope.lowerCount > 0){
+            } else if(lengthCount >= 4 && $scope.specCount > 0 && $scope.upperCount > 0 || $scope.lowerCount > 0){
                 $scope.customStyle.strengthStyle = {"color":"blue"};
                 $scope.password.Strength = "Medium Strength Password";
             }
             return true;
         };
         $scope.passwordCompare = function(pass1, pass2) {
-            if (pass1 == pass2){
+            console.log(pass2);
+            if (pass1 == pass2 && pass2.length > 0){
                 $scope.customStyle.compareStyle = {"color":"green"};
                 $scope.compare.match = "Valid Password";
             } else {
@@ -263,7 +262,7 @@ myApp.controller("userModify", ['$scope','UserFactory',
             preformance: "Select a number of stars to indicate employees preformance"
         };
 
-        $scope.submitUser = function () {
+        /*$scope.submitUser = function () {
             $scope.errorMessage = {};
             $scope.error = false;
             if ($scope.user.password != $scope.passwordCheck.password) {
@@ -308,5 +307,5 @@ myApp.controller("userModify", ['$scope','UserFactory',
                 console.log(err);
                 alert(msg);
             })
-        }
+        }*/
     }]);
