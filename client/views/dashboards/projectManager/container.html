@@ -1,20 +1,18 @@
-
 <div class="page-bg page-std" ui-view="container">
     <div class="container">
         <div class="row">
-            <div ng-if="projectData.length === 0">
+            <!--<div ng-if="projectList.length === 0">
                 <p>You are not the project manager of any tasks.  Please click the Team Member dashboard above to
                     see any tasks assigned to you.</p>
-            </div>
+            </div>-->
             <div class="col-md-12">
-                <p>{{data}}</p>
                 <!--<div scrolling-tabs-wrapper>-->
                 <tabset class="custom-tabs" justified="true">
                     <tab ng-repeat="project in projectList"
                          heading="{{project}}"
-                         active="tab.active" ng-click="switchProject($index)">
+                         active="tabs.active" ng-click="switchProject($index)">
                         <!-- the ng-if below prevents every tab being reloaded on tab change -->
-                        <div class="project-container" ng-if="project == currentProject.projectName">
+                        <div class="project-container" ng-if="project === currentProject.projectName">
                             <h2>{{project}}</h2>
                             <div class="row m-top-md">
                                 <div class="col-md-8">

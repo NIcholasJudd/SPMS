@@ -13,7 +13,7 @@ myApp.controller("PMContainerCtrl", ['$scope', '$rootScope', 'PMDashboard',
 
         $scope.projectList = PMDashboard.getProjectList();
         $scope.currentProject = PMDashboard.getCurrentProject();
-        $scope.currentProjectIndex = PMDashboard.currentProjectIndex;
+        $scope.currentProjectIndex = PMDashboard.getCurrentProjectIndex();
         $scope.tasks = PMDashboard.getProjectTasks();
         $scope.seeTasks = false;
 
@@ -21,6 +21,7 @@ myApp.controller("PMContainerCtrl", ['$scope', '$rootScope', 'PMDashboard',
             console.log('switch');
             $scope.projectList = PMDashboard.getProjectList();
             $scope.currentProject= PMDashboard.getCurrentProject();
+            $scope.currentProjectIndex = PMDashboard.getCurrentProjectIndex();
             $scope.tasks = PMDashboard.getProjectTasks();
         })
 

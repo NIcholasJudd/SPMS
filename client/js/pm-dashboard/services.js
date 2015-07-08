@@ -13,7 +13,7 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
     var service = {};
     var projectList = [];
     var currentProjectIndex;
-    var currentProject = currentProject || {};
+    var currentProject = {};
     var projectTasks = [];
     var taskStatus;
 
@@ -116,6 +116,10 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
     service.getProjectTasks = function() {
         return projectTasks;
     };
+
+    service.getCurrentProjectIndex = function() {
+        return currentProjectIndex;
+    }
 
     service.completeTask = function(index) {
         //taskStatus[projectTasks[index].status]--;// = "complete";

@@ -44,10 +44,6 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     templateUrl: "views/dashboards/projectManager/container.html",
                     controller: "PMContainerCtrl"
                 }
-                /*,
-                 'projectprogression@app.dashboard.projectManager' : {
-                 templateUrl: "views/dashboards/projectManager/project-progression.html"
-                 }*/
             }
         })
         .state('app.pmDashboard.panels', {
@@ -72,6 +68,29 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 'costManagement@app.pmDashboard' : {
                     templateUrl: "views/dashboards/projectManager/cost-management.html",
                     controller: "PMCostManagementCtrl"
+                }
+            }
+        })
+        .state('app.tmDashboard', {
+            abstract : true,
+            url: "/dashboard/team-member",
+            views: {
+                'container@' : {
+                    templateUrl : "views/dashboards/teamMember/container.html",
+                    controller: "TMContainerCtrl"
+                }
+            }
+        })
+        .state('app.tmDashboard.sections', {
+            url: "",
+            views : {
+                'statistics@app.tmDashboard' : {
+                    templateUrl : "views/dashboards/teamMember/statistics.html",
+                    controller : "TMStatisticsCtrl"
+                },
+                'details@app.tmDashboard' : {
+                    templateUrl : "views/dashboards/teamMember/details.html",
+                        controller : "TMDetailsCtrl"
                 }
             }
         })
