@@ -36,7 +36,7 @@ myApp.controller("PMContainerCtrl", ['$scope', '$rootScope', 'PMDashboard',
 myApp.controller("PMProjectTrackingCtrl", ['$scope', 'PMDashboard',
     function($scope, PMDashboard) {
         $scope.currentProject = PMDashboard.getCurrentProject();
-        //toggle display of tasks panel
+        //toggle display of tasks panel 
         $scope.displayTasks = function() {
             $scope.$parent.seeTasks = !$scope.$parent.seeTasks;
         }
