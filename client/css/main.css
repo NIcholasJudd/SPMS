@@ -110,6 +110,10 @@ fieldset[disabled] .btn-grey.active {
     width: 100%;
 }
 
+#projDescription{
+    resize: none;
+}
+
 #tmDashboardPanel{
     height: 100%;
 }

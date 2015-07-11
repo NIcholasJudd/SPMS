@@ -3,7 +3,7 @@
         <form ng-submit="login()">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <h2>Login Form</h2>
+                    <h2>Login Form, {{company}}</h2>
                     <div class="bg-orange">
                         <div class="form-group" name="loginForm">
                             <label for="email">User Email</label>
@@ -25,6 +25,7 @@
                     <br/>
                     <div id="loginButtons" class="row">
                         <div class="btn btn-group">
+                            <button type="button">Sign Up</button>
                             <button type="submit" class="btn btn-grey btn-lg" value="Login">Login</button>
                             <button type="button" ng-click="resetLogin()" class="btn btn-default btn-lg">Clear</button>
                         </div>

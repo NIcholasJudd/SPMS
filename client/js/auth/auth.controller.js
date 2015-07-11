@@ -8,7 +8,8 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactor
     function($scope, $window, $location, UserAuthFactory, AuthenticationFactory) {
         //Hard coded user
         $scope.user = {};
-
+        $scope.location = $window.location;
+        $scope.company = $scope.location.host;
         $scope.resetLogin = function(){
             $scope.user = {};
             $scope.loginForm.$setPristine();
@@ -17,6 +18,8 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactor
         $scope.login = function() {
             var username = $scope.user.username,
                 password = $scope.user.password;
+            console.log($scope.location);
+            console.log($scope.company);
             if (username !== undefined && password !== undefined) {
                 //fire request to login endpoint via factory
                 UserAuthFactory.login(username, password).success(function(data) {
