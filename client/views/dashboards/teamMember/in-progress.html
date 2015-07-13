@@ -1,0 +1,29 @@
+<div class="col-md-12"><!-- ng-show="onTheGo"-->
+    <div class="panel panel-warning">
+        <div class="panel-heading"><h4>Tasks {{getUserName()}} is working on.</h4></div>
+        <div class="panel-body" style="overflow: scroll">
+            <table class=" table table-hover taskTable">
+                <tr>
+                    <th>Project</th>
+                    <th>Task#</th>
+                    <th>Task Name</th>
+                    <th>Priority</th>
+                    <th>Progress</th>
+                    <th>Details</th>
+                    <th>Comment</th>
+                    <th>Finalise</th>
+                </tr>
+                <tr ng-repeat='otg in tasks | filter: {status: "on-the-go"} track by otg.taskId'>
+                    <td>{{otg.projectName}}</td>
+                    <td>{{otg.taskNumber}}</td>
+                    <td>{{otg.taskName}}</td>
+                    <td ng-class="priorityLevel(otg.priority)">{{otg.priority}}</td>
+                    <td><progressbar max="1" value="otg.progress"></progressbar></td>
+                    <td class="lborder"><a href="#/project/taskDetails"><button class="taskButton" ng-click="setCurrentTask(otg.taskId)"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
+                    <td class="lborder"><button class="taskButton" ng-click="openModal(otg.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
+                    <td class="lborder finalise"><button class="taskButton" ng-click="markFinalised(otg.taskId)"><i class="glyphicon glyphicon-ok"></i></button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -7,7 +7,6 @@ var bcrypt = require('bcrypt');
 
 var app = express();
 
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
@@ -24,8 +23,6 @@ app.all('/*', function(req, res, next) {
     }
 });
 
-
-
 // Auth Middleware - This will check if the token is valid
 // Only the requests that start with /api/v1/* will be checked for the token.
 // Any URL's that do not follow the below pattern should be avoided unless you
@@ -33,13 +30,17 @@ app.all('/*', function(req, res, next) {
 app.all('/api/auth/*', [require('./middleware/validateRequest')]);
 
 
-
+// api routes
 app.use('/', require('./routes'));
 
-/*app.get('/*', function(req, res) {
-    console.log(__dirname + '/../client/index.html');
-    res.sendfile(__dirname + '/../client/index.html');
-});*/
+
+// serve js, css, html files from client directory
+app.use("/", express.static(__dirname + "/../client"));
+
+// This route deals enables HTML5Mode by forwarding missing files to the index.html
+app.all('/*', function(req, res) {
+    res.sendFile('index.html', { root: __dirname + '/../client' });
+});
 
 // If no route is matched by now, it must be a 404
 app.use(function(req, res, next) {

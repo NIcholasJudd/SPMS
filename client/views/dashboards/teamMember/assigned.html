@@ -1,0 +1,28 @@
+<div class="col-md-12" ><!--ng-show="assigned"-->
+    <div class="panel panel-danger">
+        <div class="panel-heading"><h4>Tasks assigned to {{getUserName()}}.</h4></div>
+        <div class="panel-body" style="overflow: scroll">
+            <table class="table table-hover taskTable">
+                <tr>
+                    <th></th>
+                    <th>Project</th>
+                    <th>Task#</th>
+                    <th>Task Name</th>
+                    <th>Priority</th>
+                    <th>Details</th>
+                    <th>Comment</th>
+                </tr>
+                <tr ng-repeat='unassigned in tasks | filter: {status: "unassigned"} track by unassigned.taskId'>
+                    <td class="add"><button class="taskButton" ng-click="startTask(unassigned.taskId)"><i class="glyphicon glyphicon-plus"></i></button></td>
+                    <td>{{unassigned.projectName}}</td>
+                    <td>{{unassigned.taskNumber}}</td>
+                    <td>{{unassigned.taskName}}</td>
+                    <td ng-class="priorityLevel(unassigned.priority)">{{unassigned.priority}}</td>
+
+                    <td class="lborder"><a href="#/project/taskDetails"><button class="taskButton" ng-click="setCurrentTask(unassigned.taskId)"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
+                    <td class="lborder"><button class="taskButton" ng-click="openModal(unassigned.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

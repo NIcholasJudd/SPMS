@@ -4,7 +4,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
     //add Token Interceptor
     $httpProvider.interceptors.push('TokenInterceptor');
     // use the HTML5 History API
-    //$locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
 
     $urlRouterProvider.otherwise('/login');
 
@@ -79,18 +79,25 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     templateUrl : "views/dashboards/teamMember/container.html",
                     controller: "TMContainerCtrl"
                 }
+
             }
         })
-        .state('app.tmDashboard.sections', {
+        .state('app.tmDashboard.tasks.', {
+            abstract : true,
             url: "",
             views : {
-                'statistics@app.tmDashboard' : {
-                    templateUrl : "views/dashboards/teamMember/statistics.html",
-                    controller : "TMStatisticsCtrl"
-                },
-                'details@app.tmDashboard' : {
-                    templateUrl : "views/dashboards/teamMember/details.html",
-                        controller : "TMDetailsCtrl"
+                'statistics@app.tmDashboard': {
+                    templateUrl: "views/dashboards/teamMember/tasks.html",
+                    controller: "TMStatisticsCtrl"
+                }
+            }
+        })
+        .state('app.tmDashboard.tasks.status', {
+            url: "",
+            views: {
+                'assigned@app.tmDashboard' : {
+                    templateUrl: "views/dashboards/teamMember/assigned.html",
+                    controller: "TMAssignedCtrl"
                 }
             }
         })

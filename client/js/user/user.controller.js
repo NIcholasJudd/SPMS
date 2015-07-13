@@ -210,6 +210,7 @@ myApp.controller("userModify", ['$scope','UserFactory',
                     }
                 }
             }
+            console.log($scope.skills);
             $scope.selectedSkills = $scope.skills[0];
         };
         $scope.removeSkills = function(info) {

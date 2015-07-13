@@ -2,7 +2,7 @@
  * Created by scottmackenzie on 12/05/15.
  */
 
-myApp.controller("GanttChartCtrl", ['$scope', '$window', 'ProjectFactory',
+myApp.controller("GanttChartCtrlOld", ['$scope', '$window', 'ProjectFactory',
     function($scope, $window, ProjectFactory) {
         /*$scope.$watch(function() {
             return ProjectFactory.getCurrentProject();
