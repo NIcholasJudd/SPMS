@@ -29,6 +29,7 @@ myApp.factory('UserAuthFactory', function($window, $location, $http, Authenticat
             });
         },
         logout: function() {
+            console.log("LOGOUT");
             if (AuthenticationFactory.isLogged) {
                 AuthenticationFactory.isLogged = false;
                 delete AuthenticationFactory.user;

@@ -42,6 +42,8 @@ myApp.controller("TMDetailsCtrl", ['$scope', 'PMDashboard',
         }]
 );
 
+/* That'll do for now */
+
 myApp.controller("TMAssignedCtrl", ['$scope', 'PMDashboard',
         function($scope, PMDashboard) {
             $scope.tasks = PMDashboard.getProjectTasks();

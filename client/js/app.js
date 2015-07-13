@@ -6,7 +6,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
     // use the HTML5 History API
     $locationProvider.html5Mode(true);
 
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('404');
 
     $stateProvider
         .state('login', {
@@ -34,6 +34,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 'container@': {
                     templateUrl: "views/home.html"
                 }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
             }
         })
         .state('app.pmDashboard', {
@@ -44,33 +48,41 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     templateUrl: "views/dashboards/projectManager/container.html",
                     controller: "PMContainerCtrl"
                 }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
             }
         })
-        .state('app.pmDashboard.panels', {
-            url: "",
-            views: {
-                'projecttracking@app.pmDashboard' : {
-                    templateUrl: "views/dashboards/projectManager/project-tracking.html",
-                    controller: "PMProjectTrackingCtrl"
+            .state('app.pmDashboard.panels', {
+                url: "",
+                views: {
+                    'projecttracking@app.pmDashboard' : {
+                        templateUrl: "views/dashboards/projectManager/project-tracking.html",
+                        controller: "PMProjectTrackingCtrl"
+                    },
+                    'tasks@app.pmDashboard' : {
+                        templateUrl: "views/dashboards/projectManager/tasks.html",
+                        controller: "PMTasksCtrl"
+                    },
+                    'statistics@app.pmDashboard' : {
+                        templateUrl: "views/dashboards/projectManager/statistics.html",
+                        controller: "PMStatisticsCtrl"
+                    },
+                    'progress@app.pmDashboard' : {
+                        templateUrl: "views/dashboards/projectManager/progress.html",
+                        controller: "PMProgressCtrl"
+                    },
+                    'costManagement@app.pmDashboard' : {
+                        templateUrl: "views/dashboards/projectManager/cost-management.html",
+                        controller: "PMCostManagementCtrl"
+                    }
                 },
-                'tasks@app.pmDashboard' : {
-                    templateUrl: "views/dashboards/projectManager/tasks.html",
-                    controller: "PMTasksCtrl"
-                },
-                'statistics@app.pmDashboard' : {
-                    templateUrl: "views/dashboards/projectManager/statistics.html",
-                    controller: "PMStatisticsCtrl"
-                },
-                'progress@app.pmDashboard' : {
-                    templateUrl: "views/dashboards/projectManager/progress.html",
-                    controller: "PMProgressCtrl"
-                },
-                'costManagement@app.pmDashboard' : {
-                    templateUrl: "views/dashboards/projectManager/cost-management.html",
-                    controller: "PMCostManagementCtrl"
+                access: {
+                    requiredLogin: true,
+                    adminOnly: false
                 }
-            }
-        })
+            })
         .state('app.tmDashboard', {
             abstract : true,
             url: "/dashboard/team-member",
@@ -79,10 +91,13 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     templateUrl : "views/dashboards/teamMember/container.html",
                     controller: "TMContainerCtrl"
                 }
-
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
             }
         })
-        .state('app.tmDashboard.tasks', {
+            .state('app.tmDashboard.tasks', {
             abstract : true,
             url: "",
             views : {
@@ -90,32 +105,44 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     templateUrl: "views/dashboards/teamMember/statistics.html",
                     controller: "TMStatisticsCtrl"
                 }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
             }
         })
-        .state('app.tmDashboard.tasks.status', {
-            url: "",
-            views: {
-                'assigned@app.tmDashboard' : {
-                    templateUrl: "views/dashboards/teamMember/assigned.html",
-                    controller: "TMAssignedCtrl"
-                },
-                'progress@app.tmDashboard' : {
-                    templateUrl: "views/dashboards/teamMember/progress.html",
-                    controller: "TMProgressCtrl"
-                },
-                'complete@app.tmDashboard' : {
-                    templateUrl: "views/dashboards/teamMember/complete.html",
-                    controller: "TMAssignedCtrl"
-                }
-            }
-        })
-        .state('app.userCreate', {
+                .state('app.tmDashboard.tasks.status', {
+                    url: "",
+                    views: {
+                        'assigned@app.tmDashboard' : {
+                            templateUrl: "views/dashboards/teamMember/assigned.html",
+                            controller: "TMAssignedCtrl"
+                        },
+                        'progress@app.tmDashboard' : {
+                            templateUrl: "views/dashboards/teamMember/progress.html",
+                            controller: "TMProgressCtrl"
+                        },
+                        'complete@app.tmDashboard' : {
+                            templateUrl: "views/dashboards/teamMember/complete.html",
+                            controller: "TMAssignedCtrl"
+                        }
+                    },
+                    access: {
+                        requiredLogin: true,
+                        adminOnly: false
+                    }
+                })
+        .state('app.createUser', {
             url: "/user/create",
             views: {
                 'container@': {
                     templateUrl: "views/user/create.html",
                     controller: "userCreate"
                 }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: true
             }
         })
         .state('app.userModify', {
@@ -128,6 +155,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 'modifyForm@app.userModify': {
                     templateUrl: "views/user/modifyForm.html"
                 }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
             }
         })
         .state('app.createProject', {
@@ -137,6 +168,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     templateUrl: "views/project/create.html",
                     controller: "projectCreate"
                 }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: true
             }
         })
         .state('app.taskModify', {
@@ -146,6 +181,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     templateUrl: "views/task/modify.html",
                     controller: "TaskModifyCtrl"
                 }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
             }
         })
         .state('app.ganttChart', {
@@ -155,6 +194,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     templateUrl: "/views/ganttChart/ganttChart.html",
                     controller: "GanttChartCtrl"
                 }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
             }
         })
         .state('app.cocomo2', {
@@ -164,6 +207,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     templateUrl: "/views/cocomo2/cocomo2.html",
                     controller: "Cocomo2Ctrl"
                 }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
             }
         })
         .state('app.effortEstimation', {
@@ -173,6 +220,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     templateUrl: "/views/effortEstimation/effortEstimation.html",
                     controller: "EffortEstimationCtrl"
                 }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
             }
         })
         .state('app.apn', {
@@ -182,6 +233,54 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     templateUrl: "/views/apn/apn.html",
                     controller: "ApnCtrl"
                 }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
+            }
+        })
+        .state('404', {
+            url: "/404",
+            views: {
+                'container@' : {
+                    templateUrl: "/views/404.html",
+                    controller: "ErrorCtrl"
+                }
+            },
+            resolve: {
+                PreviousState: [
+                    "$state",
+                    function ($state) {
+                        var currentStateData = {
+                            name: $state.current.name,
+                            params: $state.params,
+                            URL: $state.href($state.current.name, $state.params)
+                        };
+                        return currentStateData;
+                    }
+                ]
+            }
+        })
+        .state('401', {
+            url: "/401",
+            views: {
+                'container@' : {
+                    templateUrl: "/views/401.html",
+                    controller: "ErrorCtrl"
+                }
+            },
+            resolve: {
+                PreviousState: [
+                    "$state",
+                    function ($state) {
+                        var currentStateData = {
+                            name: $state.current.name,
+                            params: $state.params,
+                            URL: $state.href($state.current.name, $state.params)
+                        };
+                        return currentStateData;
+                    }
+                ]
             }
         });
 
@@ -335,33 +434,42 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
      redirectTo: '/login'
      });*/
 });
-myApp.run(function ($rootScope, $window, $location, AuthenticationFactory) {
+myApp.run(function ($rootScope, $state, $window, $location, AuthenticationFactory) {
 // when the page refreshes, check if the user is already logged in
     AuthenticationFactory.check();
-    $rootScope.$on("$routeChangeStart", function (event, nextRoute, currentRoute) {
+    $rootScope.$on("$stateChangeStart", function (event, nextRoute, currentRoute) {
         if ((nextRoute.access && nextRoute.access.requiredLogin) && !AuthenticationFactory.isLogged) {
-            $state.go("login");
+            $rootScope.error = "Access denied";
+            event.preventDefault();
         } else {
             /* if user doesn't have admin and tries to access admin page, direct to error message page*/
             //this line below fixed the 'not authorised on refresh' error... <-- might need to check for vulnerabilities caused by it
             if (!AuthenticationFactory.userRole) AuthenticationFactory.userRole = $window.sessionStorage.userRole;
             if (!AuthenticationFactory.user) AuthenticationFactory.user = $window.sessionStorage.user;
             if ((nextRoute.access && nextRoute.access.adminOnly) && AuthenticationFactory.userRole != 'administrator') {
-                $location.path("/error").replace();
+                event.preventDefault();
+                $state.go("401");//$location.path("/error").replace();
             } else {
                 // check if user object exists else fetch it. This is incase of a page refresh
                 if (!AuthenticationFactory.user) AuthenticationFactory.user = $window.sessionStorage.user;
                 if (!AuthenticationFactory.userRole) AuthenticationFactory.userRole = $window.sessionStorage.userRole;
-                console.log('myapp.run: ', AuthenticationFactory.userRole);
             }
         }
     });
-    $rootScope.$on('$routeChangeSuccess', function (event, nextRoute, currentRoute) {
+    $rootScope.$on('$stateChangeSuccess', function (event, nextRoute, currentRoute) {
         $rootScope.showMenu = AuthenticationFactory.isLogged;
         $rootScope.role = AuthenticationFactory.userRole;
-// if the user is already logged in, take him to the home page
-        if (AuthenticationFactory.isLogged == true && $location.path() == '/login') {
-            $state.go('/');
+// if the user is already logged in, take them to the home page
+        if (AuthenticationFactory.isLogged == true && $state.is('login')) {
+            $state.go('app.home');
         }
     });
+    $rootScope.$on('$stateChangeError', function(event, nextRoute, currentRoute, fromState, fromParams, error){
+        console.log('hi');
+        if(error.status === 401) {
+            $state.go('401');
+        } else {
+            $state.go('404');
+        }
+    })
 });
