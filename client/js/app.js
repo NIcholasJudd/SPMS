@@ -82,12 +82,12 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
 
             }
         })
-        .state('app.tmDashboard.tasks.', {
+        .state('app.tmDashboard.tasks', {
             abstract : true,
             url: "",
             views : {
                 'statistics@app.tmDashboard': {
-                    templateUrl: "views/dashboards/teamMember/tasks.html",
+                    templateUrl: "views/dashboards/teamMember/statistics.html",
                     controller: "TMStatisticsCtrl"
                 }
             }
@@ -97,6 +97,14 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             views: {
                 'assigned@app.tmDashboard' : {
                     templateUrl: "views/dashboards/teamMember/assigned.html",
+                    controller: "TMAssignedCtrl"
+                },
+                'progress@app.tmDashboard' : {
+                    templateUrl: "views/dashboards/teamMember/progress.html",
+                    controller: "TMProgressCtrl"
+                },
+                'complete@app.tmDashboard' : {
+                    templateUrl: "views/dashboards/teamMember/complete.html",
                     controller: "TMAssignedCtrl"
                 }
             }

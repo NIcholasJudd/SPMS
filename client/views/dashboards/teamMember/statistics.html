@@ -1,5 +1,5 @@
 <div class="col-md-4">
-    <a class="home-link" href="" ng-click="showTaskPanel(1)">
+    <a class="home-link" href="" ng-click="switchPanel('assigned')">
         <div class="statistic-box bg-danger">
             <div class="statistic-value-tm"><span ng-bind="status.unassigned"/></div>
             <div class="statistic-title-tm">Tasks assigned</div>
@@ -10,7 +10,7 @@
     </a>
 </div>
 <div class="col-md-4">
-    <a class="home-link" href="" ng-click="showTaskPanel(2)">
+    <a class="home-link" href="" ng-click="switchPanel('on-the-go')">
         <div class="statistic-box bg-warning">
             <div class="statistic-value-tm"><span ng-bind="status.otg"/></div>
             <div class="statistic-title-tm">Tasks in progress</div>
@@ -21,7 +21,7 @@
     </a>
 </div>
 <div class="col-md-4">
-    <a class="home-link" href="" ng-click="showTaskPanel(3)">
+    <a class="home-link" href="" ng-click="switchPanel('complete')">
         <div class="statistic-box bg-success">
             <div class="statistic-value-tm"><span ng-bind="status.finalised"/></div>
             <div class="statistic-title-tm">Tasks Completed</div>
