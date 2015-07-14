@@ -47,12 +47,17 @@
                                         <div ui-view="costManagement"></div>
                                     </div>
                                 </div>
-                                <!-- possibly the sidebar? -->
-                                <!--<div class="col-md-1 custom-pill-container" ng-controller="HomeCtrl">
-                                    <ul class="nav nav-pills nav-stacked" ng-repeat="item in pMenuTab">
-                                        <li class="custom-pill" role="presentation"><a href="{{item.url}}"><span class="{{item.iconclass}}"></span><h6>{{item.title}}</h6></a></li>
+                                <!-- Side Bar -->
+                                <div class="col-md-1 custom-pill-container"><!-- ng-controller="HomeCtrl"-->
+                                    <ul class="nav nav-pills nav-stacked"><!-- ng-repeat="item in pMenuTab"-->
+                                        <li class="custom-pill" role="presentation">
+                                            <a ui-sref="app.createTask({projectName : project})">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                <h6>Create Task</h6>
+                                            </a>
+                                        </li>
                                     </ul>
-                                </div>-->
+                                </div>
                             </div>
                         </div>
                     </tab>

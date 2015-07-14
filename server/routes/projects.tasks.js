@@ -48,6 +48,7 @@ var projectTask = {
         /* get sequence name - coding convention has that spaces in name removed, then '_seq' appended */
         var sequence_name = req.params.projectName;
         sequence_name = (sequence_name.replace(/\s/g, '')) + '_seq';
+        console.log('sequence name: ', sequence_name);
         if(!req.body.status) req.body.status = 'unassigned';
         if(!req.body.priority) req.body.priority = 'critical';
         db.one("SELECT nextval('" + sequence_name +"')")
