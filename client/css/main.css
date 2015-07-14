@@ -17,11 +17,6 @@ body {
     width: 100%;
 }
 
-.page-login{
-    background: url("../images/SydneyBW.jpg") no-repeat center center fixed;
-    background-size: cover;
-}
-
 .bg-orange {
     background-color: rgba(246, 128, 13, 0.9);
     padding: 15px;
@@ -337,3 +332,6 @@ input[type="radio"]{
 .taskTable .complete{
     color: #21a9ef;
 }
+
+
+

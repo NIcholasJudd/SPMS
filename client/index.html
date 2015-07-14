@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="ngclient">
 <head>
-    <title>311 Project</title>
-
+    <title>Software Project Management System</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
@@ -51,10 +53,13 @@
     <link href="libs/jointjs/joint.css" rel="stylesheet">
     <script type="text/javascript" src="libs/jointjs/joint.js"></script>
     <script src="libs/angular-modal-service/dst/angular-modal-service.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="css/login.css"/>
+    <link type="text/css" rel="stylesheet" href="css/pmdash.css"/>
 </head>
 <body>
-<div ng-include="'partials/header.html'"></div>
-<div class="container" ng-view></div>
+    <div ng-include="'partials/header.html'"></div>
+    <div class="container" ng-view></div>
 <!-- <div ng-include="'partials/footer.html'"></div> -->
 </body>
 </html>
