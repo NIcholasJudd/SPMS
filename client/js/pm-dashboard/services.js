@@ -9,7 +9,6 @@
  */
 
 myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
-    console.log('instantiated');
     var service = {};
     var projectList = [];
     var currentProjectIndex;
@@ -40,10 +39,7 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
         $rootScope.$broadcast('task status');
     };
 
-    service.getTaskStatus = function() { return taskStatus; };
-
     service.getProjectListFromServer = function() {
-        console.log('call to retrieve project list');
         var deferred = $q.defer();
         $http.get(baseUrl + '/api/auth/projects', {params : { "fields" : ['"projectName"']}})
             .success(function(data) {
@@ -61,12 +57,10 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
     };
 
     service.getProjectFromServer = function(projectName) {
-        console.log('call to retrieve project');
         var deferred = $q.defer();
         $http.get(baseUrl + '/api/auth/project/' + projectName)
             .success(function(data) {
                 currentProject = data;
-                console.log(currentProject);
                 deferred.resolve(currentProject);
             })
             .error(function() {
@@ -77,12 +71,10 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
     };
 
     service.getProjectTasksFromServer = function(projectName) {
-        console.log('call to retrieve tasks');
         var deferred = $q.defer();
         $http.get(baseUrl + '/api/auth/project/' + projectName + '/tasks/')
             .success(function(tasks) {
                 projectTasks = tasks;
-                console.log(projectTasks);
                 deferred.resolve(tasks);
             })
             .error(function() {
@@ -121,11 +113,11 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
         return currentProjectIndex;
     }
 
+    service.getTaskStatus = function() { return taskStatus; };
+
     service.completeTask = function(index) {
-        //taskStatus[projectTasks[index].status]--;// = "complete";
         projectTasks[index].status = "complete";
         calculateStatistics();
-        //taskStatus.complete++;
     }
 
     //set current task on initial load

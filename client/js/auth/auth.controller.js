@@ -4,8 +4,8 @@
  *
  */
 
-myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactory', 'AuthenticationFactory',
-    function($scope, $window, $location, UserAuthFactory, AuthenticationFactory) {
+myApp.controller('LoginCtrl', ['$scope', '$window', '$state', 'UserAuthFactory', 'AuthenticationFactory',
+    function($scope, $window, $state, UserAuthFactory, AuthenticationFactory) {
         //Hard coded user
         $scope.user = {};
         $scope.location = $window.location;
@@ -33,7 +33,7 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$location', 'UserAuthFactor
                     $window.sessionStorage.firstName = data.user.firstName;
                     $window.sessionStorage.userRole = data.user.userType; // to fetch the user details on refresh
                     //redirect user to home page
-                    $location.path("/");
+                    $state.go("app.home");
                 }).error(function(status) {
                     alert('Please check your email and password, and try again');
                 });

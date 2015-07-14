@@ -22,8 +22,8 @@
                                 <div class="row m-top-md">
                                     <!-- Detail panels -->
                                     <div ui-view="assigned" ng-if="currentPanel === 'assigned'"></div>
-                                    <div ui-view="progress" ng-show="currentPanel === 'on-the-go'"></div>
-                                    <div ui-view="complete" ng-show="currentPanel === 'complete'"></div>
+                                    <div ui-view="progress" ng-if="currentPanel === 'on-the-go'"></div>
+                                    <div ui-view="complete" ng-if="currentPanel === 'complete'"></div>
                                 </div>
                             </div>
                             <!--<div class="col-md-1 custom-pill-container" ng-controller="HomeCtrl">

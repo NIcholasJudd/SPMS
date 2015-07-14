@@ -6,9 +6,19 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
     // use the HTML5 History API
     $locationProvider.html5Mode(true);
 
-    $urlRouterProvider.otherwise('404');
+    $urlRouterProvider.when('', '/');
+    $urlRouterProvider.otherwise('/404');
 
     $stateProvider
+        .state('landing', {
+            url: "/",
+            views: {
+                'container@' : {
+                    templateUrl: "/views/landing.html",
+                    controller: "LandingCtrl"
+                }
+            }
+        })
         .state('login', {
             url: "/login",
             views: {
@@ -29,14 +39,14 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             }
         })
         .state('app.home', {
-            url: "/",
+            url: "/home",
             views: {
                 'container@': {
                     templateUrl: "views/home.html"
                 }
             },
             access: {
-                requiredLogin: true,
+                requiredLogin: false,
                 adminOnly: false
             }
         })
@@ -461,6 +471,7 @@ myApp.run(function ($rootScope, $state, $window, $location, AuthenticationFactor
         $rootScope.role = AuthenticationFactory.userRole;
 // if the user is already logged in, take them to the home page
         if (AuthenticationFactory.isLogged == true && $state.is('login')) {
+            console.log('titsbalss');
             $state.go('app.home');
         }
     });
