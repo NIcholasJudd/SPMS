@@ -5,6 +5,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
     $httpProvider.interceptors.push('TokenInterceptor');
     // use the HTML5 History API
     $locationProvider.html5Mode(true);
+    
 
     $urlRouterProvider.when('', '/');
     $urlRouterProvider.otherwise('/404');
