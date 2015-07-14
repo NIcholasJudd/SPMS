@@ -184,6 +184,15 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 adminOnly: true
             }
         })
+        .state('app.createTask', {
+            url: "/task/create/:projectName",
+            views: {
+                'container@' : {
+                    templateUrl: "views/task/create.html",
+                    controller: "TaskCreateCtrl"
+                }
+            }
+        })
         .state('app.taskModify', {
             url: "/task/modify/:taskId",
             views: {

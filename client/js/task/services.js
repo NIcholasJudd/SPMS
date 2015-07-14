@@ -57,5 +57,19 @@ myApp.factory('TaskFactory', function($http, $q, baseUrl) {
         return deferred.promise;
     }
 
+    service.saveTask = function(task, projectName) {
+        var deferred = $q.defer();
+        $http.post(baseUrl + '/api/auth/project/' + projectName + '/task')
+            .success(function(res) {
+                console.log(res);
+                deferred.resolve(res);
+            })
+            .error(function(err) {
+                console.log("Error saving task: ", err);
+                deferred.reject("getUsers error");
+            });
+        return deferred.promise;
+    }
+
     return service;
 })
