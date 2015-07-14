@@ -1,4 +1,4 @@
-var myApp = angular.module('ngclient', ['ui.router', 'myApp.config', 'ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead', 'ui.bootstrap.tabs', 'mj.scrollingTabs', 'angularModalService']);
+var myApp = angular.module('ngclient', ['ui.router', 'myApp.config', 'ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead', 'ui.bootstrap.tabs', 'mj.scrollingTabs', 'angularModalService', 'gantt']);
 
 myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     //add Token Interceptor
@@ -178,6 +178,19 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 'container@': {
                     templateUrl: "views/project/create.html",
                     controller: "projectCreate"
+                }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: true
+            }
+        })
+        .state('app.modifyProject', {
+            url: "/project/modify/:projectName",
+            views: {
+                'container@': {
+                    templateUrl: "views/project/modify.html",
+                    controller: "projectModify"
                 }
             },
             access: {

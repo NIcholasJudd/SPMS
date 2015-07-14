@@ -21,7 +21,7 @@ myApp.factory('ProjectFactory', function($http) {
                 budget: project.budget,
                 duration : project.duration,
                 startDate: project.startDate,
-                estimatedEndDate: project.estimatedEndDate,
+                estimatedEndDate: project.endDate,
                 progress: project.progress,
                 projectManager: project.projectManager
             })
