@@ -41,12 +41,12 @@ var projects = {
             var sequence_name = req.body.projectName;
             sequence_name = (sequence_name.replace(/\s/g, '')) + '_seq';
 
-            var q1 = t.one("INSERT INTO project VALUES($1, $2, $3, $4, $5, $6, $7) returning project_name",
+            var q1 = t.one("INSERT INTO project VALUES($1, $2, $3, $4, $5, $6, $7) returning 'projectName'",
                 [req.body.projectName, req.body.description, req.body.budget,
                     req.body.startDate, req.body.estimatedEndDate, true, req.body.projectManager]);
             var q2 = t.none("CREATE SEQUENCE " + sequence_name + " START 1");
-            var q3 = t.none("INSERT INTO function_point VALUES($1, null, null, null, false)", [req.body.projectName]);
-            var q4 = t.none("INSERT INTO cocomo_score VALUES($1, null, null, false)", [req.body.projectName]);
+            var q3 = t.none("INSERT INTO functionPoint VALUES($1, null, null, null, false)", [req.body.projectName]);
+            var q4 = t.none("INSERT INTO cocomoScore VALUES($1, null, null, false)", [req.body.projectName]);
 
             return promise.all([q1, q2, q3, q4]);
         }).then(function(data) {
@@ -61,7 +61,7 @@ var projects = {
 
     update: function(req, res) {
         db.one("UPDATE project SET description=($2), budget=($3), " +
-            "start_date=($4), estimated_end_date=($5), project_manager=($6) WHERE project_name = $1 returning project_name",
+            "startDate=($4), estimatedEndDate=($5), projectManager=($6) WHERE projectName = $1 returning projectName",
             [req.params.projectName, req.body.description, req.body.budget,
                 req.body.startDate, req.body.estimatedEndDate, req.body.projectManager])
             .then(function(data) {

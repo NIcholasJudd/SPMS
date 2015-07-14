@@ -85,6 +85,7 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
     };
 
     service.setCurrentProject = function(index) {
+
         currentProjectIndex = $window.sessionStorage.currentProjectIndex = index;
         $q.all([
             service.getProjectFromServer(projectList[currentProjectIndex]),

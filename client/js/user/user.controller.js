@@ -66,7 +66,8 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
         $scope.submitUser = function () {
             $scope.errorMessage = {};
             $scope.error = false;
-            if ($scope.user.password != $scope.passwordCheck.password) {
+            console.log($scope.user.password);
+            if ($scope.user.password != $scope.passwordCheck) {
                 $scope.error = true;
                 $scope.errorMessage.passwordCompare = "Passwords do not match!\n";
             }
@@ -120,7 +121,7 @@ myApp.controller("passwordCheck", [ '$scope',
         $scope.password = {};
         $scope.compare = {};
         $scope.passwordStrength = function (pass, pass2) {
-            console.log(pass2);
+            console.log(pass + " " + pass2);
             $scope.passwordCompare(pass, pass2);
             $scope.specialChars = "!@#$%^&*()+=-[]\';,./{}|:<>?~_1234567890";
             $scope.upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
