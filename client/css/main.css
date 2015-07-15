@@ -308,7 +308,13 @@ input[type="radio"]{
     color: #c12e2a;
     font-size: 25px;
 }
+#createProjectButton{
+    width: 100%;
+}
 
+#backToDash {
+    width:100%;
+}
 .taskTable {
     text-align: center;
 }
