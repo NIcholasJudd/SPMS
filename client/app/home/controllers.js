@@ -1,14 +1,6 @@
-myApp.controller("HeaderCtrl", ['$scope', '$window', '$location', 'UserAuthFactory',
-  function($scope, $window, $location, UserAuthFactory) {
-    $scope.isActive = function(route) {
-      return route === $location.path();
-    }
-    $scope.userType = $window.sessionStorage.userRole;
-    $scope.logout = function () {
-      UserAuthFactory.logout();
-    }
-  }
-]);
+/**
+ * Created by scottmackenzie on 15/07/15.
+ */
 
 myApp.controller("HomeCtrl", ['$scope', '$window', '$location', '$routeParams',
     function($scope, $window, $location, $routeParams) {
@@ -80,53 +72,52 @@ myApp.controller("HomeCtrl", ['$scope', '$window', '$location', '$routeParams',
 
 
         /*<ul class="nav nav-pills nav-stacked">
-        <li class="custom-pill" role="presentation"><a ng-href="#/../project/ganttChart"><span class="glyphicon glyphicon-random"></span><h6>Gantt Chart</h6></a></li>
-        </ul>*/
+         <li class="custom-pill" role="presentation"><a ng-href="#/../project/ganttChart"><span class="glyphicon glyphicon-random"></span><h6>Gantt Chart</h6></a></li>
+         </ul>*/
 
-       /* if ($window.sessionStorage.userRole === 'administrator') {
-            $scope.pMenuTab.push({
-                title: 'Create Project (Admin Only)',
-                iconclass: 'glyphicon glyphicon-hdd',
-                url: '#/project/create'
-            });
-            $scope.pMenuTab.push({
-                title: 'User Management (Admin Only)',
-                iconclass: 'glyphicon glyphicon-user',
-                url: '#/user/create'
-            });
-            if($location.path() === '/dashboard/pmDashboard') {
-                $scope.pMenuTab.push({
-                    title: 'Archive Project',
-                    iconclass: 'glyphicon glyphicon-trash',
-                    url: '#/project/archive'
-                })
-            }
-        }
+        /* if ($window.sessionStorage.userRole === 'administrator') {
+         $scope.pMenuTab.push({
+         title: 'Create Project (Admin Only)',
+         iconclass: 'glyphicon glyphicon-hdd',
+         url: '#/project/create'
+         });
+         $scope.pMenuTab.push({
+         title: 'User Management (Admin Only)',
+         iconclass: 'glyphicon glyphicon-user',
+         url: '#/user/create'
+         });
+         if($location.path() === '/dashboard/pmDashboard') {
+         $scope.pMenuTab.push({
+         title: 'Archive Project',
+         iconclass: 'glyphicon glyphicon-trash',
+         url: '#/project/archive'
+         })
+         }
+         }
 
-        console.log('Current route name: ' + $location.path());
-        // Get all URL parameter
-        console.log($routeParams);*/
+         console.log('Current route name: ' + $location.path());
+         // Get all URL parameter
+         console.log($routeParams);*/
 
 
-       /*$scope.pMenuTab = [
-       {
-           title: 'Project Management',
-           iconclass: 'glyphicon glyphicon-folder-open',
-           url: '#/project/create'
-       },
-       {
-           title: 'Task Management',
-           iconclass: 'glyphicon glyphicon-paperclip',
-           url: '#/project/taskCreate'
+        /*$scope.pMenuTab = [
+         {
+         title: 'Project Management',
+         iconclass: 'glyphicon glyphicon-folder-open',
+         url: '#/project/create'
+         },
+         {
+         title: 'Task Management',
+         iconclass: 'glyphicon glyphicon-paperclip',
+         url: '#/project/taskCreate'
 
-       },
-       {
-           title: 'User Management',
-           iconclass: 'glyphicon glyphicon-user',
-           url: '#/user/create'
-       }
-       ];*/
-  }
+         },
+         {
+         title: 'User Management',
+         iconclass: 'glyphicon glyphicon-user',
+         url: '#/user/create'
+         }
+         ];*/
+    }
 
 ]);
-

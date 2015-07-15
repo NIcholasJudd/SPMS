@@ -15,8 +15,9 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
     $httpProvider.interceptors.push('TokenInterceptor');
     // use the HTML5 History API
     $locationProvider.html5Mode(true);
-
+    //map home route to landing page
     $urlRouterProvider.when('', '/');
+    //unknown route to 404
     $urlRouterProvider.otherwise('/404');
 
     $stateProvider
@@ -24,7 +25,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/",
             views: {
                 'container@' : {
-                    templateUrl: "/views/landing.html",
+                    templateUrl: "/app/landing/landing.html",
                     controller: "LandingCtrl"
                 }
             }
@@ -33,7 +34,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/login",
             views: {
                 'container@': {
-                    templateUrl: "/views/login.html",
+                    templateUrl: "/app/auth/login.html",
                     controller: "LoginCtrl"
                 }
             }
@@ -43,7 +44,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             abstract: true,
             views: {
                 'header': {
-                    templateUrl: '/views/header.html',
+                    templateUrl: '/app/header/header.html',
                     controller: 'HeaderCtrl'
                 }
             }
@@ -52,7 +53,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/home",
             views: {
                 'container@': {
-                    templateUrl: "views/home.html"
+                    templateUrl: "/app/home/home.html"
                 }
             },
             access: {
@@ -65,7 +66,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/dashboard/project-manager",
             views: {
                 'container@': {
-                    templateUrl: "views/dashboards/projectManager/container.html",
+                    templateUrl: "app/pm-dashboard/container.html",
                     controller: "PMContainerCtrl"
                 }
             },
@@ -78,23 +79,23 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 url: "",
                 views: {
                     'projecttracking@app.pmDashboard' : {
-                        templateUrl: "views/dashboards/projectManager/project-tracking.html",
+                        templateUrl: "/app/pm-dashboard/project-tracking.html",
                         controller: "PMProjectTrackingCtrl"
                     },
                     'tasks@app.pmDashboard' : {
-                        templateUrl: "views/dashboards/projectManager/tasks.html",
+                        templateUrl: "/app/pm-dashboard/tasks.html",
                         controller: "PMTasksCtrl"
                     },
                     'statistics@app.pmDashboard' : {
-                        templateUrl: "views/dashboards/projectManager/statistics.html",
+                        templateUrl: "/app/pm-dashboard/statistics.html",
                         controller: "PMStatisticsCtrl"
                     },
                     'progress@app.pmDashboard' : {
-                        templateUrl: "views/dashboards/projectManager/progress.html",
+                        templateUrl: "/app/pm-dashboard/progress.html",
                         controller: "PMProgressCtrl"
                     },
                     'costManagement@app.pmDashboard' : {
-                        templateUrl: "views/dashboards/projectManager/cost-management.html",
+                        templateUrl: "/app/pm-dashboard/cost-management.html",
                         controller: "PMCostManagementCtrl"
                     }
                 },
@@ -108,7 +109,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/dashboard/team-member",
             views: {
                 'container@' : {
-                    templateUrl : "views/dashboards/teamMember/container.html",
+                    templateUrl : "/app/tm-dashboard/container.html",
                     controller: "TMContainerCtrl"
                 }
             },
@@ -122,7 +123,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "",
             views : {
                 'statistics@app.tmDashboard': {
-                    templateUrl: "views/dashboards/teamMember/statistics.html",
+                    templateUrl: "/app/tm-dashboard/statistics.html",
                     controller: "TMStatisticsCtrl"
                 }
             },
@@ -135,15 +136,15 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     url: "",
                     views: {
                         'assigned@app.tmDashboard' : {
-                            templateUrl: "views/dashboards/teamMember/assigned.html",
+                            templateUrl: "/app/tm-dashboard/assigned.html",
                             controller: "TMAssignedCtrl"
                         },
                         'progress@app.tmDashboard' : {
-                            templateUrl: "views/dashboards/teamMember/progress.html",
+                            templateUrl: "/app/tm-dashboard/progress.html",
                             controller: "TMProgressCtrl"
                         },
                         'complete@app.tmDashboard' : {
-                            templateUrl: "views/dashboards/teamMember/complete.html",
+                            templateUrl: "/app/tm-dashboard/complete.html",
                             controller: "TMAssignedCtrl"
                         }
                     },
@@ -156,7 +157,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/user/create",
             views: {
                 'container@': {
-                    templateUrl: "views/user/create.html",
+                    templateUrl: "/app/user/create.html",
                     controller: "userCreate"
                 }
             },
@@ -169,11 +170,11 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/user/modify",
             views: {
                 'container@': {
-                    templateUrl: "views/user/modify.html",
+                    templateUrl: "/app/user/modify.html",
                     controller:"userModify"
                 },
                 'modifyForm@app.userModify': {
-                    templateUrl: "views/user/modifyForm.html"
+                    templateUrl: "/app/user/modifyForm.html"
                 }
             },
             access: {
@@ -185,7 +186,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/project/create",
             views: {
                 'container@': {
-                    templateUrl: "views/project/create.html",
+                    templateUrl: "/app/project/create.html",
                     controller: "projectCreate"
                 }
             },
@@ -198,7 +199,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/task/create/:projectName",
             views: {
                 'container@' : {
-                    templateUrl: "views/task/create.html",
+                    templateUrl: "/app/task/create.html",
                     controller: "TaskCreateCtrl"
                 }
             }
@@ -207,7 +208,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/task/modify/:taskId",
             views: {
                 'container@' : {
-                    templateUrl: "views/task/modify.html",
+                    templateUrl: "/app/task/modify.html",
                     controller: "TaskModifyCtrl"
                 }
             },
@@ -220,7 +221,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/ganttChart/:projectName",
             views: {
                 'container@' : {
-                    templateUrl: "/views/ganttChart/ganttChart.html",
+                    templateUrl: "/app/ganttChart/ganttChart.html",
                     controller: "GanttChartCtrl"
                 }
             },
@@ -233,7 +234,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/cocomo2/:projectName",
             views: {
                 'container@' : {
-                    templateUrl: "/views/cocomo2/cocomo2.html",
+                    templateUrl: "/app/cocomo2/cocomo2.html",
                     controller: "Cocomo2Ctrl"
                 }
             },
@@ -246,7 +247,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/effort-estimation/:projectName",
             views: {
                 'container@' : {
-                    templateUrl: "/views/effortEstimation/effortEstimation.html",
+                    templateUrl: "/app/effortEstimation/effortEstimation.html",
                     controller: "EffortEstimationCtrl"
                 }
             },
@@ -259,7 +260,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/apn/:projectName",
             views: {
                 'container@' : {
-                    templateUrl: "/views/apn/apn.html",
+                    templateUrl: "/app/apn/apn.html",
                     controller: "ApnCtrl"
                 }
             },
@@ -272,7 +273,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/404",
             views: {
                 'container@' : {
-                    templateUrl: "/views/404.html",
+                    templateUrl: "/app/error/404.html",
                     controller: "ErrorCtrl"
                 }
             },
@@ -294,7 +295,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/401",
             views: {
                 'container@' : {
-                    templateUrl: "/views/401.html",
+                    templateUrl: "/app/error/401.html",
                     controller: "ErrorCtrl"
                 }
             },
@@ -312,157 +313,8 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 ]
             }
         });
-
-    /*$routeProvider
-     .when('/login', {
-     templateUrl: 'partials/login.html',
-     controller: 'LoginCtrl',
-     access: {
-     requiredLogin: false
-     }
-     }).when('/', {
-     templateUrl: 'partials/home.html',
-     controller: 'LoginCtrl',
-     access: {
-     requiredLogin: true
-     }
-     }).when('/project/create', {
-     templateUrl: 'partials/project/project.create.html',
-     controller: 'ProjectCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly: true
-     }
-     }).when('/project/modify', {
-     templateUrl: 'partials/project/project.modify.html',
-     controller: 'ProjectModCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly: false
-     },
-     resolve : {
-     currentProject : function(ProjectFactory, $window) {
-     return ProjectFactory.getProject($window.sessionStorage.projectName);
-     }
-     }
-     }).when('/project/archive', {
-     templateUrl: 'partials/project/project.archive.html',
-     controller: 'ProjectArchiveCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly : true
-     },
-     resolve: {
-     ActiveProjects : function(ProjectFactory) {
-     return ProjectFactory.getProjects();
-     },
-     ArchivedProjects : function(ProjectFactory) {
-     return ProjectFactory.getArchivedProjects();
-     }
-     }
-     }).when('/project/taskCreate', {
-     templateUrl: 'partials/project/task.create.html',
-     controller: 'TaskCreateCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly : false
-     }
-     }).when('/project/taskModify', {
-     templateUrl: 'partials/project/task.modify.html',
-     controller: 'TaskModCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly : false
-     }
-     }).when('/project/taskDetails', {
-     templateUrl: 'partials/project/task.detail.html',
-     controller: 'TaskDetailCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly : false
-     }
-     }).when('/effort/functionPoints', {
-     templateUrl: 'partials/effort/functionPoints.html',
-     controller: 'EffortFunctionPointCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly: false
-     },
-     resolve : {
-     FunctionPointData : function(ProjectFactory, $window) {
-     return ProjectFactory.getFunctionPointData($window.sessionStorage.projectName);
-     }
-     }
-     }).when('/effort/effortEstimation', {
-     templateUrl: 'partials/effort/effort.estimation.html',
-     controller: 'EffortCocomoCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly: false
-     },
-     resolve : {
-     CocomoScores : function(ProjectFactory, $window) {
-     return ProjectFactory.getCocomoScores($window.sessionStorage.projectName);
-     }
-     }
-     }).when('/project/ganttChart', {
-     templateUrl: 'partials/project/ganttChart.html',
-     controller: 'GanttChartCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly: false
-     }
-     }).when('/project/apn', {
-     templateUrl: 'partials/project/apn.html',
-     controller: 'APNCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly : false
-     }
-     }).when('/dashboard/pmDashboard', {
-     templateUrl: 'partials/dashboard/project.manager.dashboard.html',
-     controller: 'ProjectDashboardCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly : false
-     },
-     resolve : {
-     assignedProjects : function(ProjectFactory, $window) {
-     if($window.sessionStorage.userRole === 'administrator')
-     return ProjectFactory.getProjects();
-     else {
-     console.log('team member');
-     return ProjectFactory.getPMProjects($window.sessionStorage.user);
-     }
-     }
-     }
-     }).when('/dashboard/tmDashboard', {
-     templateUrl: 'partials/dashboard/team.member.dashboard.html',
-     controller: 'TaskDashCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly : false
-     }
-     }).when('/modal', {
-     templateUrl: 'partials/modal.html',
-     controller: 'HomeCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly : false
-     }
-     }).when('/user/create', {
-     templateUrl: 'partials/user/user.create.html',
-     controller: 'UserCtrl',
-     access: {
-     requiredLogin: true,
-     adminOnly : true
-     }
-     }).when('/error', {
-     templateUrl: 'partials/error.html'
-     }).otherwise({
-     redirectTo: '/login'
-     });*/
 });
+
 myApp.run(function ($rootScope, $state, $window, $location, AuthenticationFactory) {
 // when the page refreshes, check if the user is already logged in
     AuthenticationFactory.check();
