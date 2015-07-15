@@ -1,4 +1,4 @@
-var myApp = angular.module('ngclient', ['ui.router', 'myApp.config', 'ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead', 'ui.bootstrap.tabs', 'mj.scrollingTabs', 'angularModalService', 'gantt']);
+var myApp = angular.module('ngclient', [ 'ui.router', 'myApp.config','ui.bootstrap', 'ui.slider', 'ui.bootstrap.typeahead', 'ui.bootstrap.tabs', 'mj.scrollingTabs', 'angularModalService', 'angularMoment','gantt', 'gantt.table', 'gantt.movable', 'gantt.tooltips']);
 
 myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     //add Token Interceptor
