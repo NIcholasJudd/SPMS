@@ -10,8 +10,8 @@ var express = require('express'),
     task = require('./tasks.js'),
     taskComment = require('./task.comment.js'),
     projectFunctionPoints = require('./projects.functionPoints.js'),
-    cocomoScores = require('./projects.cocomoScores.js');
-
+    cocomoScores = require('./projects.cocomoScores.js'),
+    transporter = require('./mail.js');
 
 /* Authorisation naming conventions:
  *
@@ -93,5 +93,24 @@ router.put('/api/auth/project/:projectName/functionPoint', projectFunctionPoints
 router.get('/api/auth/project/:projectName/cocomoScore', cocomoScores.getOne);
 router.put('/api/auth/project/:projectName/cocomoScore', cocomoScores.update);
 
+//mail
+router.post('/sendMail', function(req,res){
+    var nodemailer = require("nodemailer");
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user:"spmsfounders@gmail.com",
+            pass: "SPMSspms"
+        }
+    });
+    transporter.sendMail({
+        from: "SPMS founders <spmsfounders@gmail.com",
+        to: "nicholas_o_judd@hotmail.com",
+        subject: "Test nodemailer email",
+        text: "Node.js New world for me",
+        html: "<b>Node.js New world for me</b>"
+    });
+});
 module.exports = router;
 

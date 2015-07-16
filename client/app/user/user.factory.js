@@ -46,6 +46,10 @@ myApp.factory('UserFactory', function($http) {
             return $http.put('http://localhost:3000/api/auth/admin/user/' + email + '/archive', {
                 active : active
             })
+        },
+
+        sendMail: function() {
+            $http.post('http://localhost:3000/api/auth/sendMail').success(callback);
         }
 
     }
