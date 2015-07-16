@@ -18,13 +18,10 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$state', 'UserAuthFactory',
         $scope.login = function() {
             var username = $scope.user.username,
                 password = $scope.user.password;
-            console.log($scope.location);
-            console.log($scope.company);
             if (username !== undefined && password !== undefined) {
                 //fire request to login endpoint via factory
                 UserAuthFactory.login(username, password).success(function(data) {
                     //set session variables
-                    //console.log("DATA USER: ", data.user);
                     AuthenticationFactory.isLogged = true;
                     AuthenticationFactory.user = data.user.email;
                     AuthenticationFactory.userRole = data.user.userType;

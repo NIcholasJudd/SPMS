@@ -2,7 +2,7 @@
  * Created by Nicholas Judd 2/07/15
  */
 //Create User Controllers
-myApp.controller("userCreate", ['$scope', 'UserFactory',
+myApp.controller("CreateUserCtrl", ['$scope', 'UserFactory',
     function ($scope, UserFactory) {
         $scope.roles = [
             {name: 'Administrator'},
@@ -113,8 +113,9 @@ myApp.controller("userCreate", ['$scope', 'UserFactory',
     }
 ]);
 
-myApp.controller("passwordCheck", [ '$scope',
+myApp.controller("PasswordCheckCtrl", [ '$scope',
     function ($scope) {
+        console.log("YAYA!!!");
         $scope.customStyle = {};
         $scope.customStyle.fontStyle = {"color":"orange"};
         //check password strength
@@ -170,7 +171,7 @@ myApp.controller("passwordCheck", [ '$scope',
     }]);
 
 //Modify Users Controllers
-myApp.controller("userModify", ['$scope','UserFactory',
+myApp.controller("ModifyUserCtrl", ['$scope','UserFactory',
     function ($scope, UserFactory) {
         $scope.user = [];
         $scope.selectedNames = undefined;

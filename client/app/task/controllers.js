@@ -2,7 +2,7 @@
  * Created by scottmackenzie on 4/07/2015.
  */
 
-myApp.controller("TaskCreateCtrl", ['$scope', '$stateParams', 'TaskFactory',
+myApp.controller("CreateTaskCtrl", ['$scope', '$stateParams', 'TaskFactory',
     function($scope, $stateParams, TaskFactory) {
         $scope.projectName = $stateParams.projectName;
         $scope.task = {};
@@ -44,7 +44,7 @@ myApp.controller("TaskCreateCtrl", ['$scope', '$stateParams', 'TaskFactory',
     }
 ]);
 
-myApp.controller("TaskModifyCtrl", ['$scope', '$stateParams', 'TaskFactory',
+myApp.controller("ModifyTaskCtrl", ['$scope', '$stateParams', 'TaskFactory',
     function($scope, $stateParams, TaskFactory) {
 
         $scope.task = {};

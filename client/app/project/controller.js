@@ -1,4 +1,4 @@
-myApp.controller("projectCreate", ['$scope', 'ProjectFactory', 'userFactoryTest',
+myApp.controller("CreateProjectCtrl", ['$scope', 'ProjectFactory', 'userFactoryTest',
     function ($scope, ProjectFactory, userFactoryTest) {
         $scope.project ={};
         $scope.selectedProjectManager ="";
@@ -87,7 +87,7 @@ myApp.controller("projectCreate", ['$scope', 'ProjectFactory', 'userFactoryTest'
     }
 ]);
 
-myApp.controller("projectModify", ['$scope', 'ProjectFactory','$stateParams', 'userFactoryTest',
+myApp.controller("ModifyProjectCtrl", ['$scope', 'ProjectFactory','$stateParams', 'userFactoryTest',
     function ($scope, ProjectFactory, $stateParams, userFactoryTest) {
         $scope.project= {};
         $scope.selectedProjectManager ="";
