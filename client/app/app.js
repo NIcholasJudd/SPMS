@@ -158,7 +158,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             views: {
                 'container@': {
                     templateUrl: "/app/user/create.html",
-                    controller: "userCreate"
+                    controller: "CreateUserCtrl"
                 }
             },
             access: {
@@ -166,14 +166,14 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 adminOnly: true
             }
         })
-        .state('app.userModify', {
+        .state('app.modifyUser', {
             url: "/user/modify",
             views: {
                 'container@': {
                     templateUrl: "/app/user/modify.html",
-                    controller:"userModify"
+                    controller:"ModifyUserCtrl"
                 },
-                'modifyForm@app.userModify': {
+                'modifyForm@app.modifyUser': {
                     templateUrl: "/app/user/modifyForm.html"
                 }
             },
@@ -187,7 +187,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             views: {
                 'container@': {
                     templateUrl: "/app/project/create.html",
-                    controller: "projectCreate"
+                    controller: "CreateProjectCtrl"
                 }
             },
             access: {
@@ -199,8 +199,8 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/project/modify/:projectName",
             views: {
                 'container@': {
-                    templateUrl: "views/project/modify.html",
-                    controller: "projectModify"
+                    templateUrl: "/app/project/modify.html",
+                    controller: "ModifyProjectCtrl"
                 }
             },
             access: {
@@ -213,16 +213,16 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             views: {
                 'container@' : {
                     templateUrl: "/app/task/create.html",
-                    controller: "TaskCreateCtrl"
+                    controller: "CreateTaskCtrl"
                 }
             }
         })
-        .state('app.taskModify', {
+        .state('app.modifyTask', {
             url: "/task/modify/:taskId",
             views: {
                 'container@' : {
                     templateUrl: "/app/task/modify.html",
-                    controller: "TaskModifyCtrl"
+                    controller: "ModifyTaskCtrl"
                 }
             },
             access: {

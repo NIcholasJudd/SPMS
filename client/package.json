@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "gulp": "^3.8.11",
+    "gulp-livereload": "^3.8.0",
     "gulp-ng-config": "^1.2.1",
     "slush": "^1.1.1",
     "slush-ng": "^0.1.2"
