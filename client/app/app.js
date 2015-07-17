@@ -75,35 +75,35 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 adminOnly: false
             }
         })
-            .state('app.pmDashboard.panels', {
-                url: "",
-                views: {
-                    'projecttracking@app.pmDashboard' : {
-                        templateUrl: "/app/pm-dashboard/project-tracking.html",
-                        controller: "PMProjectTrackingCtrl"
-                    },
-                    'tasks@app.pmDashboard' : {
-                        templateUrl: "/app/pm-dashboard/tasks.html",
-                        controller: "PMTasksCtrl"
-                    },
-                    'statistics@app.pmDashboard' : {
-                        templateUrl: "/app/pm-dashboard/statistics.html",
-                        controller: "PMStatisticsCtrl"
-                    },
-                    'progress@app.pmDashboard' : {
-                        templateUrl: "/app/pm-dashboard/progress.html",
-                        controller: "PMProgressCtrl"
-                    },
-                    'costManagement@app.pmDashboard' : {
-                        templateUrl: "/app/pm-dashboard/cost-management.html",
-                        controller: "PMCostManagementCtrl"
-                    }
+        .state('app.pmDashboard.panels', {
+            url: "",
+            views: {
+                'projecttracking@app.pmDashboard' : {
+                    templateUrl: "/app/pm-dashboard/project-tracking.html",
+                    controller: "PMProjectTrackingCtrl"
                 },
-                access: {
-                    requiredLogin: true,
-                    adminOnly: false
+                'tasks@app.pmDashboard' : {
+                    templateUrl: "/app/pm-dashboard/tasks.html",
+                    controller: "PMTasksCtrl"
+                },
+                'statistics@app.pmDashboard' : {
+                    templateUrl: "/app/pm-dashboard/statistics.html",
+                    controller: "PMStatisticsCtrl"
+                },
+                'progress@app.pmDashboard' : {
+                    templateUrl: "/app/pm-dashboard/progress.html",
+                    controller: "PMProgressCtrl"
+                },
+                'costManagement@app.pmDashboard' : {
+                    templateUrl: "/app/pm-dashboard/cost-management.html",
+                    controller: "PMCostManagementCtrl"
                 }
-            })
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
+            }
+        })
         .state('app.tmDashboard', {
             abstract : true,
             url: "/dashboard/team-member",
@@ -118,7 +118,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 adminOnly: false
             }
         })
-            .state('app.tmDashboard.tasks', {
+        .state('app.tmDashboard.tasks', {
             abstract : true,
             url: "",
             views : {
@@ -132,27 +132,40 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 adminOnly: false
             }
         })
-                .state('app.tmDashboard.tasks.status', {
-                    url: "",
-                    views: {
-                        'assigned@app.tmDashboard' : {
-                            templateUrl: "/app/tm-dashboard/assigned.html",
-                            controller: "TMAssignedCtrl"
-                        },
-                        'progress@app.tmDashboard' : {
-                            templateUrl: "/app/tm-dashboard/progress.html",
-                            controller: "TMProgressCtrl"
-                        },
-                        'complete@app.tmDashboard' : {
-                            templateUrl: "/app/tm-dashboard/complete.html",
-                            controller: "TMAssignedCtrl"
-                        }
-                    },
-                    access: {
-                        requiredLogin: true,
-                        adminOnly: false
-                    }
-                })
+        .state('app.tmDashboard.tasks.status', {
+            url: "",
+            views: {
+                'assigned@app.tmDashboard' : {
+                    templateUrl: "/app/tm-dashboard/assigned.html",
+                    controller: "TMAssignedCtrl"
+                },
+                'progress@app.tmDashboard' : {
+                    templateUrl: "/app/tm-dashboard/progress.html",
+                    controller: "TMProgressCtrl"
+                },
+                'complete@app.tmDashboard' : {
+                    templateUrl: "/app/tm-dashboard/complete.html",
+                    controller: "TMAssignedCtrl"
+                }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
+            }
+        })
+        .state('app.addUser', {
+            url: "/user/add",
+            views: {
+                'container@':{
+                    templateUrl: "/app/user/add.html",
+                    controler: "AddUserCtrl"
+                }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: true
+            }
+        })
         .state('app.createUser', {
             url: "/user/create",
             views: {

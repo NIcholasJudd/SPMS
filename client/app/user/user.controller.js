@@ -2,6 +2,19 @@
  * Created by Nicholas Judd 2/07/15
  */
 //Create User Controllers
+myApp.controller("AddUserCtrl", ['$scope', 'UserFactory',
+    function ($scope, UserFactory) {
+        $scope.user = [{
+            firstName: "",
+            lastName: "",
+            email: "",
+            userType: "team member"
+        }];
+        $scope.newLine = function(){
+
+        }
+    }
+])
 myApp.controller("CreateUserCtrl", ['$scope', 'UserFactory',
     function ($scope, UserFactory) {
         $scope.roles = [

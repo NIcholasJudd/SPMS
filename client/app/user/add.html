@@ -1,0 +1,42 @@
+<div class="col-md-8 col-md-offset-2" ng-keypress="$event.which === 13 && submitUser()">
+    <h2>Company Name</h2>
+
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            Add New Staff
+        </div>
+        <div class="panel panel-body">
+            <div class="form-group">
+                <div class="row" ng-repeat="user in user">
+                    <div class="col-md-4">
+                        <label for="firstName">First name</label>
+                        <input id="firstName"
+                               type="text"
+                               class="form-control"
+                               ng-model={{user.firstName}}
+                               placeholder="First Name"
+                               autofocus/>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="lastName">Last name</label>
+                        <input id="lastName"
+                               type="text"
+                               class="form-control"
+                               ng-model="newUserList.lastName"
+                               placeholder="Last Name"
+                               autofocus/>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="email">Email Address</label>
+                        <input id="email"
+                               type="text"
+                               class="form-control"
+                               ng-model="newUserList.email"
+                               placeholder="Email Address"
+                               autofocus/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
