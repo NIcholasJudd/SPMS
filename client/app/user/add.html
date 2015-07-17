@@ -7,13 +7,13 @@
         </div>
         <div class="panel panel-body">
             <div class="form-group">
-                <div class="row" ng-repeat="user in user">
+                <div class="row" ng-repeat="user in users">
                     <div class="col-md-4">
                         <label for="firstName">First name</label>
                         <input id="firstName"
                                type="text"
                                class="form-control"
-                               ng-model={{user.firstName}}
+                               ng-model=user.firstName
                                placeholder="First Name"
                                autofocus/>
                     </div>
@@ -22,20 +22,23 @@
                         <input id="lastName"
                                type="text"
                                class="form-control"
-                               ng-model="newUserList.lastName"
-                               placeholder="Last Name"
-                               autofocus/>
+                               ng-model="user.lastName"
+                               placeholder="Last Name"/>
                     </div>
                     <div class="col-md-4">
                         <label for="email">Email Address</label>
                         <input id="email"
                                type="text"
                                class="form-control"
-                               ng-model="newUserList.email"
-                               placeholder="Email Address"
-                               autofocus/>
+                               ng-model="user.email"
+                               placeholder="Email Address"/>
                     </div>
                 </div>
+                <br>
+                <button class="btn btn-success" ng-click="newLine()">Add another user</button>
+                <br><br>
+                <button type="submit" class="form-control btn btn-success" ng-click="addUser()">Update User Details
+                </button>
             </div>
         </div>
     </div>

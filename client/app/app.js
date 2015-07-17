@@ -158,7 +158,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             views: {
                 'container@':{
                     templateUrl: "/app/user/add.html",
-                    controler: "AddUserCtrl"
+                    controller: "AddUserCtrl"
                 }
             },
             access: {

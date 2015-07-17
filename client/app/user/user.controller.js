@@ -4,15 +4,28 @@
 //Create User Controllers
 myApp.controller("AddUserCtrl", ['$scope', 'UserFactory',
     function ($scope, UserFactory) {
-        $scope.user = [{
+        $scope.users = [{
             firstName: "",
             lastName: "",
             email: "",
             userType: "team member"
         }];
+        var number = 0;
         $scope.newLine = function(){
-
+            console.log($scope.users);
+            $scope.users.push({
+                firstName: "",
+                lastName: "",
+                email: "",
+                userType: "team member"
+            });
         }
+        $scope.addUser = function () {
+            var temp = Math.random().toString(36).slice(2);
+            console.log(temp);
+            console.log("TEST");
+            console.log($scope.users);
+        };
     }
 ])
 myApp.controller("CreateUserCtrl", ['$scope', 'UserFactory',
