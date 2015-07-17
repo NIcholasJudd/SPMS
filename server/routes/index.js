@@ -94,6 +94,6 @@ router.get('/api/auth/project/:projectName/cocomoScore', cocomoScores.getOne);
 router.put('/api/auth/project/:projectName/cocomoScore', cocomoScores.update);
 
 //mail
-router.post('/api/auth/email', transporter.email);
+router.post('/api/auth/email/:message', transporter.email);
 module.exports = router;
 

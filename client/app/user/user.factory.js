@@ -48,8 +48,9 @@ myApp.factory('UserFactory', function($http) {
             })
         },
 
-        sendMail: function() {
-           return $http.post('http://localhost:3000/api/auth/email')
+        sendMail: function(message) {
+            console.log(message);
+           return $http.post('http://localhost:3000/api/auth/email/' + message)
         }
 
     }

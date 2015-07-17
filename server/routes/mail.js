@@ -5,8 +5,8 @@ var promise = require('promise'),
     //db = require('../models/database'),
     nodemailer = require("nodemailer");
 var transporter = {
-    email : function () {
-        console.log("TEST");
+    email : function (req,res) {
+        console.log(req.params.message);
         var transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
