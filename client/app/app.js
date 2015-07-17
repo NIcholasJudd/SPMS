@@ -4,10 +4,7 @@ var myApp = angular.module('ngclient',
         'myApp.config',
         'ui.bootstrap',
         'ui.slider',
-        'ui.bootstrap.typeahead',
-        'ui.bootstrap.tabs',
-        'mj.scrollingTabs',
-        'angularModalService'
+        'ui.bootstrap.typeahead'
     ]);
 
 myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
