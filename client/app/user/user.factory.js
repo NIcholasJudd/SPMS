@@ -49,7 +49,7 @@ myApp.factory('UserFactory', function($http) {
         },
 
         sendMail: function() {
-            $http.post('http://localhost:3000/api/auth/sendMail').success(callback);
+           return $http.post('http://localhost:3000/api/auth/email')
         }
 
     }

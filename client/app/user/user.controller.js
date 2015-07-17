@@ -64,8 +64,7 @@ myApp.controller("CreateUserCtrl", ['$scope', 'UserFactory',
         };
 
         $scope.submitUser = function () {
-            UserFactory.sendMail();
-           /* $scope.errorMessage = {};
+            $scope.errorMessage = {};
             $scope.error = false;
             console.log($scope.user.password);
             if ($scope.user.password != $scope.passwordCheck) {
@@ -109,7 +108,7 @@ myApp.controller("CreateUserCtrl", ['$scope', 'UserFactory',
                 var msg = "Create user failed: " + err;
                 console.log(err);
                 alert(msg);
-            })*/
+            })
         }
     }
 ]);
