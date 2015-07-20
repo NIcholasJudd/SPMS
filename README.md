@@ -1,29 +1,18 @@
-Download and set up Postgresql
-TESTING FOR REPO NAME CHANGE
- - Download and install postgres.app: http://postgresapp.com/
- - add psql (command line tool) to your path: http://postgresapp.com/documentation/cli-tools.html
- - Once installed and running, it should open up a window that has a 'open psql' button, which will open up psql in terminal.  however, this will connect to a default database, probably your mac's username.  We don't want that.  type '\q' to exit, and then type 'createdb test' to create a new database called test.  if createdb is 'not found', google it.  You should now be able to connect to a test database by typing 'psql test' in command line.  Keep Postgresql and that psql process open/running.
+Requirements
 
-Download the project
+ - Postgres, running with db table named 'test'
+ - Node.js
+ - npm
+ - nodemon
 
-Whether you do this through webstorm, xcode, github desktop is up to you.  Either way, once downloaded open a command line prompt (in webstorm click terminal in bottom left corner) and make sure your in the root directory of the project.
+Installation
 
-Client side
+In root directory:
 
- - 'cd ./client'
- - 'sudo npm i -g gulp slush slush-ng'
  - 'npm install'
  - 'gulp'
-You should get something starting up, and it should say something like 'Server started http://localhost:2772'
 
-Server side
- - cd ./server
- - npm install
- - nodemon app.js
-
-Express server should be listening on port 3000
-
-In web browser, go to localhost:2772, you should get a login screen
+In web browser, go to localhost:9000, you should get home page
 
 In the app:
 
