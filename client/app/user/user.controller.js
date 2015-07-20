@@ -212,7 +212,7 @@ myApp.controller("PasswordCheckCtrl", [ '$scope',
         };
         $scope.passwordCompare = function(pass1, pass2) {
             console.log(pass2);
-            if (pass1 == pass2 && pass2.length > 0){
+            if (pass1 == pass2 && pass1.length > 0){
                 $scope.customStyle.compareStyle = {"color":"green"};
                 $scope.compare.match = "Valid Password";
             } else {

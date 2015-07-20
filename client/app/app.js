@@ -39,6 +39,16 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 }
             }
         })
+        .state('signup', {
+            url: "/signup",
+            views: {
+                'container@': {
+                    templateUrl: "/app/signup/signUp.html",
+                    controller: "signUpContainerCtrl"
+                }
+            }
+
+        })
         .state('app', {
             url: "",
             abstract: true,
