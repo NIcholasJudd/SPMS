@@ -2,6 +2,58 @@
  * Created by Nicholas Judd 2/07/15
  */
 //Create User Controllers
+myApp.controller("AddUserCtrl", ['$scope', 'UserFactory',
+    function ($scope, UserFactory) {
+        $scope.users = [{
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            role: "teammember"
+        }];
+        $scope.newLine = function(){
+            console.log($scope.users);
+            $scope.users.push({
+                firstName: "",
+                lastName: "",
+                email: "",
+                password: "",
+                role: "teammember"
+            });
+        }
+        $scope.addUser = function () {
+            for (var i = 0; i < $scope.users.length; i++) {
+                var oneTimePassword = Math.random().toString(36).slice(2);
+                $scope.users[i].password = oneTimePassword;
+                console.log($scope.users);
+                $scope.errorMessage = {};
+                $scope.error = false;
+                if (!$scope.users[i].firstName) {
+                    $scope.errorMessage.fName = "first name missing\n";
+                }
+                if (!$scope.users[i].lastName) {
+                    $scope.error = true;
+                    $scope.errorMessage.lName = "last name missing\n";
+                }
+                if (!$scope.users[i].email) {
+                    $scope.error = true;
+                    $scope.errorMessage.email = "email missing\n";
+                }
+                if ($scope.error === true) {
+                    return;
+                }
+                UserFactory.createUser($scope.users[i]).success(function (err, res) {
+                    alert($scope.users[i].email + ' successfully saved in database');
+                }).error(function (err, res) {
+                    var msg = "Create user failed: " + err;
+                    console.log(err);
+                    alert(msg);
+                })
+                //UserFactory.sendEmail($scope.users[i])
+            }
+        };
+    }
+])
 myApp.controller("CreateUserCtrl", ['$scope', 'UserFactory',
     function ($scope, UserFactory) {
         $scope.roles = [

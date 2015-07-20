@@ -1,0 +1,48 @@
+<div class="col-md-8 col-md-offset-2" ng-keypress="$event.which === 13 && submitUser()">
+    <h2>Company Name</h2>
+
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            Add New Staff
+        </div>
+        <div class="panel panel-body">
+            <div class="form-group">
+                <button type="submit" class="form-control btn-success" ng-click="newLine()">Add another user</button>
+                <div class="row" ng-repeat="user in users">
+                    <div class="col-md-3">
+                        <label for="firstName">First name</label>
+                        <input id="firstName"
+                               type="text"
+                               class="form-control"
+                               ng-model=user.firstName
+                               placeholder="First Name"
+                               autofocus/>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="lastName">Last name</label>
+                        <input id="lastName"
+                               type="text"
+                               class="form-control"
+                               ng-model="user.lastName"
+                               placeholder="Last Name"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="email">Email Address</label>
+                        <input id="email"
+                               type="text"
+                               class="form-control"
+                               ng-model="user.email"
+                               placeholder="Email Address"/>
+                    </div>
+                    <div class="col-md-3">
+                        <br>
+                        <button class="btn btn-danger" ng-click="removeline()">Remove user</button>
+
+                    </div>
+                </div>
+                <button type="submit" class="form-control btn btn-success" ng-click="addUser()">Update User Details
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

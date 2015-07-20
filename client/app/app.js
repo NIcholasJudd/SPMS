@@ -72,35 +72,35 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 adminOnly: false
             }
         })
-            .state('app.pmDashboard.panels', {
-                url: "",
-                views: {
-                    'projecttracking@app.pmDashboard' : {
-                        templateUrl: "/app/pm-dashboard/project-tracking.html",
-                        controller: "PMProjectTrackingCtrl"
-                    },
-                    'tasks@app.pmDashboard' : {
-                        templateUrl: "/app/pm-dashboard/tasks.html",
-                        controller: "PMTasksCtrl"
-                    },
-                    'statistics@app.pmDashboard' : {
-                        templateUrl: "/app/pm-dashboard/statistics.html",
-                        controller: "PMStatisticsCtrl"
-                    },
-                    'progress@app.pmDashboard' : {
-                        templateUrl: "/app/pm-dashboard/progress.html",
-                        controller: "PMProgressCtrl"
-                    },
-                    'costManagement@app.pmDashboard' : {
-                        templateUrl: "/app/pm-dashboard/cost-management.html",
-                        controller: "PMCostManagementCtrl"
-                    }
+        .state('app.pmDashboard.panels', {
+            url: "",
+            views: {
+                'projecttracking@app.pmDashboard' : {
+                    templateUrl: "/app/pm-dashboard/project-tracking.html",
+                    controller: "PMProjectTrackingCtrl"
                 },
-                access: {
-                    requiredLogin: true,
-                    adminOnly: false
+                'tasks@app.pmDashboard' : {
+                    templateUrl: "/app/pm-dashboard/tasks.html",
+                    controller: "PMTasksCtrl"
+                },
+                'statistics@app.pmDashboard' : {
+                    templateUrl: "/app/pm-dashboard/statistics.html",
+                    controller: "PMStatisticsCtrl"
+                },
+                'progress@app.pmDashboard' : {
+                    templateUrl: "/app/pm-dashboard/progress.html",
+                    controller: "PMProgressCtrl"
+                },
+                'costManagement@app.pmDashboard' : {
+                    templateUrl: "/app/pm-dashboard/cost-management.html",
+                    controller: "PMCostManagementCtrl"
                 }
-            })
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
+            }
+        })
         .state('app.tmDashboard', {
             abstract : true,
             url: "/dashboard/team-member",
@@ -115,7 +115,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 adminOnly: false
             }
         })
-            .state('app.tmDashboard.tasks', {
+        .state('app.tmDashboard.tasks', {
             abstract : true,
             url: "",
             views : {
@@ -129,27 +129,40 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 adminOnly: false
             }
         })
-                .state('app.tmDashboard.tasks.status', {
-                    url: "",
-                    views: {
-                        'assigned@app.tmDashboard' : {
-                            templateUrl: "/app/tm-dashboard/assigned.html",
-                            controller: "TMAssignedCtrl"
-                        },
-                        'progress@app.tmDashboard' : {
-                            templateUrl: "/app/tm-dashboard/progress.html",
-                            controller: "TMProgressCtrl"
-                        },
-                        'complete@app.tmDashboard' : {
-                            templateUrl: "/app/tm-dashboard/complete.html",
-                            controller: "TMAssignedCtrl"
-                        }
-                    },
-                    access: {
-                        requiredLogin: true,
-                        adminOnly: false
-                    }
-                })
+        .state('app.tmDashboard.tasks.status', {
+            url: "",
+            views: {
+                'assigned@app.tmDashboard' : {
+                    templateUrl: "/app/tm-dashboard/assigned.html",
+                    controller: "TMAssignedCtrl"
+                },
+                'progress@app.tmDashboard' : {
+                    templateUrl: "/app/tm-dashboard/progress.html",
+                    controller: "TMProgressCtrl"
+                },
+                'complete@app.tmDashboard' : {
+                    templateUrl: "/app/tm-dashboard/complete.html",
+                    controller: "TMAssignedCtrl"
+                }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
+            }
+        })
+        .state('app.addUser', {
+            url: "/user/add",
+            views: {
+                'container@':{
+                    templateUrl: "/app/user/add.html",
+                    controller: "AddUserCtrl"
+                }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: true
+            }
+        })
         .state('app.createUser', {
             url: "/user/create",
             views: {
@@ -323,6 +336,156 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 ]
             }
         });
+
+    /*$routeProvider
+     .when('/login', {
+     templateUrl: 'partials/login.html',
+     controller: 'LoginCtrl',
+     access: {
+     requiredLogin: false
+     }
+     }).when('/', {
+     templateUrl: 'partials/home.html',
+     controller: 'LoginCtrl',
+     access: {
+     requiredLogin: true
+     }
+     }).when('/project/create', {
+     templateUrl: 'partials/project/project.create.html',
+     controller: 'ProjectCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly: true
+     }
+     }).when('/project/modify', {
+     templateUrl: 'partials/project/project.modify.html',
+     controller: 'ProjectModCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly: false
+     },
+     resolve : {
+     currentProject : function(ProjectFactory, $window) {
+     return ProjectFactory.getProject($window.sessionStorage.projectName);
+     }
+     }
+     }).when('/project/archive', {
+     templateUrl: 'partials/project/project.archive.html',
+     controller: 'ProjectArchiveCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly : true
+     },
+     resolve: {
+     ActiveProjects : function(ProjectFactory) {
+     return ProjectFactory.getProjects();
+     },
+     ArchivedProjects : function(ProjectFactory) {
+     return ProjectFactory.getArchivedProjects();
+     }
+     }
+     }).when('/project/taskCreate', {
+     templateUrl: 'partials/project/task.create.html',
+     controller: 'TaskCreateCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly : false
+     }
+     }).when('/project/taskModify', {
+     templateUrl: 'partials/project/task.modify.html',
+     controller: 'TaskModCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly : false
+     }
+     }).when('/project/taskDetails', {
+     templateUrl: 'partials/project/task.detail.html',
+     controller: 'TaskDetailCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly : false
+     }
+     }).when('/effort/functionPoints', {
+     templateUrl: 'partials/effort/functionPoints.html',
+     controller: 'EffortFunctionPointCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly: false
+     },
+     resolve : {
+     FunctionPointData : function(ProjectFactory, $window) {
+     return ProjectFactory.getFunctionPointData($window.sessionStorage.projectName);
+     }
+     }
+     }).when('/effort/effortEstimation', {
+     templateUrl: 'partials/effort/effort.estimation.html',
+     controller: 'EffortCocomoCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly: false
+     },
+     resolve : {
+     CocomoScores : function(ProjectFactory, $window) {
+     return ProjectFactory.getCocomoScores($window.sessionStorage.projectName);
+     }
+     }
+     }).when('/project/ganttChart', {
+     templateUrl: 'partials/project/ganttChart.html',
+     controller: 'GanttChartCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly: false
+     }
+     }).when('/project/apn', {
+     templateUrl: 'partials/project/apn.html',
+     controller: 'APNCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly : false
+     }
+     }).when('/dashboard/pmDashboard', {
+     templateUrl: 'partials/dashboard/project.manager.dashboard.html',
+     controller: 'ProjectDashboardCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly : false
+     },
+     resolve : {
+     assignedProjects : function(ProjectFactory, $window) {
+     if($window.sessionStorage.userRole === 'administrator')
+     return ProjectFactory.getProjects();
+     else {
+     console.log('team member');
+     return ProjectFactory.getPMProjects($window.sessionStorage.user);
+     }
+     }
+     }
+     }).when('/dashboard/tmDashboard', {
+     templateUrl: 'partials/dashboard/team.member.dashboard.html',
+     controller: 'TaskDashCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly : false
+     }
+     }).when('/modal', {
+     templateUrl: 'partials/modal.html',
+     controller: 'HomeCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly : false
+     }
+     }).when('/user/create', {
+     templateUrl: 'partials/user/user.create.html',
+     controller: 'UserCtrl',
+     access: {
+     requiredLogin: true,
+     adminOnly : true
+     }
+     }).when('/error', {
+     templateUrl: 'partials/error.html'
+     }).otherwise({
+     redirectTo: '/login'
+     });*/
 });
 
 myApp.run(function ($rootScope, $state, $window, $location, AuthenticationFactory) {

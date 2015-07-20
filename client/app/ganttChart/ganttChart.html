@@ -1,3 +1,10 @@
 <h2>Gantt Chart Page</h2>
 <h4>This will be the gantt chart for:  {{project}}</h4>
-<div gantt data=data></div>
+<div gantt data=data
+     column-width="getColumnWidth(options.width, options.scale, options.zoom)"
+     auto-expand="options.autoExpand"
+     max-height="options.maxHeight && 300 || 0">
+    <gantt-table></gantt-table>
+    <gantt-movable></gantt-movable>
+    <gantt-tooltips></gantt-tooltips>
+</div>
