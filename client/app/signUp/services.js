@@ -23,6 +23,12 @@ myApp.factory('signUp', function($http, $q, $rootScope, $window, baseUrl) {
                 userLimit: 20,
                 price: 100,
                 id: 03
+            },
+            {
+                name: "Plan 4",
+                userLimit: 25,
+                price: 15,
+                id: 04
             }
         ];
         console.log(plans);
