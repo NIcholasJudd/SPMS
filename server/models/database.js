@@ -40,8 +40,10 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         queries.push(t.none('DROP TABLE IF EXISTS taskrole'));
         queries.push(t.none('DROP TABLE IF EXISTS link'));
         queries.push(t.none('DROP TABLE IF EXISTS task'));
+        queries.push(t.none('DROP TABLE IF EXISTS projectassignee'));
         queries.push(t.none('DROP TABLE IF EXISTS project'));
-        queries.push(t.none('DROP TABLE IF EXISTS skill'));
+        queries.push(t.none('ALTER TABLE employee DROP CONSTRAINT "employee_accountId"'));
+        queries.push(t.none('DROP TABLE IF EXISTS account'));
         queries.push(t.none('DROP TABLE IF EXISTS employee'));
         queries.push(t.none('DROP TABLE IF EXISTS plan'));
 
@@ -52,34 +54,46 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         'password varchar(200) NOT NULL,' +
         'phone varchar(20),' +
         '"userType" varchar(20) CHECK ("userType" = \'administrator\' OR "userType" = \'team member\') NOT NULL,' +
-        '"performanceIndex" real DEFAULT 0, ' +
         '"skills" varchar(100)[], ' +
-        'active boolean ' +
+        'active boolean, ' +
+        '"accountId" int NULL' +
         ')'));
 
-        queries.push(t.none('CREATE TABLE skill(' +
-        '"skillName" varchar(100) NOT NULL, ' +
-        'email varchar(100) references employee' +
-        ')'));
+        queries.push(t.none('CREATE TABLE account(' +
+            '"accountId" serial PRIMARY KEY, ' +
+            '"accountName" varchar(100) NOT NULL,' +
+            '"accountHolder" varchar(100) REFERENCES employee(email) ON DELETE CASCADE, ' + //ON DELETE CASCADE????
+            '"signUpDate" date NOT NULL ' +
+            ')'
+        ));
+
+        queries.push(t.none('ALTER TABLE employee ADD CONSTRAINT "employee_accountId" FOREIGN KEY ("accountId") REFERENCES account("accountId") ON DELETE CASCADE;'));
 
         queries.push(t.none('CREATE TABLE project(' +
-            '"projectName" varchar(100) PRIMARY KEY, ' +
+            '"projectId" serial PRIMARY KEY, ' +
+            '"projectName" varchar(100) NOT NULL, ' +
+            '"accountId" int REFERENCES account ON DELETE CASCADE, ' +
             'description text NOT NULL, ' +
             'budget real NOT NULL, ' +
             '"startDate" date NOT NULL, ' +
             '"estimatedEndDate" date NOT NULL, ' +
             'active boolean NOT NULL, ' +
-            '"projectManager" varchar(100) REFERENCES employee(email),' +
             '"archiveReason" text NULL ' +
             ')'
         ));
 
-
+        queries.push(t.none('CREATE TABLE projectassignee (' +
+            'email varchar(100) REFERENCES employee NOT NULL, ' +
+            '"projectId" int REFERENCES project NOT NULL, ' +
+            '"userType" varchar(20) CHECK ("userType" = \'project manager\' OR "userType" = \'team member\') NOT NULL, ' +
+            'active boolean NOT NULL ' +
+            ')'
+        ));
 
         queries.push(t.none('CREATE TABLE task(' +
             '"taskId" serial UNIQUE NOT NULL,' +
             '"taskNumber" int NOT NULL,' +
-            '"projectName" varchar(100) REFERENCES project ON DELETE CASCADE,' +
+            '"projectId" int REFERENCES project ON DELETE CASCADE,' +
             '"taskName" varchar(100) NOT NULL,' +
             'description text,' +
             '"startDate" date NOT NULL, ' +
@@ -94,13 +108,13 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
             'priority = \'low\') NOT NULL, ' +
                 //'parentid integer REFERENCES task("taskId"),' +
             'active boolean, ' +
-            'PRIMARY KEY("taskNumber", "projectName")' +
+            'PRIMARY KEY("taskNumber", "projectId")' +
             ')'
         ));
 
         queries.push(t.none('CREATE TABLE link(' +
             '"linkId" serial PRIMARY KEY, ' +
-            '"projectName" varchar(100) REFERENCES project ON DELETE CASCADE, ' +
+            '"projectId" int REFERENCES project ON DELETE CASCADE, ' +
             'source integer REFERENCES task("taskId") NOT NULL, ' +
             'target integer REFERENCES task("taskId") NOT NULL, ' +
             'type varchar(20) CHECK(type = \'finish to start\' OR ' +
@@ -126,7 +140,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         ));
 
         queries.push(t.none('CREATE TABLE functionpoint(' +
-            '"projectName" varchar(100) REFERENCES project ON DELETE CASCADE UNIQUE NOT NULL, ' +
+            '"projectId" int REFERENCES project ON DELETE CASCADE UNIQUE NOT NULL, ' +
             '"adjustedFunctionPointCount" REAL, ' +
             '"adjustmentFactor" REAL[], ' +
             '"functionCounts" REAL[][], ' +
@@ -135,7 +149,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         ));
 
         queries.push(t.none('CREATE TABLE cocomoscore(' +
-            '"projectName" varchar(100) REFERENCES project ON DELETE CASCADE UNIQUE NOT NULL, ' +
+            '"projectId" int REFERENCES project ON DELETE CASCADE UNIQUE NOT NULL, ' +
             '"cocomoScores" REAL[], ' +
             '"personMonths" REAL, ' +
             'calculated BOOLEAN NOT NULL ' +
@@ -155,16 +169,14 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
 // The O.G. Admin will always exist, as an initial entry point into the application
 
-        queries.push(t.none("INSERT INTO employee VALUES('admin@admin','Adam', 'Minty', $1, '0123456789', 'administrator', 0, ARRAY['tester', 'developer'], true)", [hash]));
-
-
+        queries.push(t.none("INSERT INTO employee VALUES('admin@admin','Adam', 'Minty', $1, '0123456789', 'administrator', ARRAY['tester', 'developer'], true)", [hash]));
         // test team members
 
-        queries.push(t.none("INSERT INTO employee VALUES('scott@tm','Scott', 'Mackenzie', $1, '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'operations'], true)", hash));
-        queries.push(t.none("INSERT INTO employee VALUES('paul@tm','Paul', 'Beavis', $1, '0123456789', 'team member', 0.5, ARRAY['developer', 'designer'], true)", hash));
-        queries.push(t.none("INSERT INTO employee VALUES('nick@tm','Nick', 'Judd', $1, '0123456789', 'team member', 0.5, ARRAY['designer', 'tester', 'analyst'], true)", hash));
-        queries.push(t.none("INSERT INTO employee VALUES('jim@tm','Jim', 'Gollop', $1, '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'analyst' ], true)", hash));
-
+        queries.push(t.none("INSERT INTO employee VALUES('scott@tm','Scott', 'Mackenzie', $1, '0123456789', 'team member', ARRAY['developer', 'tester', 'operations'], true)", hash));
+        queries.push(t.none("INSERT INTO employee VALUES('paul@tm','Paul', 'Beavis', $1, '0123456789', 'team member', ARRAY['developer', 'designer'], true)", hash));
+        queries.push(t.none("INSERT INTO employee VALUES('nick@tm','Nick', 'Judd', $1, '0123456789', 'team member', ARRAY['designer', 'tester', 'analyst'], true)", hash));
+        queries.push(t.none("INSERT INTO employee VALUES('jim@tm','Jim', 'Gollop', $1, '0123456789', 'team member', ARRAY['developer', 'tester', 'analyst' ], true)", hash));
+/*
 
 
 // A test project - 'My Project 1', with 5 tasks, 4 dependencies between tasks
@@ -180,10 +192,10 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
         queries.push(t.none("CREATE SEQUENCE myproject1seq START 1"));
 
-        /*queries.push(t.none("INSERT INTO task(tasknumber, 'projectName', 'taskName', description, 'startDate', " +
-         "'likelyDuration', 'optimisticDuration', 'pessimisticDuration', 'progressPercentage', status, priority, active) VALUES(" +
-         "nextval('myproject1seq'), 'My Project 1', 'Task 1', 'Task 1 Description', '2016-04-04', '2 days', '1 days', " +
-         "'3 days', 0.4, 'on-the-go', 'critical', true)"));*/
+        //queries.push(t.none("INSERT INTO task(tasknumber, 'projectName', 'taskName', description, 'startDate', " +
+         //"'likelyDuration', 'optimisticDuration', 'pessimisticDuration', 'progressPercentage', status, priority, active) VALUES(" +
+         //"nextval('myproject1seq'), 'My Project 1', 'Task 1', 'Task 1 Description', '2016-04-04', '2 days', '1 days', " +
+         //"'3 days', 0.4, 'on-the-go', 'critical', true)"));
 
         queries.push(t.none("INSERT INTO task VALUES(nextval('\"task_taskId_seq\"'), nextval('myproject1seq'), 'My Project 1', " +
         "'Task 1', 'Task 1 Description', '2016-04-04', '2 days', '1 days', '3 days', '1 days', 40, 'on-the-go', 'critical', true)"));
@@ -427,7 +439,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
         queries.push(t.none("INSERT INTO taskrole VALUES('nick@tm'," +
         "(SELECT \"taskId\" from task where \"projectName\" = 'Project Flappy Bird' AND \"taskName\" = 'Recruit Staff'), " +
-        "'analyst', true)"));
+        "'analyst', true)"));*/
 
         queries.push(t.none("INSERT INTO plan VALUES(nextval('\"plan_planId_seq\"'), " +
                 "'micro', 10, 10)"));

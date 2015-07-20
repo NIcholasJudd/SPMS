@@ -139,3 +139,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['browser-sync', 'client-config', 'watch', 'js']);
+gulp.task('server', ['nodemon']);

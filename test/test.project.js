@@ -11,7 +11,7 @@ var assert = require("assert"),
     superagent = require('superagent'),
     expect = require('expect.js');
 
-describe('Project', function() {
+describe.skip('Project', function() {
     var server = 'http://localhost:3000';
 
     var token = null;

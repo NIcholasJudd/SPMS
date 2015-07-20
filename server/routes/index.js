@@ -11,6 +11,8 @@ var express = require('express'),
     taskComment = require('./task.comment.js'),
     projectFunctionPoints = require('./projects.functionPoints.js'),
     cocomoScores = require('./projects.cocomoScores.js'),
+    signup = require('./signup.js');
+    cocomoScores = require('./projects.cocomoScores.js'),
     plans = require('./plan.js');
 
 
@@ -93,6 +95,8 @@ router.put('/api/auth/project/:projectName/functionPoint', projectFunctionPoints
 
 router.get('/api/auth/project/:projectName/cocomoScore', cocomoScores.getOne);
 router.put('/api/auth/project/:projectName/cocomoScore', cocomoScores.update);
+
+router.post('/signup/account', signup.createAccount);
 
 router.get('/api/auth/plan', plans.getAll);
 module.exports = router;
