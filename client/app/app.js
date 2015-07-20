@@ -40,7 +40,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/signup",
             views: {
                 'container@': {
-                    templateUrl: "/app/signup/signUp.html",
+                    templateUrl: "/app/signup/signup.html",
                     controller: "signUpContainerCtrl"
                 }
             }
