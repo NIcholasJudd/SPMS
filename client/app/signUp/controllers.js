@@ -14,6 +14,7 @@ myApp.controller("signUpContainerCtrl", ['$scope', '$rootScope', 'signUp',
 
         $scope.submitUser = function(){
             console.log($scope.user);
+            console.log($scope.selectedPlan);
         };
     }
 ]);

@@ -36,11 +36,11 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 }
             }
         })
-        .state('signup', {
-            url: "/signup",
+        .state('signUp', {
+            url: "/signUp",
             views: {
                 'container@': {
-                    templateUrl: "/app/signup/signup.html",
+                    templateUrl: "/app/signUp/signUp.html",
                     controller: "signUpContainerCtrl"
                 }
             }
