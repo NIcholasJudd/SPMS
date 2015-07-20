@@ -43,6 +43,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         queries.push(t.none('DROP TABLE IF EXISTS project'));
         queries.push(t.none('DROP TABLE IF EXISTS skill'));
         queries.push(t.none('DROP TABLE IF EXISTS employee'));
+        queries.push(t.none('DROP TABLE IF EXISTS plan'));
 
         queries.push(t.none('CREATE TABLE employee(' +
         'email varchar(100) PRIMARY KEY,' +
@@ -138,6 +139,14 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
             '"cocomoScores" REAL[], ' +
             '"personMonths" REAL, ' +
             'calculated BOOLEAN NOT NULL ' +
+            ');'
+        ));
+
+        queries.push(t.none('CREATE TABLE plan(' +
+            '"planId" serial PRIMARY KEY,' +
+            '"planName" varchar(100) NOT NULL, ' +
+            '"userLimit" int NOT NULL,' +
+            '"price" NUMERIC NOT NULL ' +
             ');'
         ));
 
@@ -420,6 +429,14 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         "(SELECT \"taskId\" from task where \"projectName\" = 'Project Flappy Bird' AND \"taskName\" = 'Recruit Staff'), " +
         "'analyst', true)"));
 
+        queries.push(t.none("INSERT INTO plan VALUES(nextval('\"plan_planId_seq\"'), " +
+                "'micro', 10, 10)"));
+        queries.push(t.none("INSERT INTO plan VALUES(nextval('\"plan_planId_seq\"'), " +
+            "'mini', 15, 50)"));
+        queries.push(t.none("INSERT INTO plan VALUES(nextval('\"plan_planId_seq\"'), " +
+            "'medium', 25, 100)"));
+        queries.push(t.none("INSERT INTO plan VALUES(nextval('\"plan_planId_seq\"'), " +
+            "'large', 50, 200)"));
 
         return promise.all([queries]);
 
