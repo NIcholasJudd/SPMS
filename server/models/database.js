@@ -42,7 +42,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         queries.push(t.none('DROP TABLE IF EXISTS task'));
         queries.push(t.none('DROP TABLE IF EXISTS projectassignee'));
         queries.push(t.none('DROP TABLE IF EXISTS project'));
-        queries.push(t.none('ALTER TABLE employee DROP CONSTRAINT "employee_accountId"'));
+        queries.push(t.none('ALTER TABLE employee DROP CONSTRAINT IF EXISTS "employee_accountId"'));
         queries.push(t.none('DROP TABLE IF EXISTS account'));
         queries.push(t.none('DROP TABLE IF EXISTS employee'));
         queries.push(t.none('DROP TABLE IF EXISTS plan'));
