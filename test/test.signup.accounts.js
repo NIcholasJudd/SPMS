@@ -8,7 +8,7 @@ var assert = require("assert"),
     promise = require('promise'),
     db = require('../server/models/database');
 
-describe('Signup Route', function(){
+describe('Signup Account Route', function(){
     var server = 'http://localhost:3000';
 
     var testUser = {

@@ -97,6 +97,7 @@ router.get('/api/auth/project/:projectName/cocomoScore', cocomoScores.getOne);
 router.put('/api/auth/project/:projectName/cocomoScore', cocomoScores.update);
 
 router.post('/signup/account', signup.createAccount);
+router.post('/signup/teamMembers', signup.createTeamMembers);
 
 router.get('/api/auth/plan', plans.getAll);
 module.exports = router;
