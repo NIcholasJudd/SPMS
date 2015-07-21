@@ -76,12 +76,13 @@
                             <div id="selectPlan" class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="role"
                                         data-toggle="dropdown" aria-expanded="true">
-                                    {{selectedPlan.name}}
+                                    {{selectedPlan.planName}}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="role">
                                     <li role="presentation" ng-repeat="plan in plans">
-                                        <a role="menuitem" tabindex="-1" ng-click="setPlan(plan)">{{plan.name}}</a></li>
+                                        <a role="menuitem" tabindex="-1" ng-click="setPlan(plan)">{{plan.planName}}</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

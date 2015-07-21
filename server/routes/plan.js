@@ -8,7 +8,7 @@ var promise = require('promise'),
 var plan = {
     getAll: function(req, res) {
         var filter = filterString.create(req);
-        db.query('SELECT ' + filter + ' FROM plan;')
+        db.query('SELECT * FROM plan;')
             .then(function (data) {
                 return res.json(data);
             }, function (err) {

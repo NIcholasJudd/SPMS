@@ -12,7 +12,7 @@ var signup = {
         Inserts user signing up (account holder) and account row in transactional query.
         Once these 2 queries are complete, the accountId returned from q2 is used to set the account holders accountId,
         i.e. which account they are signed up to.
-        TO DO: passwords need to be hashed
+        TODO passwords need to be hashed
      */
 
     createAccount : function(req, res) {
@@ -45,7 +45,7 @@ var signup = {
         update.
         At this stage, the team members are 'all or nothing' - if we want to succeed on some and fail on others,
         we need to define the appropriate behaviour on fail (return status, etc)
-        TO DO: passwords need to be hashed
+        TODO: passwords need to be hashed
      */
 
     createTeamMembers : function(req, res) {

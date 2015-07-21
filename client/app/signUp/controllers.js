@@ -3,10 +3,16 @@
  */
 myApp.controller("signUpContainerCtrl", ['$scope', '$rootScope', 'signUp',
     function ($scope, $rootScope, signUp) {
-        $scope.plans = signUp.getPlansListFromServer();
-        console.log($scope.plans);
-        $scope.selectedPlan= {};
+        $scope.plans=[];
+        $scope.test = "TEST";
+        signUp.getPlansListFromServer().then(function(data)
+        {
+            $scope.plans = data;
+            console.log($scope.test);
 
+        });
+        $scope.selectedPlan= {};
+        console.log($scope.plans);
         $scope.setPlan = function (plan) {
             $scope.selectedPlan = plan;
             console.log(plan);

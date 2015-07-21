@@ -13,7 +13,7 @@ var express = require('express'),
     cocomoScores = require('./projects.cocomoScores.js'),
     signup = require('./signup.js');
     cocomoScores = require('./projects.cocomoScores.js'),
-    plans = require('./plan.js');
+    plan = require('./plan.js');
 
 
 /* Authorisation naming conventions:
@@ -99,6 +99,6 @@ router.put('/api/auth/project/:projectName/cocomoScore', cocomoScores.update);
 router.post('/signup/account', signup.createAccount);
 router.post('/signup/teamMembers', signup.createTeamMembers);
 
-router.get('/api/auth/plan', plans.getAll);
+router.get('/plan', plan.getAll);
 module.exports = router;
 
