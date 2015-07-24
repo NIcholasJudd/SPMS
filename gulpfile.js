@@ -146,5 +146,5 @@ gulp.task('set-test', function() {
     process.env.NODE_ENV = 'test';
 })
 
-gulp.task('default', ['browser-sync', 'client-config', 'watch', 'js']);
+gulp.task('default', ['set-test', 'browser-sync', 'client-config', 'watch', 'js']);
 gulp.task('server', ['set-test', 'nodemon']);
