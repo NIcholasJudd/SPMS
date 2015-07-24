@@ -138,5 +138,13 @@ gulp.task('watch', function() {
     gulp.watch(['client/app/**/*', 'client/*.html' ], reload);
 });
 
+gulp.task('set-dev', function() {
+    process.env.NODE_ENV = 'development';
+});
+
+gulp.task('set-test', function() {
+    process.env.NODE_ENV = 'test';
+})
+
 gulp.task('default', ['browser-sync', 'client-config', 'watch', 'js']);
-gulp.task('server', ['nodemon']);
+gulp.task('server', ['set-test', 'nodemon']);

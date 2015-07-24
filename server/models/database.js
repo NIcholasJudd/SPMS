@@ -3,7 +3,7 @@
  */
 
 var path = require('path');
-var connectionString = require(path.join(__dirname, '../', '../', 'config'));
+var dbConfig = require(path.join(__dirname, '../', '../', 'config'));
 var promise = require('promise');
 var pgpLib = require('pg-promise');
 var bcrypt = require('bcrypt');
@@ -22,7 +22,7 @@ var options = {
 
 var pgp = pgpLib(options);
 
-var db = pgp(connectionString);
+var db = pgp(dbConfig[process.env.NODE_ENV].connectionString);
 
 var rootPwd = 'root';
 
@@ -40,40 +40,53 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         queries.push(t.none('DROP TABLE IF EXISTS taskrole'));
         queries.push(t.none('DROP TABLE IF EXISTS link'));
         queries.push(t.none('DROP TABLE IF EXISTS task'));
-        queries.push(t.none('DROP TABLE IF EXISTS projectassignee'));
+        queries.push(t.none('DROP TABLE IF EXISTS projectrole'));
         queries.push(t.none('DROP TABLE IF EXISTS project'));
-        queries.push(t.none('CREATE TABLE IF NOT EXISTS employee()'));
-        queries.push(t.none('ALTER TABLE employee DROP CONSTRAINT IF EXISTS "employee_accountId"'));
+        queries.push(t.none('DROP TABLE IF EXISTS accountrole'));
         queries.push(t.none('DROP TABLE IF EXISTS account'));
-        queries.push(t.none('DROP TABLE IF EXISTS employee'));
         queries.push(t.none('DROP TABLE IF EXISTS plan'));
+        queries.push(t.none('DROP TABLE IF EXISTS employee'));
 
         queries.push(t.none('CREATE TABLE employee(' +
-        'email varchar(100) PRIMARY KEY,' +
-        '"firstName" varchar(100) NOT NULL,' +
-        '"lastName" varchar(100) NOT NULL,' +
-        'password varchar(200) NOT NULL,' +
-        'phone varchar(20),' +
-        '"userType" varchar(20) CHECK ("userType" = \'administrator\' OR "userType" = \'team member\') NOT NULL,' +
-        '"skills" varchar(100)[], ' +
-        'active boolean, ' +
-        '"accountId" int NULL' +
-        ')'));
+            'email varchar(100) PRIMARY KEY,' +
+            '"firstName" varchar(100) NOT NULL,' +
+            '"lastName" varchar(100) NOT NULL,' +
+            'password varchar(200) NOT NULL,' +
+            'phone varchar(20),' +
+            'skills varchar(100)[], ' +
+            'active boolean' +
+            ')'
+        ));
+
+        queries.push(t.none('CREATE TABLE plan(' +
+            '"planId" serial PRIMARY KEY,' +
+            '"planName" varchar(100) NOT NULL, ' +
+            '"userLimit" int NOT NULL,' +
+            '"price" NUMERIC NOT NULL ' +
+            ');'
+        ));
 
         queries.push(t.none('CREATE TABLE account(' +
             '"accountId" serial PRIMARY KEY, ' +
             '"accountName" varchar(100) NOT NULL,' +
-            '"accountHolder" varchar(100) REFERENCES employee(email) ON DELETE CASCADE, ' + //ON DELETE CASCADE????
-            '"signUpDate" date NOT NULL ' +
+            '"planId" integer REFERENCES plan("planId") NOT NULL, ' +
+            '"signUpDate" date NOT NULL, ' +
+            'active boolean' +
             ')'
         ));
 
-        queries.push(t.none('ALTER TABLE employee ADD CONSTRAINT "employee_accountId" FOREIGN KEY ("accountId") REFERENCES account("accountId") ON DELETE CASCADE;'));
+        queries.push(t.none('CREATE TABLE accountrole(' +
+            'email varchar(100) REFERENCES employee(email), ' +
+            '"accountId" integer REFERENCES account("accountId"), ' +
+            '"roleType" varchar(100) CHECK("roleType" = \'account holder\' OR "roleType" = \'administrator\' OR "roleType" = \'member\') NOT NULL, ' +
+            'PRIMARY KEY(email, "accountId")' +
+            ')'
+        ));
 
         queries.push(t.none('CREATE TABLE project(' +
             '"projectId" serial PRIMARY KEY, ' +
             '"projectName" varchar(100) NOT NULL, ' +
-            '"accountId" int REFERENCES account ON DELETE CASCADE, ' +
+            '"accountId" int REFERENCES account, ' +
             'description text NOT NULL, ' +
             'budget real NOT NULL, ' +
             '"startDate" date NOT NULL, ' +
@@ -83,11 +96,11 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
             ')'
         ));
 
-        queries.push(t.none('CREATE TABLE projectassignee (' +
+        queries.push(t.none('CREATE TABLE projectrole (' +
             'email varchar(100) REFERENCES employee NOT NULL, ' +
             '"projectId" int REFERENCES project NOT NULL, ' +
-            '"userType" varchar(20) CHECK ("userType" = \'project manager\' OR "userType" = \'team member\') NOT NULL, ' +
-            'active boolean NOT NULL ' +
+            '"roleType" varchar(20) CHECK ("roleType" = \'project manager\' OR "roleType" = \'team member\') NOT NULL, ' +
+            'PRIMARY KEY(email, "projectId")' +
             ')'
         ));
 
@@ -157,26 +170,19 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
             ');'
         ));
 
-        queries.push(t.none('CREATE TABLE plan(' +
-            '"planId" serial PRIMARY KEY,' +
-            '"planName" varchar(100) NOT NULL, ' +
-            '"userLimit" int NOT NULL,' +
-            '"price" NUMERIC NOT NULL ' +
-            ');'
-        ));
 
 // TEST SETUP DATA
 
 
 // The O.G. Admin will always exist, as an initial entry point into the application
 
-        queries.push(t.none("INSERT INTO employee VALUES('admin@admin','Adam', 'Minty', $1, '0123456789', 'administrator', ARRAY['tester', 'developer'], true)", [hash]));
+        queries.push(t.none("INSERT INTO employee VALUES('admin@admin','Adam', 'Minty', $1, '0123456789', ARRAY['tester', 'developer'], true)", [hash]));
         // test team members
 
-        queries.push(t.none("INSERT INTO employee VALUES('scott@tm','Scott', 'Mackenzie', $1, '0123456789', 'team member', ARRAY['developer', 'tester', 'operations'], true)", hash));
-        queries.push(t.none("INSERT INTO employee VALUES('paul@tm','Paul', 'Beavis', $1, '0123456789', 'team member', ARRAY['developer', 'designer'], true)", hash));
-        queries.push(t.none("INSERT INTO employee VALUES('nick@tm','Nick', 'Judd', $1, '0123456789', 'team member', ARRAY['designer', 'tester', 'analyst'], true)", hash));
-        queries.push(t.none("INSERT INTO employee VALUES('jim@tm','Jim', 'Gollop', $1, '0123456789', 'team member', ARRAY['developer', 'tester', 'analyst' ], true)", hash));
+        queries.push(t.none("INSERT INTO employee VALUES('scott@tm','Scott', 'Mackenzie', $1, '0123456789', ARRAY['developer', 'tester', 'operations'], true)", hash));
+        queries.push(t.none("INSERT INTO employee VALUES('paul@tm','Paul', 'Beavis', $1, '0123456789', ARRAY['developer', 'designer'], true)", hash));
+        queries.push(t.none("INSERT INTO employee VALUES('nick@tm','Nick', 'Judd', $1, '0123456789', ARRAY['designer', 'tester', 'analyst'], true)", hash));
+        queries.push(t.none("INSERT INTO employee VALUES('jim@tm','Jim', 'Gollop', $1, '0123456789', ARRAY['developer', 'tester', 'analyst' ], true)", hash));
 /*
 
 
