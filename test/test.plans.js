@@ -7,7 +7,7 @@ var assert = require("assert"),
     promise = require('promise'),
     db = require('../server/models/database');
 
-describe.skip('Plans', function() {
+describe('Plans', function() {
     var server = 'http://localhost:3000';
 
     it('should retrieve all plans', function (done) {
