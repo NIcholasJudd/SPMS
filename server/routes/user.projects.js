@@ -3,7 +3,7 @@
  */
 
 var promise = require('promise'),
-    db = require('../models/database');
+    db = require('../models/db-tables');
 
 var userProject = {
     getAll: function(req, res) {

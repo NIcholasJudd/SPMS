@@ -16,6 +16,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
 var watchify = require('watchify');
 var assign = require('lodash.assign');
+var mocha = require('gulp-mocha');
 
 var clientDeps =
     [
@@ -108,7 +109,8 @@ gulp.task('nodemon', function (cb) {
         ignore: [
             'gulpfile.js',
             'node_modules/',
-            'client/**/*'
+            'client/**/*',
+            'test/**/*'
         ]
     })
         .on('start', function () {
@@ -146,5 +148,19 @@ gulp.task('set-test', function() {
     process.env.NODE_ENV = 'test';
 })
 
-gulp.task('default', ['set-test', 'browser-sync', 'client-config', 'watch', 'js']);
-gulp.task('server', ['set-test', 'nodemon']);
+//gulp.task('execute-test', shell.task('node_modules/.bin/mocha'));
+gulp.task('run-test', function () {
+    return gulp.src('test/test.*.js', {read: false})
+        // gulp-mocha needs filepaths so you can't have any plugins before it
+        .pipe(mocha({reporter: 'spec'}))
+        .once('error', function () {
+            process.exit(1);
+        })
+        .once('end', function () {
+            process.exit();
+        });
+});
+
+gulp.task('default', ['set-dev', 'browser-sync', 'client-config', 'watch', 'js']);
+gulp.task('server', ['set-dev', 'nodemon']);
+gulp.task('test', ['set-test', 'nodemon']);

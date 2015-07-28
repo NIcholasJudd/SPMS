@@ -1,5 +1,5 @@
 var promise = require('promise'),
-    db = require('../models/database'),
+    db = require('../models/db-tables'),
     bcrypt = require('bcrypt'),
     filterString = require('../modules/filterString');
 
@@ -18,8 +18,10 @@ var users = {
     },
 
     getOne: function(req, res) {
+
         db.one("SELECT * FROM employee WHERE email = $1", [req.body.email])
             .then(function(data) {
+                console.log('ahi');
                 return res.json(data);
             }, function(err) {
                 console.error(err);
@@ -28,14 +30,18 @@ var users = {
     },
 
     create: function(req, res) {
-        console.log(req.body);
+        console.log("user create: ", req.body);
         bcrypt.genSalt(10, function(err, salt) {
             bcrypt.hash(req.body.password, salt, function (err, hash) {
                 if (err)
                     return res.status(500).send(err);
-                db.one("INSERT INTO employee VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) returning email", [req.body.email, req.body.firstName,
-                    req.body.lastName, hash, req.body.phone, req.body.role, req.body.performanceIndex,
-                    req.body.skills, true])
+                db.one('INSERT INTO employee(email, "firstName", "lastName", password, active) VALUES($1, $2, $3, $4, true) returning email',
+                    [
+                        req.body.email,
+                        req.body.firstName,
+                        req.body.lastName,
+                        hash
+                    ])
                     .then(function (data) {
                         return res.json(data);
                     }, function (err) {

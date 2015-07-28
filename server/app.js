@@ -2,8 +2,11 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var db = require('./models/database');
+var db = require('./models/db-connect');
+var dbData = require('./models/db-mockup-data');
+var dbTables = require('./models/db-tables');
 var bcrypt = require('bcrypt');
+var async = require('async');
 
 var app = express();
 
@@ -48,6 +51,31 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
+if(process.env.NODE_ENV === "development") {
+    async.series([
+        dbTables,
+        dbData
+    ], function(err, results) {
+        if(err) {
+            console.log("error loading db: ", err);
+        }else {
+            results.forEach(function(res){console.log(res)});
+        }
+
+    })
+} else if(process.env.NODE_ENV === "test") {
+    async.series([
+        dbTables
+    ], function(err, results) {
+        if(err) {
+            console.log("error loading db: ", err);
+        }else {
+            results.forEach(function(res){console.log(res)});
+        }
+
+    })
+}
 
 // Start the server
 app.set('port', process.env.PORT || 3000);

@@ -2,14 +2,13 @@
  * Created by nicholasjudd on 20/07/15.
  */
 var promise = require('promise'),
-    db = require('../models/database'),
-    filterString = require('../modules/filterString');
+    db = require('../models/db-connect');
 
 var plan = {
     getAll: function(req, res) {
-        var filter = filterString.create(req);
-        db.query('SELECT * FROM plan;')
+        db.query('SELECT * FROM plan')
             .then(function (data) {
+                console.log(data);
                 return res.json(data);
             }, function (err) {
                 console.log(err);

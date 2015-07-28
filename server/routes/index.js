@@ -96,7 +96,7 @@ router.put('/api/auth/project/:projectName/functionPoint', projectFunctionPoints
 router.get('/api/auth/project/:projectName/cocomoScore', cocomoScores.getOne);
 router.put('/api/auth/project/:projectName/cocomoScore', cocomoScores.update);
 
-router.post('/signup/account', signup.createAccount);
+router.post('/signup', signup.create);
 router.post('/signup/teamMembers', signup.createTeamMembers);
 
 router.get('/plan', plan.getAll);
