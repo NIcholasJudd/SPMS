@@ -8,7 +8,6 @@ var plan = {
     getAll: function(req, res) {
         db.query('SELECT * FROM plan')
             .then(function (data) {
-                console.log(data);
                 return res.json(data);
             }, function (err) {
                 console.log(err);

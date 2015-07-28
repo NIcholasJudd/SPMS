@@ -3,50 +3,61 @@
  */
 
 var promise = require('promise'),
-    db = require('../models/db-connect')
-    users = require('./users.js');
+    db = require('../models/db-connect'),
+    users = require('./users.js')
+    bcrypt = require('bcrypt');
 
 var signup = {
 
     /*
         create
 
-         create user, create account, add accountHolder membership asynchronously
-         TODO passwords need to be hashed
+         hash password, then create user, create account, add accountHolder membership asynchronously
      */
 
 
     create : function(req, res) {
-        db.tx(function (t) {
-            var q1 = t.one('INSERT INTO employee(email, "firstName", "lastName", password, active)  VALUES ' +
-                '($1, $2, $3, $4, true) returning email',
-                [
-                    req.body.user.email,
-                    req.body.user.firstName,
-                    req.body.user.lastName,
-                    req.body.user.password
-                ]);
-            var q2 = t.one('INSERT INTO account VALUES (DEFAULT, $1, $2, $3, true) returning "accountName"',
-                [
-                    req.body.account.accountName,
-                    req.body.planId,
-                    req.body.account.signUpDate
-                ]);
-            var q3 = t.none('INSERT INTO membership VALUES ($1, ' +
-                '(SELECT "accountId" FROM account WHERE "accountName" = $2), ' +
-                '$3)',
-                [
-                    req.body.user.email,
-                    req.body.account.accountName,
-                    "account holder"
-                ])
-            return promise.all([q1, q2, q3]);
-        }).then(function (data) {
-            res.json(data);
-        }, function (err) {
-            console.log("Error in /signup route: ", err);
-            return res.status(500).send(err);
-        });
+
+        bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.hash(req.body.user.password, salt, function (err, hash) {
+                if (err) {
+                    console.log("Error: ", err);
+                    return res.status(500).send(err);
+                }
+                else {
+                    db.tx(function (t) {
+                        var q1 = t.one('INSERT INTO employee(email, "firstName", "lastName", password, active)  VALUES ' +
+                            '($1, $2, $3, $4, true) returning email',
+                            [
+                                req.body.user.email,
+                                req.body.user.firstName,
+                                req.body.user.lastName,
+                                hash
+                            ]);
+                        var q2 = t.one('INSERT INTO account VALUES (DEFAULT, $1, $2, $3, true) returning "accountName"',
+                            [
+                                req.body.account.accountName,
+                                req.body.planId,
+                                req.body.account.signUpDate
+                            ]);
+                        var q3 = t.none('INSERT INTO membership VALUES ($1, ' +
+                            '(SELECT "accountId" FROM account WHERE "accountName" = $2), ' +
+                            '$3)',
+                            [
+                                req.body.user.email,
+                                req.body.account.accountName,
+                                "account holder"
+                            ])
+                        return promise.all([q1, q2, q3]);
+                    }).then(function (data) {
+                        res.json(data);
+                    }, function (err) {
+                        console.log("Error in /signup route: ", err);
+                        return res.status(500).send(err);
+                    });
+                }
+            })
+        })
     },
 
     /*
