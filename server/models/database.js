@@ -27,7 +27,7 @@ var db = pgp(connectionString);
 var rootPwd = 'root';
 
 bcrypt.hash(rootPwd, 10, function(err, hash) {
-
+//tests
     db.tx(function(t) {
         var queries = [];
         queries.push(t.none('DROP SEQUENCE IF EXISTS myproject1seq'));
@@ -42,23 +42,41 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         queries.push(t.none('DROP TABLE IF EXISTS task'));
         queries.push(t.none('DROP TABLE IF EXISTS project'));
         queries.push(t.none('DROP TABLE IF EXISTS skill'));
+        queries.push(t.none('DROP TABLE IF EXISTS account'));
+        queries.push(t.none('DROP TABLE IF EXISTS plans CASCADE'));
         queries.push(t.none('DROP TABLE IF EXISTS employee'));
-
+//
         queries.push(t.none('CREATE TABLE employee(' +
-        'email varchar(100) PRIMARY KEY,' +
-        '"firstName" varchar(100) NOT NULL,' +
-        '"lastName" varchar(100) NOT NULL,' +
-        'password varchar(200) NOT NULL,' +
-        'phone varchar(20),' +
-        '"userType" varchar(20) CHECK ("userType" = \'administrator\' OR "userType" = \'team member\') NOT NULL,' +
-        '"performanceIndex" real DEFAULT 0, ' +
-        '"skills" varchar(100)[], ' +
-        'active boolean ' +
+            'email varchar(100) PRIMARY KEY,' +
+            '"firstName" varchar(100) NOT NULL,' +
+            '"lastName" varchar(100) NOT NULL,' +
+            'password varchar(200) NOT NULL,' +
+            'phone varchar(20),' +
+            '"userType" varchar(20) CHECK ("userType" = \'administrator\' OR "userType" = \'team member\') NOT NULL,' +
+            '"performanceIndex" real DEFAULT 0, ' +
+            '"skills" varchar(100)[], ' +
+            'active boolean ' +
         ')'));
 
+        queries.push(t.none('CREATE TABLE plans(' +
+            '"planId" int NOT NULL, ' +
+            '"planName" varchar(100) NOT NULL, ' +
+            '"userLimit" int NOT NULL, ' +
+            'price money NOT NULL ' +
+            ')' ));
+
+        queries.push(t.none('CREATE TABLE account(' +
+            '"accountId" serial PRIMARY KEY, ' +
+            '"accountName" varchar(100) NOT NULL,' +
+            '"accountHolder" varchar(100) REFERENCES employee(email) ON DELETE CASCADE,' +
+            '"planId" int NOT NULL,' +
+            '"signUpDate" date NOT NULL,' +
+            'active boolean ' +
+            ')'));
+
         queries.push(t.none('CREATE TABLE skill(' +
-        '"skillName" varchar(100) NOT NULL, ' +
-        'email varchar(100) references employee' +
+            '"skillName" varchar(100) NOT NULL, ' +
+            'email varchar(100) references employee ON DELETE CASCADE' +
         ')'));
 
         queries.push(t.none('CREATE TABLE project(' +
@@ -68,7 +86,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
             '"startDate" date NOT NULL, ' +
             '"estimatedEndDate" date NOT NULL, ' +
             'active boolean NOT NULL, ' +
-            '"projectManager" varchar(100) REFERENCES employee(email),' +
+            '"projectManager" varchar(100) REFERENCES employee(email) ON DELETE CASCADE,' +
             '"archiveReason" text NULL ' +
             ')'
         ));
@@ -156,7 +174,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         queries.push(t.none("INSERT INTO employee VALUES('nick@tm','Nick', 'Judd', $1, '0123456789', 'team member', 0.5, ARRAY['designer', 'tester', 'analyst'], true)", hash));
         queries.push(t.none("INSERT INTO employee VALUES('jim@tm','Jim', 'Gollop', $1, '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'analyst' ], true)", hash));
 
-
+        queries.push(t.none("INSERT INTO account VALUES(nextval('\"account_accountId_seq\"'), 'UOW', 'nick@tm', 41, '2015-11-20', true)"));
 
 // A test project - 'My Project 1', with 5 tasks, 4 dependencies between tasks
 
@@ -168,6 +186,19 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 
         queries.push(t.none("INSERT INTO cocomoscore VALUES(" +
         "'My Project 1', null, null, false)"));
+
+        /*queries.push(t.none('CREATE TABLE plan(' +
+            '"planId" serial UNIQUE PRIMARY KEY, ' +
+            '"planName" varchar(100), ' +
+            '"userLimit" int NOT NULL, ' +
+            'price money NOT NULL ' +
+            ')' ));*/
+
+
+        queries.push(t.none("INSERT INTO plans VALUES(1, 'testPlan1','1', '0.0')"));
+        queries.push(t.none("INSERT INTO plans VALUES(2, 'testPlan2','10', '0.0')"));
+        queries.push(t.none("INSERT INTO plans VALUES(3, 'testPlan3','100', '0.0')"));
+        queries.push(t.none("INSERT INTO plans VALUES(4, 'testPlan4','1000', '0.0')"));
 
         queries.push(t.none("CREATE SEQUENCE myproject1seq START 1"));
 

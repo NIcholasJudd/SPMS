@@ -91,9 +91,9 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
             service.getProjectFromServer(projectList[currentProjectIndex]),
             service.getProjectTasksFromServer(projectList[currentProjectIndex])
         ]).then(function() {
-                $rootScope.$broadcast('switch project');
-                calculateStatistics();
-            } );
+            $rootScope.$broadcast('switch project');
+            calculateStatistics();
+        } );
 
     };
 
@@ -134,10 +134,10 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
                 $q.all([
                     service.getProjectFromServer(projectList[currentProjectIndex]),
                     service.getProjectTasksFromServer(projectList[currentProjectIndex])
-                    ]).then(function() {
-                            $rootScope.$broadcast('switch project');
-                            calculateStatistics();
-                    } );
+                ]).then(function() {
+                    $rootScope.$broadcast('switch project');
+                    calculateStatistics();
+                } );
             }
         });
 

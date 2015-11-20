@@ -167,7 +167,6 @@ myApp.controller("CreateUserCtrl", ['$scope', 'UserFactory',
 
 myApp.controller("PasswordCheckCtrl", [ '$scope',
     function ($scope) {
-        console.log("YAYA!!!");
         $scope.customStyle = {};
         $scope.customStyle.fontStyle = {"color":"orange"};
         //check password strength

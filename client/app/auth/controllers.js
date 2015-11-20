@@ -15,6 +15,10 @@ myApp.controller('LoginCtrl', ['$scope', '$window', '$state', 'UserAuthFactory',
             $scope.loginForm.$setPristine();
         };
 
+        $scope.signUp = function(){
+            $state.go("signUp");
+        };
+
         $scope.login = function() {
             var username = $scope.user.username,
                 password = $scope.user.password;

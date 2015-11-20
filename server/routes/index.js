@@ -10,7 +10,8 @@ var express = require('express'),
     task = require('./tasks.js'),
     taskComment = require('./task.comment.js'),
     projectFunctionPoints = require('./projects.functionPoints.js'),
-    cocomoScores = require('./projects.cocomoScores.js');
+    cocomoScores = require('./projects.cocomoScores.js'),
+    plans = require('./plans.js');
 
 
 /* Authorisation naming conventions:
@@ -32,6 +33,7 @@ var router = express.Router();
 
 router.post('/login', auth.login);
 
+router.get('/plans', plans.getAll);
 //routes for user CRUD
 router.get('/api/auth/users', user.getAll);
 router.get('/api/auth/user/:email', user.getOne);
