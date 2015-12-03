@@ -86,6 +86,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
         .state('login', {
             url: "/login",
             views: {
+                'header': {
+                    templateUrl: '/app/header/header2.html',
+                    controller: 'HeaderCtrl'
+                },
                 'container@': {
                     templateUrl: "/app/auth/login.html",
                     controller: "LoginCtrl"

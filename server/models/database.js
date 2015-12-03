@@ -24,7 +24,7 @@ var pgp = pgpLib(options);
 
 var db = pgp(connectionString);
 
-var rootPwd = 'root';
+var rootPwd = 'Kcco1990';
 
 bcrypt.hash(rootPwd, 10, function(err, hash) {
 //tests

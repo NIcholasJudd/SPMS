@@ -2,6 +2,6 @@
  * Created by scottmackenzie on 3/05/2015.
  */
 
-var connectionString = 'postgres://localhost:5432/test';
+var connectionString = 'tcp://test:Kcco1990@localhost/test';
 
 module.exports = connectionString;
