@@ -1,0 +1,24 @@
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HeaderCtrl">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" ng-show="showMenu">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button> <a  class="navbar-brand" href="#/"><span class="glyphicon glyphicon-globe"></span><i>  SPMS</i></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-left" >
+                <li><a ui-sref="aboutUs">About Us</a></li>
+                <li><a ui-sref="releaseNotes">Release Notes</a></li>
+                <li><a ui-sref="documentation">Documentation</a></li>
+                <li><a ui-sref="contactUs">Contact Us</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a ui-sref="{{getState()}}">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>

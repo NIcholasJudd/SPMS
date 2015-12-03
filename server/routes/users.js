@@ -27,6 +27,16 @@ var users = {
             })
     },
 
+    check: function(req,res){
+        db.one("SELECT * FROM employee WHERE email = $1", [req.params.email])
+            .then(function(data) {
+                return res.json(data);
+            }, function(err) {
+                console.error(err);
+                return res.status(500).send(err);
+            })
+    },
+
     create: function(req, res) {
         console.log(req.body);
         bcrypt.genSalt(10, function(err, salt) {

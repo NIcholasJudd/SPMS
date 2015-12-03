@@ -10,7 +10,6 @@ myApp.controller("LandingCtrl", ['$scope', 'AuthenticationFactory',
                 else
                     return "login";
             }
-            //console.log('fucker');
 
         }]
 );

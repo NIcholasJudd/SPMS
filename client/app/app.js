@@ -18,11 +18,67 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
     $urlRouterProvider.otherwise('/404');
 
     $stateProvider
-        .state('landing', {
+        .state('information', {
             url: "/",
             views: {
+                'header': {
+                    templateUrl: '/app/header/header2.html',
+                    controller: 'HeaderCtrl'
+                },
                 'container@' : {
-                    templateUrl: "/app/landing/landing.html",
+                    templateUrl: "/app/landing/home.html",
+                    controller: "LandingCtrl"
+                }
+            }
+        })
+        .state('aboutUs', {
+            url:"/aboutUs",
+            views: {
+                'header': {
+                    templateUrl: '/app/header/header2.html',
+                    controller: 'HeaderCtrl'
+                },
+                'container@' : {
+                    templateUrl: "/app/landing/aboutUs.html",
+                    controller: "LandingCtrl"
+                }
+            }
+        })
+        .state('releaseNotes', {
+            url:"/releaseNotes",
+            views: {
+                'header': {
+                    templateUrl: '/app/header/header2.html',
+                    controller: 'HeaderCtrl'
+                },
+                'container@' : {
+                    templateUrl: "/app/landing/releaseNotes.html",
+                    controller: "LandingCtrl"
+                }
+            }
+        })
+        .state('documentation', {
+            url:"/documentation",
+            views: {
+                'header': {
+                    templateUrl: '/app/header/header2.html',
+                    controller: 'HeaderCtrl'
+                },
+                'container@' : {
+                    templateUrl: "/app/landing/documentation.html",
+                    controller: "LandingCtrl"
+                }
+            }
+        })
+        .state('contactUs', {
+            url:"/contactUs",
+            views: {
+                'header': {
+                    templateUrl: '/app/header/header2.html',
+                    controller: 'HeaderCtrl'
+                },
+                'container@' : {
+                    templateUrl: "/app/landing/contactUs.html",
                     controller: "LandingCtrl"
                 }
             }

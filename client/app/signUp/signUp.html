@@ -32,7 +32,7 @@
                         <input id="email"
                                type="email"
                                class="form-control"
-                               ng-model="user.email"
+                               ng-model="user.emailAddress"
                                placeholder="sample@sample"/>
                     </div>
                     <div class="col-md-6">
@@ -64,7 +64,7 @@
                                    name="pass"
                                    type="password"
                                    class="form-control"
-                                   ng-model="passwordCheck"
+                                   ng-model="user.passwordCheck"
                                    placeholder="Password"
                                    ng-keyup="passwordCompare(user.password, passwordCheck)"/>
                             <span ng-style="customStyle.compareStyle">{{compare.match}}</span>
@@ -72,8 +72,17 @@
                         </div>
                     </div>
                     <div class="row-fluid">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
+                            <label for="phoneNumber">Phone Number:</label>
+                            <input id="phoneNumber"
+                                   type="text"
+                                   class="form-control"
+                                   ng-model="user.phone"
+                                   placeholder="9525-1234"/>
+                        </div>
+                        <div class="col-md-6">
                             <label for="selectPlan">Select Plan</label>
+
                             <div id="selectPlan" class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="role"
                                         data-toggle="dropdown" aria-expanded="true">
@@ -82,26 +91,28 @@
                                 </button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="role">
                                     <li role="presentation" ng-repeat="plan in plans">
-                                        <a role="menuitem" tabindex="-1" ng-click="setPlan(plan)">{{plan.planName}}</a></li>
+                                        <a role="menuitem" tabindex="-1"
+                                           ng-click="setPlan(plan)">{{plan.planName}}</a></li>
                                 </ul>
                             </div>
 
-                        <table style="width:100%">
-                            <tr>
-                                <th>Number of Users</th>
-                                <th>Price</th>
-                            </tr>
-                            <tr>
-                                <td>{{selectedPlan.userLimit}}</td>
-                                <td>{{selectedPlan.price}}</td>
-                            </tr>
-                        </table>
+                            <table style="width:100%">
+                                <tr>
+                                    <th>Number of Users</th>
+                                    <th>Price</th>
+                                </tr>
+                                <tr>
+                                    <td>{{selectedPlan.userLimit}}</td>
+                                    <td>{{selectedPlan.price}}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <div class="row-fluid">
                         <div class="col-md-12">
                             <br>
-                            <button type="submit" class="form-control btn btn-success" ng-click="submitUser()">Create User
+                            <button type="submit" class="form-control btn btn-success" ng-click="submitUser()">
+                                Create User
                             </button>
                         </div>
                     </div>
