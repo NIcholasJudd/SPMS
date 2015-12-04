@@ -25,6 +25,7 @@ myApp.controller("AddUserCtrl", ['$scope', 'UserFactory',
             for (var i = 0; i < $scope.users.length; i++) {
                 var oneTimePassword = Math.random().toString(36).slice(2);
                 $scope.users[i].password = oneTimePassword;
+                console.log($scope.users);
                 $scope.errorMessage = {};
                 $scope.error = false;
                 if (!$scope.users[i].firstName) {
@@ -172,6 +173,7 @@ myApp.controller("PasswordCheckCtrl", [ '$scope',
         $scope.password = {};
         $scope.compare = {};
         $scope.passwordStrength = function (pass, pass2) {
+            console.log(pass + " " + pass2);
             $scope.passwordCompare(pass, pass2);
             $scope.specialChars = "!@#$%^&*()+=-[]\';,./{}|:<>?~_1234567890";
             $scope.upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -208,6 +210,7 @@ myApp.controller("PasswordCheckCtrl", [ '$scope',
             return true;
         };
         $scope.passwordCompare = function(pass1, pass2) {
+            console.log(pass2);
             if (pass1 == pass2 && pass1.length > 0){
                 $scope.customStyle.compareStyle = {"color":"green"};
                 $scope.compare.match = "Valid Password";

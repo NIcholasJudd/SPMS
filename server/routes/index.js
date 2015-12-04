@@ -11,8 +11,7 @@ var express = require('express'),
     taskComment = require('./task.comment.js'),
     projectFunctionPoints = require('./projects.functionPoints.js'),
     cocomoScores = require('./projects.cocomoScores.js'),
-    plans = require('./plans.js'),
-    account = require('./accounts.js');
+    plans = require('./plans.js');
 
 
 /* Authorisation naming conventions:
@@ -33,15 +32,10 @@ var express = require('express'),
 var router = express.Router();
 
 router.post('/login', auth.login);
-//route for plans
+
 router.get('/plans', plans.getAll);
-
-//route for account CRUD
-router.get('/account/:email', account.check);
-
 //routes for user CRUD
 router.get('/api/auth/users', user.getAll);
-router.get('/users/:email', user.check);
 router.get('/api/auth/user/:email', user.getOne);
 router.post('/api/auth/admin/user/', user.create);
 router.put('/api/auth/admin/user/:email', user.update);
