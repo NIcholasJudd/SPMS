@@ -42,8 +42,6 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         queries.push(t.none('DROP TABLE IF EXISTS task'));
         queries.push(t.none('DROP TABLE IF EXISTS project'));
         queries.push(t.none('DROP TABLE IF EXISTS skill'));
-        queries.push(t.none('DROP TABLE IF EXISTS account'));
-        queries.push(t.none('DROP TABLE IF EXISTS plans CASCADE'));
         queries.push(t.none('DROP TABLE IF EXISTS employee'));
 //
         queries.push(t.none('CREATE TABLE employee(' +
@@ -57,22 +55,6 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
             '"skills" varchar(100)[], ' +
             'active boolean ' +
         ')'));
-
-        queries.push(t.none('CREATE TABLE plans(' +
-            '"planId" int NOT NULL, ' +
-            '"planName" varchar(100) NOT NULL, ' +
-            '"userLimit" int NOT NULL, ' +
-            'price money NOT NULL ' +
-            ')' ));
-
-        queries.push(t.none('CREATE TABLE account(' +
-            '"accountId" serial PRIMARY KEY, ' +
-            '"accountName" varchar(100) NOT NULL,' +
-            '"accountHolder" varchar(100) REFERENCES employee(email) ON DELETE CASCADE,' +
-            '"planId" int NOT NULL,' +
-            '"signUpDate" date NOT NULL,' +
-            'active boolean ' +
-            ')'));
 
         queries.push(t.none('CREATE TABLE skill(' +
             '"skillName" varchar(100) NOT NULL, ' +
@@ -174,7 +156,6 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         queries.push(t.none("INSERT INTO employee VALUES('nick@tm','Nick', 'Judd', $1, '0123456789', 'team member', 0.5, ARRAY['designer', 'tester', 'analyst'], true)", hash));
         queries.push(t.none("INSERT INTO employee VALUES('jim@tm','Jim', 'Gollop', $1, '0123456789', 'team member', 0.5, ARRAY['developer', 'tester', 'analyst' ], true)", hash));
 
-        queries.push(t.none("INSERT INTO account VALUES(nextval('\"account_accountId_seq\"'), 'UOW', 'nick@tm', 41, '2015-11-20', true)"));
 
 // A test project - 'My Project 1', with 5 tasks, 4 dependencies between tasks
 
@@ -195,10 +176,6 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
             ')' ));*/
 
 
-        queries.push(t.none("INSERT INTO plans VALUES(1, 'testPlan1','1', '0.0')"));
-        queries.push(t.none("INSERT INTO plans VALUES(2, 'testPlan2','10', '0.0')"));
-        queries.push(t.none("INSERT INTO plans VALUES(3, 'testPlan3','100', '0.0')"));
-        queries.push(t.none("INSERT INTO plans VALUES(4, 'testPlan4','1000', '0.0')"));
 
         queries.push(t.none("CREATE SEQUENCE myproject1seq START 1"));
 

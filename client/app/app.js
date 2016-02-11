@@ -26,67 +26,6 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                     controller: 'HeaderCtrl'
                 },
                 'container@' : {
-                    templateUrl: "/app/landing/home.html",
-                    controller: "LandingCtrl"
-                }
-            }
-        })
-        .state('aboutUs', {
-            url:"/aboutUs",
-            views: {
-                'header': {
-                    templateUrl: '/app/header/header2.html',
-                    controller: 'HeaderCtrl'
-                },
-                'container@' : {
-                    templateUrl: "/app/landing/aboutUs.html",
-                    controller: "LandingCtrl"
-                }
-            }
-        })
-        .state('releaseNotes', {
-            url:"/releaseNotes",
-            views: {
-                'header': {
-                    templateUrl: '/app/header/header2.html',
-                    controller: 'HeaderCtrl'
-                },
-                'container@' : {
-                    templateUrl: "/app/landing/releaseNotes.html",
-                    controller: "LandingCtrl"
-                }
-            }
-        })
-        .state('documentation', {
-            url:"/documentation",
-            views: {
-                'header': {
-                    templateUrl: '/app/header/header2.html',
-                    controller: 'HeaderCtrl'
-                },
-                'container@' : {
-                    templateUrl: "/app/landing/documentation.html",
-                    controller: "LandingCtrl"
-                }
-            }
-        })
-        .state('contactUs', {
-            url:"/contactUs",
-            views: {
-                'header': {
-                    templateUrl: '/app/header/header2.html',
-                    controller: 'HeaderCtrl'
-                },
-                'container@' : {
-                    templateUrl: "/app/landing/contactUs.html",
-                    controller: "LandingCtrl"
-                }
-            }
-        })
-        .state('login', {
-            url: "/login",
-            views: {
-                'container@': {
                     templateUrl: "/app/auth/login.html",
                     controller: "LoginCtrl"
                 }
@@ -141,6 +80,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
         .state('app.pmDashboard.panels', {
             url: "",
             views: {
+                'projects@app.pmDashboard' : {
+                    templateUrl: "/app/pm-dashboard/projects.html",
+                    controller: "PMContainerCtrl"
+                },
                 'projecttracking@app.pmDashboard' : {
                     templateUrl: "/app/pm-dashboard/project-tracking.html",
                     controller: "PMProjectTrackingCtrl"
@@ -172,7 +115,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/dashboard/team-member",
             views: {
                 'container@' : {
-                    templateUrl : "/app/tm-dashboard/container.html",
+                    templateUrl : "/app/tm-dashboard/container1.html",
                     controller: "TMContainerCtrl"
                 }
             },

@@ -20,7 +20,7 @@ var assign = require('lodash.assign');
 var clientDeps =
     [
         'node_modules/angular/angular.js',
-        'node_modules/angular-ui-router/build/angular-ui-router.js',
+        'node_modules/angular-ui-router/release/angular-ui-router.js',
         'node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js',
         'node_modules/bootstrap/dist/js/bootstrap.js'
     ];

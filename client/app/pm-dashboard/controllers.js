@@ -19,7 +19,7 @@ myApp.controller("PMContainerCtrl", ['$scope', '$rootScope', 'PMDashboard',
 
         $rootScope.$on('switch project', function() {
             $scope.projectList = PMDashboard.getProjectList();
-            $scope.currentProject= PMDashboard.getCurrentProject();
+            $scope.currentProject = PMDashboard.getCurrentProject();
             $scope.currentProjectIndex = PMDashboard.getCurrentProjectIndex();
             $scope.tasks = PMDashboard.getProjectTasks();
         })
@@ -62,28 +62,36 @@ myApp.controller("PMStatisticsCtrl", ['$scope', 'PMDashboard',
         //'task status' called when task marked as complete
         $scope.$on('task status', function() {
             $scope.status = PMDashboard.getTaskStatus();
+            console.log($scope.status);
         })
     }]
 );
 
 myApp.controller("PMProgressCtrl", ['$scope', 'PMDashboard',
     function($scope, PMDashboard) {
-        $scope.project = PMDashboard.getCurrentProject();
-        $scope.startDate = new Date($scope.project.startDate).toDateString();
-        $scope.endDate = new Date($scope.project.estimatedEndDate).toDateString();
-        $scope.progress = calculateDateProgress($scope.startDate, $scope.endDate);
-
-        function calculateDateProgress(startDate, endDate) {
-            var max = new Date(endDate) - new Date(startDate);
-            var curr = new Date() - new Date(startDate);
-            var total = ((100 / max) * curr);
-            return total;
-        }
+        console.log("TEST 1");
+        $scope.$on('switch project', function() {
+            console.log("TEST 2");
+            $scope.project = PMDashboard.getCurrentProject();
+            $scope.startDate = new Date($scope.project.startDate).toDateString();
+            $scope.endDate = new Date($scope.project.estimatedEndDate).toDateString();
+            $scope.progress = calculateDateProgress($scope.startDate, $scope.endDate);
+            console.log($scope.startDate);
+            function calculateDateProgress(startDate, endDate) {
+                var max = new Date(endDate) - new Date(startDate);
+                var curr = new Date() - new Date(startDate);
+                var total = ((100 / max) * curr);
+                return total;
+            }
+        })
     }]
 );
 
 myApp.controller("PMCostManagementCtrl", ['$scope', 'PMDashboard',
         function($scope, PMDashboard) {
-            $scope.project = PMDashboard.getCurrentProject();
+            $scope.$on('switch project', function() {
+                $scope.project = PMDashboard.getCurrentProject();
+            })
+
         }]
 );

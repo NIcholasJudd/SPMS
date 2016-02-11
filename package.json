@@ -9,10 +9,10 @@
     "url": "https://github.com/NIcholasJudd/SPMS"
   },
   "dependencies": {
-    "angular": "^1.4.3",
+    "angular": "^1.5.0",
     "angular-gantt": "^1.2.6",
     "angular-ui-bootstrap": "^0.12.1",
-    "angular-ui-router": "^0.2.15",
+    "angular-ui-router": "^0.2.18",
     "bcrypt": "^0.8.3",
     "body-parser": "^1.10.2",
     "bootstrap": "^3.3.5",

@@ -1,5 +1,23 @@
 <div class="panel panel-danger">
-    <div class="panel-heading"><h4>Project Statistics<i class="glyphicon glyphicon-stats"></i></h4></div>
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-3">
+                <h4>Project Statistics</h4>
+            </div>
+            <div class="col-md-9">
+                <ul class="nav nav-pills pull-right">
+                <li class="custom-pill" role="presentation"><a ng-click="displayTasks()"><span class="glyphicon glyphicon-paperclip"></span><h6>Tasks</h6></a></li>
+                <li class="custom-pill" role="presentation"><a ui-sref="app.ganttChart({projectName : currentProject.projectName})"><span class="glyphicon glyphicon-random"></span><h6>Gantt Chart</h6></a></li>
+                <li class="custom-pill" role="presentation"><a ui-sref="app.effortEstimation({projectName : currentProject.projectName})"><span class="glyphicon glyphicon-tasks"></span><h6>Effort Estimation</h6></a></li>
+                <li class="custom-pill" role="presentation"><a ui-sref="app.cocomo2({projectName : currentProject.projectName})"><span class="glyphicon glyphicon-leaf"></span><h6>Cocomo II</h6></a></li>
+                <li class="custom-pill" role="presentation"><a ui-sref="app.apn({projectName : currentProject.projectName})"><span class="glyphicon glyphicon-signal"></span><h6>APN & Critical Chain</h6></a></li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
     <div class="panel-body">
         <div class="row">
             <div class="col-md-3">
@@ -22,24 +40,16 @@
                 <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">1</span><h5>Tasks overdue</h5></div>
             </div>
             <div class="col-md-3">
-                <div ng-if="cocomoCalculated === false">
-                    <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"></span><h5>Please enter your COCOMO estimations
-                        above so we can display COCOMO score for you!</h5></div>
-                </div>
-                <div ng-if="cocomoCalculated === true">
-                    <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">{{cocomoScore}}</span><h5>
+                
+                    <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">0</span><h5>
                         Person-months (Cocomo Score)</h5></div>
-                </div>
+
             </div>
             <div class="col-md-3">
-                <div ng-if="functionPointCalculated === false">
-                    <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"></span><h5>Please enter your function points
-                        above so we can display function point count for you!</h5></div>
-                </div>
-                <div ng-if="functionPointCalculated === true">
-                    <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">{{functionPoints}}</span><h5>
+
+                    <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">0</span><h5>
                         Adjusted Function Point Count</h5></div>
-                </div>
+
             </div>
             <div class="col-md-3" ><!--ng-controller="PERTCtrl"-->
                 <div ng-if="pert === -1" class="col-md-12" style="text-align: center">
