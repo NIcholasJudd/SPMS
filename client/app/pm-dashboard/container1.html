@@ -1,0 +1,69 @@
+<div class="page-bg page-std" ui-view="container">
+    <div class="container">
+        <div class="row">
+            <!--<div ng-if="projectList.length === 0">
+                <p>You are not the project manager of any tasks.  Please click the Team Member dashboard above to
+                    see any tasks assigned to you.</p>
+            </div>-->
+            <div class="col-md-12">
+                <!--<div scrolling-tabs-wrapper>-->
+                <tabset class="custom-tabs" justified="true">
+                    <tab ng-repeat="project in projectList"
+                         heading="{{project}}"
+                         active="tabs.active" ng-click="switchProject($index)">
+                        <!-- the ng-if below prevents every tab being reloaded on tab change -->
+                        <div class="project-container" ng-if="project === currentProject.projectName">
+                            <h2>{{project}}</h2>
+                            <div class="row m-top-md">
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <!-- Project Tracking Panel -->
+                                            <div ui-view="projecttracking"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" ng-show="seeTasks">
+                                        <div class="col-md-12">
+                                            <!-- Tasks Panel -->
+                                            <div ui-view="tasks"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <!-- PROJECT STATISTICS-->
+                                            <div ui-view="statistics"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="col-md-12">
+                                        <!-- PROJECT PROGRESSION-->
+                                        <div ui-view="progress"></div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <!-- COST MANAGEMENT-->
+                                        <div ui-view="costManagement"></div>
+                                    </div>
+                                </div>
+                                <!-- Side Bar -->
+                                <div class="col-md-1 custom-pill-container"><!-- ng-controller="HomeCtrl"-->
+                                    <ul class="nav nav-pills nav-stacked"><!-- ng-repeat="item in pMenuTab"-->
+                                        <li class="custom-pill" role="presentation">
+                                            <a ui-sref="app.createTask({projectName : project})">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                <h6>Create Task</h6>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+
+    </div>
+</div>

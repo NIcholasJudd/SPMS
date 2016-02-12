@@ -1,0 +1,14 @@
+<div class="panel panel-danger" style="height:100%;">
+    <div class="panel-heading"><h4>Project Tracking</h4></div>
+    <div class="panel-body">
+        <div class="row row-center">
+            <div class="col-md-12">
+                <ul class="nav nav-pills">
+                    <div class="row" ng-repeat="project in projectList">
+                    <li class="custom-pill" role="presentation"><a ng-click="switchProject($index)"><h6>{{project}}</h6></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
