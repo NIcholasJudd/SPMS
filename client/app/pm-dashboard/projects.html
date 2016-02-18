@@ -1,13 +1,11 @@
-<div class="panel panel-danger" style="height:100%;">
+<div id="pmDashboardProjectsPanel" class="panel panel-danger">
     <div class="panel-heading"><h4>Project Tracking</h4></div>
     <div class="panel-body">
-        <div class="row row-center">
-            <div class="col-md-12">
-                <ul class="nav nav-pills">
-                    <div class="row" ng-repeat="project in projectList">
-                    <li class="custom-pill" role="presentation"><a ng-click="switchProject($index)"><h6>{{project}}</h6></a></li>
-                    </ul>
-                </div>
+        <div id="pmDashboardProjectsPanel" class="row row-center">
+            <div id="pmDashboardProjectsPanel" class="col-md-12" >
+                <ul class="nav nav-pills nav-stacked" ng-repeat="project in projectList">
+                    <li role="presentation"><a ng-click="switchProject($index)"><h6>{{project}}</h6></a></li>
+                </ul>
             </div>
         </div>
     </div>

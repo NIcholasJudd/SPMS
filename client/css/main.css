@@ -16,6 +16,14 @@ body {
     padding-top: 100px;
     width: 100%;
 }
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: center;
+}
 
 .page-login{
     background: url("../images/SydneyBW.jpg") no-repeat center center fixed;
@@ -359,5 +367,25 @@ input[type="radio"]{
 
 .btn{
     width: 100%;
+}
+
+#pmDashboard {
+    height: 100vh;
+}
+
+#pmDashboardInfoPanels{
+    height: 85vh;
+}
+
+#pmDashboardStatisticsPanel{
+    height: 50vh;
+}
+
+#pmDashboardCPPanel {
+    height: 35vh;
+}
+
+#pmDashboardProjectsPanel {
+    height: 85vh;
 }
 

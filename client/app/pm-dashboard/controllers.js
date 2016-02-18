@@ -73,8 +73,8 @@ myApp.controller("PMProgressCtrl", ['$scope', 'PMDashboard',
         $scope.$on('switch project', function() {
             console.log("TEST 2");
             $scope.project = PMDashboard.getCurrentProject();
-            $scope.startDate = new Date($scope.project.startDate).toDateString();
-            $scope.endDate = new Date($scope.project.estimatedEndDate).toDateString();
+            $scope.startDate = new Date($scope.currentProject.startDate).toDateString();
+            $scope.endDate = new Date($scope.currentProject.estimatedEndDate).toDateString();
             $scope.progress = calculateDateProgress($scope.startDate, $scope.endDate);
             console.log($scope.startDate);
             function calculateDateProgress(startDate, endDate) {

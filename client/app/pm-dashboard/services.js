@@ -37,6 +37,7 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
             }
         })
         $rootScope.$broadcast('task status');
+
     };
 
     service.getProjectListFromServer = function() {

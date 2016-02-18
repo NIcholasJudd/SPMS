@@ -3,14 +3,15 @@
         <div class="row">
             <div class="col-md-3">
                 <h4>Project Statistics</h4>
+                {{currentProject.projectName}}
             </div>
             <div class="col-md-9">
                 <ul class="nav nav-pills pull-right">
-                <li class="custom-pill" role="presentation"><a ng-click="displayTasks()"><span class="glyphicon glyphicon-paperclip"></span><h6>Tasks</h6></a></li>
-                <li class="custom-pill" role="presentation"><a ui-sref="app.ganttChart({projectName : currentProject.projectName})"><span class="glyphicon glyphicon-random"></span><h6>Gantt Chart</h6></a></li>
-                <li class="custom-pill" role="presentation"><a ui-sref="app.effortEstimation({projectName : currentProject.projectName})"><span class="glyphicon glyphicon-tasks"></span><h6>Effort Estimation</h6></a></li>
-                <li class="custom-pill" role="presentation"><a ui-sref="app.cocomo2({projectName : currentProject.projectName})"><span class="glyphicon glyphicon-leaf"></span><h6>Cocomo II</h6></a></li>
-                <li class="custom-pill" role="presentation"><a ui-sref="app.apn({projectName : currentProject.projectName})"><span class="glyphicon glyphicon-signal"></span><h6>APN & Critical Chain</h6></a></li>
+                <li class="custom-pill" role="presentation"><a ng-click="displayTasks()"><small><span class="glyphicon glyphicon-paperclip"></span></small><h6>Tasks</h6></a></li>
+                <li class="custom-pill" role="presentation"><a ui-sref="app.ganttChart({projectName : currentProject.projectName})"><small><span class="glyphicon glyphicon-random"></span></small><h6>Gantt Chart</h6></a></li>
+                <li class="custom-pill" role="presentation"><a ui-sref="app.effortEstimation({projectName : currentProject.projectName})"><small><span class="glyphicon glyphicon-tasks"></span></small><h6>Effort Estimation</h6></a></li>
+                <li class="custom-pill" role="presentation"><a ui-sref="app.cocomo2({projectName : currentProject.projectName})"><small><span class="glyphicon glyphicon-leaf"></span></small><h6>Cocomo II</h6></a></li>
+                <li class="custom-pill" role="presentation"><a ui-sref="app.apn({projectName : currentProject.projectName})"><small><span class="glyphicon glyphicon-signal"></span></small><h6>APN & Critical Chain</h6></a></li>
                 </ul>
             </div>
         </div>

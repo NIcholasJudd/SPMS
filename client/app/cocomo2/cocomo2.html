@@ -1,2 +1,188 @@
-<h2>Cocomo2 Page</h2>
-<h4>This will be cocomo 2 for:  {{project}}</h4>
+<div class="panel panel-warning" style="height:100%;">
+    <div class="panel-heading"><h5>Cocomo II {{project.projectName}}<i class="glyphicon glyphicon-leaf"></i></h5></div>
+    <div class="panel-body"style="height:100%;">
+        <form ng-submit="submitCocomo()">
+            <select ng-model="kLoc">
+                <option value="10">10000</option>
+                <option value="100">100000</option>
+                <option value="1000">1000000</option>
+            </select>
+            <select ng-model="softProj">
+                <option value="1">Organic</option>
+                <option value="2">Semi-detached	</option>
+                <option value="3">Embedded</option>
+            </select>
+            <table style="width: 100%;">
+                <col width="40%">
+                <col width="10%">
+                <col width="10%">
+                <col width="10%">
+                <col width="10%">
+                <col width="10%">
+                <col width="10%">
+                <tr>
+                    <th rowspan="2">Cost drivers:</th>
+                    <th colspan="6">Ratings</th>
+                </tr>
+                <tr>
+                    <td>Very Low</td>
+                    <td>Low</td>
+                    <td>Nominal</td>
+                    <td>High</td>
+                    <td>Very High</td>
+                    <td>Extra High</td>
+                </tr>
+                <tr>
+                    <th colspan="7" style="text-align: left;">Product attributes</th>
+                </tr>
+                <tr>
+                    <td>Required software reliability</td>
+                    <td><input type="radio" value="0.75" ng-model="product1.value">0.75</td>
+                    <td><input type="radio" value="0.88" ng-model="product1.value">0.88</td>
+                    <td><input type="radio" value="1.00" ng-model="product1.value">1.00</td>
+                    <td><input type="radio" value="1.15" ng-model="product1.value">1.15</td>
+                    <td><input type="radio" value="1.40" ng-model="product1.value">1.40</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Size of application database</td>
+                    <td></td>
+                    <td><input type="radio" value="0.94" ng-model="product2.value">0.94</td>
+                    <td><input type="radio" value="1.00" ng-model="product2.value">1.00</td>
+                    <td><input type="radio" value="1.08" ng-model="product2.value">1.08</td>
+                    <td><input type="radio" value="1.16" ng-model="product2.value">1.16</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Complexity of the product</td>
+                    <td><input type="radio" value="0.70" ng-model="product3.value">0.70</td>
+                    <td><input type="radio" value="0.85" ng-model="product3.value">0.85</td>
+                    <td><input type="radio" value="1.00" ng-model="product3.value">1.00</td>
+                    <td><input type="radio" value="1.15" ng-model="product3.value">1.15</td>
+                    <td><input type="radio" value="1.30" ng-model="product3.value">1.30</td>
+                    <td><input type="radio" value="1.65" ng-model="product3.value">1.65</td>
+                </tr>
+                <tr>
+                    <th colspan="7" style="text-align: left;">Hardware attributes</th>
+                </tr>
+                <tr>
+                    <td>Run-time performance constraints</td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="radio" value="1.00" ng-model="hardware1.value">1.00</td>
+                    <td><input type="radio" value="1.11" ng-model="hardware1.value">1.11</td>
+                    <td><input type="radio" value="1.38" ng-model="hardware1.value">1.30</td>
+                    <td><input type="radio" value="1.66" ng-model="hardware1.value">1.66</td>
+                </tr>
+                <tr>
+                    <td>Memory constraints</td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="radio" value="1.00" ng-model="hardware2.value">1.00</td>
+                    <td><input type="radio" value="1.06" ng-model="hardware2.value">1.06</td>
+                    <td><input type="radio" value="1.21" ng-model="hardware2.value">1.21</td>
+                    <td><input type="radio" value="1.56" ng-model="hardware2.value">1.56</td>
+                </tr>
+                <tr>
+                    <td>Volatility of the virtual machine enviroment</td>
+                    <td></td>
+                    <td><input type="radio" value="0.87" ng-model="hardware3.value">0.87</td>
+                    <td><input type="radio" value="1.00" ng-model="hardware3.value">1.00</td>
+                    <td><input type="radio" value="1.15" ng-model="hardware3.value">1.15</td>
+                    <td><input type="radio" value="1.30" ng-model="hardware3.value">1.30</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Required turnabout time</td>
+                    <td></td>
+                    <td><input type="radio" value="0.87" ng-model="hardware4.value">0.87</td>
+                    <td><input type="radio" value="1.00" ng-model="hardware4.value">1.00</td>
+                    <td><input type="radio" value="1.07" ng-model="hardware4.value">1.07</td>
+                    <td><input type="radio" value="1.15" ng-model="hardware4.value">1.15</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th colspan="7" style="text-align: left;">Personnel attributes</th>
+                </tr>
+                <tr>
+                    <td>Analyst capability</td>
+                    <td><input type="radio" value="1.46" ng-model="personnel1.value">1.46</td>
+                    <td><input type="radio" value="1.19" ng-model="personnel1.value">1.19</td>
+                    <td><input type="radio" value="1.00" ng-model="personnel1.value">1.00</td>
+                    <td><input type="radio" value="0.86" ng-model="personnel1.value">0.86</td>
+                    <td><input type="radio" value="0.71" ng-model="personnel1.value">0.71</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Applications Experience</td>
+                    <td><input type="radio" value="1.29" ng-model="personnel2.value">1.29</td>
+                    <td><input type="radio" value="1.13" ng-model="personnel2.value">1.13</td>
+                    <td><input type="radio" value="1.00" ng-model="personnel2.value">1.00</td>
+                    <td><input type="radio" value="0.91" ng-model="personnel2.value">0.91</td>
+                    <td><input type="radio" value="0.82" ng-model="personnel2.value">0.82</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Software engineer capability</td>
+                    <td><input type="radio" value="1.42" ng-model="personnel3.value">1.42</td>
+                    <td><input type="radio" value="1.17" ng-model="personnel3.value">1.17</td>
+                    <td><input type="radio" value="1.00" ng-model="personnel3.value">1.00</td>
+                    <td><input type="radio" value="0.86" ng-model="personnel3.value">0.86</td>
+                    <td><input type="radio" value="0.70" ng-model="personnel3.value">0.70</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Virtual machine experience</td>
+                    <td><input type="radio" value="1.21" ng-model="personnel4.value">1.21</td>
+                    <td><input type="radio" value="1.10" ng-model="personnel4.value">1.10</td>
+                    <td><input type="radio" value="1.00" ng-model="personnel4.value">1.00</td>
+                    <td><input type="radio" value="0.90" ng-model="personnel4.value">0.90</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Programming language experience</td>
+                    <td><input type="radio" value="1.14" ng-model="personnel5.value">1.14</td>
+                    <td><input type="radio" value="1.07" ng-model="personnel5.value">1.07</td>
+                    <td><input type="radio" value="1.00" ng-model="personnel5.value">1.00</td>
+                    <td><input type="radio" value="0.95" ng-model="personnel5.value">0.95</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th colspan="7" style="text-align: left;">Project attributes</th>
+                </tr>
+                <tr>
+                    <td>Application of software engineering methods</td>
+                    <td><input type="radio" value="1.24" ng-model="project1.value">1.24</td>
+                    <td><input type="radio" value="1.10" ng-model="project1.value">1.10</td>
+                    <td><input type="radio" value="1.00" ng-model="project1.value">1.00</td>
+                    <td><input type="radio" value="0.91" ng-model="project1.value">0.91</td>
+                    <td><input type="radio" value="0.82" ng-model="project1.value">0.82</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Use of software tools</td>
+                    <td><input type="radio" value="1.24" ng-model="project2.value">1.24</td>
+                    <td><input type="radio" value="1.10" ng-model="project2.value">1.10</td>
+                    <td><input type="radio" value="1.00" ng-model="project2.value">1.00</td>
+                    <td><input type="radio" value="0.91" ng-model="project2.value">0.91</td>
+                    <td><input type="radio" value="0.83" ng-model="project2.value">0.83</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Required development schedule</td>
+                    <td><input type="radio" value="1.23" ng-model="project3.value">1.23</td>
+                    <td><input type="radio" value="1.08" ng-model="project3.value">1.08</td>
+                    <td><input type="radio" value="1.00" ng-model="project3.value">1.00</td>
+                    <td><input type="radio" value="1.04" ng-model="project3.value">1.04</td>
+                    <td><input type="radio" value="1.10" ng-model="project3.value">1.10</td>
+                    <td></td>
+                </tr>
+            </table>
+            <div class="col-md-6 col-md-offset-3">
+                <button type="submit" class="btn  btn-lg btn-success" style="width:100%;">Calculate and Save COCOMO II Score</button>
+            </div>
+        </form>
+    </div>
+</div>

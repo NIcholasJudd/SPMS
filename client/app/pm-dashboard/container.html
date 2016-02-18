@@ -1,24 +1,24 @@
-<div class="page-bg page-std" ui-view="container">
-    <div class="container">
-        <div class="row">
+<div id="pmDashboard" class="page-bg page-std" ui-view="container">
+    <div id="pmDashboard" class="container">
+        <div id="pmDashboard" class="row">
             <!--<div ng-if="projectList.length === 0">
                 <p>You are not the project manager of any tasks.  Please click the Team Member dashboard above to
                     see any tasks assigned to you.</p>
             </div>-->
-            <div class="col-md-12">
-                <div class="col-md-3">
-                    <div ui-view="projects"></div>
+            <div id="pmDashboard" class="col-md-12">
+                <div id="pmDashboardProjectsPanel" class="col-md-3">
+                    <div id="pmDashboardProjectsPanel" ui-view="projects"></div>
                 </div>
-                <div class="col-md-9">
-                    <div class="row">
-                        <div ui-view="statistics"></div>
+                <div id="pmDashboardInfoPanels" class="col-md-9">
+                    <div id="pmDashboardStatisticsPanel" class="row">
+                        <div id="pmDashboardStatisticsPanel" ui-view="statistics"></div>
                     </div>
-                    <div class="row">
-                            <div class="col-md-6">
-                                <div ui-view="costManagement"></div>
+                    <div id="pmDashboardCPPanel" class="row">
+                            <div id="pmDashboardCPPanel" class="col-md-6">
+                                <div id="pmDashboardCPPanel" ui-view="costManagement"></div>
                             </div>
-                            <div class="col-md-6">
-                                <div ui-view="progress"></div>
+                            <div id="pmDashboardCPPanel" class="col-md-6">
+                                <div id="pmDashboardCPPanel" ui-view="progress"></div>
                             </div>
                     </div>
                 </div>
