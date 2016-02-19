@@ -23,6 +23,7 @@ var projectFunctionPoints = {
         'WHERE "projectName" = $5',
         [req.body.adjustedFP, req.body.valueArray, req.body.calculated, req.body.functionCounts, req.params.projectName])
         .then(function(data) {
+
             return res.json(data);
         }, function(err) {
             console.error(err);

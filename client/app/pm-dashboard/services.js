@@ -14,6 +14,7 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
     var currentProjectIndex;
     var currentProject = {};
     var projectTasks = [];
+    var projectCocomo = [];
     var taskStatus;
 
     function calculateStatistics() {
@@ -90,7 +91,8 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
         currentProjectIndex = $window.sessionStorage.currentProjectIndex = index;
         $q.all([
             service.getProjectFromServer(projectList[currentProjectIndex]),
-            service.getProjectTasksFromServer(projectList[currentProjectIndex])
+            service.getProjectTasksFromServer(projectList[currentProjectIndex]),
+            service.getCurrentProjectCocomo(projectList[currentProjectIndex])
         ]).then(function() {
             $rootScope.$broadcast('switch project');
             calculateStatistics();
@@ -98,10 +100,27 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
 
     };
 
+    service.getCurrentProjectCocomo = function (projectName){
+        var deferred = $q.defer();
+        $http.get(baseUrl + '/api/auth/project/' + projectName + '/cocomoScore')
+            .success(function(cocomo) {
+                projectCocomo = cocomo;
+                deferred.resolve(projectCocomo);
+            })
+            .error(function() {
+                console.log("Error receiving tasks from the database");
+                deferred.reject("getCurrentTasks error");
+            });
+        return deferred.promise;
+    };
+
     service.getCurrentProject = function() {
         return currentProject;
     };
 
+    service.getCocomo = function() {
+        return projectCocomo;
+    };
 
     service.getProjectList = function() {
         return projectList;
@@ -110,6 +129,7 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
     service.getProjectTasks = function() {
         return projectTasks;
     };
+
 
     service.getCurrentProjectIndex = function() {
         return currentProjectIndex;

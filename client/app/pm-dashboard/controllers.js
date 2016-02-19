@@ -15,6 +15,8 @@ myApp.controller("PMContainerCtrl", ['$scope', '$rootScope', 'PMDashboard',
         $scope.currentProject = PMDashboard.getCurrentProject();
         $scope.currentProjectIndex = PMDashboard.getCurrentProjectIndex();
         $scope.tasks = PMDashboard.getProjectTasks();
+        $scope.cocomoScores = PMDashboard.getCurrentProjectCocomo($scope.currentProject.projectName);
+        $scope.cocomoScores = PMDashboard.getCocomo();
         $scope.seeTasks = false;
 
         $rootScope.$on('switch project', function() {
@@ -22,7 +24,9 @@ myApp.controller("PMContainerCtrl", ['$scope', '$rootScope', 'PMDashboard',
             $scope.currentProject = PMDashboard.getCurrentProject();
             $scope.currentProjectIndex = PMDashboard.getCurrentProjectIndex();
             $scope.tasks = PMDashboard.getProjectTasks();
-        })
+            $scope.cocomoScores = PMDashboard.getCurrentProjectCocomo($scope.currentProject.projectName);
+            $scope.cocomoScores = PMDashboard.getCocomo();
+        });
 
         //called when switching project tabs.  sets the current project in PMDashboard service,
         $scope.switchProject = function(index) {
@@ -55,14 +59,16 @@ myApp.controller("PMTasksCtrl", ['$scope', '$rootScope', '$stateParams', 'PMDash
     }]
 );
 
-myApp.controller("PMStatisticsCtrl", ['$scope', 'PMDashboard',
-    function($scope, PMDashboard) {
+myApp.controller("PMStatisticsCtrl", ['$scope', 'PMDashboard', 'cocomoFactory',
+    function($scope, PMDashboard, cocomoFactory) {
+        $scope.pert = -1;
         $scope.status = PMDashboard.getTaskStatus();
-
+        $scope.cocomoScores = PMDashboard.getCocomo();
         //'task status' called when task marked as complete
         $scope.$on('task status', function() {
             $scope.status = PMDashboard.getTaskStatus();
-            console.log($scope.status);
+            $scope.cocomoScores = PMDashboard.getCocomo();
+            console.log($scope.cocomoScores);
         })
     }]
 );

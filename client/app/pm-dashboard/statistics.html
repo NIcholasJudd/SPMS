@@ -7,11 +7,11 @@
             </div>
             <div class="col-md-9">
                 <ul class="nav nav-pills pull-right">
-                <li class="custom-pill" role="presentation"><a ng-click="displayTasks()"><small><span class="glyphicon glyphicon-paperclip"></span></small><h6>Tasks</h6></a></li>
-                <li class="custom-pill" role="presentation"><a ui-sref="app.ganttChart({projectName : currentProject.projectName})"><small><span class="glyphicon glyphicon-random"></span></small><h6>Gantt Chart</h6></a></li>
-                <li class="custom-pill" role="presentation"><a ui-sref="app.effortEstimation({projectName : currentProject.projectName})"><small><span class="glyphicon glyphicon-tasks"></span></small><h6>Effort Estimation</h6></a></li>
-                <li class="custom-pill" role="presentation"><a ui-sref="app.cocomo2({projectName : currentProject.projectName})"><small><span class="glyphicon glyphicon-leaf"></span></small><h6>Cocomo II</h6></a></li>
-                <li class="custom-pill" role="presentation"><a ui-sref="app.apn({projectName : currentProject.projectName})"><small><span class="glyphicon glyphicon-signal"></span></small><h6>APN & Critical Chain</h6></a></li>
+                    <li class="custom-pill" role="presentation"><a ng-click="displayTasks()"><small><span class="glyphicon glyphicon-paperclip"></span></small><h6>Tasks</h6></a></li>
+                    <li class="custom-pill" role="presentation"><a ui-sref="app.ganttChart({projectName : currentProject.projectName})"><small><span class="glyphicon glyphicon-random"></span></small><h6>Gantt Chart</h6></a></li>
+                    <li class="custom-pill" role="presentation"><a ui-sref="app.effortEstimation({projectName : currentProject.projectName})"><small><span class="glyphicon glyphicon-tasks"></span></small><h6>Effort Estimation</h6></a></li>
+                    <li class="custom-pill" role="presentation"><a ui-sref="app.cocomo2({projectName : currentProject.projectName})"><small><span class="glyphicon glyphicon-leaf"></span></small><h6>Cocomo II</h6></a></li>
+                    <li class="custom-pill" role="presentation"><a ui-sref="app.apn({projectName : currentProject.projectName})"><small><span class="glyphicon glyphicon-signal"></span></small><h6>APN & Critical Chain</h6></a></li>
                 </ul>
             </div>
         </div>
@@ -41,25 +41,43 @@
                 <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">1</span><h5>Tasks overdue</h5></div>
             </div>
             <div class="col-md-3">
-                
+                <div ng-if="cocomoScores.calculated === false || cocomoScores.calculated === undefined">
                     <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">0</span><h5>
-                        Person-months (Cocomo Score)</h5></div>
 
+                        <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"></span><h5>
+                            Person-months (Cocomo Score)</h5></div>
+                    </div>
+                </div>
+                <div ng-if="cocomoScores.calculated === true">
+                    <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">{{cocomoScores.personMonths}}</span><h5>
+
+                        <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"></span><h5>
+                            Person-months (Cocomo Score)</h5></div>
+                    </div>
+                </div>
             </div>
             <div class="col-md-3">
-
+                <div ng-if="functionPointCalculated === false || functionPointCalculated === undefined">
                     <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">0</span><h5>
-                        Adjusted Function Point Count</h5></div>
 
-            </div>
-            <div class="col-md-3" ><!--ng-controller="PERTCtrl"-->
-                <div ng-if="pert === -1" class="col-md-12" style="text-align: center">
-                    <span style="font-size: 4em;"></span>
-                    <h5>Please add some tasks so that we can generate a PERT analysis for you!</h5>
+                        <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;"></span><h5>
+                            Adjusted Function Point Count</h5></div>
+                    </div>
                 </div>
-                <div ng-if="pert !== -1" class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">{{pert}}%</span><h5>Chance of not finishing project on time (PERT analysis)</h5></div>
+                <div ng-if="functionPointCalculated === true">
+                    <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">{{functionPoints}}</span><h5>
+
+                        <div class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">0</span><h5>
+                            Adjusted Function Point Count</h5></div>
+                    </div>
+                    <div class="col-md-3" ><!--ng-controller="PERTCtrl"-->
+                        <div ng-if="pert === -1" class="col-md-12" style="text-align: center">
+                            <span style="font-size: 4em;"></span>
+                            <h5>Please add some tasks so that we can generate a PERT analysis for you!</h5>
+                        </div>
+                        <div ng-if="pert !== -1" class="col-md-12" style="text-align: center"><span style="font-size: 2.8em;">{{pert}}%</span><h5>Chance of not finishing project on time (PERT analysis)</h5></div>
+                    </div>
+                </div>
+
             </div>
         </div>
-
-    </div>
-</div>
