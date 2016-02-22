@@ -67,6 +67,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
             'budget real NOT NULL, ' +
             '"startDate" date NOT NULL, ' +
             '"estimatedEndDate" date NOT NULL, ' +
+            '"numOfStaff" int NOT NULL, ' +
             'active boolean NOT NULL, ' +
             '"projectManager" varchar(100) REFERENCES employee(email) ON DELETE CASCADE,' +
             '"archiveReason" text NULL ' +
@@ -160,7 +161,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 // A test project - 'My Project 1', with 5 tasks, 4 dependencies between tasks
 
         queries.push(t.none("INSERT INTO project VALUES(" +
-        "'My Project 1', 'Description of project', 500000, '2016-03-13', '2017-03-13', true, 'admin@admin')"));
+        "'My Project 1', 'Description of project', 500000, '2016-03-13', '2017-03-13', 100,  true, 'admin@admin')"));
 
         queries.push(t.none("INSERT INTO functionpoint VALUES(" +
         "'My Project 1', null, null, null, false)"));
@@ -231,7 +232,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 // My Project 2 - 3 tasks, 2 dependencies
 
         queries.push(t.none("INSERT INTO project VALUES(" +
-        "'My Project 2', 'Description of project 2', 1000000, '2015-06-06', '2015-12-06', true, 'admin@admin')"));
+        "'My Project 2', 'Description of project 2', 1000000, '2015-06-06', '2015-12-06', 50, true, 'admin@admin')"));
 
         queries.push(t.none("CREATE SEQUENCE myproject2seq START 1"));
 
@@ -268,7 +269,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
 // My Project 3 - 3 tasks, 2 dependencies, assigned to Scott
 
         queries.push(t.none("INSERT INTO project VALUES(" +
-        "'My Project 3', 'Description of project 3', 1000000, '2015-04-01', '2015-05-01', true, 'scott@tm')"));
+        "'My Project 3', 'Description of project 3', 1000000, '2015-04-01', '2015-05-01', 25, true, 'scott@tm')"));
 
         queries.push(t.none("CREATE SEQUENCE myproject3seq START 1"));
 
@@ -318,7 +319,7 @@ bcrypt.hash(rootPwd, 10, function(err, hash) {
         // Project Flappy Bird
 
         queries.push(t.none("INSERT INTO project VALUES(" +
-        "'Project Flappy Bird', 'Develop Flappy Bird application', 1000000, '2015-05-10', '2015-07-01', true, 'scott@tm')"));
+        "'Project Flappy Bird', 'Develop Flappy Bird application', 1000000, '2015-05-10', '2015-07-01', 85, true, 'scott@tm')"));
 
         queries.push(t.none("CREATE SEQUENCE projectflappybirdseq START 1"));
 

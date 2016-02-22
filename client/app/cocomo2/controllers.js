@@ -1,7 +1,9 @@
 
+//TODO fix upp the css and design looks rubish
+myApp.controller('Cocomo2Ctrl', ['$scope', '$window','$stateParams','cocomoFactory', 'PMDashboard',
+    function($scope, $window, $stateParams, cocomoFactory, PMDashboard) {
 
-myApp.controller('Cocomo2Ctrl', ['$scope', '$window','$stateParams','cocomoFactory',
-    function($scope, $window, $stateParams, cocomoFactory) {
+    $scope.currentProject = PMDashboard.getCurrentProject();
     $scope.project = $stateParams.projectName;
     $scope.kLoc = {};
     $scope.softProj ={};
@@ -33,8 +35,9 @@ myApp.controller('Cocomo2Ctrl', ['$scope', '$window','$stateParams','cocomoFacto
         } else{
             $scope.cScore = 2.8*(Math.pow($scope.kLoc,1.20))*($scope.eaf);
         }
-        console.log($scope.project);
+        $scope.cScore = $scope.cScore / $scope.currentProject.numOfStaff;
         console.log($scope.cScore);
+        console.log($scope.currentProject);
         $scope.cocomoScores = {};
         cocomoFactory.saveCocomoScores($scope.project,$scope.cocomoScores, $scope.cScore,true);
     }

@@ -4,6 +4,8 @@
  *
  */
 
+// FIXME: Dont liek the style look into alternatives ( dosent flow from recent changes to dash )
+
 myApp.controller('LoginCtrl', ['$scope', '$window', '$state', 'UserAuthFactory', 'AuthenticationFactory',
     function($scope, $window, $state, UserAuthFactory, AuthenticationFactory) {
         //Hard coded user

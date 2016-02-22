@@ -119,7 +119,7 @@ gulp.task('nodemon', function (cb) {
         })
         .on('restart', function () {
             setTimeout(function () {
-                reload({ stream: false });
+                reload({ stream: true });
             }, 1000);
         });
 });

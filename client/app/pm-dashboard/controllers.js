@@ -2,37 +2,50 @@
  * Created by scottmackenzie on 2/07/2015.
  */
 
-// to do:
-// * tabs don't get reset properly on navigation away and return - wait to hear about tab refactor
-// * not sure how modal works for openModal in tasks.html - need to verify whether the modal can use a
-//   ui router state rather than templateUrl, controller etc defined in controller
-// *
+// FIXME: on first load not setting first project as active
+// FIXME: Not getting COCOMO Score on load of pm-dash
+// FIXME: Not pulling function point data as of yet
+// FIXME: bootstrap glyphicons dont work in firefox or chrome
+// FIXME: I dont like the color scheme
+// TODO Build Pert analysis
+// TODO no task data implemented yet
+// TODO Create and design an issue or bug list for projects and tasks
+// TODO create and design a comment interface
+// TODO create and design a chat box
 
-myApp.controller("PMContainerCtrl", ['$scope', '$rootScope', 'PMDashboard',
-    function ($scope, $rootScope, PMDashboard) {
-
+myApp.controller("PMContainerCtrl", ['$scope', '$window', '$rootScope', 'PMDashboard', 'cocomoFactory',
+    function ($scope, $window, $rootScope, PMDashboard, cocomoFactory) {
+        $scope.$parent.taskView = false;
+        $scope.currentProjectIndex =  PMDashboard.getCurrentProjectIndex();
+        //$scope.functionPoints = PMDashboard
         $scope.projectList = PMDashboard.getProjectList();
         $scope.currentProject = PMDashboard.getCurrentProject();
-        $scope.currentProjectIndex = PMDashboard.getCurrentProjectIndex();
         $scope.tasks = PMDashboard.getProjectTasks();
-        $scope.cocomoScores = PMDashboard.getCurrentProjectCocomo($scope.currentProject.projectName);
-        $scope.cocomoScores = PMDashboard.getCocomo();
-        $scope.seeTasks = false;
+        getCocomo();
 
         $rootScope.$on('switch project', function() {
             $scope.projectList = PMDashboard.getProjectList();
             $scope.currentProject = PMDashboard.getCurrentProject();
-            $scope.currentProjectIndex = PMDashboard.getCurrentProjectIndex();
+            getCocomo();
+
             $scope.tasks = PMDashboard.getProjectTasks();
-            $scope.cocomoScores = PMDashboard.getCurrentProjectCocomo($scope.currentProject.projectName);
-            $scope.cocomoScores = PMDashboard.getCocomo();
+
         });
 
         //called when switching project tabs.  sets the current project in PMDashboard service,
         $scope.switchProject = function(index) {
             PMDashboard.setCurrentProject(index);
+            $scope.currentProjectIndex = index;
         }
 
+        function getCocomo() {
+            cocomoFactory.getCocomoScores($scope.currentProject.projectName)
+                .then(
+                    function(result)    {
+                        $scope.cocomoScores = result.data;
+                    }
+                )
+        }
 
     }]
 );
@@ -63,26 +76,25 @@ myApp.controller("PMStatisticsCtrl", ['$scope', 'PMDashboard', 'cocomoFactory',
     function($scope, PMDashboard, cocomoFactory) {
         $scope.pert = -1;
         $scope.status = PMDashboard.getTaskStatus();
-        $scope.cocomoScores = PMDashboard.getCocomo();
         //'task status' called when task marked as complete
         $scope.$on('task status', function() {
             $scope.status = PMDashboard.getTaskStatus();
-            $scope.cocomoScores = PMDashboard.getCocomo();
-            console.log($scope.cocomoScores);
         })
+        $scope.displayTasks = function() {
+            console.log($scope.$parent.taskView);
+            $scope.$parent.taskView = !$scope.$parent.taskView;
+
+        }
     }]
 );
 
 myApp.controller("PMProgressCtrl", ['$scope', 'PMDashboard',
     function($scope, PMDashboard) {
-        console.log("TEST 1");
         $scope.$on('switch project', function() {
-            console.log("TEST 2");
             $scope.project = PMDashboard.getCurrentProject();
             $scope.startDate = new Date($scope.currentProject.startDate).toDateString();
             $scope.endDate = new Date($scope.currentProject.estimatedEndDate).toDateString();
             $scope.progress = calculateDateProgress($scope.startDate, $scope.endDate);
-            console.log($scope.startDate);
             function calculateDateProgress(startDate, endDate) {
                 var max = new Date(endDate) - new Date(startDate);
                 var curr = new Date() - new Date(startDate);

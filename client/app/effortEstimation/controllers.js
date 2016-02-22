@@ -1,4 +1,5 @@
-
+// FIXME: set up so loads the old values straight back in
+// FIXME: find another solo9ution for sliders where u can click on the line rather than having to drag the bar
 myApp.controller("EffortFunctionPointCtrl", ['$scope', '$window', 'ProjectFactory', 'PMDashboard',
     function ($scope, $window, ProjectFactory, PMDashboard) {
         $scope.currentProject = PMDashboard.getCurrentProject();

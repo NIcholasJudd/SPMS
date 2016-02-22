@@ -8,7 +8,7 @@
  * With each change of tab, the project details and tasks are retrieved from the database
  */
 
-myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
+myApp.factory('PMDashboard', function ($http, $q, $rootScope, $window, baseUrl) {
     var service = {};
     var projectList = [];
     var currentProjectIndex;
@@ -20,20 +20,24 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
     function calculateStatistics() {
         //reset task status
         taskStatus = {
-            unassigned : 0,
-            otg : 0,
-            finalised : 0,
-            complete : 0
+            unassigned: 0,
+            otg: 0,
+            finalised: 0,
+            complete: 0
         };
-        projectTasks.forEach(function(task) {
-            switch(task["status"]) {
-                case "unassigned" : taskStatus.unassigned++;
+        projectTasks.forEach(function (task) {
+            switch (task["status"]) {
+                case "unassigned" :
+                    taskStatus.unassigned++;
                     break;
-                case "on-the-go" : taskStatus.otg++;
+                case "on-the-go" :
+                    taskStatus.otg++;
                     break;
-                case "finalised" : taskStatus.finalised++;
+                case "finalised" :
+                    taskStatus.finalised++;
                     break;
-                case "complete" : taskStatus.complete++;
+                case "complete" :
+                    taskStatus.complete++;
                     break;
             }
         })
@@ -41,124 +45,135 @@ myApp.factory('PMDashboard', function($http, $q, $rootScope, $window, baseUrl) {
 
     };
 
-    service.getProjectListFromServer = function() {
+
+    service.getProjectListFromServer = function () {
+        var bool = true;
         var deferred = $q.defer();
-        $http.get(baseUrl + '/api/auth/projects', {params : { "fields" : ['"projectName"']}})
-            .success(function(data) {
+        $http.get(baseUrl + '/api/auth/projects')
+            .success(function (data) {
                 projectList = [];
-                data.forEach(function(data) {
+                data.forEach(function (data) {
+                    if (bool == true) {
+                        currentProject = data;
+                        bool = false;
+                    }
                     projectList.push(data.projectName);
                 })
                 deferred.resolve(projectList);
             })
-            .error(function() {
+            .error(function () {
                 console.log("Error receiving projectList from the database");
                 deferred.reject("getProjectList error");
             });
         return deferred.promise;
     };
 
-    service.getProjectFromServer = function(projectName) {
+    service.getProjectFromServer = function (projectName) {
         var deferred = $q.defer();
         $http.get(baseUrl + '/api/auth/project/' + projectName)
-            .success(function(data) {
+            .success(function (data) {
                 currentProject = data;
                 deferred.resolve(currentProject);
             })
-            .error(function() {
+            .error(function () {
                 console.log("Error receiving projects from the database");
                 deferred.reject("getProjects error");
             });
         return deferred.promise;
     };
 
-    service.getProjectTasksFromServer = function(projectName) {
+    service.getProjectTasksFromServer = function (projectName) {
         var deferred = $q.defer();
         $http.get(baseUrl + '/api/auth/project/' + projectName + '/tasks/')
-            .success(function(tasks) {
+            .success(function (tasks) {
                 projectTasks = tasks;
                 deferred.resolve(tasks);
             })
-            .error(function() {
+            .error(function () {
                 console.log("Error receiving tasks from the database");
                 deferred.reject("getCurrentTasks error");
             });
         return deferred.promise;
     };
 
-    service.setCurrentProject = function(index) {
-
+    service.setCurrentProject = function (index) {
         currentProjectIndex = $window.sessionStorage.currentProjectIndex = index;
         $q.all([
+
             service.getProjectFromServer(projectList[currentProjectIndex]),
-            service.getProjectTasksFromServer(projectList[currentProjectIndex]),
-            service.getCurrentProjectCocomo(projectList[currentProjectIndex])
-        ]).then(function() {
+            service.getProjectTasksFromServer(projectList[currentProjectIndex])
+        ]).then(function () {
+            console.log(currentProject)
+            //service.getCurrentProjectCocomo()
+
             $rootScope.$broadcast('switch project');
             calculateStatistics();
-        } );
+        });
 
     };
 
-    service.getCurrentProjectCocomo = function (projectName){
+   /* service.getCurrentProjectCocomo = function () {
         var deferred = $q.defer();
-        $http.get(baseUrl + '/api/auth/project/' + projectName + '/cocomoScore')
-            .success(function(cocomo) {
+        $http.get(baseUrl + '/api/auth/project/' + currentProject.projectName + '/cocomoScore')
+            .success(function (cocomo) {
                 projectCocomo = cocomo;
                 deferred.resolve(projectCocomo);
             })
-            .error(function() {
+            .error(function () {
                 console.log("Error receiving tasks from the database");
                 deferred.reject("getCurrentTasks error");
             });
         return deferred.promise;
-    };
+    };*/
 
-    service.getCurrentProject = function() {
+    service.getCurrentProject = function () {
         return currentProject;
     };
 
-    service.getCocomo = function() {
+   /* service.getCocomo = function () {
         return projectCocomo;
-    };
+    };*/
 
-    service.getProjectList = function() {
+    service.getProjectList = function () {
         return projectList;
     };
 
-    service.getProjectTasks = function() {
+    service.getProjectTasks = function () {
         return projectTasks;
     };
 
 
-    service.getCurrentProjectIndex = function() {
+    service.getCurrentProjectIndex = function () {
         return currentProjectIndex;
     }
 
-    service.getTaskStatus = function() { return taskStatus; };
+    service.getTaskStatus = function () {
+        return taskStatus;
+    };
 
-    service.completeTask = function(index) {
+    service.completeTask = function (index) {
         projectTasks[index].status = "complete";
         calculateStatistics();
     }
 
     //set current task on initial load
-    if($window.sessionStorage.currentProjectIndex)
+    if ($window.sessionStorage.currentProjectIndex)
         currentProjectIndex = $window.sessionStorage.currentProjectIndex;
     else
         currentProjectIndex = 0;
 
     //get projects and tasks on initial load
     service.getProjectListFromServer()
-        .then(function() {
-            if(projectList.length > 0) {
+        .then(function () {
+            if (projectList.length > 0) {
                 $q.all([
                     service.getProjectFromServer(projectList[currentProjectIndex]),
-                    service.getProjectTasksFromServer(projectList[currentProjectIndex])
-                ]).then(function() {
-                    $rootScope.$broadcast('switch project');
+                    service.getProjectTasksFromServer(projectList[currentProjectIndex]),
+                    //service.getCurrentProjectCocomo()
+                ]).then(function () {
                     calculateStatistics();
-                } );
+                    $rootScope.$broadcast('switch project');
+                });
             }
         });
 

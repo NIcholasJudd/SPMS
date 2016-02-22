@@ -1,26 +1,33 @@
 <div id="pmDashboard" class="page-bg page-std" ui-view="container">
     <div id="pmDashboard" class="container">
         <div id="pmDashboard" class="row">
-            <!--<div ng-if="projectList.length === 0">
-                <p>You are not the project manager of any tasks.  Please click the Team Member dashboard above to
-                    see any tasks assigned to you.</p>
-            </div>-->
-            <div id="pmDashboard" class="col-md-12">
-                <div id="pmDashboardProjectsPanel" class="col-md-3">
-                    <div id="pmDashboardProjectsPanel" ui-view="projects"></div>
+            <div ng-if="projectList.length === 0">
+                <a ui-sref="app.tmDashboard.tasks.status" role="button" aria-expanded="false">Team Member</a>
+            </div>
+            <div ng-if="projectList.length != 0">
+                <div id="pmDashboard" class="col-md-12">
+                    <div id="pmDashboardProjectsPanel" class="col-md-3">
+                        <div id="pmDashboardProjectsPanel" ui-view="projects"></div>
+                    </div>
+
+                    <div ng-if="$parent.taskView === false">
+                        <div id="pmDashboardInfoPanels" class="col-md-9">
+                            <div id="pmDashboardStatisticsPanel" class="row">
+                                <div id="pmDashboardStatisticsPanel" ui-view="statistics"></div>
+                            </div>
+                            <div id="pmDashboardCPPanel" class="row">
+                                <div id="pmDashboardCPPanel" class="col-md-6">
+                                    <div id="pmDashboardCPPanel" ui-view="costManagement"></div>
+                                </div>
+                                <div id="pmDashboardCPPanel" class="col-md-6">
+                                    <div id="pmDashboardCPPanel" ui-view="progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="pmDashboardInfoPanels" class="col-md-9">
-                    <div id="pmDashboardStatisticsPanel" class="row">
-                        <div id="pmDashboardStatisticsPanel" ui-view="statistics"></div>
-                    </div>
-                    <div id="pmDashboardCPPanel" class="row">
-                            <div id="pmDashboardCPPanel" class="col-md-6">
-                                <div id="pmDashboardCPPanel" ui-view="costManagement"></div>
-                            </div>
-                            <div id="pmDashboardCPPanel" class="col-md-6">
-                                <div id="pmDashboardCPPanel" ui-view="progress"></div>
-                            </div>
-                    </div>
+                <div ng-if="$parent.taskView === true">
+                    HELLO
                 </div>
             </div>
         </div>

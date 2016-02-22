@@ -1,7 +1,7 @@
 /**
  * Created by scottmackenzie on 8/07/15.
  */
-
+// TODO: either implement using dhxtml or create my own with js ( possibly check npm see if a decent one has been written )
 myApp.controller("GanttChartCtrl", ['$scope', '$stateParams',
     function($scope, $stateParams) {
         $scope.project = $stateParams.projectName;

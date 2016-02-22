@@ -2772,8 +2772,10 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
             // Set up the correct scope to allow transclusion later
             ttScope.origScope = scope;
 
-            // By default, the tooltip is not open.
-            // TODO add ability to start tooltip opened
+            /*
+             By default, the tooltip is not open.
+             TODO add ability to start tooltip opened
+             */
             ttScope.isOpen = false;
 
             function toggleTooltipBind () {

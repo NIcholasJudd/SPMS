@@ -15,6 +15,7 @@ body {
     position: absolute;
     padding-top: 100px;
     width: 100%;
+    background-color: #333;
 }
 table, th, td {
     border: 1px solid black;
@@ -376,16 +377,29 @@ input[type="radio"]{
 #pmDashboardInfoPanels{
     height: 85vh;
 }
+#pmDashboardInfoPanels .panel-heading {
+    background-color: rgba(246, 128, 13, 0.9);
+}
 
 #pmDashboardStatisticsPanel{
     height: 50vh;
+}
+#pmDashboardStatisticsPanel .panel-heading {
+    background-color: rgba(246, 128, 13, 0.9);
 }
 
 #pmDashboardCPPanel {
     height: 35vh;
 }
+#pmDashboardCPPanel .panel-heading {
+    background-color: rgba(246, 128, 13, 0.9);
+}
 
 #pmDashboardProjectsPanel {
     height: 85vh;
+
+}
+#pmDashboardProjectsPanel .panel-heading {
+    background-color: rgba(246, 128, 13, 0.9);
 }
 

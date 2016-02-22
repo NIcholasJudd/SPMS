@@ -280,7 +280,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             views: {
                 'container@' : {
                     templateUrl: "/app/effortEstimation/effortEstimation.html",
-                    controller: "EffortFunctionPointCtrl"
+                    controller: "EffortEstimationCtrl"
                 }
             },
             access: {
