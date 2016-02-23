@@ -388,6 +388,15 @@ input[type="radio"]{
     background-color: rgba(246, 128, 13, 0.9);
 }
 
+#pmDashboardTaskPanel{
+    height: 30vh;
+
+    overflow: scroll;
+}
+#pmDashboardTaskPanel .panel-heading {
+    background-color: rgba(246, 128, 13, 0.9);
+}
+
 #pmDashboardCPPanel {
     height: 35vh;
 }

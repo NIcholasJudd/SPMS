@@ -103,9 +103,6 @@ myApp.factory('PMDashboard', function ($http, $q, $rootScope, $window, baseUrl) 
             service.getProjectFromServer(projectList[currentProjectIndex]),
             service.getProjectTasksFromServer(projectList[currentProjectIndex])
         ]).then(function () {
-            console.log(currentProject)
-            //service.getCurrentProjectCocomo()
-
             $rootScope.$broadcast('switch project');
             calculateStatistics();
         });

@@ -10,25 +10,22 @@
                         <div id="pmDashboardProjectsPanel" ui-view="projects"></div>
                     </div>
 
-                    <div ng-if="$parent.taskView === false">
                         <div id="pmDashboardInfoPanels" class="col-md-9">
                             <div id="pmDashboardStatisticsPanel" class="row">
                                 <div id="pmDashboardStatisticsPanel" ui-view="statistics"></div>
                             </div>
                             <div id="pmDashboardCPPanel" class="row">
                                 <div id="pmDashboardCPPanel" class="col-md-6">
-                                    <div id="pmDashboardCPPanel" ui-view="costManagement"></div>
+                                    <div id="pmDashboardCPPanel" ui-view="progress"></div>
                                 </div>
                                 <div id="pmDashboardCPPanel" class="col-md-6">
                                     <div id="pmDashboardCPPanel" ui-view="progress"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+
                 </div>
-                <div ng-if="$parent.taskView === true">
-                    HELLO
-                </div>
+
             </div>
         </div>
     </div>

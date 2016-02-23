@@ -1,8 +1,8 @@
 // FIXME: set up so loads the old values straight back in
 // FIXME: find another solo9ution for sliders where u can click on the line rather than having to drag the bar
-myApp.controller("EffortFunctionPointCtrl", ['$scope', '$window', 'ProjectFactory', 'PMDashboard',
-    function ($scope, $window, ProjectFactory, PMDashboard) {
-        $scope.currentProject = PMDashboard.getCurrentProject();
+myApp.controller("EffortFunctionCtrl", ['$scope', '$window', 'effortEstimation', 'PMDashboard',
+    function ($scope, $window, effortEstimation, PMDashboard) {
+
         $scope.functionPoints = [
             {
                 title: "Number of External Inputs",
@@ -136,7 +136,11 @@ myApp.controller("EffortFunctionPointCtrl", ['$scope', '$window', 'ProjectFactor
             }
 
         }*/
+
         $scope.submitFunctionPoints = function () {
+
+            $scope.currentProject = PMDashboard.getCurrentProject();
+            console.log($scope.currentProject);
             var functionPointCount = 0;
             var valueAdjustmentFactor = (Number($scope.adjustmentFactor[0].value) + Number($scope.adjustmentFactor[1].value) + Number($scope.adjustmentFactor[2].value) + Number($scope.adjustmentFactor[3].value) + Number($scope.adjustmentFactor[4].value) + Number($scope.adjustmentFactor[5].value) + Number($scope.adjustmentFactor[6].value) + Number($scope.adjustmentFactor[7].value) + Number($scope.adjustmentFactor[8].value) + Number($scope.adjustmentFactor[9].value) + Number($scope.adjustmentFactor[10].value) + Number($scope.adjustmentFactor[11].value) + Number($scope.adjustmentFactor[12].value) + Number($scope.adjustmentFactor[13].value));
             for (var i = 0; i < 5; i++) {
@@ -155,7 +159,7 @@ myApp.controller("EffortFunctionPointCtrl", ['$scope', '$window', 'ProjectFactor
             $scope.functionPoints.forEach(function(fp) {
                 functionCounts.push([fp.count1, fp.count2, fp.count3]);
             })
-            ProjectFactory.saveFunctionPointData($scope.currentProject.projectName, adjustedFP, valueArray, functionCounts, true);
+            effortEstimation.saveFunctionPointData($scope.currentProject.projectName, adjustedFP, valueArray, functionCounts, true);
         }
     }
 ]);
