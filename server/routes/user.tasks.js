@@ -7,10 +7,9 @@ var promise = require('promise'),
 
 var userTask = {
     getAll: function(req, res) {
-        db.query("select * from task where task_id IN (select task_id from task_role where email = $1) AND active = true",
+        db.query('select * from task where "taskId" IN (select "taskId" from "taskrole" where email = $1) AND active = true',
             [req.params.email])
             .then(function(data) {
-                //console.log(data);
                 return res.json(data);
             }, function(err) {
                 console.error(err.stack);

@@ -20,7 +20,7 @@ myApp.controller("AddUserCtrl", ['$scope', 'UserFactory',
                 password: "",
                 role: "teammember"
             });
-        }
+        };
         $scope.addUser = function () {
             for (var i = 0; i < $scope.users.length; i++) {
                 var oneTimePassword = Math.random().toString(36).slice(2);

@@ -4,4 +4,4 @@
 
 myApp.factory('GanttChartFactory', function(http, q) {
 
-})
+});

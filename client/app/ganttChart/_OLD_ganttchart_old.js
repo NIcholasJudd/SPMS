@@ -13,7 +13,7 @@ myApp.controller("GanttChartCtrlOld", ['$scope', '$window', 'ProjectFactory',
                 var tasks = {
                     data : [],
                     links : []
-                }
+                };
                 gantt.init("gantt");
                 gantt.clearAll();
                 if(tasks.data.length == 0)

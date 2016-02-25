@@ -14,7 +14,7 @@ myApp.factory('AuthenticationFactory', function($window) {
                 delete this.user;
             }
         }
-    }
+    };
     return auth;
 });
 

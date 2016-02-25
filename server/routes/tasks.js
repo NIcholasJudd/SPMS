@@ -46,8 +46,24 @@
              })
      },
 
-     getUserRoles: function(req, res) {
+     getUserProjects: function(req,res){
+         console.log(req.params);
          var filter = filterString.create(req);
+         db.query('SELECT DISTINCT "projectName" FROM task WHERE "taskId" IN (SELECT "taskId" FROM taskrole WHERE email = $1) AND active = true',
+             [req.params.email])
+             .then(function(data) {
+                 console.log(data);
+                 return res.json(data);
+             }, function(err) {
+                 console.error(err);
+                 return res.status(500).send(err);
+             })
+     },
+
+     getUserRoles: function(req, res) {
+
+         var filter = filterString.create(req);
+         console.log("TEST " + res);
          db.query('SELECT ' + filter + ' FROM employee JOIN taskrole ON taskrole.email = employee.email WHERE "taskId" = $1 AND employee.active = true',
              [req.params.taskId])
              .then(function(data) {
@@ -58,7 +74,7 @@
              })
      },
 
-     /*getAll: function(req, res) {
+     getAll: function(req, res) {
          db.query('SELECT "taskId", "taskName" FROM task',
              [req.params.taskId])
              .then(function(data) {
@@ -67,7 +83,7 @@
                  console.error(err);
                  return res.status(500).send(err);
              })
-     },*/
+     },
 
      getTaskDependencies: function(req, res) {
          //db.query('SELECT "taskId", "taskName" FROM task WHERE "taskId" IN (SELECT source FROM link WHERE target = $1)', [req.params.taskId])

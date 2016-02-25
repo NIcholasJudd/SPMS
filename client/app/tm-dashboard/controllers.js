@@ -2,57 +2,50 @@
  * Created by scottmackenzie on 8/07/15.
  */
 
-myApp.controller("TMContainerCtrl", ['$scope', '$rootScope', 'PMDashboard',
-    function($scope, $rootScope, PMDashboard) {
-        $scope.projectList = PMDashboard.getProjectList();
-        $scope.currentProject= PMDashboard.getCurrentProject();
-        $scope.currentPanel = "assigned";
-        $scope.projectIndex = PMDashboard.getCurrentProjectIndex();
+myApp.controller("TMContainerCtrl", ['$scope', '$rootScope', 'PMDashboard', 'TMDashboard',
+    function ($scope, $rootScope, PMDashboard, TMDashboard) {
+        getProjectList();
 
-        $rootScope.$on('switch project', function() {
-            $scope.projectList = PMDashboard.getProjectList();
-            $scope.currentProject= PMDashboard.getCurrentProject();
-        })
+        console.log($scope.projectList);
 
-        //called when switching project tabs.  sets the current project in PMDashboard service,
-        $scope.switchProject = function(index) {
-            PMDashboard.setCurrentProject(index);
+        function getProjectList() {
+            TMDashboard.getTmTasks()
+                .then(
+                    function(result)    {
+                        $scope.projectList =  result;
+                    }
+                );
         }
     }]
 );
 
-myApp.controller("TMStatisticsCtrl", ['$scope', 'PMDashboard',
-        function($scope, PMDashboard) {
-            $scope.status = PMDashboard.getTaskStatus();
-
-            $scope.switchPanel = function(panelName) {
-                $scope.$parent.currentPanel = panelName;
-            }
-        }]
+myApp.controller("TMDataCtrl", ['$scope', '$rootScope', 'PMDashboard', 'TMDashboard',
+    function ($scope, $rootScope, PMDashboard, TMDashboard) {
+        console.log("TESTY");
+    }]
 );
 
-myApp.controller("TMDetailsCtrl", ['$scope', 'PMDashboard',
-        function($scope, PMDashboard) {
-            $scope.tasks = PMDashboard.getProjectTasks();
-        }]
+/*
+myApp.controller("TMStatisticsCtrl", ['$scope', 'PMDashboar         function($scope, PMDashboard) {
+        $scope.status = PMDashboard.getTaskStatus();
+
+        $scope.switchPanel =  function(panelName) {
+            $scope.$parent.currentPanel = panelName;
+              }]
 );
 
-/* That'll do for now */
-
-myApp.controller("TMAssignedCtrl", ['$scope', 'PMDashboard',
-        function($scope, PMDashboard) {
-            $scope.tasks = PMDashboard.getProjectTasks();
-        }]
+myApp.controller("TMDetailsCtrl", ['$scope', 'PMDashboar         function($scope, PMDashboard) {
+        $scope.tasks = PMDashboard.getProjectTasks        }]
 );
 
-myApp.controller("TMProgressCtrl", ['$scope', 'PMDashboard',
-        function($scope, PMDashboard) {
-            $scope.tasks = PMDashboard.getProjectTasks();
-        }]
+myApp.controller("TMAssignedCtrl", ['$scope', 'PMDashboar         function($scope, PMDashboard) {
+        $scope.tasks = PMDashboard.getProjectTasks        }]
 );
 
-myApp.controller("TMCompleteCtrl", ['$scope', 'PMDashboard',
-        function($scope, PMDashboard) {
-            $scope.tasks = PMDashboard.getProjectTasks();
-        }]
+myApp.controller("TMProgressCtrl", ['$scope', 'PMDashboar         function($scope, PMDashboard) {
+        $scope.tasks = PMDashboard.getProjectTasks        }]
 );
+
+myApp.controller("TMCompleteCtrl", ['$scope', 'PMDashboar         function($scope, PMDashboard) {
+        $scope.tasks = PMDashboard.getProjectTasks        }]
+);*/

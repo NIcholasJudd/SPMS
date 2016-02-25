@@ -123,13 +123,6 @@ fieldset[disabled] .btn-grey.active {
     resize: none;
 }
 
-#tmDashboardPanel{
-    height: 100%;
-}
-
-#tmDashboard{
-    height: 255px;
-}
 
 #gantt{
     position: absolute;
@@ -412,3 +405,21 @@ input[type="radio"]{
     background-color: rgba(246, 128, 13, 0.9);
 }
 
+#tmDashboard {
+    height: 100vh;
+}
+
+#tmDashboardInfoPanels{
+    height: 85vh;
+}
+#tmDashboardInfoPanels .panel-heading {
+    background-color: rgba(246, 128, 13, 0.9);
+}
+
+#tmDashboardProjectsPanel {
+    height: 85vh;
+
+}
+#tmDashboardProjectsPanel .panel-heading {
+    background-color: rgba(246, 128, 13, 0.9);
+}

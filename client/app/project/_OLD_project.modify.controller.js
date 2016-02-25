@@ -11,7 +11,7 @@ myApp.controller("ProjectModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
             estimatedEndDate : currentProject.data.estimated_end_date,
             projectManager : currentProject.data.project_manager,
             description : currentProject.data.description
-        }
+        };
 
         $scope.projectManager = {};
         $scope.projectManagers = [];
@@ -20,7 +20,7 @@ myApp.controller("ProjectModCtrl", ['$scope', 'ProjectFactory', 'UserFactory', '
                 $scope.projectManagers.push({
                     name: user.first_name + ' ' + user.last_name,
                     email: user.email
-                })
+                });
                 if ($scope.projectData.projectManager == user.email) {
                     $scope.projectManager.name = user.first_name + ' ' + user.last_name
                     $scope.projectManager.email = user.email

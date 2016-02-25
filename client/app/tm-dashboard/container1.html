@@ -1,0 +1,41 @@
+
+<!---  Team Member Dashboard HTML --->
+<div class="page-bg page-std" ui-view="container">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <tabset class="custom-tabs" justified="true">
+                <tab ng-repeat="project in projectList"
+                     heading="{{project}}"
+                     active="tabs.active" ng-click="switchProject($index)">
+                    <!--ng-init="importTasks(projectName); "-->
+                    <div class="project-container" ng-if="project == currentProject.projectName">
+                        <h2>{{project}}</h2>
+                        <div class="row m-top-md">
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div ui-view="statistics"></div>
+                                    </div>
+                                    <!--Task Statistics Buttons -->
+                                </div>
+                                <div class="row m-top-md">
+                                    <!-- Detail panels -->
+                                    <div ui-view="assigned" ng-if="currentPanel === 'assigned'"></div>
+                                    <div ui-view="progress" ng-if="currentPanel === 'on-the-go'"></div>
+                                    <div ui-view="complete" ng-if="currentPanel === 'complete'"></div>
+                                </div>
+                            </div>
+                            <!--<div class="col-md-1 custom-pill-container" ng-controller="HomeCtrl">
+                                <ul class="nav nav-pills nav-stacked" ng-repeat="item in pMenuTab">
+                                    <li class="custom-pill" role="presentation"><a ng-href="{{item.url}}"><span class="{{item.iconclass}}"></span><h6>{{item.title}}</h6></a></li>
+                                </ul>
+                            </div>-->
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>
+</div>

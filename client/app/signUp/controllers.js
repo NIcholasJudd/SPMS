@@ -20,7 +20,7 @@ myApp.controller("signUpContainerCtrl", ['$scope', '$rootScope', 'signUp', '$q',
         function checkValidity() {
             $scope.error = false;
             // signUp.checkIfUserExists($scope.user.emailAddress);
-            $q.all(signUp.checkIfUserExists())
+            $q.all(signUp.checkIfUserExists());
             signUp.checkIfUserExists($scope.user.emailAddress)
                 .then(function(data){
                     $scope.error = data;

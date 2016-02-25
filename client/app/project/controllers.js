@@ -2,7 +2,7 @@ myApp.controller("CreateProjectCtrl", ['$scope', 'ProjectFactory', 'userFactoryT
     function ($scope, ProjectFactory, userFactoryTest) {
         $scope.project ={};
         $scope.selectedProjectManager ="";
-        $scope.customStyle = {}
+        $scope.customStyle = {};
         $scope.customStyle.fontStyle = {"color":"orange"};
         $scope.users = [];
         userFactoryTest.getUserNames().then(function (results) {

@@ -13,7 +13,7 @@ myApp.factory('signUp', function ($http, $q, $rootScope, $window, baseUrl) {
             .success(function (data) {
                 data.forEach(function (data) {
                     plansList.push(data);
-                })
+                });
                 deferred.resolve(plansList);
             })
             .error(function () {

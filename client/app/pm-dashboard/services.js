@@ -16,7 +16,8 @@ myApp.factory('PMDashboard', function ($http, $q, $rootScope, $window, baseUrl) 
     var projectTasks = [];
     var projectCocomo = [];
     var taskStatus;
-
+    var user = $window.sessionStorage.user;
+    var userRole = $window.sessionStorage.userRole;
     function calculateStatistics() {
         //reset task status
         taskStatus = {
@@ -57,7 +58,9 @@ myApp.factory('PMDashboard', function ($http, $q, $rootScope, $window, baseUrl) 
                         currentProject = data;
                         bool = false;
                     }
-                    projectList.push(data.projectName);
+                    if (userRole == "administrator" || user == data.projectManager) {
+                        projectList.push(data.projectName);
+                    }
                 })
                 deferred.resolve(projectList);
             })

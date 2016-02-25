@@ -81,7 +81,7 @@ myApp.controller("PMStatisticsCtrl", ['$scope', 'PMDashboard', 'cocomoFactory',
     function($scope, PMDashboard, cocomoFactory) {
         $scope.pert = -1;
         $scope.status = PMDashboard.getTaskStatus();
-        $scope.currentProject = PMDashboard.getCurrentProject();
+
         //'task status' called when task marked as complete
         $scope.$on('task status', function() {
             $scope.status = PMDashboard.getTaskStatus();
@@ -114,7 +114,7 @@ myApp.controller("PMProgressCtrl", ['$scope', 'PMDashboard',
 myApp.controller("PMCostManagementCtrl", ['$scope', 'PMDashboard',
         function($scope, PMDashboard) {
             $scope.$on('switch project', function() {
-                $scope.currentProject = PMDashboard.getCurrentProject();
+                $scope.project = PMDashboard.getCurrentProject();
             })
 
         }]

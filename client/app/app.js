@@ -115,8 +115,25 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/dashboard/team-member",
             views: {
                 'container@' : {
-                    templateUrl : "/app/tm-dashboard/container1.html",
+                    templateUrl : "/app/tm-dashboard/container.html",
                     controller: "TMContainerCtrl"
+                }
+            },
+            access: {
+                requiredLogin: true,
+                adminOnly: false
+            }
+        })
+        .state('app.tmDashboard.panels', {
+            url: "",
+            views: {
+                'projects@app.tmDashboard' : {
+                    templateUrl: "/app/tm-dashboard/projects.html",
+                    controller: "TMContainerCtrl"
+                },
+                'stats@app.tmDashboard' : {
+                    templateUrl: "/app/tm-dashboard/dataPanel.html",
+                    controller: "TMDataCtrl"
                 }
             },
             access: {

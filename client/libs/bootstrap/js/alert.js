@@ -13,6 +13,7 @@
   // ALERT CLASS DEFINITION
   // ======================
 
+  //noinspection UnterminatedStatementJS,UnterminatedStatementJS
   var dismiss = '[data-dismiss="alert"]'
   var Alert   = function (el) {
     $(el).on('click', dismiss, this.close)

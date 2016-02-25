@@ -1,11 +1,25 @@
-
 <div id="pmDashboardProjectsPanel" class="panel panel-default">
-    <div class="panel-heading"><h4>Project Tracking</h4></div>
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-3">
+            <h4>Project Tracking</h4>
+            </div>
+            <div class="col-md-9">
+            <ul class="nav nav-pills pull-right">
+                <li class="taskButton" role="presentation"><a
+                        ui-sref="app.createProject">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    </a></li>
+            </ul>
+            </div>
+        </div>
+    </div>
     <div class="panel-body">
         <div id="pmDashboardProjectsPanel" class="row row-center">
-            <div id="pmDashboardProjectsPanel" class="col-md-12" >
-                <ul class="nav nav-pills nav-stacked" ng-repeat="project in projectList" >
-                    <li ng-class="{'active': $index == currentProjectIndex}"role="presentation"><a ng-click="switchProject($index)"><h6>{{project}}</h6></a></li>
+            <div id="pmDashboardProjectsPanel" class="col-md-12">
+                <ul class="nav nav-pills nav-stacked" ng-repeat="project in projectList">
+                    <li ng-class="{'active': $index == currentProjectIndex}" role="presentation"><a
+                            ng-click="switchProject($index)"><h6>{{project}}</h6></a></li>
                 </ul>
             </div>
         </div>

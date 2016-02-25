@@ -9,7 +9,7 @@ myApp.controller('PERTCtrl', ['$scope', '$window', '$q', 'ProjectFactory',
             var deferred = $q.defer();
             ProjectFactory.getTasks($window.sessionStorage.projectName).then(function (result) {
                 return deferred.resolve(result.data);
-            })
+            });
             return deferred.promise;
         };
 
@@ -17,9 +17,9 @@ myApp.controller('PERTCtrl', ['$scope', '$window', '$q', 'ProjectFactory',
             var deferred = $q.defer();
             ProjectFactory.getLinks($window.sessionStorage.projectName).then(function (result) {
                 return deferred.resolve(result.data);
-            })
+            });
             return deferred.promise;
-        }
+        };
 
         var getProject = function() {
             var deferred = $q.defer();

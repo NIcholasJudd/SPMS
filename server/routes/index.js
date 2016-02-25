@@ -73,6 +73,7 @@ router.get('/api/auth/user/:email/tasks', userTask.getAll);
 
 // task api calls
 router.get('/api/auth/task/:taskId', task.getOne);
+router.get('/api/auth/task/userProjects/:email', task.getUserProjects);
 router.get('/api/auth/task/:taskId/userRoles', task.getUserRoles);
 router.get('/api/auth/task/:taskId/users', task.getUsers);
 router.put('/api/auth/task/:taskId', task.update);

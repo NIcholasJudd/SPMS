@@ -1,0 +1,20 @@
+<div id="tmDashboardProjectsPanel" class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-3">
+            <h4>Project Tracking</h4>
+
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="tmDashboardProjectsPanel" class="row row-center">
+            <div id="tmDashboardProjectsPanel" class="col-md-12">
+                <ul class="nav nav-pills nav-stacked" ng-repeat="project in projectList">
+                    <li ng-class="{'active': $index == currentProjectIndex}" role="presentation"><a
+                            ng-click="switchProject($index)"><h6>{{project.projectName}}</h6></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

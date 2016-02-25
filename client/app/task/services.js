@@ -16,7 +16,7 @@ myApp.factory('TaskFactory', function($http, $q, baseUrl) {
                 deferred.reject("getTask error");
             });
         return deferred.promise;
-    }
+    };
 
     service.getProjectTasks = function(projectName) {
         var deferred = $q.defer();
