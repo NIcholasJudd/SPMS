@@ -13,8 +13,8 @@ myApp.controller("TMContainerCtrl", ['$scope', '$rootScope', 'PMDashboard', 'TMD
                         $scope.projectList =  result;
                         $scope.currentProjectIndex =  TMDashboard.getCurrentProjectIndex();
                         $scope.currentProject = TMDashboard.getCurrentProject();
-
                         getProjectTasks();
+                        getUnassginedTasksList();
                     }
                 );
         }
@@ -26,6 +26,14 @@ myApp.controller("TMContainerCtrl", ['$scope', '$rootScope', 'PMDashboard', 'TMD
                         $scope.tasks = result;
                     }
                 );
+        }
+        function getUnassginedTasksList(){
+            TMDashboard.getUnassignedTasks()
+                .then(
+                    function(result) {
+                        $scope.unassignedTasks = result;
+                    }
+                )
         }
     }]
 );
@@ -56,18 +64,28 @@ myApp.controller("TMDataCtrl", ['$scope', '$rootScope', 'PMDashboard', 'TMDashbo
     }]
 );
 
-myApp.controller("TMAssignedCtrl", ['$scope', '$rootScope', 'PMDashboard', 'TMDashboard',
-    function ($scope, $rootScope, PMDashboard, TMDashboard) {
+myApp.controller("TMAssignedCtrl", ['$scope', '$rootScope', '$modal', 'PMDashboard', 'TMDashboard',
+    function ($scope, $rootScope, $modal, PMDashboard, TMDashboard) {
+        $scope.setCurrentTask = function (task){
+            $scope.tasks = task;
+
+        };
+
+
     }]
 );
 myApp.controller("TMProgressCtrl", ['$scope', '$rootScope', 'PMDashboard', 'TMDashboard',
     function ($scope, $rootScope, PMDashboard, TMDashboard) {
-
+        $scope.setCurrentTask = function (id){
+            TMDashboard.setCurrentTask(id);
+        }
     }]
 );
 myApp.controller("TMCompleteCtrl", ['$scope', '$rootScope', 'PMDashboard', 'TMDashboard',
     function ($scope, $rootScope, PMDashboard, TMDashboard) {
-
+        $scope.setCurrentTask = function (id){
+            TMDashboard.setCurrentTask(id);
+        }
     }]
 );
 

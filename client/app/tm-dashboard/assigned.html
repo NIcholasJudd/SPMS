@@ -1,22 +1,109 @@
 <div class="col-md-12" style="overflow: scroll">
-            <table class="table table-hover taskTable">
-                <tr>
-                    <th>Project</th>
-                    <th>Task#</th>
-                    <th>Task Name</th>
-                    <th>Priority</th>
-                    <th>Details</th>
-                    <th>Comment</th>
-                </tr>
-                    <tr ng-repeat='unassigned in tasks | filter: {status: "unassigned"} track by unassigned.taskId'>
-                    <td class="add"><button class="taskButton" ng-click="startTask(unassigned.taskId)"><i class="glyphicon glyphicon-plus"></i></button></td>
-                    <td>{{unassigned.projectName}}</td>
-                    <td>{{unassigned.taskNumber}}</td>
-                    <td>{{unassigned.taskName}}</td>
-                    <td ng-class="priorityLevel(unassigned.priority)">{{unassigned.priority}}</td>
+    <table class="table table-hover taskTable">
+        <tr>
 
-                    <td class="lborder"><a href="#/project/taskDetails"><button class="taskButton" ng-click="setCurrentTask(unassigned.taskId)"><i class="glyphicon glyphicon-wrench"></i></button></a></td>
-                    <td class="lborder"><button class="taskButton" ng-click="openModal(unassigned.taskId)"><i class="glyphicon glyphicon-comment"></i></button></td>
-                </tr>
-            </table>
+            <th>Project</th>
+            <th>Task#</th>
+            <th>Task Name</th>
+            <th>Priority</th>
+            <th>Details</th>
+            <th>Comment</th>
+            <th>Assign</th>
+        </tr>
+        <tr ng-repeat='unassigned in unassignedTasks | filter: {status: "unassigned"} track by unassigned.taskId'>
+            <td>{{unassigned.projectName}}</td>
+            <td>{{unassigned.taskNumber}}</td>
+            <td>{{unassigned.taskName}}</td>
+            <td ng-class="priorityLevel(unassigned.priority)">{{unassigned.priority}}</td>
+
+            <td class="lborder"><a href="#/project/taskDetails">
+                <button class="taskButton" ng-click="setCurrentTask(unassigned)" data-toggle="modal"
+                        data-target="#taskDetails"><i
+                        class="glyphicon glyphicon-wrench"></i></button>
+            </a></td>
+            <td class="lborder">
+                <button class="taskButton" ng-click="openModal(unassigned.taskId)"><i
+                        class="glyphicon glyphicon-comment"></i></button>
+            </td>
+            <td class="add">
+                <button class="taskButton" ng-click="startTask(unassigned.taskId)"><i
+                        class="glyphicon glyphicon-plus"></i></button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="modal fade" id="taskDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">{{tasks.projectName}}: {{tasks.taskName}}</h4>
+                <h4 class="pull-right">{{tasks.priority}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4>Description</h4></div>
+                    <div class="panel-body">
+                        {{tasks.description}}
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4>Time Frames</h4></div>
+                    <div class="panel-body">
+                        <div class="col-md-6 col-lg-offset-3">
+                            <div class="row">
+                                <h4>start Date</h4>
+                            </div>
+                            <div class="row">
+                                {{tasks.startDate}}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <h4>likely Duration</h4>
+                                </div>
+                                <div class="row">
+                                    {{tasks.likelyDuration.days}} Days
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <h4>optimistic Duration</h4>
+                                </div>
+                                <div class="row">
+                                    {{tasks.optimisticDuration.days}} Days
+                                </div>
+                            </div>
+                        </div><div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <h4>pessimistic Duration</h4>
+                                </div>
+                                <div class="row">
+                                    {{tasks.pessimisticDuration.days}} Days
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <h4>comfort Zone</h4>
+                                </div>
+                                <div class="row">
+                                    {{tasks.comfortZone.days}} Days
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>

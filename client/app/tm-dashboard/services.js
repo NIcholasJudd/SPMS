@@ -3,7 +3,10 @@ myApp.factory('TMDashboard', function ($http, $q, $rootScope, $window, baseUrl) 
     var projectList = [];
     var currentProjectIndex;
     var currentProject = {};
+    var currentTask = {};
+    var currentTaskId;
     var taskList = [];
+    var unnassignedList = [];
     var projectCocomo = [];
     var taskStatus;
     var user = $window.sessionStorage.user;
@@ -45,6 +48,38 @@ myApp.factory('TMDashboard', function ($http, $q, $rootScope, $window, baseUrl) 
         return deferred.promise;
     };
 
+    service.getUnassignedTasks = function () {
+        var deferred = $q.defer();
+        $http.get(baseUrl + '/api/auth/project/' + currentProject.projectName + '/tasks' )
+            .success(function (data) {
+                unnassignedList = [];
+                data.forEach(function (data) {
+                    unnassignedList.push(data);
+                });
+                deferred.resolve(unnassignedList);
+            })
+            .error(function () {
+                console.log("Error receiving projectList from the database");
+                deferred.reject("getProjectList error");
+            });
+        return deferred.promise;
+    };
+
+    service.setCurrentTask = function (id){
+        currentTaskId = id;
+        var deferred = $q.defer();
+        $http.get(baseUrl + '/api/auth/task/' + id )
+            .success(function (data) {
+                currentTask = data;
+                deferred.resolve(currentTask);
+            })
+            .error(function () {
+                console.log("Error receiving projectList from the database");
+                deferred.reject("getProjectList error");
+            });
+        return deferred.promise;
+    };
+
     service.getCurrentProject = function () {
         return currentProject;
     };
@@ -55,6 +90,14 @@ myApp.factory('TMDashboard', function ($http, $q, $rootScope, $window, baseUrl) 
 
     service.getCurrentProjectTasks = function () {
         return taskList;
+    };
+
+    service.getCurrentTask = function() {
+        return currentTask;
+    };
+
+    service.getCurrentTaskId = function () {
+        return currentTaskId;
     };
 
     return service;

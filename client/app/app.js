@@ -4,6 +4,7 @@ var myApp = angular.module('ngclient',
         'myApp.config',
         'ui.bootstrap',
         'ui.slider',
+        'ui.bootstrap.modal',
         'ui.bootstrap.typeahead'
     ]);
 
@@ -146,7 +147,12 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 'completePanel@app.tmDashboard.panels' : {
                     templateUrl: "/app/tm-dashboard/complete.html",
                     controller: "TMCompleteCtrl"
+                },
+                'taskDetailModal@app.tmDashboard.panels' : {
+                    templateUrl: "/app/tm-dashboard/modals/taskDetails.html",
+                    controller: "TMTaskModalCtrl"
                 }
+
             },
             access: {
                 requiredLogin: true,
