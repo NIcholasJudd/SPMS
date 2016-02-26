@@ -47,7 +47,6 @@
      },
 
      getUserProjects: function(req,res){
-         console.log(req.params);
          var filter = filterString.create(req);
          db.query('SELECT DISTINCT "projectName" FROM task WHERE "taskId" IN (SELECT "taskId" FROM taskrole WHERE email = $1) AND active = true',
              [req.params.email])
@@ -63,7 +62,6 @@
      getUserRoles: function(req, res) {
 
          var filter = filterString.create(req);
-         console.log("TEST " + res);
          db.query('SELECT ' + filter + ' FROM employee JOIN taskrole ON taskrole.email = employee.email WHERE "taskId" = $1 AND employee.active = true',
              [req.params.taskId])
              .then(function(data) {
@@ -97,7 +95,6 @@
      },
 
      updateProgress : function(req, res) {
-         console.log("HERE");
          db.one("update task SET progress_percentage = $1 where task_id = $2 returning progress_percentage",
              [req.body.progressPercentage, req.params.taskId])
              .then(function(data) {

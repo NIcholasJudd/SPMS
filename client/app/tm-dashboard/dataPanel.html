@@ -1,15 +1,46 @@
-<div class="panel panel-default tmDash-dataPanel" style="height:100%;">
-    <div class="panel-heading"><h4>task</h4></div>
-    <div class="panel-body"style="height:100%;">
-        <div ng-if="'assigned' == true"></div>
-        <div ng-if="'on-the-go' == true"></div>
-        <div ng-if="'complete' == true"></div>
+<div class="panel panel-default" style="height:100%;">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-3">
+                <h4>{{currentProject.projectName}} Tasks</h4>
+            </div>
+            <div class="col-md-9">
+                <ul class="nav nav-pills pull-right">
+                    <li class="custom-pill" role="presentation">
+                        <a ng-click="displayAssigned()">
+                            <small>
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </small>
+                            <p>Assigned</p></a>
+                    </li>
+                    <li class="custom-pill" role="presentation">
+                        <a ng-click="displayProgress()">
+                            <small>
+                                <span class="glyphicon glyphicon-road"></span>
+                            </small>
+                            <p>On-The-Go</p>
+                        </a>
+                    </li>
+                    <li class="custom-pill" role="presentation">
+                        <a ng-click="displayComplete()">
+                            <small>
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </small>
+                            <p>Complete</p></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" style="height:100%;">
+        <div ng-if="assigned == true">
+            <div ui-view="assignedPanel"></div>
+        </div>
+        <div ng-if="progress == true">
+            <div ui-view="progressPanel"></div>
+        </div>
+        <div ng-if="complete == true">
+            <div ui-view="completePanel"></div>
+        </div>
     </div>
 </div>
-
-
-<!--
-assigned
-on-the-go
-complete
--->

@@ -51,6 +51,7 @@ router.put('/api/auth/admin/project/:projectName/archive', project.archive);
 
 // routes for tasks involved with a particular project
 router.get('/api/auth/project/:projectName/tasks', projectTask.getAll);
+router.get('/api/auth/project/:projectName/:email/tasks', projectTask.getProjectTasks);
 router.get('/api/auth/project/:projectName/taskNamesAndNumbers', projectTask.getTaskNamesAndNumbers);
 router.get('/api/auth/project/:projectName/task/:taskNumber', projectTask.getOne);
 //get all dependencies

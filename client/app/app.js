@@ -134,6 +134,18 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 'stats@app.tmDashboard' : {
                     templateUrl: "/app/tm-dashboard/dataPanel.html",
                     controller: "TMDataCtrl"
+                },
+                'assignedPanel@app.tmDashboard.panels' : {
+                    templateUrl: "/app/tm-dashboard/assigned.html",
+                    controller: "TMAssignedCtrl"
+                },
+                'progressPanel@app.tmDashboard.panels' : {
+                    templateUrl: "/app/tm-dashboard/progress.html",
+                    controller: "TMProgressCtrl"
+                },
+                'completePanel@app.tmDashboard.panels' : {
+                    templateUrl: "/app/tm-dashboard/complete.html",
+                    controller: "TMCompleteCtrl"
                 }
             },
             access: {
@@ -148,27 +160,6 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
                 'statistics@app.tmDashboard': {
                     templateUrl: "/app/tm-dashboard/statistics.html",
                     controller: "TMStatisticsCtrl"
-                }
-            },
-            access: {
-                requiredLogin: true,
-                adminOnly: false
-            }
-        })
-        .state('app.tmDashboard.tasks.status', {
-            url: "",
-            views: {
-                'assigned@app.tmDashboard' : {
-                    templateUrl: "/app/tm-dashboard/assigned.html",
-                    controller: "TMAssignedCtrl"
-                },
-                'progress@app.tmDashboard' : {
-                    templateUrl: "/app/tm-dashboard/progress.html",
-                    controller: "TMProgressCtrl"
-                },
-                'complete@app.tmDashboard' : {
-                    templateUrl: "/app/tm-dashboard/complete.html",
-                    controller: "TMAssignedCtrl"
                 }
             },
             access: {

@@ -9,13 +9,30 @@ var promise = require('promise'),
 var projectTask = {
 
     getAll: function(req, res) {
-        console.log(req.query.fields);
         var filter = filterString.create(req);
         db.query('SELECT ' + filter + ' FROM task WHERE "projectName" = $1 AND active = true', [req.params.projectName])
             .then(function (data) {
                 //If fields provided in query, only return selected fields
                 //data = myFilter.runFilter(req, data);
 
+                return res.json(data);
+            }, function (err) {
+                console.error(err);
+                return res.status(500).send(err);
+            })
+    },
+
+    getProjectTasks: function(req, res) {
+        //console.log(req.query.fields);
+        console.log(req.params);
+        var filter = filterString.create(req);
+        //db.query('select * from taskRole where email = $1 AND "taskId" IN (select "taskId" from task where "projectName" = $2) AND active = true;',
+        db.query('select * from task where "projectName" = $1 and "taskId" IN (select "taskId" from taskRole where email = $2) AND active = true;',
+            [req.params.projectName, req.params.email])
+            .then(function (data) {
+                //If fields provided in query, only return selected fields
+                //data = myFilter.runFilter(req, data);
+                console.log(data);
                 return res.json(data);
             }, function (err) {
                 console.error(err);
